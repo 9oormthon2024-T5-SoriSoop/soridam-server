@@ -30,9 +30,9 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web' // RESTful API 및 웹 애플리케이션 개발
 
     // Querydsl 관련 의존성 (타입 안전한 쿼리 작성)
-    implementation 'com.querydsl:querydsl-jpa:5.0.0' // Querydsl JPA 지원
-    annotationProcessor 'com.querydsl:querydsl-apt:5.0.0:jpa' // Querydsl Q클래스 생성
-
+    implementation 'com.querydsl:querydsl-jpa:5.0.0:jakarta' // Querydsl JPA 지원
+    annotationProcessor 'com.querydsl:querydsl-apt:5.0.0:jakarta' // Querydsl Q클래스 생성
+    annotationProcessor 'jakarta.persistence:jakarta.persistence-api'
     // 데이터베이스 연결
     runtimeOnly 'org.postgresql:postgresql' // PostgreSQL 드라이버
 

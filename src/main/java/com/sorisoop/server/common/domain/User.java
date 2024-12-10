@@ -8,7 +8,6 @@ import java.util.List;
 import com.sorisoop.server.noise.domain.Noise;
 import com.sorisoop.server.review.domain.Review;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
