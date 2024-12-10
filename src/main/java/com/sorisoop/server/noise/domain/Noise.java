@@ -3,6 +3,7 @@ package com.sorisoop.server.noise.domain;
 import static jakarta.persistence.FetchType.LAZY;
 import static lombok.AccessLevel.PROTECTED;
 
+import com.sorisoop.server.common.domain.BaseTimeEntity;
 import com.sorisoop.server.common.domain.User;
 
 import jakarta.persistence.Entity;
@@ -19,7 +20,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor(access = PROTECTED)
 @AllArgsConstructor(access = PROTECTED)
-public class Noise {
+public class Noise extends BaseTimeEntity {
 	@Id
 	private Long id;
 

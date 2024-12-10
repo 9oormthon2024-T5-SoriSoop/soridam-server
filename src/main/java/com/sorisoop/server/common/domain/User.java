@@ -23,7 +23,7 @@ import lombok.NoArgsConstructor;
 @Table(name = "\"user\"")
 @NoArgsConstructor(access = PROTECTED)
 @AllArgsConstructor(access = PROTECTED)
-public class User {
+public class User extends BaseTimeEntity{
 	@Id
 	private Long id;
 
