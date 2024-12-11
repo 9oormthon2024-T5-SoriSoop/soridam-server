@@ -41,15 +41,15 @@ public class Noise extends BaseTimeEntity {
 	private int maxDecibel;
 
 	@Column(nullable = false)
-	private Double average;
+	private int avgDecibel;
 
-	public static Noise create(User user, Point point, int minDecibel, int maxDecibel, Double average) {
+	public static Noise create(User user, Point point, int minDecibel, int maxDecibel, int avgDecibel) {
 		return Noise.builder()
 			.user(user)
 			.point(point)
 			.minDecibel(minDecibel)
 			.maxDecibel(maxDecibel)
-			.average(average)
+			.avgDecibel(avgDecibel)
 			.build();
 	}
 }
