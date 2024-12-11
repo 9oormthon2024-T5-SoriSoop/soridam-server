@@ -3,9 +3,12 @@ package com.sorisoop.server.noise.domain;
 import static jakarta.persistence.FetchType.LAZY;
 import static lombok.AccessLevel.PROTECTED;
 
+import org.springframework.data.geo.Point;
+
 import com.sorisoop.server.common.domain.BaseTimeEntity;
 import com.sorisoop.server.common.domain.User;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
@@ -28,13 +31,15 @@ public class Noise extends BaseTimeEntity {
 	@JoinColumn(name = "user_id", nullable = false)
 	private User user;
 
-	private Double x;
+	@Column(nullable = false, columnDefinition = "geometry(Point,4326)")
+	private Point point;
 
-	private Double y;
-
+	@Column(nullable = false)
 	private int minDecibel;
 
+	@Column(nullable = false)
 	private int maxDecibel;
 
+	@Column(nullable = false)
 	private Double average;
 }
