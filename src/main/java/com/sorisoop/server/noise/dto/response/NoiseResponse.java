@@ -17,10 +17,16 @@ public record NoiseResponse(
 	double y,
 
 	@NotNull
+	int measurementTime,
+
+	@NotNull
 	int averageDecibel,
 
 	@NotNull
 	int maximumDecibel,
+
+	@NotBlank
+	String userName,
 
 	@NotBlank
 	String createdAt
@@ -31,8 +37,10 @@ public record NoiseResponse(
 		return NoiseResponse.builder()
 			.x(noise.getPoint().getX())
 			.y(noise.getPoint().getY())
+			.measurementTime(noise.getMeasurementTime())
 			.averageDecibel(noise.getAvgDecibel())
 			.maximumDecibel(noise.getMaxDecibel())
+			.userName(noise.getUser().getName())
 			.createdAt(noise.getCreatedAt().format(formatter))
 			.build();
 	}
