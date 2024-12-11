@@ -7,6 +7,7 @@ import static lombok.AccessLevel.PROTECTED;
 import com.sorisoop.server.common.domain.BaseTimeEntity;
 import com.sorisoop.server.common.domain.User;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -31,7 +32,9 @@ public class Review extends BaseTimeEntity {
 	@JoinColumn(name = "user_id")
 	private User user;
 
+	@Column(nullable = false)
 	private String address;
 
+	@Column(nullable = false)
 	private String content;
 }

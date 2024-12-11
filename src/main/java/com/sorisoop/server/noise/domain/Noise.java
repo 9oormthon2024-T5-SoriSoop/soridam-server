@@ -3,7 +3,7 @@ package com.sorisoop.server.noise.domain;
 import static jakarta.persistence.FetchType.LAZY;
 import static lombok.AccessLevel.PROTECTED;
 
-import org.springframework.data.geo.Point;
+import org.locationtech.jts.geom.Point;
 
 import com.sorisoop.server.common.domain.BaseTimeEntity;
 import com.sorisoop.server.common.domain.User;
@@ -42,4 +42,14 @@ public class Noise extends BaseTimeEntity {
 
 	@Column(nullable = false)
 	private Double average;
+
+	public static Noise create(User user, Point point, int minDecibel, int maxDecibel, Double average) {
+		return Noise.builder()
+			.user(user)
+			.point(point)
+			.minDecibel(minDecibel)
+			.maxDecibel(maxDecibel)
+			.average(average)
+			.build();
+	}
 }
