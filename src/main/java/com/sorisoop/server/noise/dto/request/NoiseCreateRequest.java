@@ -14,10 +14,14 @@ public record NoiseCreateRequest(
 	@NotNull
 	@Positive
 	int maximumDecibel,
-	
+
 	@NotNull
 	@Positive
 	int minimumDecibel,
+
+	@NotNull
+	@Positive
+	int measurementTime,
 
 	@NotBlank
 	String review
