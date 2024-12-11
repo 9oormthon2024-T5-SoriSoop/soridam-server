@@ -20,6 +20,6 @@ public enum NoiseExceptionCode implements ExceptionCode {
 
 	@Override
 	public String getCode() {
-		return "";
+		return this.name();
 	}
 }
