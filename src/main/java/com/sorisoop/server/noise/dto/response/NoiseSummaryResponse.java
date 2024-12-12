@@ -20,16 +20,16 @@ public record NoiseSummaryResponse(
 	double y,
 
 	@NotNull
-	int measurementTime,
-
-	@NotNull
 	int averageDecibel,
 
 	@NotNull
 	int maximumDecibel,
 
 	@NotBlank
-	String createdAt
+	String createdAt,
+
+	@NotBlank
+	String review
 ) {
 	public static NoiseSummaryResponse from(Noise noise) {
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy년 MM월 dd일 HH시 mm분");
@@ -37,10 +37,10 @@ public record NoiseSummaryResponse(
 			.id(noise.getId())
 			.x(noise.getPoint().getX())
 			.y(noise.getPoint().getY())
-			.measurementTime(noise.getMeasurementTime())
 			.averageDecibel(noise.getAvgDecibel())
 			.maximumDecibel(noise.getMaxDecibel())
 			.createdAt(noise.getCreatedAt().format(formatter))
+			.review(noise.getReview())
 			.build();
 	}
 }
