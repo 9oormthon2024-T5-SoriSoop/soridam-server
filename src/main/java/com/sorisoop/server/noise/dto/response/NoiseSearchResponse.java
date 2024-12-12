@@ -7,6 +7,7 @@ import lombok.Builder;
 
 @Builder
 public record NoiseSearchResponse(
+	// 주변 추천 후 클릭 시
 	@NotNull
 	List<NoiseResponse> noises,
 
