@@ -1,6 +1,8 @@
 package com.sorisoop.server.noise.dto.response;
 
-import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
+import com.sorisoop.server.noise.domain.Noise;
 
 import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
@@ -8,15 +10,24 @@ import lombok.Builder;
 @Builder
 public record NoiseResponse(
 	@NotNull
-	int averageDecibel,
+	double x,
 
 	@NotNull
-	LocalDateTime createdAt
+	double y,
+
+	@NotNull
+	int avgDecibel,
+
+	@NotNull
+	String createdAt
 ) {
-	public static NoiseResponse of(int averageDecibel, LocalDateTime createdAt) {
+	public static NoiseResponse of(Noise noise) {
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy년 MM월 dd일 HH시 mm분");
 		return NoiseResponse.builder()
-			.averageDecibel(averageDecibel)
-			.createdAt(createdAt)
+			.x(noise.getPoint().getX())
+			.y(noise.getPoint().getY())
+			.avgDecibel(noise.getAvgDecibel())
+			.createdAt(formatter.format(noise.getCreatedAt()))
 			.build();
 	}
 }
