@@ -9,18 +9,14 @@ import lombok.Builder;
 public record NoiseDetailResponse(
 	// 상세 조회 시
 	@NotNull
-	int avgDecibel,
-
-	@NotNull
-	int maxDecibel,
+	List<NoiseResponse> noises,
 
 	@NotNull
 	List<NoiseReviewResponse> reviews
 ) {
-	public static NoiseDetailResponse of(int avgDecibel, int maxDecibel, List<NoiseReviewResponse> reviews) {
+	public static NoiseDetailResponse of(List<NoiseResponse> noises, List<NoiseReviewResponse> reviews) {
 		return NoiseDetailResponse.builder()
-			.avgDecibel(avgDecibel)
-			.maxDecibel(maxDecibel)
+			.noises(noises)
 			.reviews(reviews)
 			.build();
 	}
