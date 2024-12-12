@@ -8,20 +8,18 @@ import lombok.Builder;
 @Builder
 public record NoiseCreateRequest(
 	@NotNull
+	double x,
+	
+	@NotNull
+	double y,
+
+	@NotNull
 	@Positive
 	int averageDecibel,
 
 	@NotNull
 	@Positive
 	int maximumDecibel,
-
-	@NotNull
-	@Positive
-	int minimumDecibel,
-
-	@NotNull
-	@Positive
-	int measurementTime,
 
 	@NotBlank
 	String review
