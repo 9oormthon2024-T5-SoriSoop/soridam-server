@@ -1,6 +1,7 @@
 package com.soridam.server.noise.domain;
 
 import static jakarta.persistence.FetchType.LAZY;
+import static jakarta.persistence.GenerationType.IDENTITY;
 import static lombok.AccessLevel.PROTECTED;
 
 import org.locationtech.jts.geom.Point;
@@ -10,6 +11,7 @@ import com.soridam.server.common.domain.User;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
@@ -25,6 +27,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor(access = PROTECTED)
 public class Noise extends BaseTimeEntity {
 	@Id
+	@GeneratedValue(strategy = IDENTITY)
 	private Long id;
 
 	@ManyToOne(fetch = LAZY)
