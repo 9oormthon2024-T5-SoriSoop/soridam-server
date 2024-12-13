@@ -9,12 +9,12 @@ import lombok.Builder;
 public record NoiseSearchResponse(
 	// 주변 추천 후 클릭 시
 	@NotNull
-	List<NoiseResponse> noises,
+	List<NoiseTimeAvgResponse> noises,
 
 	@NotNull
 	List<NoiseReviewResponse> reviews
 ) {
-	public static NoiseSearchResponse of(List<NoiseResponse> noises, List<NoiseReviewResponse> reviews) {
+	public static NoiseSearchResponse of(List<NoiseTimeAvgResponse> noises, List<NoiseReviewResponse> reviews) {
 		return NoiseSearchResponse.builder()
 			.noises(noises)
 			.reviews(reviews)

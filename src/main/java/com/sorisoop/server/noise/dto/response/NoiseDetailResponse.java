@@ -7,7 +7,6 @@ import lombok.Builder;
 
 @Builder
 public record NoiseDetailResponse(
-	// 상세 조회 시
 	@NotNull
 	List<NoiseResponse> noises,
 

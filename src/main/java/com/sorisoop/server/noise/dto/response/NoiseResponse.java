@@ -21,7 +21,7 @@ public record NoiseResponse(
 	@NotNull
 	String createdAt
 ) {
-	public static NoiseResponse of(Noise noise) {
+	public static NoiseResponse from(Noise noise) {
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy년 MM월 dd일 HH시 mm분");
 		return NoiseResponse.builder()
 			.x(noise.getPoint().getX())
