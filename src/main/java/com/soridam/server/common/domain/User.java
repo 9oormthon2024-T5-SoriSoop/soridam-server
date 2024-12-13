@@ -1,6 +1,7 @@
 package com.soridam.server.common.domain;
 
 import static jakarta.persistence.CascadeType.ALL;
+import static jakarta.persistence.GenerationType.IDENTITY;
 import static lombok.AccessLevel.PROTECTED;
 
 import java.util.List;
@@ -9,6 +10,7 @@ import com.soridam.server.noise.domain.Noise;
 import com.soridam.server.review.domain.Review;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
@@ -25,6 +27,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor(access = PROTECTED)
 public class User extends BaseTimeEntity {
 	@Id
+	@GeneratedValue(strategy = IDENTITY)
 	private Long id;
 
 	private String name;
