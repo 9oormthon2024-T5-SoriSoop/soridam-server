@@ -24,6 +24,7 @@ repositories {
 }
 
 dependencies {
+
     // Spring Boot 기본 스타터 패키지
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa' // 데이터베이스와 상호작용 (JPA 사용)
     implementation 'org.springframework.boot:spring-boot-starter-validation' // 요청 데이터 검증
@@ -38,6 +39,8 @@ dependencies {
 
     // 지리 데이터 관리 도구
     implementation 'org.locationtech.jts:jts-core:1.19.0'
+    implementation 'org.hibernate:hibernate-spatial:6.2.13.Final'
+
 
     // 개발 도구 및 반복 코드 감소
     compileOnly 'org.projectlombok:lombok' // Lombok으로 반복 코드 제거 (Getter, Setter 등)
