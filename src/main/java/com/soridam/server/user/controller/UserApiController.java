@@ -1,12 +1,15 @@
-package com.soridam.server.review.controller;
+package com.soridam.server.user.controller;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.soridam.server.user.service.UserService;
+
 import lombok.RequiredArgsConstructor;
 
 @RestController
+@RequestMapping("/api/users")
 @RequiredArgsConstructor
-@RequestMapping("/api/review")
-public class ReviewApiController {
+public class UserApiController {
+	private final UserService userService;
 }
