@@ -21,8 +21,7 @@ public class UserService {
 
 	@Transactional(readOnly = true)
 	public NoiseSummaryListResponse getUserNoises(Long id) {
-		User user = jpaUserRepository.findById(id)
-			.orElseThrow(UserNotFoundException::new);
+		User user = getById(id);
 
 		List<Noise> noises = user.getNoises();
 
@@ -31,5 +30,10 @@ public class UserService {
 			.toList();
 
 		return NoiseSummaryListResponse.of(responses);
+	}
+
+	public User getById(Long id) {
+		return jpaUserRepository.findById(id)
+			.orElseThrow(UserNotFoundException::new);
 	}
 }

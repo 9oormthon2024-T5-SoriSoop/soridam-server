@@ -5,14 +5,6 @@ import java.util.List;
 import java.util.Objects;
 
 import org.locationtech.jts.geom.Point;
-import com.soridam.server.common.exception.CustomException;
-import com.soridam.server.noise.dto.request.NoiseCreateRequest;
-import com.soridam.server.user.domain.User;
-import com.soridam.server.user.exception.UserExceptionCode;
-import com.soridam.server.user.repository.JpaUserRepository;
-import org.locationtech.jts.geom.Coordinate;
-import org.locationtech.jts.geom.GeometryFactory;
-import org.locationtech.jts.geom.Point;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,6 +12,7 @@ import com.soridam.server.common.util.GeometryUtils;
 import com.soridam.server.noise.domain.Noise;
 import com.soridam.server.noise.dto.enums.NoiseLevel;
 import com.soridam.server.noise.dto.enums.Radius;
+import com.soridam.server.noise.dto.request.NoiseCreateRequest;
 import com.soridam.server.noise.dto.request.NoiseSearchListRequest;
 import com.soridam.server.noise.dto.response.NoiseListResponse;
 import com.soridam.server.noise.dto.response.NoiseResponse;
@@ -27,7 +20,8 @@ import com.soridam.server.noise.dto.response.NoiseSummaryResponse;
 import com.soridam.server.noise.exception.NoiseNotFoundException;
 import com.soridam.server.noise.repository.JpaNoiseRepository;
 import com.soridam.server.noise.repository.QueryNoiseRepository;
-import com.soridam.server.user.exception.UserNotFoundException;
+import com.soridam.server.user.domain.User;
+import com.soridam.server.user.service.UserService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -37,7 +31,9 @@ public class NoiseService {
 	private final JpaNoiseRepository jpaNoiseRepository;
 	private final QueryNoiseRepository queryNoiseRepository;
 	private final GeometryUtils geometryUtils;
+	private final UserService userService;
 
+	@Transactional(readOnly = true)
 	public NoiseListResponse getNearbyNoise(NoiseSearchListRequest requests, Radius radius, NoiseLevel noiseLevel) {
 		List<NoiseResponse> responses = requests.noiseSearchRequests().stream()
 			.map(request -> {
@@ -71,24 +67,19 @@ public class NoiseService {
 	}
 
 	@Transactional
-	public Long createNoise(NoiseCreateRequest noiseCreateRequest) {
-		User user = jpaUserRepository.findById(noiseCreateRequest.userId())
-				.orElseThrow(UserNotFoundException::new);
-    
-		Point point = geometryFactory.createPoint(new Coordinate(
-				noiseCreateRequest.x(),
-				noiseCreateRequest.y()
-		));
+	public Long createNoise(NoiseCreateRequest request) {
+		User user = userService.getById(1L);
+		Point point = geometryUtils.createPoint(request.x(), request.y());
 
 		Noise noise = Noise.create(
 				user,
 				point,
-				noiseCreateRequest.maximumDecibel(),
-				noiseCreateRequest.averageDecibel(),
-				noiseCreateRequest.review()
+				request.maximumDecibel(),
+				request.averageDecibel(),
+				request.review()
 		);
 
-		Noise savedNoise = noiseRepository.save(noise);
+		Noise savedNoise = jpaNoiseRepository.save(noise);
 		return savedNoise.getId();
 	}
 }
