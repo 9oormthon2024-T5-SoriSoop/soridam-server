@@ -2,7 +2,9 @@ package com.soridam.server.noise.controller;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,6 +16,7 @@ import com.soridam.server.noise.dto.enums.Radius;
 import com.soridam.server.noise.dto.request.NoiseCreateRequest;
 import com.soridam.server.noise.dto.request.NoiseSearchListRequest;
 import com.soridam.server.noise.dto.response.NoiseCreateResponse;
+import com.soridam.server.noise.dto.response.NoiseDetailResponse;
 import com.soridam.server.noise.dto.response.NoiseListResponse;
 import com.soridam.server.noise.service.NoiseService;
 
@@ -21,9 +24,18 @@ import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/noise")
+@RequestMapping("/api/noises")
 public class NoiseApiController {
 	private final NoiseService noiseService;
+
+	@GetMapping
+	public ResponseEntity<NoiseDetailResponse> getDetailNoise(
+		@RequestParam double x,
+		@RequestParam double y
+	){
+		NoiseDetailResponse response = noiseService.getDetailNoise(x, y);
+		return ResponseEntity.ok(response);
+  }
 
   @PostMapping
   public ResponseEntity<NoiseCreateResponse> createNoise(

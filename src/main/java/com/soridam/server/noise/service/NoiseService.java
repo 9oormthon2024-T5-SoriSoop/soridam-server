@@ -1,5 +1,7 @@
 package com.soridam.server.noise.service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
@@ -10,6 +12,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.soridam.server.common.util.GeometryUtils;
 import com.soridam.server.noise.domain.Noise;
+import com.soridam.server.noise.dto.response.NoiseDetailResponse;
+import com.soridam.server.noise.dto.response.NoiseResponse;
+import com.soridam.server.noise.dto.response.NoiseReviewResponse;
 import com.soridam.server.noise.dto.enums.NoiseLevel;
 import com.soridam.server.noise.dto.enums.Radius;
 import com.soridam.server.noise.dto.request.NoiseCreateRequest;
@@ -31,7 +36,22 @@ public class NoiseService {
 	private final JpaNoiseRepository jpaNoiseRepository;
 	private final QueryNoiseRepository queryNoiseRepository;
 	private final GeometryUtils geometryUtils;
-	private final UserService userService;
+  private final UserService userService;
+
+  public NoiseDetailResponse getDetailNoise(double x, double y) {
+		Point point = geometryUtils.createPoint(x, y);
+		List<Noise> results = queryNoiseRepository.getNearbyNoises(point);
+
+		List<NoiseResponse> noises = results.stream()
+			.map(NoiseResponse::from)
+			.toList();
+
+		List<NoiseReviewResponse> reviews = results.stream()
+			.map(NoiseReviewResponse::from)
+			.toList();
+
+		return NoiseDetailResponse.of(noises, reviews);
+  }	
 
 	@Transactional(readOnly = true)
 	public NoiseListResponse getNearbyNoise(NoiseSearchListRequest requests, Radius radius, NoiseLevel noiseLevel) {
