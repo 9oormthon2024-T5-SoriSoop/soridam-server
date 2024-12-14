@@ -4,6 +4,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.soridam.server.user.domain.User;
 
-public interface JpaUserRepository extends JpaRepository<User, Long> {
+import java.util.Optional;
 
+public interface JpaUserRepository extends JpaRepository<User, Long> {
 }
