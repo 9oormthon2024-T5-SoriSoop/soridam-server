@@ -10,7 +10,7 @@ public record NoiseSummaryListResponse(
 	@NotNull
 	List<NoiseSummaryResponse> responses
 ) {
-	public static NoiseSummaryListResponse of(List<NoiseSummaryResponse> responses, List<String> reviews) {
+	public static NoiseSummaryListResponse of(List<NoiseSummaryResponse> responses) {
 		return NoiseSummaryListResponse.builder()
 			.responses(responses)
 			.build();
