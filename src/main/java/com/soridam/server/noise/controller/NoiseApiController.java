@@ -30,7 +30,7 @@ public class NoiseApiController {
     @RequestBody NoiseCreateRequest noiseCreateRequest
   ) {
     Long noiseId = noiseService.createNoise(noiseCreateRequest);
-    return ResponseEntity.status(HttpStatus.CREATED).build()
+    return ResponseEntity.status(HttpStatus.CREATED).build();
   }
 
   @DeleteMapping("/{id}")
@@ -50,12 +50,4 @@ public class NoiseApiController {
 		NoiseListResponse response = noiseService.getNearbyNoise(request, radius, level);
 		return ResponseEntity.ok(response);
 	}
-  
-  @PostMapping
-  public ResponseEntity<NoiseCreateResponse> createNoise(
-    @RequestBody NoiseCreateRequest noiseCreateRequest
-  ) {
-    Long noiseId = noiseService.createNoise(noiseCreateRequest);
-    return ResponseEntity.status(HttpStatus.CREATED).build();
-  }
 }
