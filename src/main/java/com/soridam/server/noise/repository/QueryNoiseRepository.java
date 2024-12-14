@@ -1,6 +1,5 @@
 package com.soridam.server.noise.repository;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 import org.locationtech.jts.geom.Point;
@@ -27,13 +26,11 @@ public class QueryNoiseRepository {
 			.where(
 				noise.avgDecibel.between(noiseLevel.getMinDecibel(), noiseLevel.getMaxDecibel()),
 				Expressions.booleanTemplate(
-					"ST_DWithin({0}, ST_SetSRID(ST_MakePoint({1}, {2}), 5181), {3})",
+					"ST_DWithin({0}, ST_SetSRID({1}, 5181), {2})",
 					noise.point,
-					point.getX(),
-					point.getY(),
+					point,
 					radius.getRadiusInMeters()
-				),
-				noise.createdAt.after(LocalDateTime.now().minusHours(1))
+				).eq(true)
 			)
 			.fetch();
 	}
