@@ -12,12 +12,15 @@ import com.soridam.server.noise.service.NoiseService;
 import com.soridam.server.user.service.UserService;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequestMapping("/api/users")
 @RequiredArgsConstructor
+@Tag(name = "User", description = "유저 API")
 public class UserApiController {
 	private final UserService userService;
 	private final NoiseService noiseService;
@@ -28,6 +31,7 @@ public class UserApiController {
 	@ApiResponse(responseCode = "200")
 	@GetMapping("/{userId}")
 	public ResponseEntity<NoiseSummaryListResponse> getUserNoises(
+		@Parameter(description = "조회할 사용자의 ID", example = "1")
 		@PathVariable Long userId
 	) {
 		NoiseSummaryListResponse response = userService.getUserNoises(userId);
@@ -40,6 +44,7 @@ public class UserApiController {
 	@ApiResponse(responseCode = "200")
 	@GetMapping("/noise/{noiseId}")
 	public ResponseEntity<NoiseSummaryResponse> getUserNoiseDetail(
+		@Parameter(description = "조회할 noise 데이터의 ID", example = "10", required = true)
 		@PathVariable Long noiseId
 	) {
 		NoiseSummaryResponse response = noiseService.getNoise(noiseId);

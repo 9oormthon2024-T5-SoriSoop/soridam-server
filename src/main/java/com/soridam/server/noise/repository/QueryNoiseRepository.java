@@ -28,7 +28,7 @@ public class QueryNoiseRepository {
 					"ST_DWithin({0}, ST_SetSRID({1}, 5181), {2})",
 					noise.point,
 					point,
-					0.000459
+					0.000459 //0.0000918(1m) * 50
 				).eq(true)
 			)
 			.fetch();
