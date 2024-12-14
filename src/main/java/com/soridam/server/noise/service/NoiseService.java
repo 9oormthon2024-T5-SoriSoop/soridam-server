@@ -16,6 +16,7 @@ import com.soridam.server.noise.dto.response.NoiseSummaryResponse;
 import com.soridam.server.noise.exception.NoiseNotFoundException;
 import com.soridam.server.noise.repository.JpaNoiseRepository;
 import com.soridam.server.noise.repository.QueryNoiseRepository;
+import com.soridam.server.user.exception.UserNotFoundException;
 
 import lombok.RequiredArgsConstructor;
 
@@ -41,7 +42,7 @@ public class NoiseService {
 
 		// UserRepository를 통해 userId에 해당하는 User 엔티티 조회
 		User user = jpaUserRepository.findById(noiseCreateRequest.userId())
-				.orElseThrow(() -> new CustomException(UserExceptionCode.USER_NOT_FOUND));
+				.orElseThrow(UserNotFoundException::new);
 		// Point 객체 생성 (위도/경도를 PostGIS와 호환되게 생성)
 		Point point = geometryFactory.createPoint(new Coordinate(
 				noiseCreateRequest.x(),
