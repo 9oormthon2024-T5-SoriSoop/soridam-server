@@ -1,5 +1,3 @@
-가상 데이터 유저 노이즈
-
 INSERT INTO "user" (name, password, point, created_at)
 VALUES
 ('JohnDoe', 'password123', 100, NOW()),
@@ -14,7 +12,6 @@ VALUES
 ('JamieRed', 'passwordstu', 450, NOW());
 
 
-### 노이즈
 INSERT INTO noise (user_id, point, max_decibel, avg_decibel, review, created_at)
 VALUES
 (1, ST_PointFromText('POINT(126.9780 37.5665)', 5181), 70, 50, '소음이 많은 환경', NOW()),
