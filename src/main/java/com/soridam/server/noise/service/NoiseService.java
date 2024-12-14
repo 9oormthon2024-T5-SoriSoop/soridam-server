@@ -8,6 +8,7 @@ import com.soridam.server.user.repository.JpaUserRepository;
 import org.locationtech.jts.geom.Coordinate;
 import org.locationtech.jts.geom.GeometryFactory;
 import org.locationtech.jts.geom.Point;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -33,23 +34,19 @@ public class NoiseService {
 	public NoiseSummaryResponse getNoise(Long id) {
 		Noise noise = jpaNoiseRepository.findById(id)
 			.orElseThrow(NoiseNotFoundException::new);
-
 		return NoiseSummaryResponse.from(noise);
 	}
 
 	@Transactional
 	public Long createNoise(NoiseCreateRequest noiseCreateRequest) {
-
-		// UserRepository를 통해 userId에 해당하는 User 엔티티 조회
 		User user = jpaUserRepository.findById(noiseCreateRequest.userId())
 				.orElseThrow(UserNotFoundException::new);
-		// Point 객체 생성 (위도/경도를 PostGIS와 호환되게 생성)
+    
 		Point point = geometryFactory.createPoint(new Coordinate(
 				noiseCreateRequest.x(),
 				noiseCreateRequest.y()
 		));
 
-		// Noise 생성 (create 정적 메서드 사용)
 		Noise noise = Noise.create(
 				user,
 				point,
@@ -58,7 +55,6 @@ public class NoiseService {
 				noiseCreateRequest.review()
 		);
 
-		// Noise 저장
 		Noise savedNoise = noiseRepository.save(noise);
 		return savedNoise.getId();
 	}

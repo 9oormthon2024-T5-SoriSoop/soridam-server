@@ -24,6 +24,7 @@ public class UserApiController {
 		@PathVariable Long id
 	) {
 		NoiseSummaryListResponse response = userService.getUserNoises(id);
+    
 		return ResponseEntity.ok(response);
 	}
 
@@ -32,13 +33,17 @@ public class UserApiController {
 		@PathVariable Long id
 	) {
 		NoiseSummaryResponse response = noiseService.getNoise(id);
+    
 		return ResponseEntity.ok(response);
 	}
 
 	@PostMapping
-	public ResponseEntity<NoiseCreateResponse> createNoise(@RequestBody NoiseCreateRequest noiseCreateRequest) {
+	public ResponseEntity<NoiseCreateResponse> createNoise(
+    @RequestBody NoiseCreateRequest noiseCreateRequest
+  ) {
 		Long noiseId = noiseService.createNoise(noiseCreateRequest);
 		NoiseCreateResponse response = new NoiseCreateResponse(200, "success", noiseId);
+    
 		return ResponseEntity.ok(response);
 	}
 }
