@@ -15,7 +15,6 @@ import com.soridam.server.noise.dto.enums.Radius;
 import com.soridam.server.noise.dto.request.NoiseSearchListRequest;
 import com.soridam.server.noise.dto.response.NoiseListResponse;
 import com.soridam.server.noise.dto.response.NoiseResponse;
-import com.soridam.server.noise.domain.Noise;
 import com.soridam.server.noise.dto.response.NoiseSummaryResponse;
 import com.soridam.server.noise.exception.NoiseNotFoundException;
 import com.soridam.server.noise.repository.JpaNoiseRepository;
@@ -30,13 +29,15 @@ public class NoiseService {
 	private final QueryNoiseRepository queryNoiseRepository;
 	private final GeometryUtils geometryUtils;
 
-	public NoiseListResponse getNearbyNoise(NoiseSearchListRequest requests, Radius radius, NoiseLevel noiseLevel){
+	public NoiseListResponse getNearbyNoise(NoiseSearchListRequest requests, Radius radius, NoiseLevel noiseLevel) {
 		List<NoiseResponse> responses = requests.noiseSearchRequests().stream()
 			.map(request -> {
 				Point point = geometryUtils.createPoint(request.x(), request.y());
 				List<Noise> results = queryNoiseRepository.findByAvgDecibleAndPoint(point, radius, noiseLevel);
 
-				if (results.isEmpty()) { return null; }
+				if (results.isEmpty()) {
+					return null;
+				}
 
 				int avgDecibel = (int) results.stream()
 					.mapToInt(Noise::getAvgDecibel)
@@ -51,6 +52,7 @@ public class NoiseService {
 			.toList();
 
 		return NoiseListResponse.of(responses);
+	}
 
 	@Transactional(readOnly = true)
 	public NoiseSummaryResponse getNoise(Long id) {
