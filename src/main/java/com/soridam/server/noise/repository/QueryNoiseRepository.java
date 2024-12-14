@@ -5,6 +5,8 @@ import java.util.List;
 import org.locationtech.jts.geom.Point;
 import org.springframework.stereotype.Repository;
 
+import com.querydsl.core.types.dsl.BooleanExpression;
+import com.querydsl.core.types.dsl.ComparablePath;
 import com.querydsl.core.types.dsl.Expressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.soridam.server.noise.domain.Noise;
@@ -24,12 +26,7 @@ public class QueryNoiseRepository {
 
 		return jpaQueryFactory.selectFrom(noise)
 			.where(
-				Expressions.booleanTemplate(
-					"ST_DWithin({0}, ST_SetSRID({1}, 5181), {2})",
-					noise.point,
-					point,
-					0.000459 //0.0000918(1m) * 50
-				).eq(true)
+				isWithinDistance(noise.point, point, 0.0000918 * 50)
 			)
 			.fetch();
 	}
@@ -40,13 +37,17 @@ public class QueryNoiseRepository {
 		return jpaQueryFactory.selectFrom(noise)
 			.where(
 				noise.avgDecibel.between(noiseLevel.getMinDecibel(), noiseLevel.getMaxDecibel()),
-				Expressions.booleanTemplate(
-					"ST_DWithin({0}, ST_SetSRID({1}, 5181), {2})",
-					noise.point,
-					point,
-					radius.getRadiusInMeters() * 0.0000918
-				).eq(true)
+				isWithinDistance(noise.point, point, radius.getRadiusInMeters() * 0.0000918)
 			)
 			.fetch();
+	}
+
+	private BooleanExpression isWithinDistance(ComparablePath<Point> noisePoint, Point targetPoint, double distance) {
+		return Expressions.booleanTemplate(
+			"ST_DWithin({0}, ST_SetSRID({1}, 5181), {2})",
+			noisePoint,
+			targetPoint,
+			distance
+		).eq(true);
 	}
 }
