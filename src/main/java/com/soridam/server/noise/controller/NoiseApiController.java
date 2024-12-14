@@ -17,7 +17,7 @@ import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/noise")
+@RequestMapping("/api/noises")
 public class NoiseApiController {
 	private final NoiseService noiseService;
 

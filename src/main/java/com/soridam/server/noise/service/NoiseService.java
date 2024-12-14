@@ -6,6 +6,7 @@ import java.util.Objects;
 
 import org.locationtech.jts.geom.Point;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.soridam.server.common.util.GeometryUtils;
 import com.soridam.server.noise.domain.Noise;
@@ -14,6 +15,9 @@ import com.soridam.server.noise.dto.enums.Radius;
 import com.soridam.server.noise.dto.request.NoiseSearchListRequest;
 import com.soridam.server.noise.dto.response.NoiseListResponse;
 import com.soridam.server.noise.dto.response.NoiseResponse;
+import com.soridam.server.noise.domain.Noise;
+import com.soridam.server.noise.dto.response.NoiseSummaryResponse;
+import com.soridam.server.noise.exception.NoiseNotFoundException;
 import com.soridam.server.noise.repository.JpaNoiseRepository;
 import com.soridam.server.noise.repository.QueryNoiseRepository;
 
@@ -47,5 +51,12 @@ public class NoiseService {
 			.toList();
 
 		return NoiseListResponse.of(responses);
+
+	@Transactional(readOnly = true)
+	public NoiseSummaryResponse getNoise(Long id) {
+		Noise noise = jpaNoiseRepository.findById(id)
+			.orElseThrow(NoiseNotFoundException::new);
+
+		return NoiseSummaryResponse.from(noise);
 	}
 }
