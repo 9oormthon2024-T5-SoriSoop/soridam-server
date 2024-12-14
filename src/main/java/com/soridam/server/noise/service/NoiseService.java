@@ -93,8 +93,8 @@ public class NoiseService {
 		Noise noise = Noise.create(
 				user,
 				point,
-				request.maximumDecibel(),
-				request.averageDecibel(),
+				request.maxDecibel(),
+				request.avgDecibel(),
 				request.review()
 		);
 

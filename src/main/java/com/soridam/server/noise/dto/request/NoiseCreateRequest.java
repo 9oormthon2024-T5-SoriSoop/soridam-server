@@ -21,12 +21,12 @@ public record NoiseCreateRequest(
 	@Schema(description = "평균 데시벨", example = "50", requiredMode = REQUIRED)
 	@NotNull
 	@Positive
-	int averageDecibel,
+	int avgDecibel,
 
 	@Schema(description = "최대 데시벨", example = "70", requiredMode = REQUIRED)
 	@NotNull
 	@Positive
-	int maximumDecibel,
+	int maxDecibel,
 
 	@Schema(description = "리뷰 내용", example = "소음이 많은 환경", requiredMode = REQUIRED)
 	@NotBlank

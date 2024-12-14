@@ -21,10 +21,10 @@ public record NoiseSummaryResponse(
 	double y,
 
 	@Schema(description = "평균 데시벨", example = "50", requiredMode = REQUIRED)
-	int averageDecibel,
+	int avgDecibel,
 
 	@Schema(description = "최대 데시벨", example = "70", requiredMode = REQUIRED)
-	int maximumDecibel,
+	int maxDecibel,
 
 	@Schema(description = "작성일자", example = "2024년 12월 14일 21시 37분", requiredMode = REQUIRED)
 	String createdAt,
@@ -38,8 +38,8 @@ public record NoiseSummaryResponse(
 			.id(noise.getId())
 			.x(noise.getPoint().getX())
 			.y(noise.getPoint().getY())
-			.averageDecibel(noise.getAvgDecibel())
-			.maximumDecibel(noise.getMaxDecibel())
+			.avgDecibel(noise.getAvgDecibel())
+			.maxDecibel(noise.getMaxDecibel())
 			.createdAt(noise.getCreatedAt().format(formatter))
 			.review(noise.getReview())
 			.build();
