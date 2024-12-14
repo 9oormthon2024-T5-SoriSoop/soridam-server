@@ -1,4 +1,4 @@
-package com.soridam.server.user.domain;
+package com.soridam.server.common.domain;
 
 import static jakarta.persistence.CascadeType.ALL;
 import static jakarta.persistence.GenerationType.IDENTITY;
@@ -6,8 +6,8 @@ import static lombok.AccessLevel.PROTECTED;
 
 import java.util.List;
 
-import com.soridam.server.common.domain.BaseTimeEntity;
 import com.soridam.server.noise.domain.Noise;
+import com.soridam.server.review.domain.Review;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -38,4 +38,7 @@ public class User extends BaseTimeEntity {
 
 	@OneToMany(mappedBy = "user", cascade = ALL, orphanRemoval = true)
 	private List<Noise> decibels;
+
+	@OneToMany(mappedBy = "user", cascade = ALL, orphanRemoval = true)
+	private List<Review> reviews;
 }
