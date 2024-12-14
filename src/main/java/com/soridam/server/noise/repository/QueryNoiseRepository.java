@@ -27,7 +27,7 @@ public class QueryNoiseRepository {
 			.where(
 				noise.avgDecibel.between(noiseLevel.getMinDecibel(), noiseLevel.getMaxDecibel()),
 				Expressions.booleanTemplate(
-					"ST_DWithin({0}, ST_SetSRID(ST_MakePoint({1}, {2}), 4326) 5181, {3})",
+					"ST_DWithin({0}, ST_SetSRID(ST_MakePoint({1}, {2}), 5181), {3})",
 					noise.point,
 					point.getX(),
 					point.getY(),
@@ -35,6 +35,6 @@ public class QueryNoiseRepository {
 				),
 				noise.createdAt.after(LocalDateTime.now().minusHours(1))
 			)
-			.fetch(); // 결과를 리스트로 반환
+			.fetch();
 	}
 }
