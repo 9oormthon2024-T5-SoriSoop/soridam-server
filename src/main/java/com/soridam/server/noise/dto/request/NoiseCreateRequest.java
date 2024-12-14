@@ -7,6 +7,7 @@ import lombok.Builder;
 
 @Builder
 public record NoiseCreateRequest(
+
 	@NotNull
 	double x,
 	
