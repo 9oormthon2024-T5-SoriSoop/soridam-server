@@ -1,10 +1,9 @@
 package com.soridam.server.user.controller;
 
+import com.soridam.server.noise.dto.request.NoiseCreateRequest;
+import com.soridam.server.noise.dto.response.NoiseCreateResponse;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.soridam.server.noise.dto.response.NoiseSummaryListResponse;
 import com.soridam.server.noise.dto.response.NoiseSummaryResponse;
@@ -33,6 +32,13 @@ public class UserApiController {
 		@PathVariable Long id
 	) {
 		NoiseSummaryResponse response = noiseService.getNoise(id);
+		return ResponseEntity.ok(response);
+	}
+
+	@PostMapping
+	public ResponseEntity<NoiseCreateResponse> createNoise(@RequestBody NoiseCreateRequest noiseCreateRequest) {
+		Long noiseId = noiseService.createNoise(noiseCreateRequest);
+		NoiseCreateResponse response = new NoiseCreateResponse(200, "success", noiseId);
 		return ResponseEntity.ok(response);
 	}
 }
