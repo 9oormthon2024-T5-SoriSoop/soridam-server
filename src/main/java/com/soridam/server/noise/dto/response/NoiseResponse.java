@@ -1,5 +1,6 @@
 package com.soridam.server.noise.dto.response;
 
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 import com.soridam.server.noise.domain.Noise;
@@ -18,7 +19,6 @@ public record NoiseResponse(
 	@NotNull
 	int avgDecibel,
 
-	@NotNull
 	String createdAt
 ) {
 	public static NoiseResponse from(Noise noise) {
@@ -28,6 +28,14 @@ public record NoiseResponse(
 			.y(noise.getPoint().getY())
 			.avgDecibel(noise.getAvgDecibel())
 			.createdAt(formatter.format(noise.getCreatedAt()))
+			.build();
+	}
+
+	public static NoiseResponse of(double x, double y, int avgDecibel) {
+		return NoiseResponse.builder()
+			.x(x)
+			.y(y)
+			.avgDecibel(avgDecibel)
 			.build();
 	}
 }
