@@ -7,7 +7,7 @@ import static lombok.AccessLevel.PROTECTED;
 import org.locationtech.jts.geom.Point;
 
 import com.soridam.server.common.domain.BaseTimeEntity;
-import com.soridam.server.common.domain.User;
+import com.soridam.server.user.domain.User;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
