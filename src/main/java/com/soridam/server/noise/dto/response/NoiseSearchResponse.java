@@ -1,17 +1,18 @@
 package com.soridam.server.noise.dto.response;
 
+import static io.swagger.v3.oas.annotations.media.Schema.RequiredMode.REQUIRED;
+
 import java.util.List;
 
-import jakarta.validation.constraints.NotNull;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;
 
 @Builder
 public record NoiseSearchResponse(
-	// 주변 추천 후 클릭 시
-	@NotNull
+	@Schema(description = "소음의 시간, 평균 목록", requiredMode = REQUIRED)
 	List<NoiseTimeAvgResponse> noises,
 
-	@NotNull
+	@Schema(description = "소음 관련 리뷰 목록", requiredMode = REQUIRED)
 	List<NoiseReviewResponse> reviews
 ) {
 	public static NoiseSearchResponse of(List<NoiseTimeAvgResponse> noises, List<NoiseReviewResponse> reviews) {

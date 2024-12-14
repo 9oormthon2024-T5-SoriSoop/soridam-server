@@ -14,59 +14,59 @@ VALUES
 
 INSERT INTO noise (user_id, point, max_decibel, avg_decibel, review, created_at)
 VALUES
-(1, ST_PointFromText('POINT(126.9780 37.5665)', 5181), 70, 50, '소음이 많은 환경', NOW()),
-(1, ST_PointFromText('POINT(126.9779 37.5664)', 5181), 80, 60, '적당한 교통 소음', NOW()),
-(1, ST_PointFromText('POINT(126.9782 37.5666)', 5181), 85, 55, '지속적인 소음', NOW()),
-(1, ST_PointFromText('POINT(126.9781 37.5667)', 5181), 65, 45, '가끔 발생하는 교통 소음', NOW()),
-(1, ST_PointFromText('POINT(126.9783 37.5668)', 5181), 90, 70, '출퇴근 시간 소음', NOW()),
-(1, ST_PointFromText('POINT(126.9784 37.5664)', 5181), 80, 60, '아침 러시아워 소음', NOW()),
-(1, ST_PointFromText('POINT(126.9778 37.5662)', 5181), 95, 75, '근처 공사 소음', NOW()),
-(1, ST_PointFromText('POINT(126.9785 37.5669)', 5181), 70, 50, '저녁 소음', NOW()),
-(1, ST_PointFromText('POINT(126.9787 37.5663)', 5181), 80, 60, '주말의 평온함', NOW()),
-(1, ST_PointFromText('POINT(126.9786 37.5661)', 5181), 85, 55, '야간의 고요함', NOW());
+(1, ST_PointFromText('POINT(127.0780 37.5665)', 5181), 70, 50, '소음이 많은 환경', NOW()),
+(1, ST_PointFromText('POINT(127.0779 37.5664)', 5181), 80, 60, '적당한 교통 소음', NOW()),
+(1, ST_PointFromText('POINT(127.0782 37.5666)', 5181), 85, 55, '지속적인 소음', NOW()),
+(1, ST_PointFromText('POINT(127.0781 37.5667)', 5181), 65, 45, '가끔 발생하는 교통 소음', NOW()),
+(1, ST_PointFromText('POINT(127.0783 37.5668)', 5181), 90, 70, '출퇴근 시간 소음', NOW()),
+(1, ST_PointFromText('POINT(127.0784 37.5664)', 5181), 80, 60, '아침 러시아워 소음', NOW()),
+(1, ST_PointFromText('POINT(127.0778 37.5662)', 5181), 95, 75, '근처 공사 소음', NOW()),
+(1, ST_PointFromText('POINT(127.0785 37.5669)', 5181), 70, 50, '저녁 소음', NOW()),
+(1, ST_PointFromText('POINT(127.0787 37.5663)', 5181), 80, 60, '주말의 평온함', NOW()),
+(1, ST_PointFromText('POINT(127.0786 37.5661)', 5181), 85, 55, '야간의 고요함', NOW());
 
 -- User ID 2에 대한 Noise 데이터
 INSERT INTO noise (user_id, point, max_decibel, avg_decibel, review, created_at)
 VALUES
-(2, ST_PointFromText('POINT(127.0150 37.5805)', 5181), 60, 40, '주택가 소음', NOW()),
-(2, ST_PointFromText('POINT(127.0151 37.5806)', 5181), 70, 50, '가족 친화적인 소음 수준', NOW()),
-(2, ST_PointFromText('POINT(127.0153 37.5807)', 5181), 75, 55, '약간의 소음 공해', NOW()),
-(2, ST_PointFromText('POINT(127.0152 37.5804)', 5181), 55, 35, '낮은 소음 수준', NOW()),
-(2, ST_PointFromText('POINT(127.0155 37.5808)', 5181), 80, 60, '오후의 소음', NOW()),
-(2, ST_PointFromText('POINT(127.0156 37.5809)', 5181), 70, 45, '조용한 아침', NOW()),
-(2, ST_PointFromText('POINT(127.0154 37.5803)', 5181), 65, 45, '새소리와 대화 소리', NOW()),
-(2, ST_PointFromText('POINT(127.0149 37.5802)', 5181), 60, 40, '평온한 저녁', NOW()),
-(2, ST_PointFromText('POINT(127.0147 37.5801)', 5181), 80, 55, '가끔 들리는 자동차 소리', NOW()),
-(2, ST_PointFromText('POINT(127.0148 37.5800)', 5181), 50, 35, '조용한 밤', NOW());
+(2, ST_PointFromText('POINT(127.1150 37.5805)', 5181), 60, 40, '주택가 소음', NOW()),
+(2, ST_PointFromText('POINT(127.1151 37.5806)', 5181), 70, 50, '가족 친화적인 소음 수준', NOW()),
+(2, ST_PointFromText('POINT(127.1153 37.5807)', 5181), 75, 55, '약간의 소음 공해', NOW()),
+(2, ST_PointFromText('POINT(127.1152 37.5804)', 5181), 55, 35, '낮은 소음 수준', NOW()),
+(2, ST_PointFromText('POINT(127.1155 37.5808)', 5181), 80, 60, '오후의 소음', NOW()),
+(2, ST_PointFromText('POINT(127.1156 37.5809)', 5181), 70, 45, '조용한 아침', NOW()),
+(2, ST_PointFromText('POINT(127.1154 37.5803)', 5181), 65, 45, '새소리와 대화 소리', NOW()),
+(2, ST_PointFromText('POINT(127.1149 37.5802)', 5181), 60, 40, '평온한 저녁', NOW()),
+(2, ST_PointFromText('POINT(127.1147 37.5801)', 5181), 80, 55, '가끔 들리는 자동차 소리', NOW()),
+(2, ST_PointFromText('POINT(127.1148 37.5800)', 5181), 50, 35, '조용한 밤', NOW());
 
 -- User ID 3에 대한 Noise 데이터
 INSERT INTO noise (user_id, point, max_decibel, avg_decibel, review, created_at)
 VALUES
-(3, ST_PointFromText('POINT(127.0301 37.5755)', 5181), 65, 45, '도심 소음', NOW()),
-(3, ST_PointFromText('POINT(127.0302 37.5756)', 5181), 70, 50, '출퇴근 시간 소음', NOW()),
-(3, ST_PointFromText('POINT(127.0303 37.5757)', 5181), 75, 55, '고속도로 근처 소음', NOW()),
-(3, ST_PointFromText('POINT(127.0304 37.5758)', 5181), 60, 40, '조용한 주택가', NOW()),
-(3, ST_PointFromText('POINT(127.0305 37.5759)', 5181), 85, 65, '주간 소음', NOW()),
-(3, ST_PointFromText('POINT(127.0306 37.5760)', 5181), 70, 50, '주말 소리', NOW()),
-(3, ST_PointFromText('POINT(127.0307 37.5761)', 5181), 90, 70, '시장 근처 소음', NOW()),
-(3, ST_PointFromText('POINT(127.0308 37.5762)', 5181), 65, 45, '대중교통 소음', NOW()),
-(3, ST_PointFromText('POINT(127.0309 37.5763)', 5181), 75, 55, '번화한 거리 소음', NOW()),
-(3, ST_PointFromText('POINT(127.0310 37.5764)', 5181), 55, 35, '조용한 심야 소음', NOW());
+(3, ST_PointFromText('POINT(127.1301 37.5755)', 5181), 65, 45, '도심 소음', NOW()),
+(3, ST_PointFromText('POINT(127.1302 37.5756)', 5181), 70, 50, '출퇴근 시간 소음', NOW()),
+(3, ST_PointFromText('POINT(127.1303 37.5757)', 5181), 75, 55, '고속도로 근처 소음', NOW()),
+(3, ST_PointFromText('POINT(127.1304 37.5758)', 5181), 60, 40, '조용한 주택가', NOW()),
+(3, ST_PointFromText('POINT(127.1305 37.5759)', 5181), 85, 65, '주간 소음', NOW()),
+(3, ST_PointFromText('POINT(127.1306 37.5760)', 5181), 70, 50, '주말 소리', NOW()),
+(3, ST_PointFromText('POINT(127.1307 37.5761)', 5181), 90, 70, '시장 근처 소음', NOW()),
+(3, ST_PointFromText('POINT(127.1308 37.5762)', 5181), 65, 45, '대중교통 소음', NOW()),
+(3, ST_PointFromText('POINT(127.1309 37.5763)', 5181), 75, 55, '번화한 거리 소음', NOW()),
+(3, ST_PointFromText('POINT(127.1310 37.5764)', 5181), 55, 35, '조용한 심야 소음', NOW());
 
 
 
 INSERT INTO noise (user_id, point, max_decibel, avg_decibel, review, created_at)
 VALUES
-(4, ST_PointFromText('POINT(127.0401 37.5835)', 5181), 70, 50, '저녁 산책 중 소음', NOW()),
-(4, ST_PointFromText('POINT(127.0402 37.5836)', 5181), 85, 65, '아침 시장 소음', NOW()),
-(4, ST_PointFromText('POINT(127.0403 37.5837)', 5181), 60, 40, '조용한 주말', NOW()),
-(4, ST_PointFromText('POINT(127.0404 37.5838)', 5181), 75, 55, '공원에서 발생한 소음', NOW()),
-(4, ST_PointFromText('POINT(127.0405 37.5839)', 5181), 65, 50, '아이들 놀이 소리', NOW()),
-(4, ST_PointFromText('POINT(127.0406 37.5840)', 5181), 55, 35, '조용한 주택가', NOW()),
-(4, ST_PointFromText('POINT(127.0407 37.5841)', 5181), 80, 60, '큰 도로 소음', NOW()),
-(4, ST_PointFromText('POINT(127.0408 37.5842)', 5181), 85, 65, '출퇴근 시간 소음', NOW()),
-(4, ST_PointFromText('POINT(127.0409 37.5843)', 5181), 60, 40, '밤의 고요함', NOW()),
-(4, ST_PointFromText('POINT(127.0410 37.5844)', 5181), 65, 45, '비 오는 날의 조용함', NOW());
+(4, ST_PointFromText('POINT(127.1401 37.5835)', 5181), 70, 50, '저녁 산책 중 소음', NOW()),
+(4, ST_PointFromText('POINT(127.1402 37.5836)', 5181), 85, 65, '아침 시장 소음', NOW()),
+(4, ST_PointFromText('POINT(127.1403 37.5837)', 5181), 60, 40, '조용한 주말', NOW()),
+(4, ST_PointFromText('POINT(127.1404 37.5838)', 5181), 75, 55, '공원에서 발생한 소음', NOW()),
+(4, ST_PointFromText('POINT(127.1405 37.5839)', 5181), 65, 50, '아이들 놀이 소리', NOW()),
+(4, ST_PointFromText('POINT(127.1406 37.5840)', 5181), 55, 35, '조용한 주택가', NOW()),
+(4, ST_PointFromText('POINT(127.1407 37.5841)', 5181), 80, 60, '큰 도로 소음', NOW()),
+(4, ST_PointFromText('POINT(127.1408 37.5842)', 5181), 85, 65, '출퇴근 시간 소음', NOW()),
+(4, ST_PointFromText('POINT(127.1409 37.5843)', 5181), 60, 40, '밤의 고요함', NOW()),
+(4, ST_PointFromText('POINT(127.1410 37.5844)', 5181), 65, 45, '비 오는 날의 조용함', NOW());
 
 -- User ID 5에 대한 Noise 데이터
 INSERT INTO noise (user_id, point, max_decibel, avg_decibel, review, created_at)

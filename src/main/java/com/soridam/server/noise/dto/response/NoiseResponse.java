@@ -1,24 +1,26 @@
 package com.soridam.server.noise.dto.response;
 
-import java.time.LocalDateTime;
+import static io.swagger.v3.oas.annotations.media.Schema.RequiredMode.REQUIRED;
+
 import java.time.format.DateTimeFormatter;
 
 import com.soridam.server.noise.domain.Noise;
 
-import jakarta.validation.constraints.NotNull;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;
 
 @Builder
 public record NoiseResponse(
-	@NotNull
+	@Schema(description = "소음 발생 지점의 X좌표 (경도)", example = "127.015", requiredMode = REQUIRED)
 	double x,
 
-	@NotNull
+	@Schema(description = "소음 발생 지점의 Y좌표 (위도)", example = "37.5805", requiredMode = REQUIRED)
 	double y,
 
-	@NotNull
+	@Schema(description = "평균 소음 데시벨", example = "50", requiredMode = REQUIRED)
 	int avgDecibel,
 
+	@Schema(description = "데이터 생성 시간", example = "2024년 12월 14일 21시 37분", requiredMode = REQUIRED)
 	String createdAt
 ) {
 	public static NoiseResponse from(Noise noise) {

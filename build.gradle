@@ -40,6 +40,9 @@ dependencies {
     implementation 'org.locationtech.jts:jts-core:1.19.0'
     implementation 'org.hibernate:hibernate-spatial:6.2.13.Final'
 
+    //swagger
+    implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.7.0'
+
     // 개발 도구 및 반복 코드 감소
     compileOnly 'org.projectlombok:lombok' // Lombok으로 반복 코드 제거 (Getter, Setter 등)
     annotationProcessor 'org.projectlombok:lombok' // Lombok 애노테이션 프로세서
