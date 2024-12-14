@@ -7,7 +7,10 @@ import lombok.Builder;
 
 @Builder
 public record NoiseCreateRequest(
+
 	@NotNull
+	Long userId,
+
 	double x,
 	
 	@NotNull

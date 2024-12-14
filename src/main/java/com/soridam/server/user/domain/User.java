@@ -38,4 +38,5 @@ public class User extends BaseTimeEntity {
 
 	@OneToMany(mappedBy = "user", cascade = ALL, orphanRemoval = true)
 	private List<Noise> noises;
+
 }
