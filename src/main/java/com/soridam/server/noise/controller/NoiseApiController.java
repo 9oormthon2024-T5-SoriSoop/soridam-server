@@ -25,9 +25,9 @@ public class NoiseApiController {
 	public ResponseEntity<NoiseListResponse> getNearbyNoise(
 		@RequestBody NoiseSearchListRequest request,
 		@RequestParam(required = false, defaultValue = "FIVE_HUNDRED_METERS") Radius radius,
-		@RequestParam(required = false, defaultValue = "QUIET") NoiseLevel noiseLevel
+		@RequestParam(required = false, defaultValue = "QUIET") NoiseLevel level
 	){
-		NoiseListResponse response = noiseService.getNearbyNoise(request, radius, noiseLevel);
+		NoiseListResponse response = noiseService.getNearbyNoise(request, radius, level);
 		return ResponseEntity.ok(response);
 	}
 }
