@@ -58,4 +58,12 @@ public class NoiseService {
 		Noise savedNoise = noiseRepository.save(noise);
 		return savedNoise.getId();
 	}
+
+	@Transactional
+	public void deleteNoise(Long id) {
+		if (!jpaNoiseRepository.existsById(id)) {
+			throw new NoiseNotFoundException();
+		}
+		jpaNoiseRepository.deleteById(id);
+	}
 }

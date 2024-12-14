@@ -5,10 +5,7 @@ import com.soridam.server.noise.dto.response.NoiseCreateResponse;
 import com.soridam.server.noise.service.NoiseService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import lombok.RequiredArgsConstructor;
 
@@ -22,5 +19,11 @@ public class NoiseApiController {
     public ResponseEntity<NoiseCreateResponse> createNoise(@RequestBody NoiseCreateRequest noiseCreateRequest) {
         Long noiseId = noiseService.createNoise(noiseCreateRequest);
         return ResponseEntity.status(HttpStatus.CREATED).build();
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deleteNoise(@PathVariable Long id) {
+        noiseService.deleteNoise(id);
+        return ResponseEntity.ok("Noise successfully deleted.");
     }
 }
