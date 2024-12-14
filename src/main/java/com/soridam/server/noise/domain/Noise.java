@@ -34,7 +34,7 @@ public class Noise extends BaseTimeEntity {
 	@JoinColumn(name = "user_id", nullable = false)
 	private User user;
 
-	@Column(nullable = false, columnDefinition = "geometry(Point,4326)")
+	@Column(nullable = false, columnDefinition = "geometry(Point,5181)")
 	private Point point;
 
 	@Column(nullable = false)
