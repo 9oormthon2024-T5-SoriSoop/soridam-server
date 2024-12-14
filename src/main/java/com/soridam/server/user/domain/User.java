@@ -37,5 +37,5 @@ public class User extends BaseTimeEntity {
 	private int point;
 
 	@OneToMany(mappedBy = "user", cascade = ALL, orphanRemoval = true)
-	private List<Noise> decibels;
+	private List<Noise> noises;
 }
