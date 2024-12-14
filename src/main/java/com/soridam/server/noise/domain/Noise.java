@@ -38,12 +38,6 @@ public class Noise extends BaseTimeEntity {
 	private Point point;
 
 	@Column(nullable = false)
-	private int measurementTime;
-
-	@Column(nullable = false)
-	private int minDecibel;
-
-	@Column(nullable = false)
 	private int maxDecibel;
 
 	@Column(nullable = false)
@@ -52,13 +46,11 @@ public class Noise extends BaseTimeEntity {
 	@Column(nullable = false)
 	private String review;
 
-	public static Noise create(User user, Point point, int measurementTime, int minDecibel, int maxDecibel,
+	public static Noise create(User user, Point point, int maxDecibel,
 		int avgDecibel, String review) {
 		return Noise.builder()
 			.user(user)
 			.point(point)
-			.measurementTime(measurementTime)
-			.minDecibel(minDecibel)
 			.maxDecibel(maxDecibel)
 			.avgDecibel(avgDecibel)
 			.review(review)
