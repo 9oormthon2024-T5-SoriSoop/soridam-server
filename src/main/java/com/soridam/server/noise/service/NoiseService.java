@@ -39,6 +39,7 @@ public class NoiseService {
 					.mapToInt(Noise::getAvgDecibel)
 					.average()
 					.orElse(0);
+				
 				return NoiseResponse.of(point.getX(), point.getY(), avgDecibel);
 			})
 			.filter(Objects::nonNull)
