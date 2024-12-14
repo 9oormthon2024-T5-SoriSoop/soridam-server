@@ -25,10 +25,10 @@ public class QueryNoiseRepository {
 		return jpaQueryFactory.selectFrom(noise)
 			.where(
 				Expressions.booleanTemplate(
-					"ST_DWithin({0}, ST_SetSRID(ST_MakePoint({1}), 5181), {2})",
+					"ST_DWithin({0}, ST_SetSRID({1}, 5181), {2})",
 					noise.point,
 					point,
-					50
+					0.000459
 				).eq(true)
 			)
 			.fetch();
@@ -44,7 +44,7 @@ public class QueryNoiseRepository {
 					"ST_DWithin({0}, ST_SetSRID({1}, 5181), {2})",
 					noise.point,
 					point,
-					radius.getRadiusInMeters()
+					radius.getRadiusInMeters() * 0.0000918
 				).eq(true)
 			)
 			.fetch();

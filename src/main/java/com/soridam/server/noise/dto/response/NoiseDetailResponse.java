@@ -1,17 +1,20 @@
 package com.soridam.server.noise.dto.response;
 
+import static io.swagger.v3.oas.annotations.media.Schema.RequiredMode.REQUIRED;
+
 import java.util.List;
 
-import jakarta.validation.constraints.NotNull;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;
 
 @Builder
 public record NoiseDetailResponse(
-	@NotNull
+	@Schema(description = "소음 데이터 목록", requiredMode = REQUIRED)
 	List<NoiseResponse> noises,
 
-	@NotNull
+	@Schema(description = "소음 리뷰 데이터 목록", requiredMode = REQUIRED)
 	List<NoiseReviewResponse> reviews
+
 ) {
 	public static NoiseDetailResponse of(List<NoiseResponse> noises, List<NoiseReviewResponse> reviews) {
 		return NoiseDetailResponse.builder()

@@ -1,7 +1,5 @@
 package com.soridam.server.noise.service;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
@@ -12,15 +10,15 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.soridam.server.common.util.GeometryUtils;
 import com.soridam.server.noise.domain.Noise;
-import com.soridam.server.noise.dto.response.NoiseDetailResponse;
-import com.soridam.server.noise.dto.response.NoiseResponse;
-import com.soridam.server.noise.dto.response.NoiseReviewResponse;
 import com.soridam.server.noise.dto.enums.NoiseLevel;
 import com.soridam.server.noise.dto.enums.Radius;
 import com.soridam.server.noise.dto.request.NoiseCreateRequest;
 import com.soridam.server.noise.dto.request.NoiseSearchListRequest;
+import com.soridam.server.noise.dto.response.NoiseDetailResponse;
 import com.soridam.server.noise.dto.response.NoiseListResponse;
+import com.soridam.server.noise.dto.response.NoisePersistResponse;
 import com.soridam.server.noise.dto.response.NoiseResponse;
+import com.soridam.server.noise.dto.response.NoiseReviewResponse;
 import com.soridam.server.noise.dto.response.NoiseSummaryResponse;
 import com.soridam.server.noise.exception.NoiseNotFoundException;
 import com.soridam.server.noise.repository.JpaNoiseRepository;
@@ -38,6 +36,7 @@ public class NoiseService {
 	private final GeometryUtils geometryUtils;
   private final UserService userService;
 
+  @Transactional(readOnly = true)
   public NoiseDetailResponse getDetailNoise(double x, double y) {
 		Point point = geometryUtils.createPoint(x, y);
 		List<Noise> results = queryNoiseRepository.getNearbyNoises(point);
@@ -87,7 +86,7 @@ public class NoiseService {
 	}
 
 	@Transactional
-	public Long createNoise(NoiseCreateRequest request) {
+	public NoisePersistResponse createNoise(NoiseCreateRequest request) {
 		User user = userService.getById(1L);
 		Point point = geometryUtils.createPoint(request.x(), request.y());
 
@@ -99,8 +98,9 @@ public class NoiseService {
 				request.review()
 		);
 
-		Noise savedNoise = jpaNoiseRepository.save(noise);
-		return savedNoise.getId();
+		jpaNoiseRepository.save(noise);
+
+		return NoisePersistResponse.of(noise.getId());
 	}
 
 	@Transactional
