@@ -69,11 +69,11 @@ public class NoiseApiController {
 	@GetMapping
 	public ResponseEntity<NoiseDetailResponse> getDetailNoise(
 		@RequestParam
-		@Parameter(description = "x 좌표", example = "127.0150", required = true)
+		@Parameter(description = "x 좌표", example = "127.07150", required = true)
 		double x,
 
 		@RequestParam
-		@Parameter(description = "y 좌표", example = "37.5805", required = true)
+		@Parameter(description = "y 좌표", example = "37.3405", required = true)
 		double y
 	){
 		Optional<NoiseDetailResponse> response = noiseService.getDetailNoise(x, y);
