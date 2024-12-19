@@ -1,0 +1,14 @@
+bootJar {
+    enabled = true
+}
+
+jar {
+    enabled = true
+}
+
+dependencies {
+    implementation project(':soridam-domain')
+    implementation project(':soridam-common')
+    implementation project(':soridam-oauth')
+    implementation project(':soridam-infra')
+}

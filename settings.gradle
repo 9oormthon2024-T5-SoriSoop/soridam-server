@@ -1,1 +1,6 @@
-rootProject.name = 'sorisoop-server'
+rootProject.name = 'soridam-server'
+include 'soridam-api'
+include 'soridam-domain'
+include 'soridam-common'
+include 'soridam-oauth'
+include 'soridam-infra'

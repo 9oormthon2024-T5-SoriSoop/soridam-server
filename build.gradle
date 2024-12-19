@@ -4,13 +4,18 @@ plugins {
     id 'io.spring.dependency-management' version '1.1.6'
 }
 
-group = 'com.soridam'
-version = '0.0.1-SNAPSHOT'
+bootJar {
+    enabled = false
+}
 
 java {
     toolchain {
         languageVersion = JavaLanguageVersion.of(21)
     }
+}
+
+repositories {
+    mavenCentral()
 }
 
 configurations {
@@ -19,41 +24,56 @@ configurations {
     }
 }
 
-repositories {
-    mavenCentral()
+subprojects {
+    group = 'sorisoop.soridam'
+    version = '0.0.1-SNAPSHOT'
+    sourceCompatibility = JavaVersion.VERSION_21
+    targetCompatibility = JavaVersion.VERSION_21
+
+    apply plugin: 'java'
+    apply plugin: 'org.springframework.boot'
+    apply plugin: 'io.spring.dependency-management'
+
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        // Spring Boot 기본 스타터 패키지
+        implementation 'org.springframework.boot:spring-boot-starter-security'
+        implementation 'org.springframework.boot:spring-boot-starter-data-jpa' // 데이터베이스와 상호작용 (JPA 사용)
+        implementation 'org.springframework.boot:spring-boot-starter-validation' // 요청 데이터 검증
+        implementation 'org.springframework.boot:spring-boot-starter-web' // RESTful API 및 웹 애플리케이션 개발
+
+        // Querydsl 관련 의존성 (타입 안전한 쿼리 작성)
+        implementation 'com.querydsl:querydsl-jpa:5.0.0:jakarta' // Querydsl JPA 지원
+        annotationProcessor 'com.querydsl:querydsl-apt:5.0.0:jakarta' // Querydsl Q클래스 생성
+        annotationProcessor 'jakarta.persistence:jakarta.persistence-api'
+        // 데이터베이스 연결
+        runtimeOnly 'org.postgresql:postgresql' // PostgreSQL 드라이버
+
+        // 지리 데이터 관리 도구
+        implementation 'org.locationtech.jts:jts-core:1.19.0'
+        implementation 'org.hibernate:hibernate-spatial:6.2.13.Final'
+
+        //swagger
+        implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.7.0'
+
+        // 개발 도구 및 반복 코드 감소
+        compileOnly 'org.projectlombok:lombok' // Lombok으로 반복 코드 제거 (Getter, Setter 등)
+        annotationProcessor 'org.projectlombok:lombok' // Lombok 애노테이션 프로세서
+        developmentOnly 'org.springframework.boot:spring-boot-devtools' // 핫 리로드(자동 재시작) 지원
+
+        // 테스트 관련 의존성
+        testImplementation 'org.springframework.boot:spring-boot-starter-test' // Spring Boot 통합 및 단위 테스트 지원
+        testRuntimeOnly 'org.junit.platform:junit-platform-launcher' // JUnit 테스트 엔진 실행기
+    }
+
+
+    tasks.named('test') {
+        useJUnitPlatform()
+    }
 }
 
-dependencies {
-    // Spring Boot 기본 스타터 패키지
-    implementation 'org.springframework.boot:spring-boot-starter-data-jpa' // 데이터베이스와 상호작용 (JPA 사용)
-    implementation 'org.springframework.boot:spring-boot-starter-validation' // 요청 데이터 검증
-    implementation 'org.springframework.boot:spring-boot-starter-web' // RESTful API 및 웹 애플리케이션 개발
-
-    // Querydsl 관련 의존성 (타입 안전한 쿼리 작성)
-    implementation 'com.querydsl:querydsl-jpa:5.0.0:jakarta' // Querydsl JPA 지원
-    annotationProcessor 'com.querydsl:querydsl-apt:5.0.0:jakarta' // Querydsl Q클래스 생성
-    annotationProcessor 'jakarta.persistence:jakarta.persistence-api'
-    // 데이터베이스 연결
-    runtimeOnly 'org.postgresql:postgresql' // PostgreSQL 드라이버
-
-    // 지리 데이터 관리 도구
-    implementation 'org.locationtech.jts:jts-core:1.19.0'
-    implementation 'org.hibernate:hibernate-spatial:6.2.13.Final'
-
-    //swagger
-    implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.7.0'
-
-    // 개발 도구 및 반복 코드 감소
-    compileOnly 'org.projectlombok:lombok' // Lombok으로 반복 코드 제거 (Getter, Setter 등)
-    annotationProcessor 'org.projectlombok:lombok' // Lombok 애노테이션 프로세서
-    developmentOnly 'org.springframework.boot:spring-boot-devtools' // 핫 리로드(자동 재시작) 지원
-
-    // 테스트 관련 의존성
-    testImplementation 'org.springframework.boot:spring-boot-starter-test' // Spring Boot 통합 및 단위 테스트 지원
-    testRuntimeOnly 'org.junit.platform:junit-platform-launcher' // JUnit 테스트 엔진 실행기
-}
 
 
-tasks.named('test') {
-    useJUnitPlatform()
-}
