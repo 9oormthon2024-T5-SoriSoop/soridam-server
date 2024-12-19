@@ -1,13 +1,13 @@
-package com.soridam.server;
+package sorisoop.soridam.api;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class SoridamServerApplication {
+public class SoridamApiApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(SoridamServerApplication.class, args);
+		SpringApplication.run(SoridamApiApplication.class, args);
 	}
 
 }

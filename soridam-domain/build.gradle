@@ -1,0 +1,12 @@
+bootJar {
+    enabled = false
+}
+
+jar {
+    enabled = true
+}
+
+dependencies {
+    implementation project(':soridam-common')
+    implementation project(':soridam-infra')
+}
