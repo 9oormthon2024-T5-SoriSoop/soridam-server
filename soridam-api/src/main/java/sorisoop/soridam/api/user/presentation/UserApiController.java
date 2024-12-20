@@ -38,7 +38,7 @@ public class UserApiController {
 	@ApiResponse(responseCode = "200")
 	@GetMapping("/{userId}")
 	public ResponseEntity<NoiseSummaryListResponse> getUserNoises(
-		@Parameter(description = "조회할 사용자의 ID", example = "1")
+		@Parameter(description = "조회할 사용자의 ID", example = "9f3b462d-0fe9-4e7a-ae5d-74f9d9fc3ba4")
 		@PathVariable String userId
 	) {
 		NoiseSummaryListResponse response = userService.getUserNoises(userId);
@@ -62,7 +62,7 @@ public class UserApiController {
 			- Description : 이 API는 유저 회원가입입니다.
 		""")
 	@ApiResponse(responseCode = "201")
-	@PostMapping
+	@PostMapping("/signup")
 	public ResponseEntity<UserPersistResponse> signUp(
 		@Valid
 		@RequestBody

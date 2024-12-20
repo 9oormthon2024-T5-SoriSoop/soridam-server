@@ -72,10 +72,8 @@ public class SecurityConfig {
 	};
 
 	private static final String[] PUBLIC_ENDPOINTS = {
-		"/api/v1/users/signup",
-		"/api/v1/auth/**",
-		"/api/v1/professors",
-		"/api/v1/abouts"
+		"/api/users/signup",
+		"/api/auth/**",
 	};
 
 	CorsConfigurationSource corsConfigurationSource() {

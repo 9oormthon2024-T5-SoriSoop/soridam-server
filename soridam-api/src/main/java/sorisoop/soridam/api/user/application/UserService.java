@@ -54,7 +54,7 @@ public class UserService {
 	}
 
 	public User getById(String id) {
-		return jpaUserRepository.findById(USER + id)
+		return jpaUserRepository.findById(USER.getPrefix() + id)
 			.orElseThrow(UserNotFoundException::new);
 	}
 
