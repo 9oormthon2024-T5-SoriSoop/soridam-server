@@ -5,6 +5,7 @@ import static lombok.AccessLevel.PROTECTED;
 import static sorisoop.soridam.infra.uuid.UuidPrefix.USER;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -54,11 +55,30 @@ public class User extends BaseTimeEntity {
 	private int point;
 
 	@OneToMany(mappedBy = "user", cascade = ALL, orphanRemoval = true)
-	private List<Noise> noises;
+	@Builder.Default
+	private List<Noise> noises = new ArrayList<>();
 
 	public void isPasswordMatching(String rawPassword, PasswordEncoder passwordEncoder) {
 		if (!passwordEncoder.matches(rawPassword, this.password)) {
 			throw new InvalidPasswordException();
 		}
+	}
+
+	public static User create(String email, String password, String name, String nickname,
+		LocalDate birthDate, String phoneNumber, String profileImageUrl) {
+		return User.builder()
+			.email(email)
+			.password(password)
+			.name(name)
+			.nickname(nickname)
+			.birthDate(birthDate)
+			.phoneNumber(phoneNumber)
+			.profileImageUrl(profileImageUrl)
+			.point(0)
+			.build();
+	}
+
+	public String extractUuid() {
+		return id.substring(id.indexOf("_") + 1);
 	}
 }

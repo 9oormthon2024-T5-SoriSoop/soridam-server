@@ -1,11 +1,16 @@
 package sorisoop.soridam.api.user.presentation;
 
+import static org.springframework.http.HttpStatus.CREATED;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import jakarta.validation.Valid;
 import sorisoop.soridam.api.noise.application.NoiseService;
 import sorisoop.soridam.api.noise.presentation.response.NoiseSummaryListResponse;
 import sorisoop.soridam.api.noise.presentation.response.NoiseSummaryResponse;
@@ -16,6 +21,8 @@ import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import sorisoop.soridam.api.user.presentation.request.UserCreateRequest;
+import sorisoop.soridam.api.user.presentation.response.UserPersistResponse;
 
 @RestController
 @RequestMapping("/api/users")
@@ -49,5 +56,19 @@ public class UserApiController {
 	) {
 		NoiseSummaryResponse response = noiseService.getNoise(noiseId);
 		return ResponseEntity.ok(response);
+	}
+
+	@Operation(summary = "유저 회원가입 API", description = """
+			- Description : 이 API는 유저 회원가입입니다.
+		""")
+	@ApiResponse(responseCode = "201")
+	@PostMapping
+	public ResponseEntity<UserPersistResponse> signUp(
+		@Valid
+		@RequestBody
+		UserCreateRequest request
+	) {
+		UserPersistResponse response = userService.signUp(request);
+		return ResponseEntity.status(CREATED).body(response);
 	}
 }
