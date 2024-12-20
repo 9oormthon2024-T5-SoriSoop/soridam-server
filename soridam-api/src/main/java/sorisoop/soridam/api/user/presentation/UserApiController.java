@@ -32,7 +32,7 @@ public class UserApiController {
 	@GetMapping("/{userId}")
 	public ResponseEntity<NoiseSummaryListResponse> getUserNoises(
 		@Parameter(description = "조회할 사용자의 ID", example = "1")
-		@PathVariable Long userId
+		@PathVariable String userId
 	) {
 		NoiseSummaryListResponse response = userService.getUserNoises(userId);
 		return ResponseEntity.ok(response);
@@ -45,7 +45,7 @@ public class UserApiController {
 	@GetMapping("/noise/{noiseId}")
 	public ResponseEntity<NoiseSummaryResponse> getUserNoiseDetail(
 		@Parameter(description = "조회할 noise 데이터의 ID", example = "10", required = true)
-		@PathVariable Long noiseId
+		@PathVariable String noiseId
 	) {
 		NoiseSummaryResponse response = noiseService.getNoise(noiseId);
 		return ResponseEntity.ok(response);

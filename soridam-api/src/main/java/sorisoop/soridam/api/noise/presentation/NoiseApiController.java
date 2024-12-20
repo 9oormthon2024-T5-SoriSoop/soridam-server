@@ -19,7 +19,6 @@ import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.Positive;
 import lombok.RequiredArgsConstructor;
 import sorisoop.soridam.api.noise.application.NoiseService;
 import sorisoop.soridam.api.noise.presentation.request.NoiseCreateRequest;
@@ -101,7 +100,7 @@ public class NoiseApiController {
   	@DeleteMapping("/{id}")
   	public ResponseEntity<Void> deleteNoise(
 		@Parameter(description = "삭제할 데이터의 ID", example = "1", required = true)
-		@PathVariable @Positive Long id
+		@PathVariable String id
   	) {
     	noiseService.deleteNoise(id);
     	return ResponseEntity.noContent().build();

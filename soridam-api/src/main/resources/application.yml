@@ -10,7 +10,7 @@ spring:
 
   jpa:
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: update
       default_batch_fetch_size: 1000
       jdbc:
         time_zone: Asia/Seoul
@@ -21,7 +21,6 @@ spring:
   sql:
     init:
       mode: always
-      data-locations: classpath:data.sql
 
 springdoc:
   default-consumes-media-type: application/json

@@ -1,5 +1,7 @@
 package sorisoop.soridam.api.user.application;
 
+import static sorisoop.soridam.infra.uuid.UuidPrefix.USER;
+
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -20,7 +22,7 @@ public class UserService {
 	private final JpaUserRepository jpaUserRepository;
 
 	@Transactional(readOnly = true)
-	public NoiseSummaryListResponse getUserNoises(Long id) {
+	public NoiseSummaryListResponse getUserNoises(String id) {
 		User user = getById(id);
 
 		List<Noise> noises = user.getNoises();
@@ -32,8 +34,13 @@ public class UserService {
 		return NoiseSummaryListResponse.of(responses);
 	}
 
-	public User getById(Long id) {
-		return jpaUserRepository.findById(id)
+	public User getById(String id) {
+		return jpaUserRepository.findById(USER + id)
+			.orElseThrow(UserNotFoundException::new);
+	}
+
+	public User getByEmail(String email) {
+		return jpaUserRepository.findByEmail(email)
 			.orElseThrow(UserNotFoundException::new);
 	}
 }
