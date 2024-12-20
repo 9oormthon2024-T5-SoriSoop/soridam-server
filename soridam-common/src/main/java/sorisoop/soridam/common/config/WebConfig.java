@@ -1,4 +1,4 @@
-package sorisoop.soridam.api.config;
+package sorisoop.soridam.common.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

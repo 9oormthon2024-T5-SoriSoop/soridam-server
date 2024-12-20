@@ -1,5 +1,8 @@
 package sorisoop.soridam.api.noise.application;
 
+import static sorisoop.soridam.infra.uuid.UuidPrefix.NOISE;
+import static sorisoop.soridam.infra.uuid.UuidPrefix.USER;
+
 import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
@@ -82,15 +85,15 @@ public class NoiseService {
 	}
 
 	@Transactional(readOnly = true)
-	public NoiseSummaryResponse getNoise(Long id) {
-		Noise noise = jpaNoiseRepository.findById(id)
+	public NoiseSummaryResponse getNoise(String id) {
+		Noise noise = jpaNoiseRepository.findById(NOISE.getPrefix() + id)
 			.orElseThrow(NoiseNotFoundException::new);
 		return NoiseSummaryResponse.from(noise);
 	}
 
 	@Transactional
 	public NoisePersistResponse createNoise(NoiseCreateRequest request) {
-		User user = userService.getById(1L);
+		User user = userService.getById(USER.getPrefix() + "qnpranpswnps12@");
 		Point point = createPoint(request.x(), request.y());
 
 		Noise noise = Noise.create(
@@ -102,11 +105,11 @@ public class NoiseService {
 		);
 
 		jpaNoiseRepository.save(noise);
-		return NoisePersistResponse.of(noise.getId());
+		return NoisePersistResponse.from(noise);
 	}
 
 	@Transactional
-	public void deleteNoise(Long id) {
+	public void deleteNoise(String id) {
 		if (!jpaNoiseRepository.existsById(id)) {
 			throw new NoiseNotFoundException();
 		}

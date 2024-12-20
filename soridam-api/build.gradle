@@ -9,6 +9,6 @@ jar {
 dependencies {
     implementation project(':soridam-domain')
     implementation project(':soridam-common')
-    implementation project(':soridam-oauth')
+    implementation project(':soridam-auth')
     implementation project(':soridam-infra')
 }

@@ -1,17 +1,13 @@
 package sorisoop.soridam.domain.noise.domain;
 
 import static jakarta.persistence.FetchType.LAZY;
-import static jakarta.persistence.GenerationType.IDENTITY;
 import static lombok.AccessLevel.PROTECTED;
+import static sorisoop.soridam.infra.uuid.UuidPrefix.NOISE;
 
 import org.locationtech.jts.geom.Point;
 
-import sorisoop.soridam.common.domain.BaseTimeEntity;
-import sorisoop.soridam.domain.user.domain.User;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
@@ -19,6 +15,9 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import sorisoop.soridam.common.domain.BaseTimeEntity;
+import sorisoop.soridam.domain.user.domain.User;
+import sorisoop.soridam.infra.uuid.PrefixedUuid;
 
 @Entity
 @Getter
@@ -27,8 +26,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor(access = PROTECTED)
 public class Noise extends BaseTimeEntity {
 	@Id
-	@GeneratedValue(strategy = IDENTITY)
-	private Long id;
+	@PrefixedUuid(NOISE)
+	private String id;
 
 	@ManyToOne(fetch = LAZY)
 	@JoinColumn(name = "user_id", nullable = false)
@@ -55,5 +54,9 @@ public class Noise extends BaseTimeEntity {
 			.avgDecibel(avgDecibel)
 			.review(review)
 			.build();
+	}
+
+	public String extractUuid() {
+		return id.substring(id.indexOf("_") + 1);
 	}
 }

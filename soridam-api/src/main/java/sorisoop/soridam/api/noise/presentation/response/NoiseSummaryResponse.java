@@ -12,7 +12,7 @@ import lombok.Builder;
 @Builder
 public record NoiseSummaryResponse(
 	@Schema(description = "소음 ID", example = "1", requiredMode = REQUIRED)
-	Long id,
+	String id,
 
 	@Schema(description = "X 좌표 (경도)", example = "126.9780", requiredMode = REQUIRED)
 	double x,
@@ -35,7 +35,7 @@ public record NoiseSummaryResponse(
 	public static NoiseSummaryResponse from(Noise noise) {
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy년 MM월 dd일 HH시 mm분");
 		return builder()
-			.id(noise.getId())
+			.id(noise.extractUuid())
 			.x(noise.getPoint().getX())
 			.y(noise.getPoint().getY())
 			.avgDecibel(noise.getAvgDecibel())
