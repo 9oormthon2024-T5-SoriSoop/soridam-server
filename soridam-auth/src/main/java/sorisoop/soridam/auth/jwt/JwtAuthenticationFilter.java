@@ -11,6 +11,8 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import sorisoop.soridam.common.exception.CustomException;
+import sorisoop.soridam.common.exception.ExceptionResponse;
 
 @RequiredArgsConstructor
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
@@ -22,13 +24,32 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 	protected void doFilterInternal(
 		HttpServletRequest request, HttpServletResponse response, FilterChain filterChain
 	) throws ServletException, IOException {
-		String authorizationHeader = request.getHeader(HEADER_AUTHORIZATION);
-		String token = getAccessToken(authorizationHeader);
-		if (jwtProvider.validateToken(token)) {
-			Authentication authentication = jwtProvider.getAuthentication(token);
-			SecurityContextHolder.getContext().setAuthentication(authentication);
+		try {
+			String authorizationHeader = request.getHeader(HEADER_AUTHORIZATION);
+			String token = getAccessToken(authorizationHeader);
+			if (jwtProvider.validateToken(token)) {
+				Authentication authentication = jwtProvider.getAuthentication(token);
+				SecurityContextHolder.getContext().setAuthentication(authentication);
+			}
+			filterChain.doFilter(request, response);
+		} catch (CustomException e) {
+			setErrorResponse(e, response);
 		}
-		filterChain.doFilter(request, response);
+	}
+
+	private void setErrorResponse(CustomException exception, HttpServletResponse response) throws IOException {
+		ExceptionResponse exceptionResponse = ExceptionResponse.from(exception);
+
+		response.setStatus(exceptionResponse.status().value());
+		response.setContentType("application/json");
+		response.setCharacterEncoding("UTF-8");
+
+		String jsonResponse = String.format(
+			"{\"code\": \"%s\"}",
+			exceptionResponse.code()
+		);
+
+		response.getWriter().write(jsonResponse);
 	}
 
 	private String getAccessToken(String authorizationHeader) {
