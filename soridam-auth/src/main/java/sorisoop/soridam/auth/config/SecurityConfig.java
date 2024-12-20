@@ -1,4 +1,4 @@
-package sorisoop.soridam.auth.common;
+package sorisoop.soridam.auth.config;
 
 import java.util.Arrays;
 import java.util.Collections;
