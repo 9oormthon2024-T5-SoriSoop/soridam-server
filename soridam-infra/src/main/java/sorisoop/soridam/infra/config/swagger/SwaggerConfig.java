@@ -1,4 +1,4 @@
-package sorisoop.soridam.infra.config;
+package sorisoop.soridam.infra.config.swagger;
 
 import static java.lang.String.format;
 import static org.springframework.security.config.Elements.JWT;
@@ -18,7 +18,7 @@ import io.swagger.v3.oas.models.security.SecurityRequirement;
 import io.swagger.v3.oas.models.security.SecurityScheme;
 import io.swagger.v3.oas.models.servers.Server;
 import lombok.RequiredArgsConstructor;
-import sorisoop.soridam.infra.SoriDamConfig;
+import sorisoop.soridam.infra.config.base.SoriDamConfig;
 
 @Configuration
 @RequiredArgsConstructor

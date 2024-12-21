@@ -1,11 +1,11 @@
-package sorisoop.soridam.infra;
+package sorisoop.soridam.infra.config.base;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import sorisoop.soridam.infra.config.JpaAuditingConfig;
-import sorisoop.soridam.infra.config.JpaConfig;
-import sorisoop.soridam.infra.config.PropertiesConfig;
-import sorisoop.soridam.infra.config.SwaggerConfig;
+import sorisoop.soridam.infra.config.jpa.JpaAuditingConfig;
+import sorisoop.soridam.infra.config.jpa.JpaConfig;
+import sorisoop.soridam.infra.config.properties.PropertiesConfig;
+import sorisoop.soridam.infra.config.swagger.SwaggerConfig;
 
 @Getter
 @RequiredArgsConstructor
