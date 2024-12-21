@@ -12,7 +12,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -31,7 +30,6 @@ import sorisoop.soridam.infra.uuid.PrefixedUuid;
 @NoArgsConstructor(access = PROTECTED)
 @AllArgsConstructor(access = PROTECTED)
 public class User extends BaseTimeEntity {
-	@Id
 	@PrefixedUuid(USER)
 	private String id;
 
@@ -76,9 +74,5 @@ public class User extends BaseTimeEntity {
 			.profileImageUrl(profileImageUrl)
 			.point(0)
 			.build();
-	}
-
-	public String extractUuid() {
-		return id.substring(id.indexOf("_") + 1);
 	}
 }
