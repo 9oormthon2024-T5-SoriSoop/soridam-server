@@ -8,7 +8,6 @@ import org.locationtech.jts.geom.Point;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
@@ -25,7 +24,6 @@ import sorisoop.soridam.infra.uuid.PrefixedUuid;
 @NoArgsConstructor(access = PROTECTED)
 @AllArgsConstructor(access = PROTECTED)
 public class Noise extends BaseTimeEntity {
-	@Id
 	@PrefixedUuid(NOISE)
 	private String id;
 
@@ -54,9 +52,5 @@ public class Noise extends BaseTimeEntity {
 			.avgDecibel(avgDecibel)
 			.review(review)
 			.build();
-	}
-
-	public String extractUuid() {
-		return id.substring(id.indexOf("_") + 1);
 	}
 }
