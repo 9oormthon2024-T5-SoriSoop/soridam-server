@@ -2,7 +2,7 @@ package sorisoop.soridam.domain.user.domain;
 
 import static jakarta.persistence.CascadeType.ALL;
 import static lombok.AccessLevel.PROTECTED;
-import static sorisoop.soridam.infra.uuid.UuidPrefix.USER;
+import static sorisoop.soridam.common.uuid.UuidPrefix.USER;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -12,6 +12,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -19,9 +20,10 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import sorisoop.soridam.common.domain.BaseTimeEntity;
+import sorisoop.soridam.common.domain.UuidExtractable;
+import sorisoop.soridam.common.uuid.PrefixedUuid;
 import sorisoop.soridam.domain.noise.domain.Noise;
 import sorisoop.soridam.domain.user.exception.InvalidPasswordException;
-import sorisoop.soridam.infra.uuid.PrefixedUuid;
 
 @Entity
 @Getter
@@ -29,7 +31,8 @@ import sorisoop.soridam.infra.uuid.PrefixedUuid;
 @Table(name = "\"user\"")
 @NoArgsConstructor(access = PROTECTED)
 @AllArgsConstructor(access = PROTECTED)
-public class User extends BaseTimeEntity {
+public class User extends BaseTimeEntity implements UuidExtractable {
+	@Id
 	@PrefixedUuid(USER)
 	private String id;
 
