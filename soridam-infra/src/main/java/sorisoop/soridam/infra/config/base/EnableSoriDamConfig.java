@@ -1,4 +1,4 @@
-package sorisoop.soridam.infra;
+package sorisoop.soridam.infra.config.base;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

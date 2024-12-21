@@ -1,4 +1,4 @@
-package sorisoop.soridam.infra;
+package sorisoop.soridam.infra.config.base;
 
 import java.util.Arrays;
 import java.util.Map;

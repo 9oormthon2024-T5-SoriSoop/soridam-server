@@ -15,7 +15,6 @@ dependencies {
 
     // 도메인 및 공통 모듈
     implementation project(':soridam-common')
-    implementation project(':soridam-infra')
 
     implementation 'io.jsonwebtoken:jjwt-api:0.11.5'
     runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.11.5'

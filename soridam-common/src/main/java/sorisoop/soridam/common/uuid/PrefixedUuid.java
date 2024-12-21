@@ -1,4 +1,4 @@
-package sorisoop.soridam.infra.uuid;
+package sorisoop.soridam.common.uuid;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

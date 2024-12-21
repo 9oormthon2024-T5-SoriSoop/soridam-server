@@ -1,4 +1,4 @@
-package sorisoop.soridam.infra.config;
+package sorisoop.soridam.infra.config.jpa;
 
 import org.locationtech.jts.geom.GeometryFactory;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
@@ -9,7 +9,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 
 import jakarta.persistence.EntityManager;
-import sorisoop.soridam.infra.SoriDamConfig;
+import sorisoop.soridam.infra.config.base.SoriDamConfig;
 
 @EntityScan(basePackages = "sorisoop.soridam.domain")
 @Configuration

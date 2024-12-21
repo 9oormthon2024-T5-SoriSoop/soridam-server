@@ -1,4 +1,4 @@
-package sorisoop.soridam.common.config;
+package sorisoop.soridam.infra.config.web;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

@@ -1,6 +1,6 @@
 package sorisoop.soridam.api.user.application;
 
-import static sorisoop.soridam.infra.uuid.UuidPrefix.USER;
+import static sorisoop.soridam.common.uuid.UuidPrefix.USER;
 
 import java.util.List;
 

@@ -1,7 +1,7 @@
 package sorisoop.soridam.api.noise.application;
 
-import static sorisoop.soridam.infra.uuid.UuidPrefix.NOISE;
-import static sorisoop.soridam.infra.uuid.UuidPrefix.USER;
+import static sorisoop.soridam.common.uuid.UuidPrefix.NOISE;
+import static sorisoop.soridam.common.uuid.UuidPrefix.USER;
 
 import java.util.Comparator;
 import java.util.List;
