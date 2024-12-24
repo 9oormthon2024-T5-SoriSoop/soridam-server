@@ -31,4 +31,4 @@ springdoc:
 
 jwt:
   issuer: ${JWT_ISSUER}
-  secret_key: ${JWT_SECRET_KEY}
+  secret_key_string: ${JWT_SECRET_KEY_STRING}
