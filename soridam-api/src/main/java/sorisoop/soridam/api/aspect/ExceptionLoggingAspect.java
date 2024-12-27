@@ -8,7 +8,6 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.stereotype.Component;
-import org.springframework.web.bind.MethodArgumentNotValidException;
 
 import lombok.extern.slf4j.Slf4j;
 import sorisoop.soridam.common.exception.CustomException;
@@ -40,19 +39,6 @@ public class ExceptionLoggingAspect {
 			parameterMessage);
 		log.error("[ERROR] FINAL POINT : {}", exception.getStackTrace()[0]);
 		log.error("[ERROR] MESSAGE : {}", exception.getMessage());
-	}
-
-	@AfterThrowing(value = "logPointcut()", throwing = "exception")
-	public void logValidationException(JoinPoint joinPoint, MethodArgumentNotValidException exception) {
-		MethodSignature signature = (MethodSignature) joinPoint.getSignature();
-		String className = signature.getDeclaringType().getSimpleName();
-		String methodName = signature.getName();
-
-		// Validation 에러 정보 로깅
-		exception.getBindingResult().getFieldErrors().forEach(error -> {
-			log.error("[VALIDATION ERROR] POINT: {}.{} - Field: '{}', Rejected value: '{}', Message: '{}'",
-				className, methodName, error.getField(), error.getRejectedValue(), error.getDefaultMessage());
-		});
 	}
 
 }

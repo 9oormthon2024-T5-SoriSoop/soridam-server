@@ -18,7 +18,7 @@ import sorisoop.soridam.globalutil.logging.LoggingUtils;
 @Component
 public class ServerErrorLoggingAspect {
 
-	@Pointcut("execution(public * sorisoop.soridam.*(..)) && "
+	@Pointcut("execution(public * sorisoop.soridam..*(..)) && "
 		+ "!execution(* sorisoop.soridam.api..presentation..*(..)) && "
 		+ "!@annotation(org.springframework.boot.context.properties.ConfigurationProperties)"
 	)
