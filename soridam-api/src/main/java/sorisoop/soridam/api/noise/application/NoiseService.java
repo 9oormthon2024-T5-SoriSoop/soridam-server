@@ -1,7 +1,7 @@
 package sorisoop.soridam.api.noise.application;
 
-import static sorisoop.soridam.common.uuid.UuidPrefix.NOISE;
-import static sorisoop.soridam.common.uuid.UuidPrefix.USER;
+import static sorisoop.soridam.globalutil.uuid.UuidPrefix.NOISE;
+import static sorisoop.soridam.globalutil.uuid.UuidPrefix.USER;
 
 import java.util.Comparator;
 import java.util.List;
@@ -22,7 +22,7 @@ import sorisoop.soridam.api.noise.presentation.response.NoiseResponse;
 import sorisoop.soridam.api.noise.presentation.response.NoiseReviewResponse;
 import sorisoop.soridam.api.noise.presentation.response.NoiseSummaryResponse;
 import sorisoop.soridam.api.user.application.UserService;
-import sorisoop.soridam.common.util.GeometryUtils;
+import sorisoop.soridam.globalutil.geometry.GeometryUtils;
 import sorisoop.soridam.domain.noise.domain.Noise;
 import sorisoop.soridam.domain.noise.domain.NoiseLevel;
 import sorisoop.soridam.domain.noise.domain.Radius;

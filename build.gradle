@@ -44,6 +44,7 @@ subprojects {
         implementation 'org.springframework.boot:spring-boot-starter-data-jpa' // 데이터베이스와 상호작용 (JPA 사용)
         implementation 'org.springframework.boot:spring-boot-starter-validation' // 요청 데이터 검증
         implementation 'org.springframework.boot:spring-boot-starter-web' // RESTful API 및 웹 애플리케이션 개발
+        implementation 'org.springframework.boot:spring-boot-starter-aop'
 
         // Querydsl 관련 의존성 (타입 안전한 쿼리 작성)
         implementation 'com.querydsl:querydsl-jpa:5.0.0:jakarta' // Querydsl JPA 지원

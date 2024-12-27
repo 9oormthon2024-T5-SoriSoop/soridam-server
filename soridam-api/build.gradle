@@ -11,4 +11,5 @@ dependencies {
     implementation project(':soridam-common')
     implementation project(':soridam-auth')
     implementation project(':soridam-infra')
+    implementation project(':soridam-global-util')
 }
