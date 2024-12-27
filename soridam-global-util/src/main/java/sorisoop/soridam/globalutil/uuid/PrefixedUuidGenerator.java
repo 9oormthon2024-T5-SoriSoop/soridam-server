@@ -1,4 +1,4 @@
-package sorisoop.soridam.common.uuid;
+package sorisoop.soridam.globalutil.uuid;
 
 import java.util.UUID;
 

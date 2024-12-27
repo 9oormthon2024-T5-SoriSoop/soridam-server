@@ -2,7 +2,7 @@ package sorisoop.soridam.domain.user.domain;
 
 import static jakarta.persistence.CascadeType.ALL;
 import static lombok.AccessLevel.PROTECTED;
-import static sorisoop.soridam.common.uuid.UuidPrefix.USER;
+import static sorisoop.soridam.globalutil.uuid.UuidPrefix.USER;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -19,9 +19,9 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import sorisoop.soridam.globalutil.uuid.PrefixedUuid;
 import sorisoop.soridam.common.domain.BaseTimeEntity;
 import sorisoop.soridam.common.domain.UuidExtractable;
-import sorisoop.soridam.common.uuid.PrefixedUuid;
 import sorisoop.soridam.domain.noise.domain.Noise;
 import sorisoop.soridam.domain.user.exception.InvalidPasswordException;
 

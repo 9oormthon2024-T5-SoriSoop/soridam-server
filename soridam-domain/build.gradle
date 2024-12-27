@@ -7,6 +7,7 @@ jar {
 }
 
 dependencies {
+    implementation project(':soridam-global-util')
     implementation project(':soridam-common')
     implementation project(':soridam-infra')
 }
