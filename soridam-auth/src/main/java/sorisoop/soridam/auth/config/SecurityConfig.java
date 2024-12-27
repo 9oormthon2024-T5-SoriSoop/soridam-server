@@ -20,6 +20,8 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 
 import lombok.RequiredArgsConstructor;
+import sorisoop.soridam.auth.common.CustomAccessDeniedHandler;
+import sorisoop.soridam.auth.jwt.JwtAuthenticationEntryPoint;
 import sorisoop.soridam.auth.jwt.JwtAuthenticationFilter;
 import sorisoop.soridam.auth.jwt.JwtProvider;
 
@@ -29,6 +31,8 @@ import sorisoop.soridam.auth.jwt.JwtProvider;
 @EnableMethodSecurity(securedEnabled = true)
 public class SecurityConfig {
 	private final JwtProvider jwtProvider;
+	private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
+	private final CustomAccessDeniedHandler customAccessDeniedHandler;
 
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -48,6 +52,10 @@ public class SecurityConfig {
 				.requestMatchers(PERMIT_ALL_PATTERNS).permitAll()
 				.requestMatchers(PUBLIC_ENDPOINTS).permitAll()
 				.anyRequest().authenticated()
+			)
+			.exceptionHandling(exceptions -> exceptions
+				.authenticationEntryPoint(jwtAuthenticationEntryPoint)
+				.accessDeniedHandler(customAccessDeniedHandler)
 			)
 			.build();
 	}

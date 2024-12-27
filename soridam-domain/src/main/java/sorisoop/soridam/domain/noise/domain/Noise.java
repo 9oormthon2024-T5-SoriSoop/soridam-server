@@ -2,7 +2,7 @@ package sorisoop.soridam.domain.noise.domain;
 
 import static jakarta.persistence.FetchType.LAZY;
 import static lombok.AccessLevel.PROTECTED;
-import static sorisoop.soridam.common.uuid.UuidPrefix.NOISE;
+import static sorisoop.soridam.globalutil.uuid.UuidPrefix.NOISE;
 
 import org.locationtech.jts.geom.Point;
 
@@ -15,10 +15,10 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import sorisoop.soridam.globalutil.uuid.PrefixedUuid;
 import sorisoop.soridam.common.domain.BaseTimeEntity;
 import sorisoop.soridam.common.domain.UuidExtractable;
 import sorisoop.soridam.domain.user.domain.User;
-import sorisoop.soridam.common.uuid.PrefixedUuid;
 
 @Entity
 @Getter

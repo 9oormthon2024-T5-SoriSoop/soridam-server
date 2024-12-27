@@ -1,4 +1,4 @@
-package sorisoop.soridam.common.util;
+package sorisoop.soridam.globalutil.geometry;
 
 import org.locationtech.jts.geom.Coordinate;
 import org.locationtech.jts.geom.GeometryFactory;
