@@ -3,7 +3,7 @@ package sorisoop.soridam.domain.user.domain;
 import static jakarta.persistence.CascadeType.ALL;
 import static jakarta.persistence.EnumType.STRING;
 import static lombok.AccessLevel.PROTECTED;
-import static sorisoop.soridam.domain.user.domain.Role.ROLE_NOT_REGISTERED;
+import static sorisoop.soridam.domain.user.domain.Role.NOT_REGISTERED;
 import static sorisoop.soridam.globalutil.uuid.UuidPrefix.USER;
 
 import java.time.LocalDate;
@@ -90,12 +90,14 @@ public class User extends BaseTimeEntity implements UuidExtractable {
 			.build();
 	}
 
-	public static User kakaoOAuthCreate(String oauthIdentity, Provider provider, String profileImageUrl){
+	public static User kakaoOAuthCreate(String oauthIdentity, Provider provider, String nickname, String profileImageUrl){
 		return User.builder()
 			.OAuthIdentity(oauthIdentity)
+			.name(nickname)
+			.nickname(nickname)
 			.profileImageUrl(profileImageUrl)
 			.provider(provider)
-			.role(ROLE_NOT_REGISTERED)
+			.role(NOT_REGISTERED)
 			.build();
 	}
 }

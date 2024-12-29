@@ -1,13 +1,11 @@
 package sorisoop.soridam.auth.oauth;
 
 import java.util.Map;
-import java.util.Optional;
 
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserService;
 import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
-import org.springframework.security.oauth2.core.user.DefaultOAuth2User;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 
@@ -26,40 +24,22 @@ public class CustomOAuth2UserService implements OAuth2UserService {
 		OAuth2UserService<OAuth2UserRequest, OAuth2User> delegate = new DefaultOAuth2UserService();
 		OAuth2User oAuth2User = delegate.loadUser(userRequest);
 
-		// OAuth2 로그인 진행 시 키가 되는 필드값. Primary Key와 같은 의미.
-		String userNameAttributeName = userRequest.getClientRegistration().getProviderDetails().getUserInfoEndpoint()
-			.getUserNameAttributeName();
-
-		// 서비스를 구분하는 코드 ex) Github, Naver
 		String providerCode = userRequest.getClientRegistration().getRegistrationId();
-
-		// 어떤 소셜로그인을 사용했는지 반환받는 정적 메서드
 		Provider provider = Provider.from(providerCode);
-		// 소셜쪽에서 전달받은 값들을 Map 형태로 받음
+
 		Map<String, Object> attributes = oAuth2User.getAttributes();
+		String userNameAttributeName = userRequest.getClientRegistration().getProviderDetails()
+			.getUserInfoEndpoint().getUserNameAttributeName();
 
-		// 소셜로그인의 종류에 상관없이 사용자의 식별자를 받아오는 코드
-		OAuth2UserInfo oAuth2UserInfo = OAuth2UserInfoFactory.getOAuth2UserInfo(provider, attributes);
-		String userIdentifier = oAuth2UserInfo.getOAuth2Id();
+		User user = getUser(provider, attributes);
 
-		User user = getUser(userIdentifier, provider);
-
-		// Security context에 저장할 객체 생성
 		return UserPrincipal.create(user, attributes, userNameAttributeName);
 	}
 
-	private User getUser(String userIdentifier, Provider provider) {
-		Optional<User> optionalUser = jpaUserRepository.findByEmailAndProvider(userIdentifier, provider);
+	private User getUser(Provider provider, Map<String, Object> attributes) {
+		User newUser = OAuth2UserInfoFactory.getOAuth2UserInfo(provider, attributes);
 
-		if (optionalUser.isEmpty()) {
-			User unregisteredUser = User.builder()
-				.identifier(userIdentifier)
-				.role(Role.NOT_REGISTERED)
-				.providerInfo(providerInfo)
-				.build();
-			return jpaUserRepository.save(unregisteredUser);
-		}
-		return optionalUser.get();
-	}
+		return jpaUserRepository.findByOAuthIdentityAndProvider(newUser.getOAuthIdentity(), provider)
+			.orElseGet(() -> jpaUserRepository.save(newUser));
 	}
 }

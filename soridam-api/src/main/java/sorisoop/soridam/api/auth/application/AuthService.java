@@ -28,8 +28,8 @@ public class AuthService {
 		User user = userService.getByEmail(email);
 		user.isPasswordMatching(password, passwordEncoder);
 
-		String refreshToken = jwtProvider.generateToken(user.getId(), Duration.ofDays(7));
-		String accessToken = jwtProvider.generateToken(user.getId(), Duration.ofHours(2));
+		String refreshToken = jwtProvider.generateToken(user.getId(), user.getRole(), Duration.ofDays(7));
+		String accessToken = jwtProvider.generateToken(user.getId(), user.getRole(), Duration.ofHours(2));
 
 		return JwtResponse.of(accessToken, refreshToken);
 	}

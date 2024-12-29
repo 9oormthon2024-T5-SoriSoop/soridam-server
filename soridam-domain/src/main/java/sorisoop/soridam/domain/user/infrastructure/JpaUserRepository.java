@@ -10,5 +10,5 @@ import sorisoop.soridam.domain.user.domain.User;
 public interface JpaUserRepository extends JpaRepository<User, String> {
 	Optional<User> findByEmail(String email);
 
-	Optional<User> findByEmailAndProvider(String userIdentifier, Provider provider);
+	Optional<User> findByOAuthIdentityAndProvider(String oauthIdentifier, Provider provider);
 }

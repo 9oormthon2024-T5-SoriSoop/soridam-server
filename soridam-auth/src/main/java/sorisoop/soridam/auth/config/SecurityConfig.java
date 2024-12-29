@@ -25,8 +25,8 @@ import sorisoop.soridam.auth.jwt.JwtAuthenticationEntryPoint;
 import sorisoop.soridam.auth.jwt.JwtAuthenticationFilter;
 import sorisoop.soridam.auth.jwt.JwtProvider;
 import sorisoop.soridam.auth.oauth.CustomOAuth2UserService;
-import sorisoop.soridam.auth.oauth.OAuth2FailureHandler;
-import sorisoop.soridam.auth.oauth.OAuth2SuccessHandler;
+import sorisoop.soridam.auth.oauth.handler.OAuth2FailureHandler;
+import sorisoop.soridam.auth.oauth.handler.OAuth2SuccessHandler;
 
 @Configuration
 @EnableWebSecurity
@@ -57,6 +57,7 @@ public class SecurityConfig {
 				.requestMatchers(STATIC_RESOURCES_PATTERNS).permitAll()
 				.requestMatchers(PERMIT_ALL_PATTERNS).permitAll()
 				.requestMatchers(PUBLIC_ENDPOINTS).permitAll()
+				.requestMatchers(OAUTH2_PATTERNS).permitAll()
 				.anyRequest().authenticated()
 			)
 			.exceptionHandling(exceptions -> exceptions
@@ -70,7 +71,6 @@ public class SecurityConfig {
 			)
 			.build();
 	}
-
 	private static final String[] SWAGGER_PATTERNS = {
 		"/swagger-ui/**",
 		"/actuator/**",
@@ -94,6 +94,13 @@ public class SecurityConfig {
 		"/api/users/signup",
 		"/api/auth/**",
 	};
+
+	private static final String[] OAUTH2_PATTERNS = {
+		"/oauth2/**",               // Spring Security OAuth2 기본 경로
+		"/login/oauth2/**",         // 로그인 리다이렉트 처리 경로
+		"/oauth2/authorization/**"  // 인증 요청 트리거 경로
+	};
+
 
 	CorsConfigurationSource corsConfigurationSource() {
 		return request -> {

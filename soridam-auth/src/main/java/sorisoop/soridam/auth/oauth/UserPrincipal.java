@@ -8,12 +8,14 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import sorisoop.soridam.domain.user.domain.User;
 
 @Getter
 @Builder
+@AllArgsConstructor
 public class UserPrincipal implements OAuth2User {
 
 	private User user;
@@ -38,7 +40,7 @@ public class UserPrincipal implements OAuth2User {
 	 */
 	@Override
 	public String getName() {
-		return user.getEmail();
+		return user.getId();
 	}
 
 	public static UserPrincipal create(User user, Map<String, Object> attributes, String nameAttributeKey) {
