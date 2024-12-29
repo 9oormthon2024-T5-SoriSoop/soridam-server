@@ -24,6 +24,9 @@ import sorisoop.soridam.auth.common.CustomAccessDeniedHandler;
 import sorisoop.soridam.auth.jwt.JwtAuthenticationEntryPoint;
 import sorisoop.soridam.auth.jwt.JwtAuthenticationFilter;
 import sorisoop.soridam.auth.jwt.JwtProvider;
+import sorisoop.soridam.auth.oauth.CustomOAuth2UserService;
+import sorisoop.soridam.auth.oauth.OAuth2FailureHandler;
+import sorisoop.soridam.auth.oauth.OAuth2SuccessHandler;
 
 @Configuration
 @EnableWebSecurity
@@ -33,6 +36,9 @@ public class SecurityConfig {
 	private final JwtProvider jwtProvider;
 	private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
 	private final CustomAccessDeniedHandler customAccessDeniedHandler;
+	private final OAuth2SuccessHandler successHandler;
+	private final OAuth2FailureHandler failureHandler;
+	private final CustomOAuth2UserService customOAuth2UserService;
 
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -56,6 +62,11 @@ public class SecurityConfig {
 			.exceptionHandling(exceptions -> exceptions
 				.authenticationEntryPoint(jwtAuthenticationEntryPoint)
 				.accessDeniedHandler(customAccessDeniedHandler)
+			)
+			.oauth2Login(customConfigurer -> customConfigurer
+				.successHandler(successHandler)
+				.failureHandler(failureHandler)
+				.userInfoEndpoint(endpoint -> endpoint.userService(customOAuth2UserService))
 			)
 			.build();
 	}

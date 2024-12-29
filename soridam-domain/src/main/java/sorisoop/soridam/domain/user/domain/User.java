@@ -1,6 +1,7 @@
 package sorisoop.soridam.domain.user.domain;
 
 import static jakarta.persistence.CascadeType.ALL;
+import static jakarta.persistence.EnumType.STRING;
 import static lombok.AccessLevel.PROTECTED;
 import static sorisoop.soridam.globalutil.uuid.UuidPrefix.USER;
 
@@ -12,6 +13,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
@@ -54,6 +56,12 @@ public class User extends BaseTimeEntity implements UuidExtractable {
 	private String profileImageUrl;
 
 	private int point;
+
+	@Enumerated(STRING)
+	private Provider provider;
+
+	@Enumerated(STRING)
+	private Role role;
 
 	@OneToMany(mappedBy = "user", cascade = ALL, orphanRemoval = true)
 	@Builder.Default
