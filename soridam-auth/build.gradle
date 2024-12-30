@@ -11,7 +11,7 @@ dependencies {
 
     // OAuth 및 외부 API 호출
     implementation 'org.springframework.boot:spring-boot-starter-oauth2-client' // OAuth2 클라이언트
-    implementation 'com.google.firebase:firebase-admin:9.1.1' // Firebase Admin SDK (예시)
+    implementation 'com.google.firebase:firebase-admin:9.4.2' // Firebase Admin SDK (예시)
 
     // 도메인 및 공통 모듈
     implementation project(':soridam-common')
