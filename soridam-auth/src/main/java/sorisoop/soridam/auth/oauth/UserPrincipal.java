@@ -1,12 +1,13 @@
 package sorisoop.soridam.auth.oauth;
 
 import java.util.Collection;
-import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.oauth2.core.user.OAuth2User;
+import org.springframework.security.oauth2.core.oidc.OidcIdToken;
+import org.springframework.security.oauth2.core.oidc.OidcUserInfo;
+import org.springframework.security.oauth2.core.oidc.user.OidcUser;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -16,39 +17,45 @@ import sorisoop.soridam.domain.user.domain.User;
 @Getter
 @Builder
 @AllArgsConstructor
-public class UserPrincipal implements OAuth2User {
+public class UserPrincipal implements OidcUser {
 
 	private User user;
-	private String nameAttributeKey;
-	private Map<String, Object> attributes;
-	private Collection<? extends GrantedAuthority> authorities;
+	private OidcIdToken idToken;
 
-	public UserPrincipal(User user) {
-		this.user = user;
-		this.authorities = Collections.singletonList(new SimpleGrantedAuthority(user.getRole().getDescription()));
-	}
-
-	public UserPrincipal() {
-		this.user = user;
-		this.authorities = Collections.singletonList(new SimpleGrantedAuthority(user.getRole().getDescription()));
-		this.attributes = attributes;
-		this.nameAttributeKey = nameAttributeKey;
-	}
-
-	/**
-	 * OAuth2User method implements
-	 */
 	@Override
 	public String getName() {
 		return user.getId();
 	}
 
-	public static UserPrincipal create(User user, Map<String, Object> attributes, String nameAttributeKey) {
+	public static UserPrincipal create(User user, OidcIdToken idToken) {
 		return UserPrincipal.builder()
 			.user(user)
-			.authorities(Collections.singletonList(new SimpleGrantedAuthority(user.getRole().getDescription())))
-			.attributes(attributes)
-			.nameAttributeKey(nameAttributeKey)
+			.idToken(idToken)
 			.build();
+	}
+
+	@Override
+	public Map<String, Object> getClaims() {
+		return idToken.getClaims();
+	}
+
+	@Override
+	public OidcUserInfo getUserInfo() {
+		return new OidcUserInfo(idToken.getClaims());
+	}
+
+	@Override
+	public OidcIdToken getIdToken() {
+		return idToken;
+	}
+
+	@Override
+	public Map<String, Object> getAttributes() {
+		return idToken.getClaims();
+	}
+
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		return List.of(() -> user.getRole().getDescription());
 	}
 }

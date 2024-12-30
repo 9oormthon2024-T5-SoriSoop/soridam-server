@@ -1,6 +1,6 @@
 spring:
   config:
-    import: application-oauth2.yml
+    import: application-oicd.yml
   application:
     name: sorisoop-server
 

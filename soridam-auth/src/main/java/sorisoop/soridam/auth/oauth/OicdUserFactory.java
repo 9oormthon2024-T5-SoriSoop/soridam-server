@@ -8,18 +8,14 @@ import sorisoop.soridam.domain.user.domain.User;
 import sorisoop.soridam.domain.user.exception.ProviderNotFoundException;
 
 @Slf4j
-public class OAuth2UserInfoFactory {
+public class OicdUserFactory {
 	public static User getOAuth2UserInfo(Provider providerInfo, Map<String, Object> attributes) {
 		switch (providerInfo) {
 			case KAKAO -> {
-				String identifier = attributes.get("id").toString();
-				Map<String, Object> properties = (Map<String, Object>) attributes.get("properties");
-				if (properties == null) {
-					throw new IllegalArgumentException("properties information is missing in the attributes");
-				}
-				log.info("attributes : {}", properties);
-				String nickname = properties.get("nickname").toString();
-				String profileImageUrl = properties.get("profile_image").toString();
+				String identifier = attributes.get("sub").toString();
+				log.info("attributes : {}", attributes);
+				String nickname = attributes.get("nickname").toString();
+				String profileImageUrl = attributes.get("picture").toString();
 
 				return User.kakaoOAuthCreate(identifier, providerInfo, nickname, profileImageUrl);
 			}
