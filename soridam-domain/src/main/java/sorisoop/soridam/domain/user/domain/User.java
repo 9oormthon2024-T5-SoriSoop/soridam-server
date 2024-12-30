@@ -90,11 +90,23 @@ public class User extends BaseTimeEntity implements UuidExtractable {
 			.build();
 	}
 
-	public static User kakaoOAuthCreate(String oauthIdentity, Provider provider, String nickname, String profileImageUrl){
+	public static User kakaoOicdCreate(String oauthIdentity, Provider provider, String nickname, String profileImageUrl){
 		return User.builder()
 			.OAuthIdentity(oauthIdentity)
 			.name(nickname)
 			.nickname(nickname)
+			.profileImageUrl(profileImageUrl)
+			.provider(provider)
+			.role(NOT_REGISTERED)
+			.build();
+	}
+
+	public static User googleOicdCreate(String oauthIdentity, Provider provider, String name, String email, String profileImageUrl){
+		return User.builder()
+			.OAuthIdentity(oauthIdentity)
+			.name(name)
+			.nickname(name)
+			.email(email)
 			.profileImageUrl(profileImageUrl)
 			.provider(provider)
 			.role(NOT_REGISTERED)

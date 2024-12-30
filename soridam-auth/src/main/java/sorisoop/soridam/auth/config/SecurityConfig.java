@@ -35,7 +35,7 @@ public class SecurityConfig {
 	private final JwtProvider jwtProvider;
 	private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
 	private final CustomAccessDeniedHandler customAccessDeniedHandler;
-	private final OicdSuccessHandler successHandler;
+	private final OicdSuccessHandler oicdSuccessHandler;
 	private final CustomOidcUserService customOidcUserService;
 
 	@Bean
@@ -63,7 +63,7 @@ public class SecurityConfig {
 				.accessDeniedHandler(customAccessDeniedHandler)
 			)
 			.oauth2Login(customConfigurer -> customConfigurer
-				.successHandler(successHandler)
+				.successHandler(oicdSuccessHandler)
 				.userInfoEndpoint(endpoint -> endpoint
 					.oidcUserService(customOidcUserService)
 				)

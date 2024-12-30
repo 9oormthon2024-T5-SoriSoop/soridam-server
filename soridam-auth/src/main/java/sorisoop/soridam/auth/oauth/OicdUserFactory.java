@@ -13,11 +13,18 @@ public class OicdUserFactory {
 		switch (providerInfo) {
 			case KAKAO -> {
 				String identifier = attributes.get("sub").toString();
-				log.info("attributes : {}", attributes);
 				String nickname = attributes.get("nickname").toString();
 				String profileImageUrl = attributes.get("picture").toString();
 
-				return User.kakaoOAuthCreate(identifier, providerInfo, nickname, profileImageUrl);
+				return User.kakaoOicdCreate(identifier, providerInfo, nickname, profileImageUrl);
+			}
+			case GOOGLE -> {
+				String identifier = attributes.get("sub").toString();
+				String profileImageUrl = attributes.get("picture").toString();
+				String email = attributes.get("email").toString();
+				String name = attributes.get("name").toString();
+
+				return User.googleOicdCreate(identifier, providerInfo, name, email, profileImageUrl);
 			}
 		}
 		throw new ProviderNotFoundException();
