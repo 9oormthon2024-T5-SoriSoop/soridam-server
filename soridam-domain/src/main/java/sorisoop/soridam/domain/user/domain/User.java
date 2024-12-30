@@ -7,6 +7,7 @@ import static sorisoop.soridam.domain.user.domain.Role.NOT_REGISTERED;
 import static sorisoop.soridam.globalutil.uuid.UuidPrefix.USER;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,11 +23,11 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import sorisoop.soridam.globalutil.uuid.PrefixedUuid;
 import sorisoop.soridam.common.domain.BaseTimeEntity;
 import sorisoop.soridam.common.domain.UuidExtractable;
 import sorisoop.soridam.domain.noise.domain.Noise;
 import sorisoop.soridam.domain.user.exception.InvalidPasswordException;
+import sorisoop.soridam.globalutil.uuid.PrefixedUuid;
 
 @Entity
 @Getter
@@ -66,6 +67,8 @@ public class User extends BaseTimeEntity implements UuidExtractable {
 	@Enumerated(STRING)
 	private Role role;
 
+	private LocalDateTime lastLoginAt;
+
 	@OneToMany(mappedBy = "user", cascade = ALL, orphanRemoval = true)
 	@Builder.Default
 	private List<Noise> noises = new ArrayList<>();
@@ -94,7 +97,6 @@ public class User extends BaseTimeEntity implements UuidExtractable {
 		return User.builder()
 			.OAuthIdentity(oauthIdentity)
 			.name(nickname)
-			.nickname(nickname)
 			.profileImageUrl(profileImageUrl)
 			.provider(provider)
 			.role(NOT_REGISTERED)
@@ -105,11 +107,22 @@ public class User extends BaseTimeEntity implements UuidExtractable {
 		return User.builder()
 			.OAuthIdentity(oauthIdentity)
 			.name(name)
-			.nickname(name)
 			.email(email)
 			.profileImageUrl(profileImageUrl)
 			.provider(provider)
 			.role(NOT_REGISTERED)
 			.build();
+	}
+
+	public void updateLastLoginTime() {
+		this.lastLoginAt = LocalDateTime.now();
+	}
+
+	public void updateProfileImageUrl(String profileImageUrl) {
+		this.profileImageUrl = profileImageUrl;
+	}
+
+	public void updateNickname(String nickname) {
+		this.nickname = nickname;
 	}
 }
