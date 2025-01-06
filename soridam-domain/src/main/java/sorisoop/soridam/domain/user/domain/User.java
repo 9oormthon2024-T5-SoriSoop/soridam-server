@@ -39,7 +39,7 @@ public class User extends BaseTimeEntity implements UuidExtractable {
 	@PrefixedUuid(USER)
 	private String id;
 
-	private String OAuthIdentity;
+	private String oauthIdentity;
 
 	@Column(unique = true)
 	private String email;
@@ -92,7 +92,7 @@ public class User extends BaseTimeEntity implements UuidExtractable {
 			.build();
 	}
 
-	public static User kakaoOicdCreate(String oauthIdentity, Provider provider, String nickname, String profileImageUrl){
+	public static User kakaoOidcCreate(String oauthIdentity, Provider provider, String nickname, String profileImageUrl){
 		return User.builder()
 			.OAuthIdentity(oauthIdentity)
 			.name(nickname)
@@ -102,7 +102,7 @@ public class User extends BaseTimeEntity implements UuidExtractable {
 			.build();
 	}
 
-	public static User googleOicdCreate(String oauthIdentity, Provider provider, String name, String email, String profileImageUrl){
+	public static User googleOidcCreate(String oauthIdentity, Provider provider, String name, String email, String profileImageUrl){
 		return User.builder()
 			.OAuthIdentity(oauthIdentity)
 			.name(name)

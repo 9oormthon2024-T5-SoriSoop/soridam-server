@@ -9,13 +9,12 @@ import sorisoop.soridam.domain.user.exception.ProviderNotFoundException;
 @Getter
 @AllArgsConstructor
 public enum Provider {
-	KAKAO("kakao_account", "id", "email"),
-	GOOGLE(null, "sub", "email"),
+	KAKAO("https://kauth.kakao.com/.well-known/jwks.json", "https://kauth.kakao.com"),
+	GOOGLE("https://www.googleapis.com/oauth2/v3/certs", "https://accounts.google.com"),
 	;
 
-	private final String attributeKey;
-	private final String providerCode;
-	private final String identifier;
+	private final String jwkSetUri;
+	private final String issuer;
 
 	public static Provider from(String provider) {
 		String upperCastedProvider = provider.toUpperCase();

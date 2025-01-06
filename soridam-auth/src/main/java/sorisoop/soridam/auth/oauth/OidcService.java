@@ -1,4 +1,4 @@
-package sorisoop.soridam.auth.oauth.google;
+package sorisoop.soridam.auth.oauth;
 
 import java.time.Instant;
 import java.util.List;
@@ -8,17 +8,24 @@ import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.security.oauth2.jwt.JwtDecoder;
 import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
 
+import lombok.RequiredArgsConstructor;
 import sorisoop.soridam.auth.oauth.exception.OidcExpiredException;
 import sorisoop.soridam.auth.oauth.exception.OidcInvalidAudienceException;
 import sorisoop.soridam.auth.oauth.exception.OidcInvalidIssuerException;
 import sorisoop.soridam.auth.oauth.request.OidcLoginRequest;
+import sorisoop.soridam.domain.user.domain.Provider;
 import sorisoop.soridam.domain.user.domain.User;
+import sorisoop.soridam.domain.user.infrastructure.JpaUserRepository;
 
+@RequiredArgsConstructor
 public abstract class OidcService {
+	private final JpaUserRepository jpaUserRepository;
 
 	protected abstract String getIssuer();
 	protected abstract String getJwkSetUri();
 	protected abstract String getClientId();
+	protected abstract Provider getProvider();
+	protected abstract User createNewUser(String identifier, Map<String, Object> claims);
 
 	private JwtDecoder buildDecoder(String jwkSetUri) {
 		return NimbusJwtDecoder.withJwkSetUri(jwkSetUri).build();
@@ -41,11 +48,9 @@ public abstract class OidcService {
 		}
 	}
 
-	protected abstract User extractUserFromClaims(Map<String, Object> claims);
-
 	public User processLogin(OidcLoginRequest idToken) {
 		Map<String, Object> claims = validateAndDecodeIdToken(idToken.idToken());
-		return extractUserFromClaims(claims);
+		return findOrCreateUser(claims);
 	}
 
 	private void validateIssuer(String issuer) {
@@ -76,4 +81,17 @@ public abstract class OidcService {
 		}
 	}
 
+	protected User findOrCreateUser(Map<String, Object> claims) {
+		String identifier = claims.get("sub").toString();
+		return jpaUserRepository.findByOAuthIdentityAndProvider(identifier, getProvider())
+			.map(existingUser -> {
+				existingUser.updateLastLoginTime();
+				return jpaUserRepository.save(existingUser);
+			})
+			.orElseGet(() -> {
+				User newUser = createNewUser(identifier, claims);
+				newUser.updateLastLoginTime();
+				return jpaUserRepository.save(newUser);
+			});
+	}
 }

@@ -16,7 +16,7 @@ public class OicdUserFactory {
 				String nickname = attributes.get("nickname").toString();
 				String profileImageUrl = attributes.get("picture").toString();
 
-				return User.kakaoOicdCreate(identifier, providerInfo, nickname, profileImageUrl);
+				return User.kakaoOidcCreate(identifier, providerInfo, nickname, profileImageUrl);
 			}
 			case GOOGLE -> {
 				String identifier = attributes.get("sub").toString();
@@ -24,7 +24,7 @@ public class OicdUserFactory {
 				String email = attributes.get("email").toString();
 				String name = attributes.get("name").toString();
 
-				return User.googleOicdCreate(identifier, providerInfo, name, email, profileImageUrl);
+				return User.googleOidcCreate(identifier, providerInfo, name, email, profileImageUrl);
 			}
 		}
 		throw new ProviderNotFoundException();

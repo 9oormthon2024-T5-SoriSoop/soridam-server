@@ -4,45 +4,49 @@ import static sorisoop.soridam.domain.user.domain.Provider.KAKAO;
 
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import lombok.RequiredArgsConstructor;
-import sorisoop.soridam.auth.oauth.google.OidcService;
+import sorisoop.soridam.auth.oauth.OidcService;
+import sorisoop.soridam.domain.user.domain.Provider;
 import sorisoop.soridam.domain.user.domain.User;
 import sorisoop.soridam.domain.user.infrastructure.JpaUserRepository;
 
 @Service
-@RequiredArgsConstructor
 public class KakaoOidcService extends OidcService {
-	private final JpaUserRepository jpaUserRepository;
-	private final KakaoOidcProperties kakaoOidcProperties;
+	@Value("${oidc.client-id.kakao}")
+	private String clientId;
+
+	public KakaoOidcService(JpaUserRepository jpaUserRepository) {
+		super(jpaUserRepository);
+	}
 
 	@Override
 	protected String getIssuer() {
-		return kakaoOidcProperties.getIssuer();
+		return getProvider().getIssuer();
 	}
 
 	@Override
 	protected String getJwkSetUri() {
-		return kakaoOidcProperties.getJwkSetUri();
+		return getProvider().getJwkSetUri();
 	}
 
 	@Override
 	protected String getClientId() {
-		return kakaoOidcProperties.getClientId();
+		return clientId;
 	}
 
 	@Override
-	protected User extractUserFromClaims(Map<String, Object> claims) {
-		String identifier = (String) claims.get("sub");
+	protected Provider getProvider() {
+		return KAKAO;
+	}
+
+	@Override
+	protected User createNewUser(String identifier, Map<String, Object> claims) {
 		String nickname = (String) claims.get("nickname");
 		String profileImageUrl = (String) claims.get("picture");
 
-		return jpaUserRepository.findByOAuthIdentityAndProvider(identifier, KAKAO)
-			.orElseGet(() -> {
-				User newUser = User.kakaoOicdCreate(identifier, KAKAO, nickname, profileImageUrl);
-				return jpaUserRepository.save(newUser);
-			});
+		return User.kakaoOidcCreate(identifier, KAKAO, nickname, profileImageUrl);
 	}
 }
 

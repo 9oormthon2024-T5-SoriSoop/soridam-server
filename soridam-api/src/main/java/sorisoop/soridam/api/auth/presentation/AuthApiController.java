@@ -45,7 +45,7 @@ public class AuthApiController {
 	){
 		JwtResponse response = authService.kakaoLogin(idToken);
 		return ResponseEntity.ok(response);
-	};
+	}
 
 	@PostMapping("/oauth2/google")
 	public ResponseEntity<JwtResponse> googleSocialLogin(
@@ -55,5 +55,5 @@ public class AuthApiController {
 	){
 		JwtResponse response = authService.googleLogin(idToken);
 		return ResponseEntity.ok(response);
-	};
+	}
 }

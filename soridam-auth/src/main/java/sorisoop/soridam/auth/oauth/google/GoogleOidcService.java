@@ -3,48 +3,52 @@ package sorisoop.soridam.auth.oauth.google;
 import static sorisoop.soridam.domain.user.domain.Provider.GOOGLE;
 
 import java.util.Map;
-import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import lombok.RequiredArgsConstructor;
+import sorisoop.soridam.auth.oauth.OidcService;
+import sorisoop.soridam.domain.user.domain.Provider;
 import sorisoop.soridam.domain.user.domain.User;
 import sorisoop.soridam.domain.user.infrastructure.JpaUserRepository;
 
 @Service
-@RequiredArgsConstructor
 public class GoogleOidcService extends OidcService {
-	private final JpaUserRepository jpaUserRepository;
-	private final GoogleOidcProperties googleOidcProperties;
+	@Value("${oidc.client-id.kakao}")
+	private String clientId;
+
+	public GoogleOidcService(JpaUserRepository jpaUserRepository) {
+		super(jpaUserRepository);
+	}
 
 	@Override
 	protected String getIssuer() {
-		return googleOidcProperties.getIssuer();
+		return getProvider().getIssuer();
 	}
 
 	@Override
 	protected String getJwkSetUri() {
-		return googleOidcProperties.getJwkSetUri();
+		return getProvider().getJwkSetUri();
 	}
 
 	@Override
 	protected String getClientId() {
-		return googleOidcProperties.getClientId();
+		return clientId;
 	}
 
 	@Override
-	protected User extractUserFromClaims(Map<String, Object> claims) {
-		String identifier = claims.get("sub").toString();
+	protected Provider getProvider() {
+		return GOOGLE;
+	}
+
+	@Override
+	protected User createNewUser(String identifier, Map<String, Object> claims) {
 		String name = (String) claims.get("name");
 		String email = (String) claims.get("email");
 		String profileImageUrl = (String) claims.get("picture");
 
-		Optional<User> userOptional = jpaUserRepository.findByOAuthIdentityAndProvider(identifier, GOOGLE);
-
-		return userOptional.orElseGet(() -> {
-			User newUser = User.googleOicdCreate(identifier, GOOGLE, name, email, profileImageUrl);
-			return jpaUserRepository.save(newUser);
-		});	}
+		return User.googleOidcCreate(identifier, GOOGLE, name, email, profileImageUrl);
+	}
 }
 
 
