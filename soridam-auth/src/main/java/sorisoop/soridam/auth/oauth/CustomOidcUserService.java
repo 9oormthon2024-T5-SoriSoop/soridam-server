@@ -38,7 +38,7 @@ public class CustomOidcUserService extends OidcUserService {
 	private User getUserAndUpdateIfNeeded(Provider provider, Map<String, Object> attributes) {
 		String oAuthIdentity = attributes.get("sub").toString();
 
-		return jpaUserRepository.findByOAuthIdentityAndProvider(oAuthIdentity, provider)
+		return jpaUserRepository.findByOauthIdentityAndProvider(oAuthIdentity, provider)
 			.map(existingUser -> {
 				updateUserInfo(existingUser, attributes);
 				return existingUser;

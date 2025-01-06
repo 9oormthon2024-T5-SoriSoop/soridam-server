@@ -83,7 +83,7 @@ public abstract class OidcService {
 
 	protected User findOrCreateUser(Map<String, Object> claims) {
 		String identifier = claims.get("sub").toString();
-		return jpaUserRepository.findByOAuthIdentityAndProvider(identifier, getProvider())
+		return jpaUserRepository.findByOauthIdentityAndProvider(identifier, getProvider())
 			.map(existingUser -> {
 				existingUser.updateLastLoginTime();
 				return jpaUserRepository.save(existingUser);
