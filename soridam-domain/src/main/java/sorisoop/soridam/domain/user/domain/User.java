@@ -3,7 +3,6 @@ package sorisoop.soridam.domain.user.domain;
 import static jakarta.persistence.CascadeType.ALL;
 import static jakarta.persistence.EnumType.STRING;
 import static lombok.AccessLevel.PROTECTED;
-import static sorisoop.soridam.domain.user.domain.Role.NOT_REGISTERED;
 import static sorisoop.soridam.globalutil.uuid.UuidPrefix.USER;
 
 import java.time.LocalDate;
@@ -99,7 +98,7 @@ public class User extends BaseTimeEntity implements UuidExtractable {
 			.name(nickname)
 			.profileImageUrl(profileImageUrl)
 			.provider(provider)
-			.role(NOT_REGISTERED)
+			.role(Role.USER)
 			.build();
 	}
 
@@ -110,7 +109,7 @@ public class User extends BaseTimeEntity implements UuidExtractable {
 			.email(email)
 			.profileImageUrl(profileImageUrl)
 			.provider(provider)
-			.role(NOT_REGISTERED)
+			.role(Role.USER)
 			.build();
 	}
 

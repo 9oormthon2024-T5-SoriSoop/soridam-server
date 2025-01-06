@@ -11,12 +11,13 @@ import sorisoop.soridam.api.auth.presentation.request.jwt.JwtLoginRequest;
 import sorisoop.soridam.api.auth.presentation.response.jwt.JwtResponse;
 import sorisoop.soridam.api.user.application.UserService;
 import sorisoop.soridam.auth.jwt.JwtProvider;
-import sorisoop.soridam.auth.oauth.request.OidcLoginRequest;
 import sorisoop.soridam.auth.oauth.google.GoogleOidcService;
 import sorisoop.soridam.auth.oauth.kakao.KakaoOidcService;
+import sorisoop.soridam.auth.oauth.request.OidcLoginRequest;
 import sorisoop.soridam.domain.user.domain.User;
 
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class AuthService {
 	private final UserService userService;
@@ -25,24 +26,26 @@ public class AuthService {
 	private final PasswordEncoder passwordEncoder;
 	private final JwtProvider jwtProvider;
 
-	@Transactional(readOnly = true)
 	public JwtResponse jwtLogin(JwtLoginRequest request) {
 		String email = request.email();
 		String password = request.password();
 
 		User user = userService.getByEmail(email);
 		user.isPasswordMatching(password, passwordEncoder);
+		user.updateLastLoginTime();
 
-		return getToken(user);
-	}
-
-	public JwtResponse googleLogin(OidcLoginRequest idToken) {
-		User user = kakaoOidcService.processLogin(idToken);
 		return getToken(user);
 	}
 
 	public JwtResponse kakaoLogin(OidcLoginRequest idToken) {
+		User user = kakaoOidcService.processLogin(idToken);
+		user.updateLastLoginTime();
+		return getToken(user);
+	}
+
+	public JwtResponse googleLogin(OidcLoginRequest idToken) {
 		User user = googleOidcService.processLogin(idToken);
+		user.updateLastLoginTime();
 		return getToken(user);
 	}
 

@@ -15,7 +15,6 @@ import sorisoop.soridam.api.auth.application.AuthService;
 import sorisoop.soridam.api.auth.presentation.request.jwt.JwtLoginRequest;
 import sorisoop.soridam.api.auth.presentation.response.jwt.JwtResponse;
 import sorisoop.soridam.auth.oauth.request.OidcLoginRequest;
-import sorisoop.soridam.auth.oauth.google.GoogleOidcService;
 
 @RestController
 @RequiredArgsConstructor
@@ -23,8 +22,6 @@ import sorisoop.soridam.auth.oauth.google.GoogleOidcService;
 @RequestMapping("/api/auth")
 public class AuthApiController {
 	private final AuthService authService;
-	private final KakaoLoginService kakaoLoginService;
-	private final GoogleOidcService googleLoginService;
 
 	@Operation(summary = "JWT 로그인 API", description = """
 			- Description : 이 API는 로그인 시 JWT를 발급합니다.

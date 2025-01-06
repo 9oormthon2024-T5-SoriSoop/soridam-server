@@ -12,7 +12,7 @@ spring:
 
   jpa:
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: update
       default_batch_fetch_size: 1000
       jdbc:
         time_zone: Asia/Seoul
@@ -34,3 +34,13 @@ springdoc:
 jwt:
   issuer: ${JWT_ISSUER}
   secret_key_string: ${JWT_SECRET_KEY_STRING}
+
+oidc:
+  kakao:
+    issuer: https://kauth.kakao.com
+    jwk-set-uri: https://kauth.kakao.com/.well-known/jwks.json
+    client-id: ${KAKAO_CLIENT_ID}
+  google:
+    jwk-set-uri: https://www.googleapis.com/oauth2/v3/certs
+    issuer: https://accounts.google.com
+    client-id: ${GOOGLE_CLIENT_ID}
