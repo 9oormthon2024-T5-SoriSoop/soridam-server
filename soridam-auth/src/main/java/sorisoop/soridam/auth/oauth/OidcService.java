@@ -12,7 +12,6 @@ import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
 import lombok.RequiredArgsConstructor;
 import sorisoop.soridam.auth.oauth.exception.OidcExpiredException;
 import sorisoop.soridam.auth.oauth.exception.OidcInvalidAudienceException;
-import sorisoop.soridam.auth.oauth.exception.OidcInvalidIdTokenException;
 import sorisoop.soridam.auth.oauth.exception.OidcInvalidIssuerException;
 import sorisoop.soridam.auth.oauth.request.OidcLoginRequest;
 import sorisoop.soridam.common.domain.Provider;
@@ -34,19 +33,15 @@ public abstract class OidcService {
 	}
 
 	private OidcIdToken validateAndDecodeIdToken(String idToken) {
-		try {
-			JwtDecoder jwtDecoder = buildDecoder(getJwkSetUri());
-			Jwt jwt = jwtDecoder.decode(idToken);
-			OidcIdToken oidcIdToken = getOidcIdToken(jwt);
+		JwtDecoder jwtDecoder = buildDecoder(getJwkSetUri());
+		Jwt jwt = jwtDecoder.decode(idToken);
+		OidcIdToken oidcIdToken = getOidcIdToken(jwt);
 
-			validateIssuer(oidcIdToken.getIssuer().toString());
-			validateAudience(oidcIdToken.getAudience());
-			validateExpiration(oidcIdToken.getExpiresAt());
+		validateIssuer(oidcIdToken.getIssuer().toString());
+		validateAudience(oidcIdToken.getAudience());
+		validateExpiration(oidcIdToken.getExpiresAt());
 
-			return oidcIdToken;
-		} catch (Exception e) {
-			throw new OidcInvalidIdTokenException();
-		}
+		return oidcIdToken;
 	}
 
 	public User processLogin(OidcLoginRequest request) {
