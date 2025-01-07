@@ -23,6 +23,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import sorisoop.soridam.common.domain.BaseTimeEntity;
+import sorisoop.soridam.common.domain.Provider;
 import sorisoop.soridam.common.domain.UuidExtractable;
 import sorisoop.soridam.domain.noise.domain.Noise;
 import sorisoop.soridam.domain.user.exception.InvalidPasswordException;

@@ -3,9 +3,9 @@ package sorisoop.soridam.auth.oauth;
 import java.util.Map;
 
 import lombok.extern.slf4j.Slf4j;
-import sorisoop.soridam.domain.user.domain.Provider;
+import sorisoop.soridam.common.domain.Provider;
 import sorisoop.soridam.domain.user.domain.User;
-import sorisoop.soridam.domain.user.exception.ProviderNotFoundException;
+import sorisoop.soridam.common.exception.ProviderNotFoundException;
 
 @Slf4j
 public class OicdUserFactory {

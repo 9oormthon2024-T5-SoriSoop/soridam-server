@@ -14,7 +14,6 @@ import sorisoop.soridam.common.exception.ExceptionCode;
 public enum UserDomainExceptionCode implements ExceptionCode {
 	USER_NOT_FOUND(NOT_FOUND, "해당 회원을 찾을 수 없습니다."),
 	INVALID_PASSWORD(BAD_REQUEST, "비밀번호가 일치하지 않습니다."),
-	PROVIDER_NOT_FOUND(NOT_FOUND, "해당 제공자를 찾을 수 없습니다.")
 	;
 
 	private final HttpStatus status;

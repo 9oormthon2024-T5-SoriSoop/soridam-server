@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import lombok.RequiredArgsConstructor;
-import sorisoop.soridam.domain.user.domain.Provider;
+import sorisoop.soridam.common.domain.Provider;
 import sorisoop.soridam.domain.user.domain.User;
 import sorisoop.soridam.domain.user.infrastructure.JpaUserRepository;
 

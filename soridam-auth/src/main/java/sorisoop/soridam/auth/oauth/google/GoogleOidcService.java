@@ -1,12 +1,12 @@
 package sorisoop.soridam.auth.oauth.google;
 
-import static sorisoop.soridam.domain.user.domain.Provider.GOOGLE;
+import static sorisoop.soridam.common.domain.Provider.GOOGLE;
 
 import org.springframework.security.oauth2.core.oidc.OidcUserInfo;
 import org.springframework.stereotype.Service;
 
 import sorisoop.soridam.auth.oauth.OidcService;
-import sorisoop.soridam.domain.user.domain.Provider;
+import sorisoop.soridam.common.domain.Provider;
 import sorisoop.soridam.domain.user.domain.User;
 import sorisoop.soridam.domain.user.infrastructure.JpaUserRepository;
 

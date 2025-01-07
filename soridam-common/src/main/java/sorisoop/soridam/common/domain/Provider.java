@@ -1,10 +1,10 @@
-package sorisoop.soridam.domain.user.domain;
+package sorisoop.soridam.common.domain;
 
 import java.util.Arrays;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import sorisoop.soridam.domain.user.exception.ProviderNotFoundException;
+import sorisoop.soridam.common.exception.ProviderNotFoundException;
 
 @Getter
 @AllArgsConstructor
