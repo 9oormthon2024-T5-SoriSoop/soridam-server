@@ -24,6 +24,8 @@ import sorisoop.soridam.auth.common.CustomAccessDeniedHandler;
 import sorisoop.soridam.auth.jwt.JwtAuthenticationEntryPoint;
 import sorisoop.soridam.auth.jwt.JwtAuthenticationFilter;
 import sorisoop.soridam.auth.jwt.JwtProvider;
+import sorisoop.soridam.auth.oauth.CustomOidcUserService;
+import sorisoop.soridam.auth.oauth.handler.OicdSuccessHandler;
 
 @Configuration
 @EnableWebSecurity
@@ -33,6 +35,8 @@ public class SecurityConfig {
 	private final JwtProvider jwtProvider;
 	private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
 	private final CustomAccessDeniedHandler customAccessDeniedHandler;
+	private final OicdSuccessHandler oicdSuccessHandler;
+	private final CustomOidcUserService customOidcUserService;
 
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -51,15 +55,21 @@ public class SecurityConfig {
 				.requestMatchers(STATIC_RESOURCES_PATTERNS).permitAll()
 				.requestMatchers(PERMIT_ALL_PATTERNS).permitAll()
 				.requestMatchers(PUBLIC_ENDPOINTS).permitAll()
+				.requestMatchers(OAUTH2_PATTERNS).permitAll()
 				.anyRequest().authenticated()
 			)
 			.exceptionHandling(exceptions -> exceptions
 				.authenticationEntryPoint(jwtAuthenticationEntryPoint)
 				.accessDeniedHandler(customAccessDeniedHandler)
 			)
+			.oauth2Login(customConfigurer -> customConfigurer
+				.successHandler(oicdSuccessHandler)
+				.userInfoEndpoint(endpoint -> endpoint
+					.oidcUserService(customOidcUserService)
+				)
+			)
 			.build();
 	}
-
 	private static final String[] SWAGGER_PATTERNS = {
 		"/swagger-ui/**",
 		"/actuator/**",
@@ -83,6 +93,13 @@ public class SecurityConfig {
 		"/api/users/signup",
 		"/api/auth/**",
 	};
+
+	private static final String[] OAUTH2_PATTERNS = {
+		"/oauth2/**",               // Spring Security OAuth2 기본 경로
+		"/login/oauth2/**",         // 로그인 리다이렉트 처리 경로
+		"/oauth2/authorization/**"  // 인증 요청 트리거 경로
+	};
+
 
 	CorsConfigurationSource corsConfigurationSource() {
 		return request -> {

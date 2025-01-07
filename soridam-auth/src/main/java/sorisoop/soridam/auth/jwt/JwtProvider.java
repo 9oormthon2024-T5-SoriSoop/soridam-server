@@ -24,6 +24,7 @@ import sorisoop.soridam.auth.jwt.exception.JwtInvalidException;
 import sorisoop.soridam.auth.jwt.exception.JwtMalformedException;
 import sorisoop.soridam.auth.jwt.exception.JwtSignatureInvalidException;
 import sorisoop.soridam.auth.jwt.exception.JwtUnsupportedException;
+import sorisoop.soridam.domain.user.domain.Role;
 
 @Service
 @RequiredArgsConstructor
@@ -32,12 +33,12 @@ public class JwtProvider {
 
     private final Header header = Jwts.header().type("JWT").build();
 
-    public String generateToken(String userId, Duration expiredAt) {
+    public String generateToken(String userId, Role role, Duration expiredAt) {
         Date now = new Date();
-        return makeToken(new Date(now.getTime() + expiredAt.toMillis()), userId);
+        return makeToken(new Date(now.getTime() + expiredAt.toMillis()), userId, role);
     }
 
-    private String makeToken(Date expiry, String userId) {
+    private String makeToken(Date expiry, String userId, Role role) {
         Date now = new Date();
 
         return Jwts.builder()
@@ -47,6 +48,7 @@ public class JwtProvider {
             .expiration(expiry)
             .subject(userId)
             .claim("userId", userId)
+            .claim("role", role.name())
             .signWith(jwtProperties.getSecretKey())
             .compact();
     }

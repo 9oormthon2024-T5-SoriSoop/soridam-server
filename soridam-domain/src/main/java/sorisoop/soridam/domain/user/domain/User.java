@@ -1,10 +1,12 @@
 package sorisoop.soridam.domain.user.domain;
 
 import static jakarta.persistence.CascadeType.ALL;
+import static jakarta.persistence.EnumType.STRING;
 import static lombok.AccessLevel.PROTECTED;
 import static sorisoop.soridam.globalutil.uuid.UuidPrefix.USER;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,6 +14,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
@@ -19,11 +22,12 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import sorisoop.soridam.globalutil.uuid.PrefixedUuid;
 import sorisoop.soridam.common.domain.BaseTimeEntity;
+import sorisoop.soridam.common.domain.Provider;
 import sorisoop.soridam.common.domain.UuidExtractable;
 import sorisoop.soridam.domain.noise.domain.Noise;
 import sorisoop.soridam.domain.user.exception.InvalidPasswordException;
+import sorisoop.soridam.globalutil.uuid.PrefixedUuid;
 
 @Entity
 @Getter
@@ -35,6 +39,8 @@ public class User extends BaseTimeEntity implements UuidExtractable {
 	@Id
 	@PrefixedUuid(USER)
 	private String id;
+
+	private String oauthIdentity;
 
 	@Column(unique = true)
 	private String email;
@@ -54,6 +60,14 @@ public class User extends BaseTimeEntity implements UuidExtractable {
 	private String profileImageUrl;
 
 	private int point;
+
+	@Enumerated(STRING)
+	private Provider provider;
+
+	@Enumerated(STRING)
+	private Role role;
+
+	private LocalDateTime lastLoginAt;
 
 	@OneToMany(mappedBy = "user", cascade = ALL, orphanRemoval = true)
 	@Builder.Default
@@ -77,5 +91,38 @@ public class User extends BaseTimeEntity implements UuidExtractable {
 			.profileImageUrl(profileImageUrl)
 			.point(0)
 			.build();
+	}
+
+	public static User kakaoOidcCreate(String oauthIdentity, Provider provider, String name, String profileImageUrl){
+		return User.builder()
+			.oauthIdentity(oauthIdentity)
+			.name(name)
+			.profileImageUrl(profileImageUrl)
+			.provider(provider)
+			.role(Role.USER)
+			.build();
+	}
+
+	public static User googleOidcCreate(String oauthIdentity, Provider provider, String name, String email, String profileImageUrl){
+		return User.builder()
+			.oauthIdentity(oauthIdentity)
+			.name(name)
+			.email(email)
+			.profileImageUrl(profileImageUrl)
+			.provider(provider)
+			.role(Role.USER)
+			.build();
+	}
+
+	public void updateLastLoginTime() {
+		this.lastLoginAt = LocalDateTime.now();
+	}
+
+	public void updateProfileImageUrl(String profileImageUrl) {
+		this.profileImageUrl = profileImageUrl;
+	}
+
+	public void updateNickname(String nickname) {
+		this.nickname = nickname;
 	}
 }

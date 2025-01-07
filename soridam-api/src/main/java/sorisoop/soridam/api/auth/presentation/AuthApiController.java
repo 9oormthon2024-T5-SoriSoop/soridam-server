@@ -14,6 +14,7 @@ import lombok.RequiredArgsConstructor;
 import sorisoop.soridam.api.auth.application.AuthService;
 import sorisoop.soridam.api.auth.presentation.request.jwt.JwtLoginRequest;
 import sorisoop.soridam.api.auth.presentation.response.jwt.JwtResponse;
+import sorisoop.soridam.auth.oauth.request.OidcLoginRequest;
 
 @RestController
 @RequiredArgsConstructor
@@ -26,13 +27,33 @@ public class AuthApiController {
 			- Description : 이 API는 로그인 시 JWT를 발급합니다.
 		""")
 	@ApiResponse(responseCode = "200")
-	@PostMapping("/jwt/login")
+	@PostMapping("/login")
 	public ResponseEntity<JwtResponse> login(
 		@Valid
 		@RequestBody
 		JwtLoginRequest request
 	) {
 		JwtResponse response = authService.jwtLogin(request);
+		return ResponseEntity.ok(response);
+	}
+
+	@PostMapping("/oauth2/kakao")
+	public ResponseEntity<JwtResponse> kakaoSocialLogin(
+		@Valid
+		@RequestBody
+		OidcLoginRequest idToken
+	){
+		JwtResponse response = authService.kakaoLogin(idToken);
+		return ResponseEntity.ok(response);
+	}
+
+	@PostMapping("/oauth2/google")
+	public ResponseEntity<JwtResponse> googleSocialLogin(
+		@Valid
+		@RequestBody
+		OidcLoginRequest idToken
+	){
+		JwtResponse response = authService.googleLogin(idToken);
 		return ResponseEntity.ok(response);
 	}
 }
