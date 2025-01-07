@@ -2,9 +2,7 @@ package sorisoop.soridam.auth.oauth.kakao;
 
 import static sorisoop.soridam.domain.user.domain.Provider.KAKAO;
 
-import java.util.Map;
-
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.oauth2.core.oidc.OidcUserInfo;
 import org.springframework.stereotype.Service;
 
 import sorisoop.soridam.auth.oauth.OidcService;
@@ -14,11 +12,11 @@ import sorisoop.soridam.domain.user.infrastructure.JpaUserRepository;
 
 @Service
 public class KakaoOidcService extends OidcService {
-	@Value("${oidc.client-id.kakao}")
-	private String clientId;
+	private final KakaoOidcProperties properties;
 
-	public KakaoOidcService(JpaUserRepository jpaUserRepository) {
+	public KakaoOidcService(JpaUserRepository jpaUserRepository, KakaoOidcProperties properties) {
 		super(jpaUserRepository);
+		this.properties = properties;
 	}
 
 	@Override
@@ -33,7 +31,7 @@ public class KakaoOidcService extends OidcService {
 
 	@Override
 	protected String getClientId() {
-		return clientId;
+		return properties.getClientId();
 	}
 
 	@Override
@@ -42,11 +40,11 @@ public class KakaoOidcService extends OidcService {
 	}
 
 	@Override
-	protected User createNewUser(String identifier, Map<String, Object> claims) {
-		String nickname = (String) claims.get("nickname");
-		String profileImageUrl = (String) claims.get("picture");
+	protected User createNewUser(String identifier, OidcUserInfo oidcUserInfo) {
+		String name = oidcUserInfo.getNickName();
+		String profileImageUrl = oidcUserInfo.getPicture();
 
-		return User.kakaoOidcCreate(identifier, KAKAO, nickname, profileImageUrl);
+		return User.kakaoOidcCreate(identifier, KAKAO, name, profileImageUrl);
 	}
 }
 

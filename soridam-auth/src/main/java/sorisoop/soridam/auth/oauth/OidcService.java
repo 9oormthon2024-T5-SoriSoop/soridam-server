@@ -2,8 +2,9 @@ package sorisoop.soridam.auth.oauth;
 
 import java.time.Instant;
 import java.util.List;
-import java.util.Map;
 
+import org.springframework.security.oauth2.core.oidc.OidcIdToken;
+import org.springframework.security.oauth2.core.oidc.OidcUserInfo;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.security.oauth2.jwt.JwtDecoder;
 import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
@@ -11,6 +12,7 @@ import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
 import lombok.RequiredArgsConstructor;
 import sorisoop.soridam.auth.oauth.exception.OidcExpiredException;
 import sorisoop.soridam.auth.oauth.exception.OidcInvalidAudienceException;
+import sorisoop.soridam.auth.oauth.exception.OidcInvalidIdTokenException;
 import sorisoop.soridam.auth.oauth.exception.OidcInvalidIssuerException;
 import sorisoop.soridam.auth.oauth.request.OidcLoginRequest;
 import sorisoop.soridam.domain.user.domain.Provider;
@@ -25,32 +27,31 @@ public abstract class OidcService {
 	protected abstract String getJwkSetUri();
 	protected abstract String getClientId();
 	protected abstract Provider getProvider();
-	protected abstract User createNewUser(String identifier, Map<String, Object> claims);
+	protected abstract User createNewUser(String identifier, OidcUserInfo oidcUserInfo);
 
 	private JwtDecoder buildDecoder(String jwkSetUri) {
 		return NimbusJwtDecoder.withJwkSetUri(jwkSetUri).build();
 	}
 
-	public Map<String, Object> validateAndDecodeIdToken(String idToken) {
+	private OidcIdToken validateAndDecodeIdToken(String idToken) {
 		try {
 			JwtDecoder jwtDecoder = buildDecoder(getJwkSetUri());
 			Jwt jwt = jwtDecoder.decode(idToken);
+			OidcIdToken oidcIdToken = getOidcIdToken(jwt);
 
-			Map<String, Object> claims = jwt.getClaims();
+			validateIssuer(oidcIdToken.getIssuer().toString());
+			validateAudience(oidcIdToken.getAudience());
+			validateExpiration(oidcIdToken.getExpiresAt());
 
-			validateIssuer((String) claims.get("iss"));
-			validateAudience((List<String>) claims.get("aud"));
-			validateExpiration(claims.get("exp"));
-
-			return claims;
+			return oidcIdToken;
 		} catch (Exception e) {
-			throw new RuntimeException("Failed to validate or decode ID Token", e);
+			throw new OidcInvalidIdTokenException();
 		}
 	}
 
-	public User processLogin(OidcLoginRequest idToken) {
-		Map<String, Object> claims = validateAndDecodeIdToken(idToken.idToken());
-		return findOrCreateUser(claims);
+	public User processLogin(OidcLoginRequest request) {
+		OidcIdToken idToken = validateAndDecodeIdToken(request.idToken());
+		return findOrCreateUser(idToken);
 	}
 
 	private void validateIssuer(String issuer) {
@@ -65,31 +66,26 @@ public abstract class OidcService {
 		}
 	}
 
-	private void validateExpiration(Object expiration) {
-		if (expiration instanceof Instant) {
-			Instant expInstant = (Instant) expiration;
-			if (expInstant.isBefore(Instant.now())) {
-				throw new OidcExpiredException();
-			}
-		} else if (expiration instanceof Long) {
-			long expMillis = (Long) expiration * 1000L;
-			if (expMillis < System.currentTimeMillis()) {
-				throw new OidcExpiredException();
-			}
-		} else {
-			throw new IllegalArgumentException("Unexpected expiration type: " + expiration.getClass());
+	private void validateExpiration(Instant expiration) {
+		if (expiration.isBefore(Instant.now())) {
+			throw new OidcExpiredException();
 		}
 	}
 
-	protected User findOrCreateUser(Map<String, Object> claims) {
-		String identifier = claims.get("sub").toString();
+	private OidcIdToken getOidcIdToken(Jwt jwt) {
+		return new OidcIdToken(
+			jwt.getTokenValue(), jwt.getIssuedAt(), jwt.getExpiresAt(), jwt.getClaims());
+	}
+
+	protected User findOrCreateUser(OidcIdToken idToken) {
+		String identifier = idToken.getSubject();
 		return jpaUserRepository.findByOauthIdentityAndProvider(identifier, getProvider())
 			.map(existingUser -> {
 				existingUser.updateLastLoginTime();
 				return jpaUserRepository.save(existingUser);
 			})
 			.orElseGet(() -> {
-				User newUser = createNewUser(identifier, claims);
+				User newUser = createNewUser(identifier, new OidcUserInfo(idToken.getClaims()));
 				newUser.updateLastLoginTime();
 				return jpaUserRepository.save(newUser);
 			});
