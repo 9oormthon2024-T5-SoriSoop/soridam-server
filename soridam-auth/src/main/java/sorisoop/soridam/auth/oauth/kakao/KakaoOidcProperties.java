@@ -2,12 +2,15 @@ package sorisoop.soridam.auth.oauth.kakao;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
+import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
-import lombok.Setter;
 
 @Getter
-@Setter
 @ConfigurationProperties(prefix = "oidc.kakao")
 public class KakaoOidcProperties {
-	private String clientId;
+	private final String clientId;
+
+	public KakaoOidcProperties(@NotBlank(message = "Kakao Client ID는 필수 값입니다") String clientId) {
+		this.clientId = clientId;
+	}
 }

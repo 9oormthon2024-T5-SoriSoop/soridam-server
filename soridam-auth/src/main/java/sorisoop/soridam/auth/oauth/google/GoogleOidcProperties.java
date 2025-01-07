@@ -2,12 +2,15 @@ package sorisoop.soridam.auth.oauth.google;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
+import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
-import lombok.Setter;
 
 @Getter
-@Setter
 @ConfigurationProperties(prefix = "oidc.google")
 public class GoogleOidcProperties {
-	private String clientId;
+	private final String clientId;
+
+	public GoogleOidcProperties(@NotBlank(message = "Google Client ID는 필수 값입니다") String clientId) {
+		this.clientId = clientId;
+	}
 }

@@ -36,6 +36,7 @@ jwt:
   secret_key_string: ${JWT_SECRET_KEY_STRING}
 
 oidc:
-  client-id:
-    kakao: ${KAKAO_CLIENT_ID}
-    google: ${GOOGLE_CLIENT_ID}
+  kakao:
+    client-id: ${KAKAO_CLIENT_ID}
+  google:
+    client-id: ${GOOGLE_CLIENT_ID}
