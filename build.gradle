@@ -58,7 +58,7 @@ subprojects {
         implementation 'org.hibernate:hibernate-spatial:6.6.4.Final'
 
         //swagger
-        implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.7.0'
+        implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.8.1'
 
         // 개발 도구 및 반복 코드 감소
         compileOnly 'org.projectlombok:lombok' // Lombok으로 반복 코드 제거 (Getter, Setter 등)
