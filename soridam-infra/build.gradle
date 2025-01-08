@@ -8,4 +8,16 @@ jar {
 
 dependencies {
     implementation 'org.apache.commons:commons-collections4:4.4'
+
+    //swagger
+    implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.8.1'
+
+    // Querydsl 관련 의존성 (타입 안전한 쿼리 작성)
+    implementation 'com.querydsl:querydsl-jpa:5.0.0:jakarta'
+
+    //spring security
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+
+    // 데이터베이스와 상호작용 (JPA 사용)
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 }

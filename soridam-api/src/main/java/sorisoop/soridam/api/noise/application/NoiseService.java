@@ -12,6 +12,7 @@ import org.locationtech.jts.geom.Point;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import lombok.RequiredArgsConstructor;
 import sorisoop.soridam.api.noise.presentation.exception.NoiseNotFoundException;
 import sorisoop.soridam.api.noise.presentation.request.NoiseCreateRequest;
 import sorisoop.soridam.api.noise.presentation.request.NoiseSearchListRequest;
@@ -22,28 +23,24 @@ import sorisoop.soridam.api.noise.presentation.response.NoiseResponse;
 import sorisoop.soridam.api.noise.presentation.response.NoiseReviewResponse;
 import sorisoop.soridam.api.noise.presentation.response.NoiseSummaryResponse;
 import sorisoop.soridam.api.user.application.UserService;
-import sorisoop.soridam.globalutil.geometry.GeometryUtils;
 import sorisoop.soridam.domain.noise.domain.Noise;
 import sorisoop.soridam.domain.noise.domain.NoiseLevel;
+import sorisoop.soridam.domain.noise.domain.NoiseRepository;
 import sorisoop.soridam.domain.noise.domain.Radius;
-import sorisoop.soridam.domain.noise.infrastructure.JpaNoiseRepository;
-import sorisoop.soridam.domain.noise.infrastructure.QueryNoiseRepository;
 import sorisoop.soridam.domain.user.domain.User;
-
-import lombok.RequiredArgsConstructor;
+import sorisoop.soridam.globalutil.geometry.GeometryUtils;
 
 @Service
 @RequiredArgsConstructor
 public class NoiseService {
-	private final JpaNoiseRepository jpaNoiseRepository;
-	private final QueryNoiseRepository queryNoiseRepository;
+	private final NoiseRepository noiseRepository;
 	private final GeometryUtils geometryUtils;
 	private final UserService userService;
 
   @Transactional(readOnly = true)
   public Optional<NoiseDetailResponse> getDetailNoise(double x, double y) {
 		Point point = createPoint(x, y);
-		List<Noise> results = queryNoiseRepository.getNearbyNoises(point);
+		List<Noise> results = noiseRepository.getNearbyNoises(point);
 
 		if (results.isEmpty()) return Optional.empty();
 
@@ -63,7 +60,7 @@ public class NoiseService {
 		List<NoiseResponse> responses = requests.noiseSearchRequests().stream()
 			.map(request -> {
 				Point point = createPoint(request.x(), request.y());
-				List<Noise> results = queryNoiseRepository.findByAvgDecibleAndPoint(point, radius, noiseLevel);
+				List<Noise> results = noiseRepository.findByAvgDecibleAndPoint(point, radius, noiseLevel);
 
 				if (results.isEmpty()) return null;
 
@@ -86,7 +83,7 @@ public class NoiseService {
 
 	@Transactional(readOnly = true)
 	public NoiseSummaryResponse getNoise(String id) {
-		Noise noise = jpaNoiseRepository.findById(NOISE.getPrefix() + id)
+		Noise noise = noiseRepository.findById(NOISE.getPrefix() + id)
 			.orElseThrow(NoiseNotFoundException::new);
 		return NoiseSummaryResponse.from(noise);
 	}
@@ -104,16 +101,16 @@ public class NoiseService {
 				request.review()
 		);
 
-		jpaNoiseRepository.save(noise);
+		noiseRepository.save(noise);
 		return NoisePersistResponse.from(noise);
 	}
 
 	@Transactional
 	public void deleteNoise(String id) {
-		if (!jpaNoiseRepository.existsById(id)) {
+		if (!noiseRepository.existsById(id)) {
 			throw new NoiseNotFoundException();
 		}
-		jpaNoiseRepository.deleteById(id);
+		noiseRepository.deleteById(id);
 	}
 
 	private Point createPoint(double x, double y) {

@@ -16,11 +16,11 @@ import sorisoop.soridam.auth.oauth.exception.OidcInvalidIssuerException;
 import sorisoop.soridam.auth.oauth.request.OidcLoginRequest;
 import sorisoop.soridam.common.domain.Provider;
 import sorisoop.soridam.domain.user.domain.User;
-import sorisoop.soridam.domain.user.infrastructure.JpaUserRepository;
+import sorisoop.soridam.domain.user.domain.UserRepository;
 
 @RequiredArgsConstructor
 public abstract class OidcService {
-	private final JpaUserRepository jpaUserRepository;
+	private final UserRepository userRepository;
 
 	protected abstract String getIssuer();
 	protected abstract String getJwkSetUri();
@@ -74,15 +74,15 @@ public abstract class OidcService {
 
 	protected User findOrCreateUser(OidcIdToken idToken) {
 		String identifier = idToken.getSubject();
-		return jpaUserRepository.findByOauthIdentityAndProvider(identifier, getProvider())
+		return userRepository.findByOauthIdentityAndProvider(identifier, getProvider())
 			.map(existingUser -> {
 				existingUser.updateLastLoginTime();
-				return jpaUserRepository.save(existingUser);
+				return userRepository.save(existingUser);
 			})
 			.orElseGet(() -> {
 				User newUser = createNewUser(identifier, new OidcUserInfo(idToken.getClaims()));
 				newUser.updateLastLoginTime();
-				return jpaUserRepository.save(newUser);
+				return userRepository.save(newUser);
 			});
 	}
 }

@@ -8,20 +8,18 @@ import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
 import org.springframework.security.oauth2.core.oidc.OidcIdToken;
 import org.springframework.security.oauth2.core.oidc.user.OidcUser;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import lombok.RequiredArgsConstructor;
 import sorisoop.soridam.common.domain.Provider;
 import sorisoop.soridam.domain.user.domain.User;
-import sorisoop.soridam.domain.user.infrastructure.JpaUserRepository;
+import sorisoop.soridam.domain.user.domain.UserRepository;
 
 @Service
 @RequiredArgsConstructor
 public class CustomOidcUserService extends OidcUserService {
-	private final JpaUserRepository jpaUserRepository;
+	private final UserRepository userRepository;
 
 	@Override
-	@Transactional
 	public OidcUser loadUser(OidcUserRequest userRequest) throws OAuth2AuthenticationException {
 		OidcUser oidcUser = super.loadUser(userRequest);
 		OidcIdToken idToken = oidcUser.getIdToken();
@@ -38,7 +36,7 @@ public class CustomOidcUserService extends OidcUserService {
 	private User getUserAndUpdateIfNeeded(Provider provider, Map<String, Object> attributes) {
 		String oAuthIdentity = attributes.get("sub").toString();
 
-		return jpaUserRepository.findByOauthIdentityAndProvider(oAuthIdentity, provider)
+		return userRepository.findByOauthIdentityAndProvider(oAuthIdentity, provider)
 			.map(existingUser -> {
 				updateUserInfo(existingUser, attributes);
 				return existingUser;
@@ -46,7 +44,7 @@ public class CustomOidcUserService extends OidcUserService {
 			.orElseGet(() -> {
 				User newUser = OicdUserFactory.getOAuth2UserInfo(provider, attributes);
 				newUser.updateLastLoginTime();
-				return jpaUserRepository.save(newUser);
+				return userRepository.save(newUser);
 			});
 	}
 

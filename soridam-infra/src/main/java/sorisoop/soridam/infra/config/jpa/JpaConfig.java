@@ -1,6 +1,5 @@
 package sorisoop.soridam.infra.config.jpa;
 
-import org.locationtech.jts.geom.GeometryFactory;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -24,10 +23,5 @@ public class JpaConfig implements SoriDamConfig {
 	@Bean
 	public JPAQueryFactory jpaQueryFactory() {
 		return new JPAQueryFactory(entityManager);
-	}
-
-	@Bean
-	public GeometryFactory geometryFactory() {
-		return new GeometryFactory();
 	}
 }
