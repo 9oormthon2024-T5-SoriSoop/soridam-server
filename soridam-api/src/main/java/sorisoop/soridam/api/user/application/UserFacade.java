@@ -36,7 +36,7 @@ public class UserFacade {
 
 	@Transactional(readOnly = true)
 	public NoiseSummaryListResponse getUserNoises(String id) {
-		List<Noise> noises = userQueryService.getUserNoises(request, id);
+		List<Noise> noises = userQueryService.getUserNoises(id);
 		List<NoiseSummaryResponse> responses = noises.stream()
 			.map(NoiseSummaryResponse::from)
 			.toList();

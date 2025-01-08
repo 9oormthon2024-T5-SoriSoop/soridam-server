@@ -4,7 +4,6 @@ import static sorisoop.soridam.globalutil.uuid.UuidPrefix.USER;
 
 import java.util.List;
 
-import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,7 +19,7 @@ public class UserQueryService {
 	private final UserRepository userRepository;
 
 	@Transactional(readOnly = true)
-	public List<Noise> getUserNoises(PageRequest request, String id) {
+	public List<Noise> getUserNoises(String id) {
 		User user = getById(id);
 		return user.getNoises();
 	}

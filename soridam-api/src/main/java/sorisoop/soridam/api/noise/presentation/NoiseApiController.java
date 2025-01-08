@@ -20,12 +20,13 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import sorisoop.soridam.api.noise.application.NoiseService;
+import sorisoop.soridam.api.noise.application.NoiseFacade;
 import sorisoop.soridam.api.noise.presentation.request.NoiseCreateRequest;
 import sorisoop.soridam.api.noise.presentation.request.NoiseSearchListRequest;
 import sorisoop.soridam.api.noise.presentation.response.NoiseDetailResponse;
 import sorisoop.soridam.api.noise.presentation.response.NoiseListResponse;
 import sorisoop.soridam.api.noise.presentation.response.NoisePersistResponse;
+import sorisoop.soridam.api.noise.presentation.response.NoiseSummaryResponse;
 import sorisoop.soridam.domain.noise.domain.NoiseLevel;
 import sorisoop.soridam.domain.noise.domain.Radius;
 
@@ -34,7 +35,20 @@ import sorisoop.soridam.domain.noise.domain.Radius;
 @Tag(name = "Noise", description = "소음 API")
 @RequestMapping("/api/noises")
 public class NoiseApiController {
-	private final NoiseService noiseService;
+	private final NoiseFacade noiseFacade;
+
+	@Operation(summary = "소음 데이터 조회 API", description = """
+			- Description : 이 API는 댓글을 수정합니다.
+		""")
+	@ApiResponse(responseCode = "200")
+	@GetMapping("/noise/{noiseId}")
+	public ResponseEntity<NoiseSummaryResponse> getUserNoiseDetail(
+		@Parameter(description = "조회할 noise 데이터의 ID", example = "10", required = true)
+		@PathVariable String noiseId
+	) {
+		NoiseSummaryResponse response = noiseFacade.getNoise(noiseId);
+		return ResponseEntity.ok(response);
+	}
 
 	@Operation(summary = "주변 소음 조회 API", description = """
 			- Description : 이 API는 주변 소음을 조회합니다.
@@ -53,7 +67,7 @@ public class NoiseApiController {
 		@Parameter(description = "소음 검색 범위", example = "QUIET", required = true)
 		NoiseLevel level
 	) {
-		Optional<NoiseListResponse> response = noiseService.getNearbyNoise(request, radius, level);
+		Optional<NoiseListResponse> response = noiseFacade.getNearbyNoise(request, radius, level);
 		return response
 			.map(ResponseEntity::ok)
 			.orElseGet(() -> ResponseEntity.noContent().build());
@@ -74,7 +88,7 @@ public class NoiseApiController {
 		@Parameter(description = "y 좌표", example = "37.3405", required = true)
 		double y
 	){
-		Optional<NoiseDetailResponse> response = noiseService.getDetailNoise(x, y);
+		Optional<NoiseDetailResponse> response = noiseFacade.getDetailNoise(x, y);
 
 		return response
 			.map(ResponseEntity::ok)
@@ -89,11 +103,11 @@ public class NoiseApiController {
   	public ResponseEntity<NoisePersistResponse> createNoise(
 		  @Valid @RequestBody NoiseCreateRequest noiseCreateRequest
   	) {
-    	NoisePersistResponse response = noiseService.createNoise(noiseCreateRequest);
+    	NoisePersistResponse response = noiseFacade.createNoise(noiseCreateRequest);
     	return ResponseEntity.status(CREATED).body(response);
   	}
 
-	@Operation(summary = "소음 데이터 API", description = """
+	@Operation(summary = "소음 데이터 삭제 API", description = """
 			- Description : 이 API는 소음 데이터를 삭제합니다.
 		""")
 	@ApiResponse(responseCode = "204")
@@ -102,7 +116,9 @@ public class NoiseApiController {
 		@Parameter(description = "삭제할 데이터의 ID", example = "1", required = true)
 		@PathVariable String id
   	) {
-    	noiseService.deleteNoise(id);
-    	return ResponseEntity.noContent().build();
-  	}
+		noiseFacade.deleteNoise(id);
+		return ResponseEntity.noContent().build();
+	}
+
+
 }
