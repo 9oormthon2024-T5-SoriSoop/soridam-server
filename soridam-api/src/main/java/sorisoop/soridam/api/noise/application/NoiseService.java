@@ -22,7 +22,6 @@ import sorisoop.soridam.api.noise.presentation.response.NoisePersistResponse;
 import sorisoop.soridam.api.noise.presentation.response.NoiseResponse;
 import sorisoop.soridam.api.noise.presentation.response.NoiseReviewResponse;
 import sorisoop.soridam.api.noise.presentation.response.NoiseSummaryResponse;
-import sorisoop.soridam.api.user.application.UserService;
 import sorisoop.soridam.domain.noise.domain.Noise;
 import sorisoop.soridam.domain.noise.domain.NoiseLevel;
 import sorisoop.soridam.domain.noise.domain.NoiseRepository;

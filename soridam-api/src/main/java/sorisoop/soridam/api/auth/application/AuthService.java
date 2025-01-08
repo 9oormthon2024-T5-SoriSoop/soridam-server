@@ -9,7 +9,6 @@ import org.springframework.transaction.annotation.Transactional;
 import lombok.RequiredArgsConstructor;
 import sorisoop.soridam.api.auth.presentation.request.jwt.JwtLoginRequest;
 import sorisoop.soridam.api.auth.presentation.response.jwt.JwtResponse;
-import sorisoop.soridam.api.user.application.UserService;
 import sorisoop.soridam.auth.jwt.JwtProvider;
 import sorisoop.soridam.auth.oauth.google.GoogleOidcService;
 import sorisoop.soridam.auth.oauth.kakao.KakaoOidcService;
