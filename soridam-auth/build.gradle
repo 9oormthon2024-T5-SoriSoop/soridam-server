@@ -9,8 +9,8 @@ jar {
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
 
-    // OAuth 및 외부 API 호출
-    implementation 'org.springframework.boot:spring-boot-starter-oauth2-client' // OAuth2 클라이언트
+    // OAuth
+    implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
 
     // 도메인 및 공통 모듈
     implementation project(':soridam-common')
@@ -19,4 +19,7 @@ dependencies {
     implementation 'io.jsonwebtoken:jjwt-api:0.12.6'
     runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.12.6'
     runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.12.6'
+
+    //swagger
+    implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.8.1'
 }
