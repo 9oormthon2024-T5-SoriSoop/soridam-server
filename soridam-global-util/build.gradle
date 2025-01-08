@@ -15,4 +15,7 @@ dependencies {
 
     // 데이터베이스와 상호작용 (JPA 사용)
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+
+    // RESTful API
+    implementation 'org.springframework.boot:spring-boot-starter-web'
 }
