@@ -8,14 +8,14 @@ import org.springframework.stereotype.Service;
 import sorisoop.soridam.auth.oauth.OidcService;
 import sorisoop.soridam.common.domain.Provider;
 import sorisoop.soridam.domain.user.domain.User;
-import sorisoop.soridam.domain.user.infrastructure.JpaUserRepository;
+import sorisoop.soridam.domain.user.domain.UserRepository;
 
 @Service
 public class KakaoOidcService extends OidcService {
 	private final KakaoOidcProperties properties;
 
-	public KakaoOidcService(JpaUserRepository jpaUserRepository, KakaoOidcProperties properties) {
-		super(jpaUserRepository);
+	public KakaoOidcService(UserRepository userRepository, KakaoOidcProperties properties) {
+		super(userRepository);
 		this.properties = properties;
 	}
 

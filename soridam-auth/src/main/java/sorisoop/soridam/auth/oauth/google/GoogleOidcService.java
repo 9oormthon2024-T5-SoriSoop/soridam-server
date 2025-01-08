@@ -8,14 +8,14 @@ import org.springframework.stereotype.Service;
 import sorisoop.soridam.auth.oauth.OidcService;
 import sorisoop.soridam.common.domain.Provider;
 import sorisoop.soridam.domain.user.domain.User;
-import sorisoop.soridam.domain.user.infrastructure.JpaUserRepository;
+import sorisoop.soridam.domain.user.domain.UserRepository;
 
 @Service
 public class GoogleOidcService extends OidcService {
 	private final GoogleOidcProperties properties;
 
-	public GoogleOidcService(JpaUserRepository jpaUserRepository, GoogleOidcProperties properties) {
-		super(jpaUserRepository);
+	public GoogleOidcService(UserRepository userRepository, GoogleOidcProperties properties) {
+		super(userRepository);
 		this.properties = properties;
 	}
 
