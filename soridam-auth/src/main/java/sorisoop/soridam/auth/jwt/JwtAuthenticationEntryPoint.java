@@ -15,7 +15,6 @@ public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint {
 	@Override
 	public void commence(HttpServletRequest request, HttpServletResponse response,
 		AuthenticationException authException) {
-		log.error("JwtAuthenticationEntryPoint triggered: {}", authException.getMessage());
 		throw new UnauthorizedException();
 	}
 }

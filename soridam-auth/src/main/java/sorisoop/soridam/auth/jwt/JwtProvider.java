@@ -47,7 +47,6 @@ public class JwtProvider {
             .issuedAt(now)
             .expiration(expiry)
             .subject(userId)
-            .claim("userId", userId)
             .claim("role", role.name())
             .signWith(jwtProperties.getSecretKey())
             .compact();
@@ -79,9 +78,8 @@ public class JwtProvider {
 
     public Authentication getAuthentication(String token) {
         Claims claims = getClaims(token);
-        Set<SimpleGrantedAuthority> authorities = Collections.singleton(
-                new SimpleGrantedAuthority("ROLE_USER")
-        );
+        Set<SimpleGrantedAuthority> authorities = getRoles(claims);
+
         return new UsernamePasswordAuthenticationToken(
                 new org.springframework.security.core.userdetails.User(
                         claims.getSubject(),
@@ -91,9 +89,20 @@ public class JwtProvider {
         );
     }
 
+    public Set<SimpleGrantedAuthority> getRoles(Claims claims) {
+        String role = claims.get("role", String.class);
+
+		return switch (role) {
+			case "ADMIN" -> Collections.singleton(new SimpleGrantedAuthority("ROLE_ADMIN"));
+			case "PAID_USER" -> Collections.singleton(new SimpleGrantedAuthority("ROLE_PAID_USER"));
+			case "USER" -> Collections.singleton(new SimpleGrantedAuthority("ROLE_USER"));
+			default -> null;
+		};
+    }
+
     public String getUserId(String token) {
         Claims claims = getClaims(token);
-        return claims.get("userId", String.class);
+        return claims.getSubject();
     }
 
     private Claims getClaims(String token) {

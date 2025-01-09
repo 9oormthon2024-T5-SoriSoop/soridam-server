@@ -4,6 +4,8 @@ import static sorisoop.soridam.globalutil.uuid.UuidPrefix.USER;
 
 import java.util.List;
 
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -32,5 +34,11 @@ public class UserQueryService {
 	public User getByEmail(String email) {
 		return userRepository.findByEmail(email)
 			.orElseThrow(UserNotFoundException::new);
+	}
+
+	public User me() {
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String userId = ((UserDetails)principal).getUsername();
+		return getById(userId);
 	}
 }

@@ -17,7 +17,6 @@ import sorisoop.soridam.globalutil.logging.LoggingUtils;
 @Aspect
 @Component
 public class ExceptionLoggingAspect {
-
 	@Pointcut("execution(public * sorisoop.soridam..*(..)) && "
 		+ "!execution(* sorisoop.soridam.api..application..*(..)) && "
 		+ "!execution(* sorisoop.soridam.common..*(..)) && "
