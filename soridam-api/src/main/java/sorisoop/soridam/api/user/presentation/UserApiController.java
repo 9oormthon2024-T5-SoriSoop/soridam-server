@@ -10,17 +10,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import jakarta.validation.Valid;
-import sorisoop.soridam.api.noise.application.NoiseService;
-import sorisoop.soridam.api.noise.presentation.response.NoiseSummaryListResponse;
-import sorisoop.soridam.api.noise.presentation.response.NoiseSummaryResponse;
-import sorisoop.soridam.api.user.application.UserService;
-
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import sorisoop.soridam.api.noise.presentation.response.NoiseSummaryListResponse;
+import sorisoop.soridam.api.user.application.UserFacade;
 import sorisoop.soridam.api.user.presentation.request.UserCreateRequest;
 import sorisoop.soridam.api.user.presentation.response.UserPersistResponse;
 
@@ -29,8 +26,7 @@ import sorisoop.soridam.api.user.presentation.response.UserPersistResponse;
 @RequiredArgsConstructor
 @Tag(name = "User", description = "유저 API")
 public class UserApiController {
-	private final UserService userService;
-	private final NoiseService noiseService;
+	private final UserFacade userFacade;
 
 	@Operation(summary = "마이페이지 본인이 등록한 noise 데이터 조회 API", description = """
 			- Description : 이 API는 댓글을 수정합니다.
@@ -41,20 +37,7 @@ public class UserApiController {
 		@Parameter(description = "조회할 사용자의 ID", example = "9f3b462d-0fe9-4e7a-ae5d-74f9d9fc3ba4")
 		@PathVariable String userId
 	) {
-		NoiseSummaryListResponse response = userService.getUserNoises(userId);
-		return ResponseEntity.ok(response);
-	}
-
-	@Operation(summary = "마이페이지 본인이 등록한 noise 데이터 중 선택 데이터 조회 API", description = """
-			- Description : 이 API는 댓글을 수정합니다.
-		""")
-	@ApiResponse(responseCode = "200")
-	@GetMapping("/noise/{noiseId}")
-	public ResponseEntity<NoiseSummaryResponse> getUserNoiseDetail(
-		@Parameter(description = "조회할 noise 데이터의 ID", example = "10", required = true)
-		@PathVariable String noiseId
-	) {
-		NoiseSummaryResponse response = noiseService.getNoise(noiseId);
+		NoiseSummaryListResponse response = userFacade.getUserNoises(userId);
 		return ResponseEntity.ok(response);
 	}
 
@@ -68,7 +51,7 @@ public class UserApiController {
 		@RequestBody
 		UserCreateRequest request
 	) {
-		UserPersistResponse response = userService.signUp(request);
+		UserPersistResponse response = userFacade.signUp(request);
 		return ResponseEntity.status(CREATED).body(response);
 	}
 }

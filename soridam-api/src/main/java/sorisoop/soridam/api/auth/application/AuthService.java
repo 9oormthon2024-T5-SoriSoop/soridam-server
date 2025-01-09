@@ -9,18 +9,18 @@ import org.springframework.transaction.annotation.Transactional;
 import lombok.RequiredArgsConstructor;
 import sorisoop.soridam.api.auth.presentation.request.jwt.JwtLoginRequest;
 import sorisoop.soridam.api.auth.presentation.response.jwt.JwtResponse;
-import sorisoop.soridam.api.user.application.UserService;
 import sorisoop.soridam.auth.jwt.JwtProvider;
 import sorisoop.soridam.auth.oauth.google.GoogleOidcService;
 import sorisoop.soridam.auth.oauth.kakao.KakaoOidcService;
 import sorisoop.soridam.auth.oauth.request.OidcLoginRequest;
+import sorisoop.soridam.domain.user.application.UserQueryService;
 import sorisoop.soridam.domain.user.domain.User;
 
 @Service
 @Transactional
 @RequiredArgsConstructor
 public class AuthService {
-	private final UserService userService;
+	private final UserQueryService userQueryService;
 	private final KakaoOidcService kakaoOidcService;
 	private final GoogleOidcService googleOidcService;
 	private final PasswordEncoder passwordEncoder;
@@ -30,7 +30,7 @@ public class AuthService {
 		String email = request.email();
 		String password = request.password();
 
-		User user = userService.getByEmail(email);
+		User user = userQueryService.getByEmail(email);
 		user.isPasswordMatching(password, passwordEncoder);
 		user.updateLastLoginTime();
 
