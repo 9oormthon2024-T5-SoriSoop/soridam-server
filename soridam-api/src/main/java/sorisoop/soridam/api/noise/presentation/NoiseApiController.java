@@ -38,7 +38,7 @@ public class NoiseApiController {
 	private final NoiseFacade noiseFacade;
 
 	@Operation(summary = "소음 데이터 조회 API", description = """
-			- Description : 이 API는 댓글을 수정합니다.
+			- Description : 이 API는 해당 소음 데이터를 조회합니다.
 		""")
 	@ApiResponse(responseCode = "200")
 	@GetMapping("/noise/{noiseId}")
