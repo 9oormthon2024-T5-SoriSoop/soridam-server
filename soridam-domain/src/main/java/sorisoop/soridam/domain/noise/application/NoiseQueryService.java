@@ -30,7 +30,7 @@ public class NoiseQueryService {
 
 	public List<Noise> getNearbyNoise(double x, double y, Radius radius, NoiseLevel noiseLevel) {
 		Point point = geometryUtils.createPoint(x, y);
-		return noiseRepository.findByAvgDecibleAndPoint(point, radius, noiseLevel);
+		return noiseRepository.findByAvgDecibelAndPoint(point, radius, noiseLevel);
 	}
 
 	@Transactional(readOnly = true)

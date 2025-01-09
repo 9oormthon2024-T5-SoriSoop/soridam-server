@@ -3,7 +3,6 @@ package sorisoop.soridam.api.user.application;
 import java.util.List;
 
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
 
 import lombok.RequiredArgsConstructor;
 import sorisoop.soridam.api.noise.presentation.response.NoiseSummaryListResponse;
@@ -34,7 +33,6 @@ public class UserFacade {
 		return UserPersistResponse.from(user);
 	}
 
-	@Transactional(readOnly = true)
 	public NoiseSummaryListResponse getUserNoises(String id) {
 		List<Noise> noises = userQueryService.getUserNoises(id);
 		List<NoiseSummaryResponse> responses = noises.stream()
@@ -42,13 +40,5 @@ public class UserFacade {
 			.toList();
 
 		return NoiseSummaryListResponse.of(responses);
-	}
-
-	public User getById(String id) {
-		return userQueryService.getById(id);
-	}
-
-	public User getByEmail(String email) {
-		return userQueryService.getByEmail(email);
 	}
 }

@@ -24,8 +24,8 @@ public class NoiseRepositoryImpl implements NoiseRepository {
 	}
 
 	@Override
-	public List<Noise> findByAvgDecibleAndPoint(Point point, Radius radius, NoiseLevel noiseLevel) {
-		return queryNoiseRepository.findByAvgDecibleAndPoint(point, radius, noiseLevel);
+	public List<Noise> findByAvgDecibelAndPoint(Point point, Radius radius, NoiseLevel noiseLevel) {
+		return queryNoiseRepository.findByAvgDecibelAndPoint(point, radius, noiseLevel);
 	}
 
 	@Override
