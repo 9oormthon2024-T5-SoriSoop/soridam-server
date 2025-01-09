@@ -14,7 +14,5 @@ public interface NoiseRepository {
 
 	Noise save(Noise noise);
 
-	boolean existsById(String id);
-
-	void deleteById(String id);
+	void delete(Noise noise);
 }

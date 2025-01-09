@@ -39,12 +39,7 @@ public class NoiseRepositoryImpl implements NoiseRepository {
 	}
 
 	@Override
-	public boolean existsById(String id) {
-		return jpaNoiseRepository.existsById(id);
-	}
-
-	@Override
-	public void deleteById(String id) {
-		jpaNoiseRepository.deleteById(id);
+	public void delete(Noise noise) {
+		jpaNoiseRepository.delete(noise);
 	}
 }

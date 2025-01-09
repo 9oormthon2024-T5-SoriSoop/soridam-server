@@ -8,9 +8,10 @@ import lombok.RequiredArgsConstructor;
 import sorisoop.soridam.domain.noise.domain.Noise;
 import sorisoop.soridam.domain.noise.domain.NoiseRepository;
 import sorisoop.soridam.domain.noise.exception.NoiseNotFoundException;
-import sorisoop.soridam.domain.user.application.UserQueryService;
 import sorisoop.soridam.domain.user.domain.User;
+import sorisoop.soridam.domain.user.exception.InvalidUserException;
 import sorisoop.soridam.globalutil.geometry.GeometryUtils;
+import sorisoop.soridam.globalutil.user.UserUtil;
 
 @Service
 @Transactional
@@ -18,20 +19,26 @@ import sorisoop.soridam.globalutil.geometry.GeometryUtils;
 public class NoiseCommandService {
 	private final NoiseRepository noiseRepository;
 	private final GeometryUtils geometryUtils;
-	private final UserQueryService userQueryService;
 
-	public Noise createNoise(double x, double y, int maxDecibel, int avgDecibel, String review) {
-		User user = userQueryService.getById("qnpranpswnps12@");
+	public Noise createNoise(User user, double x, double y, int maxDecibel, int avgDecibel, String review) {
 		Point point = geometryUtils.createPoint(x, y);
 		Noise noise = Noise.create(user, point, maxDecibel, avgDecibel, review);
 
 		return noiseRepository.save(noise);
 	}
 
-	public void deleteNoise(String id) {
-		if (!noiseRepository.existsById(id)) {
-			throw new NoiseNotFoundException();
+	public void deleteNoise(User user, String id) {
+		Noise noise = noiseRepository.findById(id)
+			.orElseThrow(NoiseNotFoundException::new);
+
+		validateUser(user.getId(), noise.getUser().getId());
+
+		noiseRepository.delete(noise);
+	}
+
+	private void validateUser(String user1, String user2) {
+		if (!UserUtil.isSameUser(user1, user2)) {
+			throw new InvalidUserException();
 		}
-		noiseRepository.deleteById(id);
 	}
 }
