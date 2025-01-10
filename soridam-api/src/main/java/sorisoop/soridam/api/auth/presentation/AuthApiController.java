@@ -14,7 +14,7 @@ import lombok.RequiredArgsConstructor;
 import sorisoop.soridam.api.auth.application.AuthService;
 import sorisoop.soridam.api.auth.presentation.request.jwt.JwtLoginRequest;
 import sorisoop.soridam.api.auth.presentation.response.jwt.JwtResponse;
-import sorisoop.soridam.auth.oauth.request.OidcLoginRequest;
+import sorisoop.soridam.api.auth.presentation.request.oauth.OidcLoginRequest;
 
 @RestController
 @RequiredArgsConstructor

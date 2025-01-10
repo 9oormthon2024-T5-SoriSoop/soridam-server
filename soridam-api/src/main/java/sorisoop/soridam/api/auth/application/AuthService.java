@@ -12,7 +12,7 @@ import sorisoop.soridam.api.auth.presentation.response.jwt.JwtResponse;
 import sorisoop.soridam.auth.jwt.JwtProvider;
 import sorisoop.soridam.auth.oauth.google.GoogleOidcService;
 import sorisoop.soridam.auth.oauth.kakao.KakaoOidcService;
-import sorisoop.soridam.auth.oauth.request.OidcLoginRequest;
+import sorisoop.soridam.api.auth.presentation.request.oauth.OidcLoginRequest;
 import sorisoop.soridam.domain.user.application.UserQueryService;
 import sorisoop.soridam.domain.user.domain.User;
 
@@ -38,13 +38,13 @@ public class AuthService {
 	}
 
 	public JwtResponse kakaoLogin(OidcLoginRequest idToken) {
-		User user = kakaoOidcService.processLogin(idToken);
+		User user = kakaoOidcService.processLogin(idToken.idToken());
 		user.updateLastLoginTime();
 		return getToken(user);
 	}
 
 	public JwtResponse googleLogin(OidcLoginRequest idToken) {
-		User user = googleOidcService.processLogin(idToken);
+		User user = googleOidcService.processLogin(idToken.idToken());
 		user.updateLastLoginTime();
 		return getToken(user);
 	}

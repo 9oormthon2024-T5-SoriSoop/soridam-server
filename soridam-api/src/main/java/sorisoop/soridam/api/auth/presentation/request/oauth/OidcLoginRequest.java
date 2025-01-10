@@ -1,4 +1,4 @@
-package sorisoop.soridam.auth.oauth.request;
+package sorisoop.soridam.api.auth.presentation.request.oauth;
 
 import static io.swagger.v3.oas.annotations.media.Schema.RequiredMode.REQUIRED;
 
