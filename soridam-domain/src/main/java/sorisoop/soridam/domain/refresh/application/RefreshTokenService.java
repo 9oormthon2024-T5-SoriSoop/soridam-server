@@ -17,10 +17,8 @@ public class RefreshTokenService {
 			.orElseThrow(RefreshTokenNotFoundException::new);
 	}
 
-	public void delete(RefreshToken refreshToken) {
-		refreshTokenRepository.delete(refreshToken);
-	}
-
 	public void save(String userId, String token) {
+		refreshTokenRepository.findById(userId)
+			.ifPresent(refreshTokenRepository::delete);
 		refreshTokenRepository.save(RefreshToken.of(userId, token));
 	}}

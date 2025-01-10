@@ -31,7 +31,6 @@ public class JwtService {
 		User user = userQueryService.getById(userId);
 		JwtResponse response = getToken(user);
 
-		refreshTokenService.delete(refreshToken);
 		refreshTokenService.save(userId, response.refreshToken());
 
 		return response;
