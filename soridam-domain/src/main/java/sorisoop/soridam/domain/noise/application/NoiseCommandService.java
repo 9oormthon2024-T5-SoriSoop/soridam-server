@@ -1,5 +1,7 @@
 package sorisoop.soridam.domain.noise.application;
 
+import static sorisoop.soridam.globalutil.uuid.UuidPrefix.NOISE;
+
 import org.locationtech.jts.geom.Point;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,7 +30,7 @@ public class NoiseCommandService {
 	}
 
 	public void deleteNoise(User user, String id) {
-		Noise noise = noiseRepository.findById(id)
+		Noise noise = noiseRepository.findById(NOISE.getPrefix() + id)
 			.orElseThrow(NoiseNotFoundException::new);
 
 		validateUser(user.getId(), noise.getUser().getId());

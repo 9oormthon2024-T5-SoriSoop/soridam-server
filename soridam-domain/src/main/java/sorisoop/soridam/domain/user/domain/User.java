@@ -2,6 +2,7 @@ package sorisoop.soridam.domain.user.domain;
 
 import static jakarta.persistence.CascadeType.ALL;
 import static jakarta.persistence.EnumType.STRING;
+import static jakarta.persistence.FetchType.LAZY;
 import static lombok.AccessLevel.PROTECTED;
 import static sorisoop.soridam.globalutil.uuid.UuidPrefix.USER;
 
@@ -69,7 +70,7 @@ public class User extends BaseTimeEntity implements UuidExtractable {
 
 	private LocalDateTime lastLoginAt;
 
-	@OneToMany(mappedBy = "user", cascade = ALL, orphanRemoval = true)
+	@OneToMany(mappedBy = "user", cascade = ALL, orphanRemoval = true, fetch = LAZY)
 	@Builder.Default
 	private List<Noise> noises = new ArrayList<>();
 

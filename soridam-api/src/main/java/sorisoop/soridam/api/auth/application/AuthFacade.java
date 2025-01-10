@@ -1,6 +1,7 @@
 package sorisoop.soridam.api.auth.application;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import lombok.RequiredArgsConstructor;
 import sorisoop.soridam.api.auth.presentation.request.jwt.JwtLoginRequest;
@@ -23,12 +24,14 @@ public class AuthFacade {
 		return jwtService.jwtLogin(request.email(), request.password());
 	}
 
+	@Transactional
 	public JwtResponse kakaoLogin(OidcLoginRequest idToken) {
 		User user = kakaoOidcService.processLogin(idToken.idToken());
 		user.updateLastLoginTime();
 		return jwtService.getToken(user);
 	}
 
+	@Transactional
 	public JwtResponse googleLogin(OidcLoginRequest idToken) {
 		User user = googleOidcService.processLogin(idToken.idToken());
 		user.updateLastLoginTime();
