@@ -96,7 +96,7 @@ public class JwtProvider {
 			case "ADMIN" -> Collections.singleton(new SimpleGrantedAuthority("ROLE_ADMIN"));
 			case "PAID_USER" -> Collections.singleton(new SimpleGrantedAuthority("ROLE_PAID_USER"));
 			case "USER" -> Collections.singleton(new SimpleGrantedAuthority("ROLE_USER"));
-			default -> null;
+			default -> Collections.emptySet();
 		};
     }
 
