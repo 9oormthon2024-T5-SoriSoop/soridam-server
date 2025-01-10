@@ -22,7 +22,7 @@ import sorisoop.soridam.api.auth.presentation.request.oauth.OidcLoginRequest;
 @Tag(name = "Auth", description = "로그인 API")
 @RequestMapping("/api/auth")
 public class AuthApiController {
-	private final AuthFacade authService;
+	private final AuthFacade authFacade;
 
 	@Operation(summary = "JWT 로그인 API", description = """
 			- Description : 이 API는 로그인 시 JWT를 발급합니다.
@@ -34,7 +34,7 @@ public class AuthApiController {
 		@RequestBody
 		JwtLoginRequest request
 	) {
-		JwtResponse response = authService.jwtLogin(request);
+		JwtResponse response = authFacade.jwtLogin(request);
 		return ResponseEntity.ok(response);
 	}
 
@@ -44,7 +44,7 @@ public class AuthApiController {
 		@RequestBody
 		OidcLoginRequest request
 	){
-		JwtResponse response = authService.kakaoLogin(request);
+		JwtResponse response = authFacade.kakaoLogin(request);
 		return ResponseEntity.ok(response);
 	}
 
@@ -54,7 +54,7 @@ public class AuthApiController {
 		@RequestBody
 		OidcLoginRequest request
 	){
-		JwtResponse response = authService.googleLogin(request);
+		JwtResponse response = authFacade.googleLogin(request);
 		return ResponseEntity.ok(response);
 	}
 
@@ -64,7 +64,7 @@ public class AuthApiController {
 		@RequestBody
 		RefreshTokenRequest request
 	){
-		JwtResponse response = authService.reissue(request);
+		JwtResponse response = authFacade.reissue(request);
 		return ResponseEntity.ok(response);
 	}
 }
