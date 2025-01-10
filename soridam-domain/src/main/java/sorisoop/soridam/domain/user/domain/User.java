@@ -90,6 +90,7 @@ public class User extends BaseTimeEntity implements UuidExtractable {
 			.phoneNumber(phoneNumber)
 			.profileImageUrl(profileImageUrl)
 			.point(0)
+			.role(Role.USER)
 			.build();
 	}
 

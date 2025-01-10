@@ -11,9 +11,10 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import sorisoop.soridam.api.auth.application.AuthService;
+import sorisoop.soridam.api.auth.application.AuthFacade;
 import sorisoop.soridam.api.auth.presentation.request.jwt.JwtLoginRequest;
-import sorisoop.soridam.api.auth.presentation.response.jwt.JwtResponse;
+import sorisoop.soridam.api.auth.presentation.request.jwt.RefreshTokenRequest;
+import sorisoop.soridam.auth.jwt.response.JwtResponse;
 import sorisoop.soridam.api.auth.presentation.request.oauth.OidcLoginRequest;
 
 @RestController
@@ -21,7 +22,7 @@ import sorisoop.soridam.api.auth.presentation.request.oauth.OidcLoginRequest;
 @Tag(name = "Auth", description = "로그인 API")
 @RequestMapping("/api/auth")
 public class AuthApiController {
-	private final AuthService authService;
+	private final AuthFacade authService;
 
 	@Operation(summary = "JWT 로그인 API", description = """
 			- Description : 이 API는 로그인 시 JWT를 발급합니다.
@@ -41,9 +42,9 @@ public class AuthApiController {
 	public ResponseEntity<JwtResponse> kakaoSocialLogin(
 		@Valid
 		@RequestBody
-		OidcLoginRequest idToken
+		OidcLoginRequest request
 	){
-		JwtResponse response = authService.kakaoLogin(idToken);
+		JwtResponse response = authService.kakaoLogin(request);
 		return ResponseEntity.ok(response);
 	}
 
@@ -51,9 +52,19 @@ public class AuthApiController {
 	public ResponseEntity<JwtResponse> googleSocialLogin(
 		@Valid
 		@RequestBody
-		OidcLoginRequest idToken
+		OidcLoginRequest request
 	){
-		JwtResponse response = authService.googleLogin(idToken);
+		JwtResponse response = authService.googleLogin(request);
+		return ResponseEntity.ok(response);
+	}
+
+	@PostMapping("/reissue")
+	public ResponseEntity<JwtResponse> reissue(
+		@Valid
+		@RequestBody
+		RefreshTokenRequest request
+	){
+		JwtResponse response = authService.reissue(request);
 		return ResponseEntity.ok(response);
 	}
 }

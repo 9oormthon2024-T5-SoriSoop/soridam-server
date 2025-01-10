@@ -11,6 +11,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import sorisoop.soridam.auth.jwt.application.JwtProvider;
 import sorisoop.soridam.common.exception.CustomException;
 import sorisoop.soridam.common.exception.ExceptionResponse;
 

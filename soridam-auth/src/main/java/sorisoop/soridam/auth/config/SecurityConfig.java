@@ -23,7 +23,7 @@ import lombok.RequiredArgsConstructor;
 import sorisoop.soridam.auth.common.CustomAccessDeniedHandler;
 import sorisoop.soridam.auth.jwt.JwtAuthenticationEntryPoint;
 import sorisoop.soridam.auth.jwt.JwtAuthenticationFilter;
-import sorisoop.soridam.auth.jwt.JwtProvider;
+import sorisoop.soridam.auth.jwt.application.JwtProvider;
 
 @Configuration
 @EnableWebSecurity
@@ -51,7 +51,6 @@ public class SecurityConfig {
 				.requestMatchers(STATIC_RESOURCES_PATTERNS).permitAll()
 				.requestMatchers(PERMIT_ALL_PATTERNS).permitAll()
 				.requestMatchers(PUBLIC_ENDPOINTS).permitAll()
-				.requestMatchers(OAUTH2_PATTERNS).permitAll()
 				.anyRequest().authenticated()
 			)
 			.exceptionHandling(exceptions -> exceptions
@@ -82,12 +81,6 @@ public class SecurityConfig {
 	private static final String[] PUBLIC_ENDPOINTS = {
 		"/api/users/signup",
 		"/api/auth/**",
-	};
-
-	private static final String[] OAUTH2_PATTERNS = {
-		"/oauth2/**",               // Spring Security OAuth2 기본 경로
-		"/login/oauth2/**",         // 로그인 리다이렉트 처리 경로
-		"/oauth2/authorization/**"  // 인증 요청 트리거 경로
 	};
 
 

@@ -1,4 +1,4 @@
-package sorisoop.soridam.auth.jwt;
+package sorisoop.soridam.auth.jwt.application;
 
 import java.time.Duration;
 import java.util.Collections;
@@ -19,12 +19,14 @@ import io.jsonwebtoken.UnsupportedJwtException;
 import io.jsonwebtoken.security.Keys;
 import io.jsonwebtoken.security.SignatureException;
 import lombok.RequiredArgsConstructor;
+import sorisoop.soridam.auth.jwt.JwtProperties;
 import sorisoop.soridam.auth.jwt.exception.JwtExpiredException;
 import sorisoop.soridam.auth.jwt.exception.JwtInvalidException;
 import sorisoop.soridam.auth.jwt.exception.JwtMalformedException;
 import sorisoop.soridam.auth.jwt.exception.JwtSignatureInvalidException;
 import sorisoop.soridam.auth.jwt.exception.JwtUnsupportedException;
 import sorisoop.soridam.domain.user.domain.Role;
+import sorisoop.soridam.domain.user.exception.UnauthorizedException;
 
 @Service
 @RequiredArgsConstructor
@@ -33,9 +35,19 @@ public class JwtProvider {
 
     private final Header header = Jwts.header().type("JWT").build();
 
-    public String generateToken(String userId, Role role, Duration expiredAt) {
+    public String generateAccessToken(String userId, Role role, Duration duration) {
         Date now = new Date();
-        return makeToken(new Date(now.getTime() + expiredAt.toMillis()), userId, role);
+        return makeToken(new Date(now.getTime() + duration.toMillis()), userId, role);
+    }
+
+    public String generateAccessToken(String userId, Role role) {
+        Date now = new Date();
+        return makeToken(new Date(now.getTime() + Duration.ofDays(2).toMillis()), userId, role);
+    }
+
+    public String generateRefreshToken(String userId, Role role) {
+        Date now = new Date();
+        return makeToken(new Date(now.getTime() + Duration.ofDays(7).toMillis()), userId, role);
     }
 
     private String makeToken(Date expiry, String userId, Role role) {
@@ -96,7 +108,7 @@ public class JwtProvider {
 			case "ADMIN" -> Collections.singleton(new SimpleGrantedAuthority("ROLE_ADMIN"));
 			case "PAID_USER" -> Collections.singleton(new SimpleGrantedAuthority("ROLE_PAID_USER"));
 			case "USER" -> Collections.singleton(new SimpleGrantedAuthority("ROLE_USER"));
-			default -> Collections.emptySet();
+			default -> throw new UnauthorizedException();
 		};
     }
 

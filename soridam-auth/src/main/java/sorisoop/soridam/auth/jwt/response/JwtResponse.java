@@ -1,4 +1,4 @@
-package sorisoop.soridam.api.auth.presentation.response.jwt;
+package sorisoop.soridam.auth.jwt.response;
 
 import lombok.Builder;
 
