@@ -22,12 +22,15 @@ import sorisoop.soridam.domain.noise.application.NoiseQueryService;
 import sorisoop.soridam.domain.noise.domain.Noise;
 import sorisoop.soridam.domain.noise.domain.NoiseLevel;
 import sorisoop.soridam.domain.noise.domain.Radius;
+import sorisoop.soridam.domain.user.application.UserQueryService;
+import sorisoop.soridam.domain.user.domain.User;
 
 @Component
 @RequiredArgsConstructor
 public class NoiseFacade {
 	private final NoiseCommandService noiseCommandService;
 	private final NoiseQueryService noiseQueryService;
+	private final UserQueryService userQueryService;
 
 	public Optional<NoiseDetailResponse> getDetailNoise(double x, double y) {
 		List<Noise> results = noiseQueryService.getDetailNoise(x, y);
@@ -79,7 +82,10 @@ public class NoiseFacade {
 	}
 
 	public NoisePersistResponse createNoise(NoiseCreateRequest request) {
+		User user = userQueryService.me();
+
 		Noise noise = noiseCommandService.createNoise(
+			user,
 			request.x(), request.y(),
 			request.maxDecibel(),
 			request.avgDecibel(),
@@ -91,6 +97,7 @@ public class NoiseFacade {
 
 	@Transactional
 	public void deleteNoise(String id) {
-		noiseCommandService.deleteNoise(id);
+		User user = userQueryService.me();
+		noiseCommandService.deleteNoise(user, id);
 	}
 }

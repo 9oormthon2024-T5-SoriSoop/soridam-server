@@ -1,6 +1,6 @@
-package sorisoop.soridam.auth.common;
+package sorisoop.soridam.domain.user.exception;
 
-import static sorisoop.soridam.auth.common.AccessExceptionCode.UNAUTHORIZED;
+import static sorisoop.soridam.domain.user.exception.UserDomainExceptionCode.UNAUTHORIZED;
 
 import sorisoop.soridam.common.exception.CustomException;
 

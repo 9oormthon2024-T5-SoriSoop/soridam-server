@@ -31,7 +31,7 @@ public class QueryNoiseRepository {
 			.fetch();
 	}
   
-	public List<Noise> findByAvgDecibleAndPoint(Point point, Radius radius, NoiseLevel noiseLevel) {
+	public List<Noise> findByAvgDecibelAndPoint(Point point, Radius radius, NoiseLevel noiseLevel) {
 		QNoise noise = QNoise.noise;
 
 		return jpaQueryFactory.selectFrom(noise)

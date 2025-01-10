@@ -6,11 +6,11 @@ import lombok.RequiredArgsConstructor;
 @Getter
 @RequiredArgsConstructor
 public enum UuidPrefix {
-	USER("user_"),
-	NOISE("noise_"),
-	SOUND("sound_"),
-	IMAGE("img_"),
-	DEFAULT("def_");
+	USER("user-"),
+	NOISE("noise-"),
+	SOUND("sound-"),
+	IMAGE("img-"),
+	DEFAULT("def-");
 
 	private final String prefix;
 }

@@ -4,6 +4,8 @@ import static sorisoop.soridam.globalutil.uuid.UuidPrefix.USER;
 
 import java.util.List;
 
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -11,6 +13,7 @@ import lombok.RequiredArgsConstructor;
 import sorisoop.soridam.domain.noise.domain.Noise;
 import sorisoop.soridam.domain.user.domain.User;
 import sorisoop.soridam.domain.user.domain.UserRepository;
+import sorisoop.soridam.domain.user.exception.UnauthorizedException;
 import sorisoop.soridam.domain.user.exception.UserNotFoundException;
 
 @Service
@@ -32,5 +35,15 @@ public class UserQueryService {
 	public User getByEmail(String email) {
 		return userRepository.findByEmail(email)
 			.orElseThrow(UserNotFoundException::new);
+	}
+
+	public User me() {
+		try{
+			Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			String userId = ((UserDetails)principal).getUsername();
+			return getById(userId);
+		} catch (Exception e){
+			throw new UnauthorizedException();
+		}
 	}
 }

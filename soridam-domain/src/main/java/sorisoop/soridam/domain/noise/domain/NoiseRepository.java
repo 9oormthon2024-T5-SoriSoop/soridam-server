@@ -8,13 +8,11 @@ import org.locationtech.jts.geom.Point;
 public interface NoiseRepository {
 	List<Noise> getNearbyNoises(Point point);
 
-	List<Noise> findByAvgDecibleAndPoint(Point point, Radius radius, NoiseLevel noiseLevel);
+	List<Noise> findByAvgDecibelAndPoint(Point point, Radius radius, NoiseLevel noiseLevel);
 
 	Optional<Noise> findById(String id);
 
 	Noise save(Noise noise);
 
-	boolean existsById(String id);
-
-	void deleteById(String id);
+	void delete(Noise noise);
 }
