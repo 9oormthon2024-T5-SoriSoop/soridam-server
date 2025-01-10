@@ -15,6 +15,7 @@ dependencies {
     // 도메인 및 공통 모듈
     implementation project(':soridam-common')
     implementation project(':soridam-domain')
+    implementation project(':soridam-global-util')
 
     implementation 'io.jsonwebtoken:jjwt-api:0.12.6'
     runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.12.6'
@@ -22,4 +23,6 @@ dependencies {
 
     //swagger
     implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.8.1'
+
+    implementation 'org.springframework.boot:spring-boot-starter-data-redis'
 }

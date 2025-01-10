@@ -28,7 +28,7 @@ public class UserQueryService {
 	}
 
 	public User getById(String id) {
-		return userRepository.findById(USER.getPrefix() + id)
+		return userRepository.findById(id)
 			.orElseThrow(UserNotFoundException::new);
 	}
 
@@ -41,7 +41,7 @@ public class UserQueryService {
 		try{
 			Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 			String userId = ((UserDetails)principal).getUsername();
-			return getById(userId);
+			return getById(USER.getPrefix() + userId);
 		} catch (Exception e){
 			throw new UnauthorizedException();
 		}

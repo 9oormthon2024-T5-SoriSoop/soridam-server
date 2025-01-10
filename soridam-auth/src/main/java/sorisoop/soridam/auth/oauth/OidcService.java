@@ -13,7 +13,6 @@ import lombok.RequiredArgsConstructor;
 import sorisoop.soridam.auth.oauth.exception.OidcExpiredException;
 import sorisoop.soridam.auth.oauth.exception.OidcInvalidAudienceException;
 import sorisoop.soridam.auth.oauth.exception.OidcInvalidIssuerException;
-import sorisoop.soridam.auth.oauth.request.OidcLoginRequest;
 import sorisoop.soridam.common.domain.Provider;
 import sorisoop.soridam.domain.user.domain.User;
 import sorisoop.soridam.domain.user.domain.UserRepository;
@@ -44,9 +43,9 @@ public abstract class OidcService {
 		return oidcIdToken;
 	}
 
-	public User processLogin(OidcLoginRequest request) {
-		OidcIdToken idToken = validateAndDecodeIdToken(request.idToken());
-		return findOrCreateUser(idToken);
+	public User processLogin(String idToken) {
+		OidcIdToken oidcIdToken = validateAndDecodeIdToken(idToken);
+		return findOrCreateUser(oidcIdToken);
 	}
 
 	private void validateIssuer(String issuer) {

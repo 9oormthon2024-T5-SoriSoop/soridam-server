@@ -13,7 +13,7 @@ public record NoisePersistResponse(
 ) {
 	public static NoisePersistResponse from(Noise noise){
 		return builder()
-			.id(noise.getId())
+			.id(noise.extractUuid())
 			.build();
 	}
 }
