@@ -42,12 +42,12 @@ public class JwtProvider {
 
     public String generateAccessToken(String userId, Role role) {
         Date now = new Date();
-        return makeToken(new Date(now.getTime() + Duration.ofDays(2).toMillis()), userId, role);
+        return makeToken(new Date(now.getTime() + Duration.ofMinutes(30).toMillis()), userId, role);
     }
 
     public String generateRefreshToken(String userId, Role role) {
         Date now = new Date();
-        return makeToken(new Date(now.getTime() + Duration.ofDays(7).toMillis()), userId, role);
+        return makeToken(new Date(now.getTime() + Duration.ofDays(1).toMillis()), userId, role);
     }
 
     private String makeToken(Date expiry, String userId, Role role) {
