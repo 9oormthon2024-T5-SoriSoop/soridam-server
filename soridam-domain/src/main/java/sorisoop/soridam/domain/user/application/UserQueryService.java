@@ -13,6 +13,7 @@ import lombok.RequiredArgsConstructor;
 import sorisoop.soridam.domain.noise.domain.Noise;
 import sorisoop.soridam.domain.user.domain.User;
 import sorisoop.soridam.domain.user.domain.UserRepository;
+import sorisoop.soridam.domain.user.exception.UnauthorizedException;
 import sorisoop.soridam.domain.user.exception.UserNotFoundException;
 
 @Service
@@ -37,8 +38,12 @@ public class UserQueryService {
 	}
 
 	public User me() {
-		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		String userId = ((UserDetails)principal).getUsername();
-		return getById(userId);
+		try{
+			Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			String userId = ((UserDetails)principal).getUsername();
+			return getById(userId);
+		} catch (Exception e){
+			throw new UnauthorizedException();
+		}
 	}
 }

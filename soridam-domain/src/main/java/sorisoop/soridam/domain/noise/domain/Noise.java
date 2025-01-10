@@ -5,7 +5,6 @@ import static lombok.AccessLevel.PROTECTED;
 import static sorisoop.soridam.globalutil.uuid.UuidPrefix.NOISE;
 
 import org.locationtech.jts.geom.Point;
-import org.springframework.data.domain.Persistable;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -26,7 +25,7 @@ import sorisoop.soridam.globalutil.uuid.PrefixedUuid;
 @Builder
 @NoArgsConstructor(access = PROTECTED)
 @AllArgsConstructor(access = PROTECTED)
-public class Noise extends BaseTimeEntity implements UuidExtractable, Persistable<String> {
+public class Noise extends BaseTimeEntity implements UuidExtractable {
 	@Id
 	@PrefixedUuid(NOISE)
 	private String id;
@@ -56,10 +55,5 @@ public class Noise extends BaseTimeEntity implements UuidExtractable, Persistabl
 			.avgDecibel(avgDecibel)
 			.review(review)
 			.build();
-	}
-
-	@Override
-	public boolean isNew() {
-		return super.getCreatedAt() == null;
 	}
 }

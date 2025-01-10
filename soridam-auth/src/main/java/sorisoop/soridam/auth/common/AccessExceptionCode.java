@@ -12,7 +12,6 @@ import sorisoop.soridam.common.exception.ExceptionCode;
 @AllArgsConstructor
 public enum AccessExceptionCode implements ExceptionCode {
 	ACCESS_DENIED(FORBIDDEN, "권한이 없습니다."),
-	UNAUTHORIZED(HttpStatus.UNAUTHORIZED, "유효한 인증 정보가 없습니다.")
 	;
 
 	private final HttpStatus status;

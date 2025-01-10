@@ -10,7 +10,6 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.data.domain.Persistable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import jakarta.persistence.Column;
@@ -36,7 +35,7 @@ import sorisoop.soridam.globalutil.uuid.PrefixedUuid;
 @Table(name = "\"user\"")
 @NoArgsConstructor(access = PROTECTED)
 @AllArgsConstructor(access = PROTECTED)
-public class User extends BaseTimeEntity implements UuidExtractable, Persistable<String> {
+public class User extends BaseTimeEntity implements UuidExtractable {
 	@Id
 	@PrefixedUuid(USER)
 	private String id;
@@ -125,10 +124,5 @@ public class User extends BaseTimeEntity implements UuidExtractable, Persistable
 
 	public void updateNickname(String nickname) {
 		this.nickname = nickname;
-	}
-
-	@Override
-	public boolean isNew() {
-		return getCreatedAt() == null;
 	}
 }

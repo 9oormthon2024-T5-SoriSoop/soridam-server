@@ -5,6 +5,6 @@ public interface UuidExtractable {
 
 	default String extractUuid() {
 		String id = getId();
-		return id != null && id.contains("-") ? id.substring(id.indexOf("_") + 1) : null;
+		return id != null && id.contains("-") ? id.substring(id.indexOf("-") + 1) : null;
 	}
 }
