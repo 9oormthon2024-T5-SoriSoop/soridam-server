@@ -28,16 +28,16 @@ public class KafkaConsumerConfig {
 	}
 
 	@Bean
-	public ConsumerFactory<String, Object> noiseConsumer() {
+	public ConsumerFactory<String, Object> userConsumer() {
 		Map<String, Object> props = new HashMap<>(commonConsumerProps());
-		props.put(ConsumerConfig.GROUP_ID_CONFIG, "noise-events-group");
+		props.put(ConsumerConfig.GROUP_ID_CONFIG, "user-events-group");
 		return new DefaultKafkaConsumerFactory<>(props);
 	}
 
-	@Bean(name = "noiseEventsGroup")
-	public ConcurrentKafkaListenerContainerFactory<String, Object> kafkaListenerContainerFactoryGroup1() {
+	@Bean(name = "userEventsGroup")
+	public ConcurrentKafkaListenerContainerFactory<String, Object> userKafkaListenerContainerFactory() {
 		ConcurrentKafkaListenerContainerFactory<String, Object> factory = new ConcurrentKafkaListenerContainerFactory<>();
-		factory.setConsumerFactory(noiseConsumer());
+		factory.setConsumerFactory(userConsumer());
 		return factory;
 	}
 }

@@ -35,7 +35,7 @@ public class KafkaProducerConfig {
 
 	@Bean
 	public NewTopic createEventsTopic() {
-		return new NewTopic("noise-events-topic", 3, (short) 1);
+		return new NewTopic("user-events-topic", 3, (short) 1);
 	}
 
 }
