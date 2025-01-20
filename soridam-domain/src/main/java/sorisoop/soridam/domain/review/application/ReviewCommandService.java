@@ -8,7 +8,6 @@ import org.springframework.transaction.annotation.Transactional;
 import lombok.RequiredArgsConstructor;
 import sorisoop.soridam.domain.review.domain.Review;
 import sorisoop.soridam.domain.review.domain.ReviewRepository;
-import sorisoop.soridam.domain.review.exception.ReviewNotFoundException;
 import sorisoop.soridam.domain.user.domain.User;
 import sorisoop.soridam.domain.user.exception.InvalidUserException;
 import sorisoop.soridam.globalutil.user.UserUtil;
@@ -26,17 +25,14 @@ public class ReviewCommandService {
 		return reviewRepository.save(review);
 	}
 
-	public void update(Review review, String content, BigDecimal rating) {
+	public void update(User user, Review review, String content, BigDecimal rating) {
+		validateUser(user.getId(), review.getAuthorId());
 		review.updateContent(content);
 		review.updateRating(rating);
 	}
 
-	public void delete(User user, String id) {
-		Review review = reviewRepository.findById(id)
-			.orElseThrow(ReviewNotFoundException::new);
-
+	public void delete(User user, Review review) {
 		validateUser(user.getId(), review.getAuthorId());
-
 		reviewRepository.delete(review);
 	}
 

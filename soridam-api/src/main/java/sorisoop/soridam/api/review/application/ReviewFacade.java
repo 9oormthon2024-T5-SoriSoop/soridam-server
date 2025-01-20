@@ -34,12 +34,14 @@ public class ReviewFacade {
 	}
 
 	public void update(String reviewId, ReviewUpdateRequest request) {
+		User user = userQueryService.me();
 		Review review = reviewQueryService.getById(reviewId);
-		reviewCommandService.update(review, request.content(), request.rating());
+		reviewCommandService.update(user, review, request.content(), request.rating());
 	}
 
 	public void delete(String reviewId) {
 		User user = userQueryService.me();
-		reviewCommandService.delete(user, reviewId);
+		Review review = reviewQueryService.getById(reviewId);
+		reviewCommandService.delete(user, review);
 	}
 }
