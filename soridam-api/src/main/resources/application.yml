@@ -30,6 +30,10 @@ spring:
       port: ${REDIS_PORT:6379}
       password: ${REDIS_PASSWORD}
 
+    mongodb:
+      uri: mongodb://root:root@localhost:27017/soridam?authSource=admin
+      database: soridam
+
 springdoc:
   default-consumes-media-type: application/json
   default-produces-media-type: application/json
