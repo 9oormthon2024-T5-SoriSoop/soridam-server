@@ -28,7 +28,7 @@ import sorisoop.soridam.globalutil.uuid.UuidPrefix;
 public class Review extends BaseTimeEntity implements UuidExtractable {
 	@Id
 	@PrefixedUuid(REVIEW)
-	private Long id;
+	private String id;
 
 	@Column(nullable = false)
 	private String targetId;
