@@ -41,7 +41,7 @@ public class NoiseApiController {
 			- Description : 이 API는 해당 소음 데이터를 조회합니다.
 		""")
 	@ApiResponse(responseCode = "200")
-	@GetMapping("/noise/{noiseId}")
+	@GetMapping("/{noiseId}")
 	public ResponseEntity<NoiseSummaryResponse> getUserNoiseDetail(
 		@Parameter(description = "조회할 noise 데이터의 ID", example = "10", required = true)
 		@PathVariable String noiseId
