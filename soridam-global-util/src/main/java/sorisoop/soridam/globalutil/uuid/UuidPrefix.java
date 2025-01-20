@@ -10,7 +10,9 @@ public enum UuidPrefix {
 	NOISE("noise-"),
 	SOUND("sound-"),
 	IMAGE("img-"),
-	DEFAULT("def-");
+	DEFAULT("def-"),
+	REVIEW("review-"),
+	;
 
 	private final String prefix;
 }
