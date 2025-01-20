@@ -19,7 +19,7 @@ public record ReviewCreateRequest(
 	String targetId,
 
 	@Schema(description = "게시글 타입", example = "NOISE", requiredMode = REQUIRED)
-	@NotBlank
+	@NotNull
 	UuidPrefix reviewType,
 
 	@Schema(description = "작성 내용", example = "content", requiredMode = REQUIRED)
