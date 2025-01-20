@@ -12,7 +12,7 @@ public record NoisePersistResponse(
 	String id
 ) {
 	public static NoisePersistResponse from(Noise noise){
-		return builder()
+		return NoisePersistResponse.builder()
 			.id(noise.extractUuid())
 			.build();
 	}
