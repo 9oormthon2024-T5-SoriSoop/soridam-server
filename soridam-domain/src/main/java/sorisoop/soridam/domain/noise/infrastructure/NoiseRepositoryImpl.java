@@ -16,16 +16,18 @@ import sorisoop.soridam.domain.noise.domain.Radius;
 @RequiredArgsConstructor
 public class NoiseRepositoryImpl implements NoiseRepository {
 	private final JpaNoiseRepository jpaNoiseRepository;
-	private final QueryNoiseRepository queryNoiseRepository;
+	// private final QueryNoiseRepository queryNoiseRepository;
 
 	@Override
 	public List<Noise> getNearbyNoises(Point point) {
-		return queryNoiseRepository.getNearbyNoises(point);
+		// return queryNoiseRepository.getNearbyNoises(point);
+		return List.of();
 	}
 
 	@Override
 	public List<Noise> findByAvgDecibelAndPoint(Point point, Radius radius, NoiseLevel noiseLevel) {
-		return queryNoiseRepository.findByAvgDecibelAndPoint(point, radius, noiseLevel);
+		// return queryNoiseRepository.findByAvgDecibelAndPoint(point, radius, noiseLevel);
+		return List.of();
 	}
 
 	@Override
