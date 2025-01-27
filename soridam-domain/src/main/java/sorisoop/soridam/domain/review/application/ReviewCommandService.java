@@ -8,7 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 import lombok.RequiredArgsConstructor;
 import sorisoop.soridam.domain.review.domain.Review;
 import sorisoop.soridam.domain.review.domain.ReviewRepository;
-import sorisoop.soridam.domain.user.domain.User;
+import sorisoop.soridam.domain.user.command.domain.User;
 import sorisoop.soridam.domain.user.exception.InvalidUserException;
 import sorisoop.soridam.globalutil.user.UserUtil;
 import sorisoop.soridam.globalutil.uuid.UuidPrefix;

@@ -1,4 +1,4 @@
-package sorisoop.soridam.domain.user.domain;
+package sorisoop.soridam.domain.user.command.domain;
 
 import static jakarta.persistence.CascadeType.ALL;
 import static jakarta.persistence.EnumType.STRING;
@@ -27,6 +27,7 @@ import sorisoop.soridam.common.domain.BaseTimeEntity;
 import sorisoop.soridam.common.domain.Provider;
 import sorisoop.soridam.common.domain.UuidExtractable;
 import sorisoop.soridam.domain.noise.domain.Noise;
+import sorisoop.soridam.common.domain.Role;
 import sorisoop.soridam.domain.user.exception.InvalidPasswordException;
 import sorisoop.soridam.globalutil.uuid.PrefixedUuid;
 

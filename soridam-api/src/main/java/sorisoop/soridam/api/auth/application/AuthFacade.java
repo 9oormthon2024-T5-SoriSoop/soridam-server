@@ -11,7 +11,7 @@ import sorisoop.soridam.auth.jwt.application.JwtService;
 import sorisoop.soridam.auth.jwt.response.JwtResponse;
 import sorisoop.soridam.auth.oauth.google.GoogleOidcService;
 import sorisoop.soridam.auth.oauth.kakao.KakaoOidcService;
-import sorisoop.soridam.domain.user.domain.User;
+import sorisoop.soridam.domain.user.command.domain.User;
 
 @Service
 @RequiredArgsConstructor

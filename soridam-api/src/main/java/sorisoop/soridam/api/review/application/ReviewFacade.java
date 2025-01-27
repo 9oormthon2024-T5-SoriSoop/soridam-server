@@ -9,8 +9,8 @@ import sorisoop.soridam.api.review.presentation.response.ReviewPersistResponse;
 import sorisoop.soridam.domain.review.application.ReviewCommandService;
 import sorisoop.soridam.domain.review.application.ReviewQueryService;
 import sorisoop.soridam.domain.review.domain.Review;
-import sorisoop.soridam.domain.user.application.UserQueryService;
-import sorisoop.soridam.domain.user.domain.User;
+import sorisoop.soridam.domain.user.query.application.UserQueryService;
+import sorisoop.soridam.domain.user.command.domain.User;
 
 @Component
 @RequiredArgsConstructor

@@ -7,8 +7,8 @@ import org.springframework.stereotype.Service;
 
 import sorisoop.soridam.auth.oauth.OidcService;
 import sorisoop.soridam.common.domain.Provider;
-import sorisoop.soridam.domain.user.domain.User;
-import sorisoop.soridam.domain.user.domain.UserRepository;
+import sorisoop.soridam.domain.user.command.domain.User;
+import sorisoop.soridam.domain.user.infrastructure.UserRepository;
 
 @Service
 public class GoogleOidcService extends OidcService {

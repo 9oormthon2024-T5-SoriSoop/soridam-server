@@ -6,13 +6,16 @@ import org.springframework.stereotype.Repository;
 
 import lombok.RequiredArgsConstructor;
 import sorisoop.soridam.common.domain.Provider;
-import sorisoop.soridam.domain.user.domain.User;
-import sorisoop.soridam.domain.user.domain.UserRepository;
+import sorisoop.soridam.domain.user.command.domain.JpaUserRepository;
+import sorisoop.soridam.domain.user.command.domain.User;
+import sorisoop.soridam.domain.user.query.domain.QueryUserRepository;
+import sorisoop.soridam.domain.user.query.domain.UserDocument;
 
 @Repository
 @RequiredArgsConstructor
 public class UserRepositoryImpl implements UserRepository {
 	private final JpaUserRepository jpaUserRepository;
+	private final QueryUserRepository queryUserRepository;
 
 	@Override
 	public User save(User user) {
@@ -20,8 +23,8 @@ public class UserRepositoryImpl implements UserRepository {
 	}
 
 	@Override
-	public Optional<User> findByEmail(String email) {
-		return jpaUserRepository.findByEmail(email);
+	public Optional<UserDocument> findByEmail(String email) {
+		return queryUserRepository.findByEmail(email);
 	}
 
 	@Override
@@ -30,7 +33,7 @@ public class UserRepositoryImpl implements UserRepository {
 	}
 
 	@Override
-	public Optional<User> findById(String id) {
-		return jpaUserRepository.findById(id);
+	public Optional<UserDocument> findById(String id) {
+		return queryUserRepository.findById(id);
 	}
 }

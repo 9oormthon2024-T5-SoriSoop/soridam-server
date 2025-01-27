@@ -1,4 +1,4 @@
-package sorisoop.soridam.domain.user.application;
+package sorisoop.soridam.domain.user.command.application;
 
 import java.time.LocalDate;
 
@@ -7,8 +7,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import lombok.RequiredArgsConstructor;
-import sorisoop.soridam.domain.user.domain.User;
-import sorisoop.soridam.domain.user.domain.UserRepository;
+import sorisoop.soridam.domain.user.command.domain.User;
+import sorisoop.soridam.domain.user.infrastructure.UserRepository;
 import sorisoop.soridam.domain.user.exception.UserNotFoundException;
 
 @Service

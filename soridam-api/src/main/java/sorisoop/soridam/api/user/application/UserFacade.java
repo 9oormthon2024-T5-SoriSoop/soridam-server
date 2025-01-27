@@ -10,9 +10,9 @@ import sorisoop.soridam.api.noise.presentation.response.NoiseSummaryResponse;
 import sorisoop.soridam.api.user.presentation.request.UserCreateRequest;
 import sorisoop.soridam.api.user.presentation.response.UserPersistResponse;
 import sorisoop.soridam.domain.noise.domain.Noise;
-import sorisoop.soridam.domain.user.application.UserCommandService;
-import sorisoop.soridam.domain.user.application.UserQueryService;
-import sorisoop.soridam.domain.user.domain.User;
+import sorisoop.soridam.domain.user.command.application.UserCommandService;
+import sorisoop.soridam.domain.user.query.application.UserQueryService;
+import sorisoop.soridam.domain.user.command.domain.User;
 
 @Component
 @RequiredArgsConstructor

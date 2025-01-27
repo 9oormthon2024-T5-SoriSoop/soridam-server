@@ -17,7 +17,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import sorisoop.soridam.common.domain.BaseTimeEntity;
 import sorisoop.soridam.common.domain.UuidExtractable;
-import sorisoop.soridam.domain.user.domain.User;
+import sorisoop.soridam.domain.user.command.domain.User;
 import sorisoop.soridam.globalutil.uuid.PrefixedUuid;
 
 @Entity

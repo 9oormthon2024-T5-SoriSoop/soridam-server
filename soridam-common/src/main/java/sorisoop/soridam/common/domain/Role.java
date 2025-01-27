@@ -1,4 +1,4 @@
-package sorisoop.soridam.domain.user.domain;
+package sorisoop.soridam.common.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

@@ -1,4 +1,4 @@
-package sorisoop.soridam.domain.user.application;
+package sorisoop.soridam.domain.user.query.application;
 
 import static sorisoop.soridam.globalutil.uuid.UuidPrefix.USER;
 
@@ -11,8 +11,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import lombok.RequiredArgsConstructor;
 import sorisoop.soridam.domain.noise.domain.Noise;
-import sorisoop.soridam.domain.user.domain.User;
-import sorisoop.soridam.domain.user.domain.UserRepository;
+import sorisoop.soridam.domain.user.command.domain.User;
+import sorisoop.soridam.domain.user.infrastructure.UserRepository;
 import sorisoop.soridam.domain.user.exception.UnauthorizedException;
 import sorisoop.soridam.domain.user.exception.UserNotFoundException;
 

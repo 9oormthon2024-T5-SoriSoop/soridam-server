@@ -10,7 +10,7 @@ import lombok.RequiredArgsConstructor;
 import sorisoop.soridam.domain.noise.domain.Noise;
 import sorisoop.soridam.domain.noise.domain.NoiseRepository;
 import sorisoop.soridam.domain.noise.exception.NoiseNotFoundException;
-import sorisoop.soridam.domain.user.domain.User;
+import sorisoop.soridam.domain.user.command.domain.User;
 import sorisoop.soridam.domain.user.exception.InvalidUserException;
 import sorisoop.soridam.globalutil.geometry.GeometryUtils;
 import sorisoop.soridam.globalutil.user.UserUtil;

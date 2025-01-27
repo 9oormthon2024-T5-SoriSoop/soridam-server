@@ -14,8 +14,8 @@ import sorisoop.soridam.auth.oauth.exception.OidcExpiredException;
 import sorisoop.soridam.auth.oauth.exception.OidcInvalidAudienceException;
 import sorisoop.soridam.auth.oauth.exception.OidcInvalidIssuerException;
 import sorisoop.soridam.common.domain.Provider;
-import sorisoop.soridam.domain.user.domain.User;
-import sorisoop.soridam.domain.user.domain.UserRepository;
+import sorisoop.soridam.domain.user.command.domain.User;
+import sorisoop.soridam.domain.user.infrastructure.UserRepository;
 
 @RequiredArgsConstructor
 public abstract class OidcService {
@@ -73,6 +73,7 @@ public abstract class OidcService {
 
 	protected User findOrCreateUser(OidcIdToken idToken) {
 		String identifier = idToken.getSubject();
+
 		return userRepository.findByOauthIdentityAndProvider(identifier, getProvider())
 			.map(existingUser -> {
 				existingUser.updateLastLoginTime();

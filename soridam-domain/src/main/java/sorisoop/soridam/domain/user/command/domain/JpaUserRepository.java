@@ -1,4 +1,4 @@
-package sorisoop.soridam.domain.user.infrastructure;
+package sorisoop.soridam.domain.user.command.domain;
 
 import java.util.Optional;
 
