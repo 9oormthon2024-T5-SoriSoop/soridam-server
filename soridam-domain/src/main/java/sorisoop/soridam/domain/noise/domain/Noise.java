@@ -1,6 +1,5 @@
 package sorisoop.soridam.domain.noise.domain;
 
-import static jakarta.persistence.FetchType.LAZY;
 import static lombok.AccessLevel.PROTECTED;
 import static sorisoop.soridam.globalutil.uuid.UuidPrefix.NOISE;
 
@@ -8,6 +7,7 @@ import org.locationtech.jts.geom.Point;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
@@ -30,7 +30,7 @@ public class Noise extends BaseTimeEntity implements UuidExtractable {
 	@PrefixedUuid(NOISE)
 	private String id;
 
-	@ManyToOne(fetch = LAZY)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "user_id", nullable = false)
 	private User user;
 
@@ -43,17 +43,13 @@ public class Noise extends BaseTimeEntity implements UuidExtractable {
 	@Column(nullable = false)
 	private int avgDecibel;
 
-	@Column(nullable = false)
-	private String review;
-
 	public static Noise create(User user, Point point, int maxDecibel,
-		int avgDecibel, String review) {
+		int avgDecibel) {
 		return builder()
 			.user(user)
 			.point(point)
 			.maxDecibel(maxDecibel)
 			.avgDecibel(avgDecibel)
-			.review(review)
 			.build();
 	}
 }

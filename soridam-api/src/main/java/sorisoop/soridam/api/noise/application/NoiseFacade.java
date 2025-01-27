@@ -88,8 +88,7 @@ public class NoiseFacade {
 			user,
 			request.x(), request.y(),
 			request.maxDecibel(),
-			request.avgDecibel(),
-			request.review()
+			request.avgDecibel()
 		);
 
 		return NoisePersistResponse.from(noise);

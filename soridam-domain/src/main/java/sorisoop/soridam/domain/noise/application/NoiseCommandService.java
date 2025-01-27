@@ -22,9 +22,9 @@ public class NoiseCommandService {
 	private final NoiseRepository noiseRepository;
 	private final GeometryUtils geometryUtils;
 
-	public Noise createNoise(User user, double x, double y, int maxDecibel, int avgDecibel, String review) {
+	public Noise createNoise(User user, double x, double y, int maxDecibel, int avgDecibel) {
 		Point point = geometryUtils.createPoint(x, y);
-		Noise noise = Noise.create(user, point, maxDecibel, avgDecibel, review);
+		Noise noise = Noise.create(user, point, maxDecibel, avgDecibel);
 
 		return noiseRepository.save(noise);
 	}
