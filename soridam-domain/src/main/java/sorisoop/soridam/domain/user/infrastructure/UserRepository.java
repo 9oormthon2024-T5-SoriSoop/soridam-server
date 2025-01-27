@@ -9,9 +9,11 @@ import sorisoop.soridam.domain.user.query.domain.UserDocument;
 public interface UserRepository {
 	User save(User user);
 
-	Optional<UserDocument> findByEmail(String email);
+	Optional<User> findByEmail(String email);
 
 	Optional<User> findByOauthIdentityAndProvider(String oauthIdentifier, Provider provider);
 
-	Optional<UserDocument> findById(String id);
+	Optional<User> findById(String id);
+
+	Optional<UserDocument> findUserDocumentById(String id);
 }

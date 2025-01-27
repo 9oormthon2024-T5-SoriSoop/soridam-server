@@ -1,12 +1,9 @@
 package sorisoop.soridam.domain.user.query.domain;
 
-import static jakarta.persistence.CascadeType.ALL;
 import static jakarta.persistence.EnumType.STRING;
-import static jakarta.persistence.FetchType.LAZY;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -14,12 +11,14 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import jakarta.persistence.Column;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
 import lombok.Builder;
+import lombok.Getter;
 import sorisoop.soridam.common.domain.Provider;
-import sorisoop.soridam.domain.noise.domain.Noise;
 import sorisoop.soridam.common.domain.Role;
+import sorisoop.soridam.domain.noise.domain.Noise;
+import sorisoop.soridam.domain.review.domain.Review;
 
+@Getter
 @Builder
 @Document(collection = "users")
 public class UserDocument {
@@ -61,7 +60,7 @@ public class UserDocument {
 
 	private LocalDateTime deletedAt;
 
-	@OneToMany(mappedBy = "user", cascade = ALL, orphanRemoval = true, fetch = LAZY)
-	@Builder.Default
-	private List<Noise> noises = new ArrayList<>();
+	private List<Noise> noises;
+
+	private List<Review> reviews;
 }

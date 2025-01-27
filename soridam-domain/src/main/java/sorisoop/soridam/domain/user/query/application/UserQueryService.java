@@ -15,6 +15,7 @@ import sorisoop.soridam.domain.user.command.domain.User;
 import sorisoop.soridam.domain.user.infrastructure.UserRepository;
 import sorisoop.soridam.domain.user.exception.UnauthorizedException;
 import sorisoop.soridam.domain.user.exception.UserNotFoundException;
+import sorisoop.soridam.domain.user.query.domain.UserDocument;
 
 @Service
 @RequiredArgsConstructor
@@ -23,8 +24,8 @@ public class UserQueryService {
 
 	@Transactional(readOnly = true)
 	public List<Noise> getUserNoises(String id) {
-		User user = getById(id);
-		return user.getNoises();
+		UserDocument userDocument = getDocumentById(id);
+		return userDocument.getNoises();
 	}
 
 	public User getById(String id) {
@@ -32,8 +33,8 @@ public class UserQueryService {
 			.orElseThrow(UserNotFoundException::new);
 	}
 
-	public User getByEmail(String email) {
-		return userRepository.findByEmail(email)
+	public UserDocument getDocumentById(String id) {
+		return userRepository.findUserDocumentById(id)
 			.orElseThrow(UserNotFoundException::new);
 	}
 

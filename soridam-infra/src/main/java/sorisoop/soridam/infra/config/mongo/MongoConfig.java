@@ -7,6 +7,7 @@ import org.springframework.data.mongodb.MongoDatabaseFactory;
 import org.springframework.data.mongodb.MongoTransactionManager;
 import org.springframework.data.mongodb.config.AbstractMongoClientConfiguration;
 import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import com.mongodb.ConnectionString;
@@ -16,6 +17,7 @@ import com.mongodb.client.MongoClients;
 
 @Configuration
 @EnableTransactionManagement
+@EnableMongoRepositories(basePackages = "sorisoop.soridam")
 public class MongoConfig extends AbstractMongoClientConfiguration {
 
 	@Value("${spring.data.mongodb.uri}")

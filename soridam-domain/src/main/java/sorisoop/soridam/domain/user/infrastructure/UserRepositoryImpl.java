@@ -23,8 +23,8 @@ public class UserRepositoryImpl implements UserRepository {
 	}
 
 	@Override
-	public Optional<UserDocument> findByEmail(String email) {
-		return queryUserRepository.findByEmail(email);
+	public Optional<User> findByEmail(String email) {
+		return jpaUserRepository.findByEmail(email);
 	}
 
 	@Override
@@ -33,7 +33,12 @@ public class UserRepositoryImpl implements UserRepository {
 	}
 
 	@Override
-	public Optional<UserDocument> findById(String id) {
+	public Optional<User> findById(String id) {
+		return jpaUserRepository.findById(id);
+	}
+
+	@Override
+	public Optional<UserDocument> findUserDocumentById(String id) {
 		return queryUserRepository.findById(id);
 	}
 }
