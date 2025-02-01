@@ -3,6 +3,7 @@ package sorisoop.soridam.domain.user.infrastructure;
 import java.util.Optional;
 
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import lombok.RequiredArgsConstructor;
 import sorisoop.soridam.common.domain.Provider;
@@ -18,6 +19,7 @@ public class UserRepositoryImpl implements UserRepository {
 	private final QueryUserRepository queryUserRepository;
 
 	@Override
+	@Transactional
 	public User save(User user) {
 		return jpaUserRepository.save(user);
 	}
@@ -40,5 +42,10 @@ public class UserRepositoryImpl implements UserRepository {
 	@Override
 	public Optional<UserDocument> findUserDocumentById(String id) {
 		return queryUserRepository.findById(id);
+	}
+
+	@Override
+	public void flush() {
+		jpaUserRepository.flush();
 	}
 }

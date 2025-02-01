@@ -3,7 +3,7 @@ package sorisoop.soridam.common.domain;
 import java.time.LocalDateTime;
 
 import org.hibernate.annotations.CreationTimestamp;
-import org.springframework.data.annotation.LastModifiedDate;
+import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import jakarta.persistence.Column;
@@ -19,7 +19,7 @@ public abstract class BaseTimeEntity {
 	@Column(nullable = false, updatable = false)
 	protected LocalDateTime createdAt;
 
-	@LastModifiedDate
+	@UpdateTimestamp
 	@Column(nullable = false)
 	protected LocalDateTime updatedAt;
 

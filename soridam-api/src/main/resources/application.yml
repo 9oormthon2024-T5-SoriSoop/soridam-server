@@ -24,9 +24,6 @@ spring:
     init:
       mode: always
 
-  kafka:
-    bootstrap-servers: 172.18.0.101:9092
-
   data:
     redis:
       host: ${REDIS_HOST:localhost}
@@ -34,8 +31,11 @@ spring:
       password: ${REDIS_PASSWORD}
 
     mongodb:
-      uri: mongodb://root:root@localhost:27017/soridam?authSource=admin
+      uri: mongodb://nninjoon:${MONGO_PASSWORD}@localhost:27017/soridam?authSource=soridam
       database: soridam
+
+  kafka:
+    bootstrap-servers: 127.0.0.1:19092,127.0.0.1:19094,127.0.0.1:19096
 
 springdoc:
   default-consumes-media-type: application/json
@@ -53,3 +53,10 @@ oidc:
     client-id: ${KAKAO_CLIENT_ID}
   google:
     client-id: ${GOOGLE_CLIENT_ID}
+
+logging:
+  level:
+    org.springframework.transaction: TRACE
+    org.hibernate.SQL: DEBUG
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+

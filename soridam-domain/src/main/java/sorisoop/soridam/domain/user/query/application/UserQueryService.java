@@ -2,19 +2,16 @@ package sorisoop.soridam.domain.user.query.application;
 
 import static sorisoop.soridam.globalutil.uuid.UuidPrefix.USER;
 
-import java.util.List;
-
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import lombok.RequiredArgsConstructor;
-import sorisoop.soridam.domain.noise.domain.Noise;
 import sorisoop.soridam.domain.user.command.domain.User;
-import sorisoop.soridam.domain.user.infrastructure.UserRepository;
 import sorisoop.soridam.domain.user.exception.UnauthorizedException;
 import sorisoop.soridam.domain.user.exception.UserNotFoundException;
+import sorisoop.soridam.domain.user.infrastructure.UserRepository;
 import sorisoop.soridam.domain.user.query.domain.UserDocument;
 
 @Service
@@ -23,9 +20,8 @@ public class UserQueryService {
 	private final UserRepository userRepository;
 
 	@Transactional(readOnly = true)
-	public List<Noise> getUserNoises(String id) {
-		UserDocument userDocument = getDocumentById(id);
-		return userDocument.getNoises();
+	public UserDocument getUserInfo(String id) {
+		return getDocumentById(id);
 	}
 
 	public User getById(String id) {
