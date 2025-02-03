@@ -4,7 +4,7 @@ import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
 import sorisoop.soridam.domain.review.domain.Review;
-import sorisoop.soridam.domain.review.domain.ReviewRepository;
+import sorisoop.soridam.domain.review.infrastructure.ReviewRepository;
 import sorisoop.soridam.domain.review.exception.ReviewNotFoundException;
 
 @Service

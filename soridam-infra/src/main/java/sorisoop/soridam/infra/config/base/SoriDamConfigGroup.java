@@ -2,8 +2,8 @@ package sorisoop.soridam.infra.config.base;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import sorisoop.soridam.infra.config.jpa.JpaAuditingConfig;
-import sorisoop.soridam.infra.config.jpa.JpaConfig;
+import sorisoop.soridam.infra.config.persistence.jpa.JpaAuditingConfig;
+import sorisoop.soridam.infra.config.persistence.jpa.JpaConfig;
 import sorisoop.soridam.infra.config.properties.PropertiesConfig;
 import sorisoop.soridam.infra.config.swagger.SwaggerConfig;
 

@@ -1,3 +1,4 @@
+/*
 package sorisoop.soridam.domain.noise.domain;
 
 import org.springframework.data.annotation.Id;
@@ -24,3 +25,4 @@ public class NoiseReadModel {
 
 	private String review;
 }
+*/

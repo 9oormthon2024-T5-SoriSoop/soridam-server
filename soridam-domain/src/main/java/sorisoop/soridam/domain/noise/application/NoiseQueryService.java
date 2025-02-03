@@ -11,7 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import lombok.RequiredArgsConstructor;
 import sorisoop.soridam.domain.noise.domain.Noise;
 import sorisoop.soridam.domain.noise.domain.NoiseLevel;
-import sorisoop.soridam.domain.noise.domain.NoiseRepository;
+import sorisoop.soridam.domain.noise.infrastructure.NoiseRepository;
 import sorisoop.soridam.domain.noise.domain.Radius;
 import sorisoop.soridam.domain.noise.exception.NoiseNotFoundException;
 import sorisoop.soridam.globalutil.geometry.GeometryUtils;

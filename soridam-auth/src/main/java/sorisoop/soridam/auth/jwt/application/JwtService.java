@@ -6,9 +6,9 @@ import lombok.RequiredArgsConstructor;
 import sorisoop.soridam.auth.jwt.response.JwtResponse;
 import sorisoop.soridam.domain.refresh.RefreshToken;
 import sorisoop.soridam.domain.refresh.application.RefreshTokenService;
-import sorisoop.soridam.domain.user.command.application.UserCommandService;
-import sorisoop.soridam.domain.user.query.application.UserQueryService;
-import sorisoop.soridam.domain.user.command.domain.User;
+import sorisoop.soridam.domain.user.application.UserCommandService;
+import sorisoop.soridam.domain.user.application.UserQueryService;
+import sorisoop.soridam.domain.user.domain.User;
 
 @Service
 @RequiredArgsConstructor

@@ -5,10 +5,9 @@ import org.springframework.stereotype.Component;
 import lombok.RequiredArgsConstructor;
 import sorisoop.soridam.api.user.presentation.request.UserCreateRequest;
 import sorisoop.soridam.api.user.presentation.response.UserPersistResponse;
-import sorisoop.soridam.domain.user.command.application.UserCommandService;
-import sorisoop.soridam.domain.user.command.domain.User;
-import sorisoop.soridam.domain.user.query.application.UserQueryService;
-import sorisoop.soridam.domain.user.query.domain.UserDocument;
+import sorisoop.soridam.domain.user.application.UserCommandService;
+import sorisoop.soridam.domain.user.application.UserQueryService;
+import sorisoop.soridam.domain.user.domain.User;
 
 @Component
 @RequiredArgsConstructor
@@ -29,7 +28,7 @@ public class UserFacade {
 		return UserPersistResponse.from(user);
 	}
 
-	public UserDocument getUserDocument(String id) {
+	public User getUserDocument(String id) {
 		return userQueryService.getUserInfo(id);
 	}
 }

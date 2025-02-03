@@ -19,7 +19,7 @@ import lombok.RequiredArgsConstructor;
 import sorisoop.soridam.api.user.application.UserFacade;
 import sorisoop.soridam.api.user.presentation.request.UserCreateRequest;
 import sorisoop.soridam.api.user.presentation.response.UserPersistResponse;
-import sorisoop.soridam.domain.user.query.domain.UserDocument;
+import sorisoop.soridam.domain.user.domain.User;
 
 @RestController
 @RequestMapping("/api/users")
@@ -33,11 +33,11 @@ public class UserApiController {
 		""")
 	@ApiResponse(responseCode = "200")
 	@GetMapping("/{userId}")
-	public ResponseEntity<UserDocument> getUserNoises(
+	public ResponseEntity<User> getUserNoises(
 		@Parameter(description = "조회할 사용자의 ID", example = "9f3b462d-0fe9-4e7a-ae5d-74f9d9fc3ba4")
 		@PathVariable String userId
 	) {
-		UserDocument response = userFacade.getUserDocument(userId);
+		User response = userFacade.getUserDocument(userId);
 		return ResponseEntity.ok(response);
 	}
 

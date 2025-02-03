@@ -7,8 +7,10 @@ jar {
 }
 
 dependencies {
-    implementation project(':soridam-infra')
     implementation project(':soridam-global-util')
+
+    // swagger
+    implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.8.3'
 
     // 요청 데이터 검증
     implementation 'org.springframework.boot:spring-boot-starter-validation'

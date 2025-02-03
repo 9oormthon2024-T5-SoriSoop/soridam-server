@@ -13,8 +13,8 @@ import lombok.RequiredArgsConstructor;
 import sorisoop.soridam.auth.oauth.exception.OidcExpiredException;
 import sorisoop.soridam.auth.oauth.exception.OidcInvalidAudienceException;
 import sorisoop.soridam.auth.oauth.exception.OidcInvalidIssuerException;
-import sorisoop.soridam.common.domain.Provider;
-import sorisoop.soridam.domain.user.command.domain.User;
+import sorisoop.soridam.domain.user.domain.Provider;
+import sorisoop.soridam.domain.user.domain.User;
 import sorisoop.soridam.domain.user.infrastructure.UserRepository;
 
 @RequiredArgsConstructor

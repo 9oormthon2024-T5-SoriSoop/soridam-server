@@ -2,12 +2,9 @@ package sorisoop.soridam.api.user.presentation.response;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.List;
-import java.util.stream.Collectors;
 
 import lombok.Builder;
-import sorisoop.soridam.api.noise.presentation.response.NoiseResponse;
-import sorisoop.soridam.domain.user.query.domain.UserDocument;
+import sorisoop.soridam.infra.persistence.mongo.document.UserDocument;
 
 @Builder
 public record UserResponse(
@@ -20,9 +17,7 @@ public record UserResponse(
 	String profileImageUrl,
 	int point,
 	LocalDateTime lastLoginAt,
-	LocalDateTime createdAt,
-	long noiseCount,
-	long reviewCount
+	LocalDateTime createdAt
 ) {
 	public static UserResponse from(UserDocument userDocument) {
 		return new UserResponse(
@@ -35,9 +30,7 @@ public record UserResponse(
 			userDocument.getProfileImageUrl(),
 			userDocument.getPoint(),
 			userDocument.getLastLoginAt(),
-			userDocument.getCreatedAt(),
-			userDocument.getNoises().size(),
-			userDocument.getReviews().size()
+			userDocument.getCreatedAt()
 		);
 	}
 }

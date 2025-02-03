@@ -11,16 +11,18 @@ jar {
 }
 
 dependencies {
+    implementation project(':soridam-domain')
+    implementation project(':soridam-common')
+    implementation project(':soridam-global-util')
     implementation 'org.apache.commons:commons-collections4:4.4'
 
     //swagger
-    api 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.8.3'
+    implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.8.3'
 
     //spring security
     api 'org.springframework.boot:spring-boot-starter-security'
 
-    // 데이터베이스와 상호작용 (JPA 사용)
-    api 'org.springframework.boot:spring-boot-starter-data-jpa'
+    // 데이터베이스와 상호작용
     api 'org.springframework.boot:spring-boot-starter-data-redis'
     api 'org.springframework.boot:spring-boot-starter-data-mongodb'
 
