@@ -35,6 +35,7 @@ public class NoiseFacade {
 	private final AddressCommandService addressCommandService;
 	private final ReviewQueryService reviewQueryService;
 
+	@Transactional(readOnly = true)
 	public Optional<NoiseDetailResponse> getDetailNoise(double x, double y) {
 		List<Noise> results = noiseQueryService.getDetailNoise(x, y);
 
@@ -64,6 +65,7 @@ public class NoiseFacade {
 		return NoiseListResponse.of(responses);
 	}
 
+	@Transactional(readOnly = true)
 	public NoiseSummaryResponse getNoise(String id) {
 		Noise noise = noiseQueryService.getNoise(id);
 		return NoiseSummaryResponse.from(noise);

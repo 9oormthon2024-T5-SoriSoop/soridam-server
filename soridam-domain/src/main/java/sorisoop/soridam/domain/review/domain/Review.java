@@ -50,7 +50,7 @@ public class Review extends BaseTimeEntity implements UuidExtractable {
 		return Review.builder()
 			.targetId(reviewType.getPrefix() + targetId)
 			.reviewType(reviewType)
-			.authorId(USER.getPrefix() + authorId)
+			.authorId(authorId)
 			.content(content)
 			.rating(rating)
 			.build();
