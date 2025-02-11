@@ -27,10 +27,7 @@ public record NoiseSummaryResponse(
 	int maxDecibel,
 
 	@Schema(description = "작성일자", example = "2024년 12월 14일 21시 37분", requiredMode = REQUIRED)
-	String createdAt,
-
-	@Schema(description = "리뷰 내용", example = "소음이 많은 환경", requiredMode = REQUIRED)
-	String review
+	String createdAt
 ) {
 	public static NoiseSummaryResponse from(Noise noise) {
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy년 MM월 dd일 HH시 mm분");
@@ -41,7 +38,6 @@ public record NoiseSummaryResponse(
 			.avgDecibel(noise.getAvgDecibel())
 			.maxDecibel(noise.getMaxDecibel())
 			.createdAt(noise.getCreatedAt().format(formatter))
-			.review(noise.getReview())
 			.build();
 	}
 }

@@ -1,5 +1,7 @@
 package sorisoop.soridam.domain.review.application;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
@@ -15,5 +17,9 @@ public class ReviewQueryService {
 	public Review getById(String id) {
 		return reviewRepository.findById(id)
 			.orElseThrow(ReviewNotFoundException::new);
+	}
+
+	public List<Review> getByTargetIdIn(List<String> targetIds) {
+		return reviewRepository.findByTargetIdIn(targetIds);
 	}
 }

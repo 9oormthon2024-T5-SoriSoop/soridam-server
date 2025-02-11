@@ -15,8 +15,8 @@ import sorisoop.soridam.api.noise.presentation.response.NoiseDetailResponse;
 import sorisoop.soridam.api.noise.presentation.response.NoiseListResponse;
 import sorisoop.soridam.api.noise.presentation.response.NoisePersistResponse;
 import sorisoop.soridam.api.noise.presentation.response.NoiseResponse;
-import sorisoop.soridam.api.noise.presentation.response.NoiseReviewResponse;
 import sorisoop.soridam.api.noise.presentation.response.NoiseSummaryResponse;
+import sorisoop.soridam.api.review.presentation.response.ReviewResponse;
 import sorisoop.soridam.domain.address.application.AddressCommandService;
 import sorisoop.soridam.domain.address.domain.Address;
 import sorisoop.soridam.domain.noise.application.NoiseCommandService;
@@ -24,6 +24,7 @@ import sorisoop.soridam.domain.noise.application.NoiseQueryService;
 import sorisoop.soridam.domain.noise.domain.Noise;
 import sorisoop.soridam.domain.noise.domain.NoiseLevel;
 import sorisoop.soridam.domain.noise.domain.Radius;
+import sorisoop.soridam.domain.review.application.ReviewQueryService;
 import sorisoop.soridam.domain.user.application.UserQueryService;
 import sorisoop.soridam.domain.user.domain.User;
 
@@ -34,9 +35,14 @@ public class NoiseFacade {
 	private final NoiseQueryService noiseQueryService;
 	private final UserQueryService userQueryService;
 	private final AddressCommandService addressCommandService;
+	private final ReviewQueryService reviewQueryService;
 
 	public Optional<NoiseDetailResponse> getDetailNoise(double x, double y) {
 		List<Noise> results = noiseQueryService.getDetailNoise(x, y);
+
+		List<String> resultIds = results.stream()
+			.map(Noise::getId)
+			.toList();
 
 		if (results.isEmpty()) return Optional.empty();
 
@@ -44,8 +50,8 @@ public class NoiseFacade {
 			.map(NoiseResponse::from)
 			.toList();
 
-		List<NoiseReviewResponse> reviews = results.stream()
-			.map(NoiseReviewResponse::from)
+		List<ReviewResponse> reviews = reviewQueryService.getByTargetIdIn(resultIds).stream()
+			.map(ReviewResponse::from)
 			.toList();
 
 		return Optional.of(NoiseDetailResponse.of(noises, reviews));
@@ -86,13 +92,13 @@ public class NoiseFacade {
 
 	public NoisePersistResponse createNoise(NoiseCreateRequest request) {
 		User user = userQueryService.me();
-		Address address = addressCommandService.save(request.x(), request.y(), "roadAddress", "regionAddress");
+		Address address = addressCommandService.save(request.x(), request.y(), request.roadAddress(),
+			request.regionAddress());
 		Noise noise = noiseCommandService.createNoise(
 			user,
 			address,
 			request.maxDecibel(),
-			request.avgDecibel(),
-			request.review()
+			request.avgDecibel()
 		);
 
 		return NoisePersistResponse.from(noise);

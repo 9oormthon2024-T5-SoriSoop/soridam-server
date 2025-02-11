@@ -18,6 +18,14 @@ public record NoiseCreateRequest(
 	@NotNull
 	double y,
 
+	@Schema(description = "도로명 주소", example = "서울특별시 동대문구 장한로 110 (장안동)", requiredMode = REQUIRED)
+	@NotNull
+	String roadAddress,
+
+	@Schema(description = "지번 주소", example = "서울특별시 동대문구 장안동 366-7", requiredMode = REQUIRED)
+	@NotNull
+	String regionAddress,
+
 	@Schema(description = "평균 데시벨", example = "50", requiredMode = REQUIRED)
 	@NotNull
 	@Positive

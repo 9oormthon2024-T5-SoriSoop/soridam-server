@@ -43,17 +43,13 @@ public class Noise extends BaseTimeEntity implements UuidExtractable {
 	@Column(nullable = false)
 	private int avgDecibel;
 
-	@Column(nullable = false)
-	private String review;
-
 	public static Noise create(User user, Address address, int maxDecibel,
-		int avgDecibel, String review) {
+		int avgDecibel) {
 		return builder()
 			.user(user)
 			.address(address)
 			.maxDecibel(maxDecibel)
 			.avgDecibel(avgDecibel)
-			.review(review)
 			.build();
 	}
 }
