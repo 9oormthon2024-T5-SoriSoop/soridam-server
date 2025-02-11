@@ -26,8 +26,8 @@ public record NoiseResponse(
 	public static NoiseResponse from(Noise noise) {
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy년 MM월 dd일 HH시 mm분");
 		return builder()
-			.x(noise.getPoint().getX())
-			.y(noise.getPoint().getY())
+			.x(noise.getAddress().getLocation().getX())
+			.y(noise.getAddress().getLocation().getY())
 			.avgDecibel(noise.getAvgDecibel())
 			.createdAt(formatter.format(noise.getCreatedAt()))
 			.build();

@@ -2,6 +2,7 @@ package sorisoop.soridam.domain.review.infrastructure;
 
 import static sorisoop.soridam.globalutil.uuid.UuidPrefix.REVIEW;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Repository;
@@ -28,6 +29,11 @@ public class ReviewRepositoryImpl implements ReviewRepository {
 	@Override
 	public void delete(Review review) {
 		jpaReviewRepository.delete(review);
+	}
+
+	@Override
+	public List<Review> findByTargetIdIn(List<String> targetIds) {
+		return jpaReviewRepository.findByTargetIdIn(targetIds);
 	}
 
 	private String formatId(String id) {

@@ -12,6 +12,7 @@ public enum UuidPrefix {
 	IMAGE("img-"),
 	DEFAULT("def-"),
 	REVIEW("review-"),
+	ADDRESS("address-")
 	;
 
 	private final String prefix;

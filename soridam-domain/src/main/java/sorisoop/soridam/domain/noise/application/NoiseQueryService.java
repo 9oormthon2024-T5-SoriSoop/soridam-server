@@ -33,7 +33,6 @@ public class NoiseQueryService {
 		return noiseRepository.findByAvgDecibelAndPoint(point, radius, noiseLevel);
 	}
 
-	@Transactional(readOnly = true)
 	public Noise getNoise(String id) {
 		return noiseRepository.findById(NOISE.getPrefix() + id)
 			.orElseThrow(NoiseNotFoundException::new);

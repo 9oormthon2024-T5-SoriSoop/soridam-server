@@ -6,6 +6,7 @@ import java.util.List;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;
+import sorisoop.soridam.api.review.presentation.response.ReviewResponse;
 
 @Builder
 public record NoiseSearchResponse(
@@ -13,9 +14,9 @@ public record NoiseSearchResponse(
 	List<NoiseTimeAvgResponse> noises,
 
 	@Schema(description = "소음 관련 리뷰 목록", requiredMode = REQUIRED)
-	List<NoiseReviewResponse> reviews
+	List<ReviewResponse> reviews
 ) {
-	public static NoiseSearchResponse of(List<NoiseTimeAvgResponse> noises, List<NoiseReviewResponse> reviews) {
+	public static NoiseSearchResponse of(List<NoiseTimeAvgResponse> noises, List<ReviewResponse> reviews) {
 		return builder()
 			.noises(noises)
 			.reviews(reviews)
