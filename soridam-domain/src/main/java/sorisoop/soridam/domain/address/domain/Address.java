@@ -36,7 +36,7 @@ public class Address {
 	public static Address create(Point location, String roadAddress, String regionAddress) {
 		return Address.builder()
 			.location(location)
-			.regionAddress(regionAddress)
+			.roadAddress(roadAddress)
 			.regionAddress(regionAddress)
 			.build();
 	}

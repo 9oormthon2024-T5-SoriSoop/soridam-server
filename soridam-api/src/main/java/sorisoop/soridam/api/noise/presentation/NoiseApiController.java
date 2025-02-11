@@ -22,7 +22,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import sorisoop.soridam.api.noise.application.NoiseFacade;
 import sorisoop.soridam.api.noise.presentation.request.NoiseCreateRequest;
-import sorisoop.soridam.api.noise.presentation.request.NoiseSearchListRequest;
+import sorisoop.soridam.api.noise.presentation.request.NoiseSearchRequest;
 import sorisoop.soridam.api.noise.presentation.response.NoiseDetailResponse;
 import sorisoop.soridam.api.noise.presentation.response.NoiseListResponse;
 import sorisoop.soridam.api.noise.presentation.response.NoisePersistResponse;
@@ -57,7 +57,7 @@ public class NoiseApiController {
 	@ApiResponse(responseCode = "204", description = "결과 없음")
 	@PostMapping("/nearby")
 	public ResponseEntity<NoiseListResponse> getNearbyNoise(
-		@Valid @RequestBody NoiseSearchListRequest request,
+		@Valid @RequestBody NoiseSearchRequest request,
 
 		@RequestParam(required = false, defaultValue = "FIVE_HUNDRED_METERS")
 		@Parameter(description = "거리 검색 범위", example = "FIVE_HUNDRED_METERS", required = true)
@@ -67,10 +67,8 @@ public class NoiseApiController {
 		@Parameter(description = "소음 검색 범위", example = "QUIET", required = true)
 		NoiseLevel level
 	) {
-		Optional<NoiseListResponse> response = noiseFacade.getNearbyNoise(request, radius, level);
-		return response
-			.map(ResponseEntity::ok)
-			.orElseGet(() -> ResponseEntity.noContent().build());
+		NoiseListResponse response = noiseFacade.getNearbyNoise(request, radius, level);
+		return ResponseEntity.ok(response);
 	}
 
 	@Operation(summary = "주변 소음 검색 후 마커 선택 장소 조회 API", description = """

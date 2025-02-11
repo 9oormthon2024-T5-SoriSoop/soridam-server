@@ -12,7 +12,6 @@ import sorisoop.soridam.domain.noise.domain.NoiseRepository;
 import sorisoop.soridam.domain.noise.exception.NoiseNotFoundException;
 import sorisoop.soridam.domain.user.domain.User;
 import sorisoop.soridam.domain.user.exception.InvalidUserException;
-import sorisoop.soridam.globalutil.geometry.GeometryUtils;
 import sorisoop.soridam.globalutil.user.UserUtil;
 
 @Service
@@ -20,11 +19,9 @@ import sorisoop.soridam.globalutil.user.UserUtil;
 @RequiredArgsConstructor
 public class NoiseCommandService {
 	private final NoiseRepository noiseRepository;
-	private final GeometryUtils geometryUtils;
 
 	public Noise createNoise(User user, Address address, int maxDecibel, int avgDecibel) {
 		Noise noise = Noise.create(user, address, maxDecibel, avgDecibel);
-
 		return noiseRepository.save(noise);
 	}
 

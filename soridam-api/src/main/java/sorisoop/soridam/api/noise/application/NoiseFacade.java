@@ -1,8 +1,6 @@
 package sorisoop.soridam.api.noise.application;
 
-import java.util.Comparator;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 
 import org.springframework.stereotype.Component;
@@ -10,7 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import lombok.RequiredArgsConstructor;
 import sorisoop.soridam.api.noise.presentation.request.NoiseCreateRequest;
-import sorisoop.soridam.api.noise.presentation.request.NoiseSearchListRequest;
+import sorisoop.soridam.api.noise.presentation.request.NoiseSearchRequest;
 import sorisoop.soridam.api.noise.presentation.response.NoiseDetailResponse;
 import sorisoop.soridam.api.noise.presentation.response.NoiseListResponse;
 import sorisoop.soridam.api.noise.presentation.response.NoisePersistResponse;
@@ -57,32 +55,13 @@ public class NoiseFacade {
 		return Optional.of(NoiseDetailResponse.of(noises, reviews));
 	}
 
-	public Optional<NoiseListResponse> getNearbyNoise(
-		NoiseSearchListRequest requests, Radius radius, NoiseLevel noiseLevel) {
-		List<NoiseResponse> responses = requests.noiseSearchRequests().stream()
-			.map(request -> {
-				double x = request.x();
-				double y = request.y();
-
-				List<Noise> results = noiseQueryService.getNearbyNoise(x, y, radius, noiseLevel);
-
-				if (results.isEmpty()) return null;
-
-				int avgDecibel = (int) results.stream()
-					.mapToInt(Noise::getAvgDecibel)
-					.average()
-					.orElse(0);
-
-				return NoiseResponse.of(x, y, avgDecibel);
-			})
-			.filter(Objects::nonNull)
-			.sorted(Comparator.comparingInt(NoiseResponse::avgDecibel))
-			.limit(3)
+	public NoiseListResponse getNearbyNoise(
+		NoiseSearchRequest requests, Radius radius, NoiseLevel noiseLevel) {
+		List<NoiseResponse> responses = noiseQueryService.getNearbyNoise(requests.x(), requests.y(), radius, noiseLevel).stream()
+			.map(NoiseResponse::from)
 			.toList();
 
-		if (responses.isEmpty()) return Optional.empty();
-
-		return Optional.of(NoiseListResponse.of(responses));
+		return NoiseListResponse.of(responses);
 	}
 
 	public NoiseSummaryResponse getNoise(String id) {
