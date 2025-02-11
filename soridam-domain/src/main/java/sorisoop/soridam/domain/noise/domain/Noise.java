@@ -4,8 +4,6 @@ import static jakarta.persistence.FetchType.LAZY;
 import static lombok.AccessLevel.PROTECTED;
 import static sorisoop.soridam.globalutil.uuid.UuidPrefix.NOISE;
 
-import org.locationtech.jts.geom.Point;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -17,6 +15,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import sorisoop.soridam.common.domain.BaseTimeEntity;
 import sorisoop.soridam.common.domain.UuidExtractable;
+import sorisoop.soridam.domain.address.domain.Address;
 import sorisoop.soridam.domain.user.domain.User;
 import sorisoop.soridam.globalutil.uuid.PrefixedUuid;
 
@@ -34,8 +33,9 @@ public class Noise extends BaseTimeEntity implements UuidExtractable {
 	@JoinColumn(name = "user_id", nullable = false)
 	private User user;
 
-	@Column(nullable = false, columnDefinition = "geometry(Point,5181)")
-	private Point point;
+	@ManyToOne(fetch = LAZY)
+	@JoinColumn(name = "address_id", nullable = false)
+	private Address address;
 
 	@Column(nullable = false)
 	private int maxDecibel;
@@ -46,11 +46,11 @@ public class Noise extends BaseTimeEntity implements UuidExtractable {
 	@Column(nullable = false)
 	private String review;
 
-	public static Noise create(User user, Point point, int maxDecibel,
+	public static Noise create(User user, Address address, int maxDecibel,
 		int avgDecibel, String review) {
 		return builder()
 			.user(user)
-			.point(point)
+			.address(address)
 			.maxDecibel(maxDecibel)
 			.avgDecibel(avgDecibel)
 			.review(review)

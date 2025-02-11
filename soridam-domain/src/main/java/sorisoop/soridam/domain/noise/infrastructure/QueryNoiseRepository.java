@@ -26,7 +26,7 @@ public class QueryNoiseRepository {
 
 		return jpaQueryFactory.selectFrom(noise)
 			.where(
-				isWithinDistance(noise.point, point, 0.0000918 * 50)
+				isWithinDistance(noise.address.point, point, 0.0000918 * 50)
 			)
 			.fetch();
 	}
@@ -37,7 +37,7 @@ public class QueryNoiseRepository {
 		return jpaQueryFactory.selectFrom(noise)
 			.where(
 				noise.avgDecibel.between(noiseLevel.getMinDecibel(), noiseLevel.getMaxDecibel()),
-				isWithinDistance(noise.point, point, radius.getRadiusInMeters() * 0.0000918)
+				isWithinDistance(noise.address.point, point, radius.getRadiusInMeters() * 0.0000918)
 			)
 			.fetch();
 	}
