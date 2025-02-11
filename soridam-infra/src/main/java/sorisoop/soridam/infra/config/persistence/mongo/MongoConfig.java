@@ -19,7 +19,6 @@ import com.mongodb.client.MongoClients;
 @EnableTransactionManagement
 @EnableMongoRepositories(basePackages = "sorisoop.soridam.infra.persistence.mongo")
 public class MongoConfig extends AbstractMongoClientConfiguration {
-
 	@Value("${spring.data.mongodb.uri}")
 	private String connectionString;
 
