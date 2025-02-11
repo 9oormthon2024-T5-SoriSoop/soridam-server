@@ -9,7 +9,7 @@ import lombok.Builder;
 import sorisoop.soridam.api.review.presentation.response.ReviewResponse;
 
 @Builder
-public record NoiseDetailResponse(
+public record NoiseReviewResponse(
 	@Schema(description = "소음 데이터 목록", requiredMode = REQUIRED)
 	List<NoiseResponse> noises,
 
@@ -17,7 +17,7 @@ public record NoiseDetailResponse(
 	List<ReviewResponse> reviews
 
 ) {
-	public static NoiseDetailResponse of(List<NoiseResponse> noises, List<ReviewResponse> reviews) {
+	public static NoiseReviewResponse of(List<NoiseResponse> noises, List<ReviewResponse> reviews) {
 		return builder()
 			.noises(noises)
 			.reviews(reviews)

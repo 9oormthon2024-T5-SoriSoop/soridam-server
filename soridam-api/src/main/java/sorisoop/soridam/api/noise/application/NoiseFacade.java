@@ -9,7 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import lombok.RequiredArgsConstructor;
 import sorisoop.soridam.api.noise.presentation.request.NoiseCreateRequest;
 import sorisoop.soridam.api.noise.presentation.request.NoiseSearchRequest;
-import sorisoop.soridam.api.noise.presentation.response.NoiseDetailResponse;
+import sorisoop.soridam.api.noise.presentation.response.NoiseReviewResponse;
 import sorisoop.soridam.api.noise.presentation.response.NoiseListResponse;
 import sorisoop.soridam.api.noise.presentation.response.NoisePersistResponse;
 import sorisoop.soridam.api.noise.presentation.response.NoiseResponse;
@@ -36,7 +36,7 @@ public class NoiseFacade {
 	private final ReviewQueryService reviewQueryService;
 
 	@Transactional(readOnly = true)
-	public Optional<NoiseDetailResponse> getDetailNoise(double x, double y) {
+	public Optional<NoiseReviewResponse> getDetailNoise(double x, double y) {
 		List<Noise> results = noiseQueryService.getDetailNoise(x, y);
 
 		List<String> resultIds = results.stream()
@@ -53,7 +53,7 @@ public class NoiseFacade {
 			.map(ReviewResponse::from)
 			.toList();
 
-		return Optional.of(NoiseDetailResponse.of(noises, reviews));
+		return Optional.of(NoiseReviewResponse.of(noises, reviews));
 	}
 
 	public NoiseListResponse getNearbyNoise(

@@ -23,7 +23,7 @@ import lombok.RequiredArgsConstructor;
 import sorisoop.soridam.api.noise.application.NoiseFacade;
 import sorisoop.soridam.api.noise.presentation.request.NoiseCreateRequest;
 import sorisoop.soridam.api.noise.presentation.request.NoiseSearchRequest;
-import sorisoop.soridam.api.noise.presentation.response.NoiseDetailResponse;
+import sorisoop.soridam.api.noise.presentation.response.NoiseReviewResponse;
 import sorisoop.soridam.api.noise.presentation.response.NoiseListResponse;
 import sorisoop.soridam.api.noise.presentation.response.NoisePersistResponse;
 import sorisoop.soridam.api.noise.presentation.response.NoiseSummaryResponse;
@@ -77,7 +77,7 @@ public class NoiseApiController {
 	@ApiResponse(responseCode = "200", description = "요청 성공")
 	@ApiResponse(responseCode = "204", description = "결과 없음")
 	@GetMapping
-	public ResponseEntity<NoiseDetailResponse> getDetailNoise(
+	public ResponseEntity<NoiseReviewResponse> getDetailNoise(
 		@RequestParam
 		@Parameter(description = "x 좌표", example = "127.07150", required = true)
 		double x,
@@ -86,7 +86,7 @@ public class NoiseApiController {
 		@Parameter(description = "y 좌표", example = "37.3405", required = true)
 		double y
 	){
-		Optional<NoiseDetailResponse> response = noiseFacade.getDetailNoise(x, y);
+		Optional<NoiseReviewResponse> response = noiseFacade.getDetailNoise(x, y);
 
 		return response
 			.map(ResponseEntity::ok)
