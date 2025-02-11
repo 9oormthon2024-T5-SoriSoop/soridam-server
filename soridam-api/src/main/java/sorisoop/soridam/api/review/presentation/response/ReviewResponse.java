@@ -15,7 +15,7 @@ public record ReviewResponse(
 ) {
 	public static ReviewResponse from(Review review) {
 		return ReviewResponse.builder()
-			.authorId(review.getAuthorId())
+			.authorId(review.getAuthor().getNickname())
 			.content(review.getContent())
 			.rating(review.getRating())
 			.createdAt(review.getCreatedAt())

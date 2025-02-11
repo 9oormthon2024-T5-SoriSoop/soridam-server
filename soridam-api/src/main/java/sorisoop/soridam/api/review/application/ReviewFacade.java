@@ -25,7 +25,7 @@ public class ReviewFacade {
 		Review review = reviewCommandService.create(
 			request.targetId(),
 			request.reviewType(),
-			author.getId(),
+			author,
 			request.content(),
 			request.rating()
 		);

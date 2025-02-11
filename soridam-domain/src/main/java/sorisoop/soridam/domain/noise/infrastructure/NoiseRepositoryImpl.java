@@ -19,8 +19,8 @@ public class NoiseRepositoryImpl implements NoiseRepository {
 	private final QueryNoiseRepository queryNoiseRepository;
 
 	@Override
-	public List<Noise> getNearbyNoises(Point point) {
-		return queryNoiseRepository.getNearbyNoises(point);
+	public List<Noise> findAllByAddress_Location(Point point) {
+		return jpaNoiseRepository.findAllByAddress_Location(point);
 	}
 
 	@Override
