@@ -36,8 +36,8 @@ public record NoiseSummaryResponse(
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy년 MM월 dd일 HH시 mm분");
 		return builder()
 			.id(noise.extractUuid())
-			.x(noise.getPoint().getX())
-			.y(noise.getPoint().getY())
+			.x(noise.getAddress().getLocation().getX())
+			.y(noise.getAddress().getLocation().getY())
 			.avgDecibel(noise.getAvgDecibel())
 			.maxDecibel(noise.getMaxDecibel())
 			.createdAt(noise.getCreatedAt().format(formatter))
