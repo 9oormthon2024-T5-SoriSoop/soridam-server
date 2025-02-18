@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import sorisoop.soridam.domain.review.domain.Review;
 import sorisoop.soridam.domain.review.domain.ReviewRepository;
 import sorisoop.soridam.domain.review.exception.ReviewNotFoundException;
+import sorisoop.soridam.globalutil.uuid.UuidPrefix;
 
 @Service
 @RequiredArgsConstructor
@@ -21,5 +22,9 @@ public class ReviewQueryService {
 
 	public List<Review> getByTargetIdIn(List<String> targetIds) {
 		return reviewRepository.findByTargetIdIn(targetIds);
+	}
+
+	public List<Review> getByTargetIdAndReviewType(String targetId, UuidPrefix reviewType) {
+		return reviewRepository.findByTargetId(reviewType.getPrefix() + targetId);
 	}
 }

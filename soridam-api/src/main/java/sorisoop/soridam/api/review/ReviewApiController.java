@@ -4,11 +4,13 @@ import static org.springframework.http.HttpStatus.CREATED;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -20,7 +22,9 @@ import lombok.RequiredArgsConstructor;
 import sorisoop.soridam.api.review.application.ReviewFacade;
 import sorisoop.soridam.api.review.presentation.request.ReviewCreateRequest;
 import sorisoop.soridam.api.review.presentation.request.ReviewUpdateRequest;
+import sorisoop.soridam.api.review.presentation.response.ReviewListResponse;
 import sorisoop.soridam.api.review.presentation.response.ReviewPersistResponse;
+import sorisoop.soridam.globalutil.uuid.UuidPrefix;
 
 @RestController
 @RequiredArgsConstructor
@@ -40,23 +44,35 @@ public class ReviewApiController {
 
 	@Operation(summary = "리뷰 업데이트 API", description = "리뷰를 업데이트합니다.")
 	@ApiResponse(responseCode = "200", description = "리뷰 업데이트 성공")
-	@PutMapping("/{reviewId}")
+	@PutMapping("/{id}")
 	public ResponseEntity<Void> updateReview(
 		@Parameter(description = "리뷰 ID", example = "123", required = true)
-		@PathVariable String reviewId,
+		@PathVariable String id,
 		@Valid @RequestBody ReviewUpdateRequest request) {
-		reviewFacade.update(reviewId, request);
+		reviewFacade.update(id, request);
 		return ResponseEntity.ok().build();
 	}
 
 	@Operation(summary = "리뷰 삭제 API", description = "리뷰를 삭제합니다.")
 	@ApiResponse(responseCode = "204", description = "리뷰 삭제 성공")
-	@DeleteMapping("/{reviewId}")
+	@DeleteMapping("/{id}")
 	public ResponseEntity<Void> deleteReview(
 		@Parameter(description = "리뷰 ID", example = "123", required = true)
-		@PathVariable String reviewId) {
-		reviewFacade.delete(reviewId);
+		@PathVariable String id) {
+		reviewFacade.delete(id);
 		return ResponseEntity.noContent().build();
+	}
+
+	@Operation(summary = "리뷰 조회 API", description = "리뷰를 조회합니다.")
+	@ApiResponse(responseCode = "200", description = "리뷰 조회 성공")
+	@GetMapping("/{targetId}")
+	public ResponseEntity<ReviewListResponse> getReviews(
+		@Parameter(description = "리뷰 타겟 ID", example = "123", required = true)
+		@PathVariable String targetId,
+		@Parameter(description = "리뷰 종류", example = "NOISE", required = true)
+		@RequestParam UuidPrefix reviewType) {
+		ReviewListResponse response = reviewFacade.getReviews(targetId, reviewType);
+		return ResponseEntity.ok(response);
 	}
 }
 

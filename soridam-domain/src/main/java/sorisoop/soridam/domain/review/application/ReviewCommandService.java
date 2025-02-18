@@ -20,19 +20,19 @@ public class ReviewCommandService {
 	private final ReviewRepository reviewRepository;
 
 	public Review create(String targetId, UuidPrefix reviewType,
-		String authorId, String content, BigDecimal rating) {
-		Review review = Review.create(targetId, reviewType, authorId, content, rating);
+		User author, String content, BigDecimal rating) {
+		Review review = Review.create(targetId, reviewType, author, content, rating);
 		return reviewRepository.save(review);
 	}
 
 	public void update(User user, Review review, String content, BigDecimal rating) {
-		validateUser(user.getId(), review.getAuthorId());
+		validateUser(user.getId(), review.getAuthor().getId());
 		review.updateContent(content);
 		review.updateRating(rating);
 	}
 
 	public void delete(User user, Review review) {
-		validateUser(user.getId(), review.getAuthorId());
+		validateUser(user.getId(), review.getAuthor().getId());
 		reviewRepository.delete(review);
 	}
 

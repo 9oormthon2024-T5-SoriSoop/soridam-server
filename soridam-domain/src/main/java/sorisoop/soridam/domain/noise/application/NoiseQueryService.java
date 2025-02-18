@@ -25,7 +25,7 @@ public class NoiseQueryService {
 
 	public List<Noise> getDetailNoise(double x, double y) {
 		Point point = geometryUtils.createPoint(x, y);
-		return noiseRepository.getNearbyNoises(point);
+		return noiseRepository.findAllByAddress_Location(point);
 	}
 
 	public List<Noise> getNearbyNoise(double x, double y, Radius radius, NoiseLevel noiseLevel) {

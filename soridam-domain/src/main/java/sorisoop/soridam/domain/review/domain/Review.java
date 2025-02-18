@@ -1,9 +1,9 @@
 package sorisoop.soridam.domain.review.domain;
 
 import static jakarta.persistence.EnumType.STRING;
+import static jakarta.persistence.FetchType.LAZY;
 import static lombok.AccessLevel.PROTECTED;
 import static sorisoop.soridam.globalutil.uuid.UuidPrefix.REVIEW;
-import static sorisoop.soridam.globalutil.uuid.UuidPrefix.USER;
 
 import java.math.BigDecimal;
 
@@ -11,12 +11,15 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import sorisoop.soridam.common.domain.BaseTimeEntity;
 import sorisoop.soridam.common.domain.UuidExtractable;
+import sorisoop.soridam.domain.user.domain.User;
 import sorisoop.soridam.globalutil.uuid.PrefixedUuid;
 import sorisoop.soridam.globalutil.uuid.UuidPrefix;
 
@@ -37,8 +40,9 @@ public class Review extends BaseTimeEntity implements UuidExtractable {
 	@Column(nullable = false, length = 25)
 	private UuidPrefix reviewType;
 
-	@Column(nullable = false)
-	private String authorId;
+	@ManyToOne(fetch = LAZY)
+	@JoinColumn(name = "author_id", nullable = false)
+	private User author;
 
 	@Column(nullable = false, columnDefinition = "TEXT")
 	private String content;
@@ -46,11 +50,11 @@ public class Review extends BaseTimeEntity implements UuidExtractable {
 	@Column(nullable = false, precision = 2, scale = 1)
 	private BigDecimal rating;
 
-	public static Review create(String targetId, UuidPrefix reviewType, String authorId, String content, BigDecimal rating) {
+	public static Review create(String targetId, UuidPrefix reviewType, User author, String content, BigDecimal rating) {
 		return Review.builder()
 			.targetId(reviewType.getPrefix() + targetId)
 			.reviewType(reviewType)
-			.authorId(authorId)
+			.author(author)
 			.content(content)
 			.rating(rating)
 			.build();

@@ -4,6 +4,7 @@ import static io.swagger.v3.oas.annotations.media.Schema.RequiredMode.REQUIRED;
 
 import java.time.format.DateTimeFormatter;
 
+import sorisoop.soridam.api.address.response.AddressResponse;
 import sorisoop.soridam.domain.noise.domain.Noise;
 
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -11,11 +12,8 @@ import lombok.Builder;
 
 @Builder
 public record NoiseResponse(
-	@Schema(description = "소음 발생 지점의 X좌표 (경도)", example = "127.015", requiredMode = REQUIRED)
-	double x,
-
-	@Schema(description = "소음 발생 지점의 Y좌표 (위도)", example = "37.5805", requiredMode = REQUIRED)
-	double y,
+	@Schema(description = "소음 발생 지점 주소", requiredMode = REQUIRED)
+	AddressResponse address,
 
 	@Schema(description = "평균 소음 데시벨", example = "50", requiredMode = REQUIRED)
 	int avgDecibel,
@@ -25,19 +23,11 @@ public record NoiseResponse(
 ) {
 	public static NoiseResponse from(Noise noise) {
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy년 MM월 dd일 HH시 mm분");
+		AddressResponse addressResponse = AddressResponse.from(noise.getAddress());
 		return builder()
-			.x(noise.getAddress().getLocation().getX())
-			.y(noise.getAddress().getLocation().getY())
+			.address(addressResponse)
 			.avgDecibel(noise.getAvgDecibel())
 			.createdAt(formatter.format(noise.getCreatedAt()))
-			.build();
-	}
-
-	public static NoiseResponse of(double x, double y, int avgDecibel) {
-		return builder()
-			.x(x)
-			.y(y)
-			.avgDecibel(avgDecibel)
 			.build();
 	}
 }

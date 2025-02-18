@@ -8,4 +8,6 @@ import sorisoop.soridam.domain.review.domain.Review;
 
 public interface JpaReviewRepository extends JpaRepository<Review, String> {
 	List<Review> findByTargetIdIn(List<String> targetIds);
+
+	List<Review> findByTargetId(String targetId);
 }
