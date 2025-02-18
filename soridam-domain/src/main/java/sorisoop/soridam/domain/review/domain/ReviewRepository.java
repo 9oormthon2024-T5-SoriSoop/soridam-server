@@ -11,4 +11,6 @@ public interface ReviewRepository {
 	void delete(Review review);
 
 	List<Review> findByTargetIdIn(List<String> targetIds);
+
+	List<Review> findByTargetId(String targetId);
 }

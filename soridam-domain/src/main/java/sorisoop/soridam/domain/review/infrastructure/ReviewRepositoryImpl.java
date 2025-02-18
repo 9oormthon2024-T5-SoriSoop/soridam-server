@@ -36,6 +36,11 @@ public class ReviewRepositoryImpl implements ReviewRepository {
 		return jpaReviewRepository.findByTargetIdIn(targetIds);
 	}
 
+	@Override
+	public List<Review> findByTargetId(String targetId) {
+		return jpaReviewRepository.findByTargetId(targetId);
+	}
+
 	private String formatId(String id) {
 		return REVIEW.getPrefix() + id;
 	}

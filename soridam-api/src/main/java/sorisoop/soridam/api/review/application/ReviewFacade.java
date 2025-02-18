@@ -1,16 +1,22 @@
 package sorisoop.soridam.api.review.application;
 
+import java.util.List;
+
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import lombok.RequiredArgsConstructor;
 import sorisoop.soridam.api.review.presentation.request.ReviewCreateRequest;
 import sorisoop.soridam.api.review.presentation.request.ReviewUpdateRequest;
+import sorisoop.soridam.api.review.presentation.response.ReviewListResponse;
 import sorisoop.soridam.api.review.presentation.response.ReviewPersistResponse;
+import sorisoop.soridam.api.review.presentation.response.ReviewResponse;
 import sorisoop.soridam.domain.review.application.ReviewCommandService;
 import sorisoop.soridam.domain.review.application.ReviewQueryService;
 import sorisoop.soridam.domain.review.domain.Review;
 import sorisoop.soridam.domain.user.application.UserQueryService;
 import sorisoop.soridam.domain.user.domain.User;
+import sorisoop.soridam.globalutil.uuid.UuidPrefix;
 
 @Component
 @RequiredArgsConstructor
@@ -43,5 +49,15 @@ public class ReviewFacade {
 		User user = userQueryService.me();
 		Review review = reviewQueryService.getById(reviewId);
 		reviewCommandService.delete(user, review);
+	}
+
+	@Transactional(readOnly = true)
+	public ReviewListResponse getReviews(String targetId, UuidPrefix reviewType) {
+		List<Review> reviews = reviewQueryService.getByTargetIdAndReviewType(targetId, reviewType);
+		List<ReviewResponse> responses = reviews.stream()
+			.map(ReviewResponse::from)
+			.toList();
+
+		return ReviewListResponse.of(responses);
 	}
 }
