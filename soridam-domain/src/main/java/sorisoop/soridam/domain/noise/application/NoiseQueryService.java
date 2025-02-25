@@ -33,4 +33,8 @@ public class NoiseQueryService {
 		return noiseRepository.findById(id)
 			.orElseThrow(NoiseNotFoundException::new);
 	}
+
+	public List<Noise> getNoisesByUserId(String userId) {
+		return noiseRepository.findByUserId(userId);
+	}
 }

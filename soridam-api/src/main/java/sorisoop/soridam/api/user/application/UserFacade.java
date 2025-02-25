@@ -6,8 +6,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import lombok.RequiredArgsConstructor;
-import sorisoop.soridam.api.noise.presentation.response.NoiseSummaryListResponse;
-import sorisoop.soridam.api.noise.presentation.response.NoiseSummaryResponse;
+import sorisoop.soridam.api.noise.presentation.response.NoiseListResponse;
+import sorisoop.soridam.api.noise.presentation.response.NoiseResponse;
 import sorisoop.soridam.api.user.presentation.request.UserCreateRequest;
 import sorisoop.soridam.api.user.presentation.response.UserInfoResponse;
 import sorisoop.soridam.api.user.presentation.response.UserPersistResponse;
@@ -40,13 +40,13 @@ public class UserFacade {
 	}
 
 	@Transactional(readOnly = true)
-	public NoiseSummaryListResponse getUserNoises(String id) {
+	public NoiseListResponse getUserNoises(String id) {
 		List<Noise> noises = userQueryService.getUserNoises(PREFIX + id);
-		List<NoiseSummaryResponse> responses = noises.stream()
-			.map(NoiseSummaryResponse::from)
+		List<NoiseResponse> responses = noises.stream()
+			.map(NoiseResponse::from)
 			.toList();
 
-		return NoiseSummaryListResponse.of(responses);
+		return NoiseListResponse.of(responses);
 	}
 
 	@Transactional(readOnly = true)

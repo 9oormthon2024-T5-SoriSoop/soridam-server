@@ -12,30 +12,22 @@ import lombok.Builder;
 
 @Builder
 public record NoiseSummaryResponse(
-	@Schema(description = "소음 ID", example = "1", requiredMode = REQUIRED)
-	String id,
-
 	@Schema(description = "소음 발생 지점 주소", requiredMode = REQUIRED)
 	AddressResponse address,
 
-	@Schema(description = "평균 데시벨", example = "50", requiredMode = REQUIRED)
+	@Schema(description = "평균 소음 데시벨", example = "50", requiredMode = REQUIRED)
 	int avgDecibel,
 
-	@Schema(description = "최대 데시벨", example = "70", requiredMode = REQUIRED)
-	int maxDecibel,
-
-	@Schema(description = "작성일자", example = "2024년 12월 14일 21시 37분", requiredMode = REQUIRED)
+	@Schema(description = "데이터 생성 시간", example = "2024년 12월 14일 21시 37분", requiredMode = REQUIRED)
 	String createdAt
 ) {
 	public static NoiseSummaryResponse from(Noise noise) {
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy년 MM월 dd일 HH시 mm분");
 		AddressResponse addressResponse = AddressResponse.from(noise.getAddress());
 		return builder()
-			.id(noise.extractUuid())
 			.address(addressResponse)
 			.avgDecibel(noise.getAvgDecibel())
-			.maxDecibel(noise.getMaxDecibel())
-			.createdAt(noise.getCreatedAt().format(formatter))
+			.createdAt(formatter.format(noise.getCreatedAt()))
 			.build();
 	}
 }

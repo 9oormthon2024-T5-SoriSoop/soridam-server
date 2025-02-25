@@ -15,4 +15,6 @@ public interface NoiseRepository {
 	Noise save(Noise noise);
 
 	void delete(Noise noise);
+
+	List<Noise> findByUserId(String userId);
 }
