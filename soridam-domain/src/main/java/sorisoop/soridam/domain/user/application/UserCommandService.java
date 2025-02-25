@@ -1,7 +1,5 @@
 package sorisoop.soridam.domain.user.application;
 
-import java.time.LocalDate;
-
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -16,16 +14,12 @@ public class UserCommandService {
 	private final UserRepository userRepository;
 	private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
-	public User signUp(String email, String password, String name, String nickname,
-		LocalDate birthDate, String phoneNumber, String profileImageUrl){
+	public User signUp(String email, String password, String name, String nickname){
 		User user = User.create(
 			email,
 			bCryptPasswordEncoder.encode(password),
 			name,
-			nickname,
-			birthDate,
-			phoneNumber,
-			profileImageUrl
+			nickname
 		);
 
 		return userRepository.save(user);

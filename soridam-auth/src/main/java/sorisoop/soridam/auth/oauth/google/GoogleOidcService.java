@@ -43,9 +43,8 @@ public class GoogleOidcService extends OidcService {
 	protected User createNewUser(String identifier, OidcUserInfo oidcUserInfo) {
 		String name = oidcUserInfo.getFullName();
 		String email = oidcUserInfo.getEmail();
-		String profileImageUrl = oidcUserInfo.getPicture();
 
-		return User.googleOidcCreate(identifier, GOOGLE, name, email, profileImageUrl);
+		return User.googleOidcCreate(identifier, GOOGLE, name, email);
 	}
 }
 
