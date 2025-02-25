@@ -23,7 +23,7 @@ public class JwtService {
 	public JwtResponse jwtLogin(String email, String password) {
 		User user = userCommandService.login(email, password);
 		JwtResponse response = getToken(user);
-		refreshTokenService.save(user.getId(), response.refreshToken());
+		refreshTokenService.save(user.extractUuid(), response.refreshToken());
 		return response;
 	}
 
