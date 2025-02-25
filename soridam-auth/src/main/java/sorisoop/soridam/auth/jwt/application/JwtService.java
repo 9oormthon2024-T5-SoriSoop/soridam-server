@@ -5,7 +5,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import lombok.RequiredArgsConstructor;
 import sorisoop.soridam.auth.jwt.response.JwtResponse;
-import sorisoop.soridam.domain.refresh.RefreshToken;
+import sorisoop.soridam.domain.refresh.domain.RefreshToken;
 import sorisoop.soridam.domain.refresh.application.RefreshTokenService;
 import sorisoop.soridam.domain.user.application.UserCommandService;
 import sorisoop.soridam.domain.user.application.UserQueryService;
@@ -23,7 +23,7 @@ public class JwtService {
 	public JwtResponse jwtLogin(String email, String password) {
 		User user = userCommandService.login(email, password);
 		JwtResponse response = getToken(user);
-		refreshTokenService.save(user.getId(), response.refreshToken());
+		refreshTokenService.save(user.extractUuid(), response.refreshToken());
 		return response;
 	}
 

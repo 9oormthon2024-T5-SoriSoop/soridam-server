@@ -14,7 +14,7 @@ import org.springframework.data.redis.repository.configuration.EnableRedisReposi
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 
 @Configuration
-@EnableRedisRepositories(basePackages = "sorisoop.soridam")
+@EnableRedisRepositories(basePackages = "sorisoop.soridam.infra.repository.redis")
 public class RedisConfig {
 	@Value("${spring.data.redis.host}")
 	String redisHost;
@@ -48,7 +48,7 @@ public class RedisConfig {
 		template.setConnectionFactory(connectionFactory);
 		template.setKeySerializer(new StringRedisSerializer());
 		template.setValueSerializer(new StringRedisSerializer());
-		template.setEnableTransactionSupport(true);
+		template.setEnableTransactionSupport(false);
 		template.afterPropertiesSet();
 
 		return template;

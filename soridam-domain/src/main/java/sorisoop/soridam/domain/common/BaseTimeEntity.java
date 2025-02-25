@@ -1,4 +1,4 @@
-package sorisoop.soridam.common.domain;
+package sorisoop.soridam.domain.common;
 
 import java.time.LocalDateTime;
 

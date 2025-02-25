@@ -1,4 +1,4 @@
-package sorisoop.soridam.domain.refresh;
+package sorisoop.soridam.domain.refresh.domain;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.redis.core.RedisHash;

@@ -1,4 +1,4 @@
-package sorisoop.soridam.domain.address.infrastructure;
+package sorisoop.soridam.infra.repository.jpa;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

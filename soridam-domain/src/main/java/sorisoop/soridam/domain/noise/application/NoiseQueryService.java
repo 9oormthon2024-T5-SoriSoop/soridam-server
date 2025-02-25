@@ -6,7 +6,6 @@ import java.util.List;
 
 import org.locationtech.jts.geom.Point;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import lombok.RequiredArgsConstructor;
 import sorisoop.soridam.domain.noise.domain.Noise;

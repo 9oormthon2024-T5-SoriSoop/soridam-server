@@ -9,7 +9,6 @@ jar {
 dependencies {
     implementation project(':soridam-global-util')
     implementation project(':soridam-common')
-    implementation project(':soridam-infra')
 
     // 지리 데이터 관리 도구
     implementation 'org.locationtech.jts:jts-core:1.20.0'

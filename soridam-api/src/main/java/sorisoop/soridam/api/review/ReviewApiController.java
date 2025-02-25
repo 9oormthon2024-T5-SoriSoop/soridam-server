@@ -71,7 +71,7 @@ public class ReviewApiController {
 		@PathVariable String targetId,
 		@Parameter(description = "리뷰 종류", example = "NOISE", required = true)
 		@RequestParam UuidPrefix reviewType) {
-		ReviewListResponse response = reviewFacade.getReviews(targetId, reviewType);
+		ReviewListResponse response = reviewFacade.getReviews(reviewType.getPrefix() + targetId);
 		return ResponseEntity.ok(response);
 	}
 }
