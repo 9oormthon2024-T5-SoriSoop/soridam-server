@@ -22,7 +22,7 @@ import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 
 @EnableJpaRepositories(  // # 1
-	basePackages = {"sorisoop.soridam"},
+	basePackages = {"sorisoop.soridam.infra.repository.jpa"},
 	entityManagerFactoryRef = "entityManagerFactory",
 	transactionManagerRef = "transactionManager"
 )

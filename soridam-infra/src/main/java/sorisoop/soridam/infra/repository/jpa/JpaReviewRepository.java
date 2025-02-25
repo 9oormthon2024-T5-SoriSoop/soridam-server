@@ -1,4 +1,4 @@
-package sorisoop.soridam.domain.review.infrastructure;
+package sorisoop.soridam.infra.repository.jpa;
 
 import java.util.List;
 

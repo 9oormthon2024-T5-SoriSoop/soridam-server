@@ -3,8 +3,8 @@ package sorisoop.soridam.domain.refresh.application;
 import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
-import sorisoop.soridam.domain.refresh.RefreshToken;
-import sorisoop.soridam.domain.refresh.RefreshTokenRepository;
+import sorisoop.soridam.domain.refresh.domain.RefreshToken;
+import sorisoop.soridam.domain.refresh.domain.RefreshTokenRepository;
 import sorisoop.soridam.domain.refresh.exception.RefreshTokenNotFoundException;
 
 @Service

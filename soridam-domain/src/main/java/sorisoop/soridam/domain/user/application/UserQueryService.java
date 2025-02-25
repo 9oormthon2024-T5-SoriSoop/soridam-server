@@ -26,7 +26,7 @@ public class UserQueryService {
 	}
 
 	public User getById(String id) {
-		return userRepository.findById(id)
+		return userRepository.findById(USER.getPrefix() + id)
 			.orElseThrow(UserNotFoundException::new);
 	}
 

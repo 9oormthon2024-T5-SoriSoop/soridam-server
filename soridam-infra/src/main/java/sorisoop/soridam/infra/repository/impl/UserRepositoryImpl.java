@@ -1,15 +1,14 @@
-package sorisoop.soridam.domain.user.infrastructure;
-
-import static sorisoop.soridam.globalutil.uuid.UuidPrefix.USER;
+package sorisoop.soridam.infra.repository.impl;
 
 import java.util.Optional;
 
 import org.springframework.stereotype.Repository;
 
 import lombok.RequiredArgsConstructor;
-import sorisoop.soridam.common.domain.Provider;
+import sorisoop.soridam.domain.common.Provider;
 import sorisoop.soridam.domain.user.domain.User;
 import sorisoop.soridam.domain.user.domain.UserRepository;
+import sorisoop.soridam.infra.repository.jpa.JpaUserRepository;
 
 @Repository
 @RequiredArgsConstructor
@@ -33,6 +32,6 @@ public class UserRepositoryImpl implements UserRepository {
 
 	@Override
 	public Optional<User> findById(String id) {
-		return jpaUserRepository.findById(USER.getPrefix() + id);
+		return jpaUserRepository.findById(id);
 	}
 }

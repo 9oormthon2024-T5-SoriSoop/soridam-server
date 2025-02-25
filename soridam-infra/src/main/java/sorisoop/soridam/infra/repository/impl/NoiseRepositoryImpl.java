@@ -1,4 +1,4 @@
-package sorisoop.soridam.domain.noise.infrastructure;
+package sorisoop.soridam.infra.repository.impl;
 
 import java.util.List;
 import java.util.Optional;
@@ -11,6 +11,8 @@ import sorisoop.soridam.domain.noise.domain.Noise;
 import sorisoop.soridam.domain.noise.domain.NoiseLevel;
 import sorisoop.soridam.domain.noise.domain.NoiseRepository;
 import sorisoop.soridam.domain.noise.domain.Radius;
+import sorisoop.soridam.infra.repository.jpa.JpaNoiseRepository;
+import sorisoop.soridam.infra.repository.jpa.QueryNoiseRepository;
 
 @Repository
 @RequiredArgsConstructor

@@ -1,6 +1,4 @@
-package sorisoop.soridam.domain.review.infrastructure;
-
-import static sorisoop.soridam.globalutil.uuid.UuidPrefix.REVIEW;
+package sorisoop.soridam.infra.repository.impl;
 
 import java.util.List;
 import java.util.Optional;
@@ -10,6 +8,7 @@ import org.springframework.stereotype.Repository;
 import lombok.RequiredArgsConstructor;
 import sorisoop.soridam.domain.review.domain.Review;
 import sorisoop.soridam.domain.review.domain.ReviewRepository;
+import sorisoop.soridam.infra.repository.jpa.JpaReviewRepository;
 
 @Repository
 @RequiredArgsConstructor
@@ -42,6 +41,6 @@ public class ReviewRepositoryImpl implements ReviewRepository {
 	}
 
 	private String formatId(String id) {
-		return REVIEW.getPrefix() + id;
+		return id;
 	}
 }

@@ -2,7 +2,7 @@ package sorisoop.soridam.domain.user.domain;
 
 import java.util.Optional;
 
-import sorisoop.soridam.common.domain.Provider;
+import sorisoop.soridam.domain.common.Provider;
 
 public interface UserRepository {
 	User save(User user);

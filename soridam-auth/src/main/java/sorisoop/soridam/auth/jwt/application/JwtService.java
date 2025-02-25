@@ -5,7 +5,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import lombok.RequiredArgsConstructor;
 import sorisoop.soridam.auth.jwt.response.JwtResponse;
-import sorisoop.soridam.domain.refresh.RefreshToken;
+import sorisoop.soridam.domain.refresh.domain.RefreshToken;
 import sorisoop.soridam.domain.refresh.application.RefreshTokenService;
 import sorisoop.soridam.domain.user.application.UserCommandService;
 import sorisoop.soridam.domain.user.application.UserQueryService;
