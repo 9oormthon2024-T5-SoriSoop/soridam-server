@@ -2,18 +2,13 @@ package sorisoop.soridam.api.user.application;
 
 import static sorisoop.soridam.globalutil.uuid.UuidPrefix.USER;
 
-import java.util.List;
-
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import lombok.RequiredArgsConstructor;
-import sorisoop.soridam.api.noise.presentation.response.NoiseListResponse;
-import sorisoop.soridam.api.noise.presentation.response.NoiseResponse;
 import sorisoop.soridam.api.user.presentation.request.UserCreateRequest;
 import sorisoop.soridam.api.user.presentation.response.UserInfoResponse;
 import sorisoop.soridam.api.user.presentation.response.UserPersistResponse;
-import sorisoop.soridam.domain.noise.domain.Noise;
 import sorisoop.soridam.domain.user.application.UserCommandService;
 import sorisoop.soridam.domain.user.application.UserQueryService;
 import sorisoop.soridam.domain.user.domain.User;
