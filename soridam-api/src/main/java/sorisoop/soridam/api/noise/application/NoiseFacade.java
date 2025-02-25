@@ -33,7 +33,7 @@ import sorisoop.soridam.domain.user.domain.User;
 @Component
 @RequiredArgsConstructor
 public class NoiseFacade {
-	private static final String prefix = NOISE.getPrefix();
+	private static final String NOISE_PREFIX = NOISE.getPrefix();
 
 	private final NoiseCommandService noiseCommandService;
 	private final NoiseQueryService noiseQueryService;
@@ -74,15 +74,20 @@ public class NoiseFacade {
 
 	@Transactional(readOnly = true)
 	public NoiseResponse getNoise(String id) {
-		Noise noise = noiseQueryService.getNoise(prefix + id);
+		Noise noise = noiseQueryService.getNoise(NOISE_PREFIX + id);
 		return NoiseResponse.from(noise);
 	}
 
 	@Transactional
 	public NoisePersistResponse createNoise(NoiseCreateRequest request) {
 		User user = userQueryService.me();
-		Address address = addressCommandService.save(request.x(), request.y(), request.roadAddress(),
-			request.regionAddress());
+		Address address = addressCommandService.save(
+			request.x(),
+			request.y(),
+			request.roadAddress(),
+			request.regionAddress()
+		);
+
 		Noise noise = noiseCommandService.createNoise(
 			user,
 			address,
@@ -96,7 +101,7 @@ public class NoiseFacade {
 	@Transactional
 	public void deleteNoise(String id) {
 		User user = userQueryService.me();
-		noiseCommandService.deleteNoise(user, prefix + id);
+		noiseCommandService.deleteNoise(user, NOISE_PREFIX + id);
 	}
 
 	@Transactional(readOnly = true)
