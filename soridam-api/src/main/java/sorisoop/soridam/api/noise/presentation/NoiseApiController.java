@@ -45,9 +45,9 @@ public class NoiseApiController {
 	@GetMapping("/{id}")
 	public ResponseEntity<NoiseResponse> getUserNoiseDetail(
 		@Parameter(description = "조회할 noise 데이터의 ID", example = "10", required = true)
-		@PathVariable String noiseId
+		@PathVariable String id
 	) {
-		NoiseResponse response = noiseFacade.getNoise(noiseId);
+		NoiseResponse response = noiseFacade.getNoise(id);
 		return ResponseEntity.ok(response);
 	}
 
