@@ -42,9 +42,8 @@ public class KakaoOidcService extends OidcService {
 	@Override
 	protected User createNewUser(String identifier, OidcUserInfo oidcUserInfo) {
 		String name = oidcUserInfo.getNickName();
-		String profileImageUrl = oidcUserInfo.getPicture();
 
-		return User.kakaoOidcCreate(identifier, KAKAO, name, profileImageUrl);
+		return User.kakaoOidcCreate(identifier, KAKAO, name);
 	}
 }
 

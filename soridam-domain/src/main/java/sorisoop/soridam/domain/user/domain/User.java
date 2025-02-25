@@ -1,15 +1,10 @@
 package sorisoop.soridam.domain.user.domain;
 
-import static jakarta.persistence.CascadeType.ALL;
 import static jakarta.persistence.EnumType.STRING;
-import static jakarta.persistence.FetchType.LAZY;
 import static lombok.AccessLevel.PROTECTED;
 import static sorisoop.soridam.globalutil.uuid.UuidPrefix.USER;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -17,7 +12,6 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -26,7 +20,6 @@ import lombok.NoArgsConstructor;
 import sorisoop.soridam.domain.common.BaseTimeEntity;
 import sorisoop.soridam.domain.common.Provider;
 import sorisoop.soridam.domain.common.UuidExtractable;
-import sorisoop.soridam.domain.noise.domain.Noise;
 import sorisoop.soridam.domain.user.exception.InvalidPasswordException;
 import sorisoop.soridam.globalutil.uuid.PrefixedUuid;
 
@@ -53,15 +46,6 @@ public class User extends BaseTimeEntity implements UuidExtractable {
 	@Column(unique = true)
 	private String nickname;
 
-	private LocalDate birthDate;
-
-	@Column(unique = true)
-	private String phoneNumber;
-
-	private String profileImageUrl;
-
-	private int point;
-
 	@Enumerated(STRING)
 	private Provider provider;
 
@@ -70,47 +54,36 @@ public class User extends BaseTimeEntity implements UuidExtractable {
 
 	private LocalDateTime lastLoginAt;
 
-	@OneToMany(mappedBy = "user", cascade = ALL, orphanRemoval = true, fetch = LAZY)
-	@Builder.Default
-	private List<Noise> noises = new ArrayList<>();
-
 	public void isPasswordMatching(String rawPassword, PasswordEncoder passwordEncoder) {
 		if (!passwordEncoder.matches(rawPassword, this.password)) {
 			throw new InvalidPasswordException();
 		}
 	}
 
-	public static User create(String email, String password, String name, String nickname,
-		LocalDate birthDate, String phoneNumber, String profileImageUrl) {
+	public static User create(String email, String password, String name, String nickname) {
 		return User.builder()
 			.email(email)
 			.password(password)
 			.name(name)
 			.nickname(nickname)
-			.birthDate(birthDate)
-			.phoneNumber(phoneNumber)
-			.profileImageUrl(profileImageUrl)
-			.point(0)
 			.role(Role.USER)
 			.build();
 	}
 
-	public static User kakaoOidcCreate(String oauthIdentity, Provider provider, String name, String profileImageUrl){
+	public static User kakaoOidcCreate(String oauthIdentity, Provider provider, String name){
 		return User.builder()
 			.oauthIdentity(oauthIdentity)
 			.name(name)
-			.profileImageUrl(profileImageUrl)
 			.provider(provider)
 			.role(Role.USER)
 			.build();
 	}
 
-	public static User googleOidcCreate(String oauthIdentity, Provider provider, String name, String email, String profileImageUrl){
+	public static User googleOidcCreate(String oauthIdentity, Provider provider, String name, String email){
 		return User.builder()
 			.oauthIdentity(oauthIdentity)
 			.name(name)
 			.email(email)
-			.profileImageUrl(profileImageUrl)
 			.provider(provider)
 			.role(Role.USER)
 			.build();
@@ -118,10 +91,6 @@ public class User extends BaseTimeEntity implements UuidExtractable {
 
 	public void updateLastLoginTime() {
 		this.lastLoginAt = LocalDateTime.now();
-	}
-
-	public void updateProfileImageUrl(String profileImageUrl) {
-		this.profileImageUrl = profileImageUrl;
 	}
 
 	public void updateNickname(String nickname) {

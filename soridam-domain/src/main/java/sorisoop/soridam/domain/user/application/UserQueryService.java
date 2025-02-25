@@ -1,13 +1,10 @@
 package sorisoop.soridam.domain.user.application;
 
-import java.util.List;
-
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
-import sorisoop.soridam.domain.noise.domain.Noise;
 import sorisoop.soridam.domain.user.domain.User;
 import sorisoop.soridam.domain.user.domain.UserRepository;
 import sorisoop.soridam.domain.user.exception.UnauthorizedException;
@@ -17,11 +14,6 @@ import sorisoop.soridam.domain.user.exception.UserNotFoundException;
 @RequiredArgsConstructor
 public class UserQueryService {
 	private final UserRepository userRepository;
-
-	public List<Noise> getUserNoises(String id) {
-		User user = getById(id);
-		return user.getNoises();
-	}
 
 	public User getById(String id) {
 		return userRepository.findById(id)

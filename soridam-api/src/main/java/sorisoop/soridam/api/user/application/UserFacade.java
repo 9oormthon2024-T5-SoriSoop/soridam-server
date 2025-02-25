@@ -27,10 +27,7 @@ public class UserFacade {
 			request.email(),
 			request.password(),
 			request.name(),
-			request.nickname(),
-			request.birthDate(),
-			request.phoneNumber(),
-			request.profileImageUrl()
+			request.nickname()
 		);
 		return UserPersistResponse.from(user);
 	}
