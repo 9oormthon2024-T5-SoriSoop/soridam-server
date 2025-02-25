@@ -1,5 +1,7 @@
 package sorisoop.soridam.auth.jwt.application;
 
+import static sorisoop.soridam.globalutil.uuid.UuidPrefix.USER;
+
 import java.time.Duration;
 import java.util.Collections;
 import java.util.Date;
@@ -94,7 +96,7 @@ public class JwtProvider {
 
         return new UsernamePasswordAuthenticationToken(
                 new org.springframework.security.core.userdetails.User(
-                        claims.getSubject(),
+                        USER.getPrefix() + claims.getSubject(),
                         "",
                         authorities
                 ), token, authorities

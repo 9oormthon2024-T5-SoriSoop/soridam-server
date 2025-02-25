@@ -15,10 +15,13 @@ import sorisoop.soridam.domain.noise.domain.Noise;
 import sorisoop.soridam.domain.user.application.UserCommandService;
 import sorisoop.soridam.domain.user.application.UserQueryService;
 import sorisoop.soridam.domain.user.domain.User;
+import sorisoop.soridam.globalutil.uuid.UuidPrefix;
 
 @Component
 @RequiredArgsConstructor
 public class UserFacade {
+	private static final String PREFIX = UuidPrefix.USER.getPrefix();
+
 	private final UserCommandService userCommandService;
 	private final UserQueryService userQueryService;
 
@@ -38,7 +41,7 @@ public class UserFacade {
 
 	@Transactional(readOnly = true)
 	public NoiseSummaryListResponse getUserNoises(String id) {
-		List<Noise> noises = userQueryService.getUserNoises(id);
+		List<Noise> noises = userQueryService.getUserNoises(PREFIX + id);
 		List<NoiseSummaryResponse> responses = noises.stream()
 			.map(NoiseSummaryResponse::from)
 			.toList();
@@ -48,7 +51,7 @@ public class UserFacade {
 
 	@Transactional(readOnly = true)
 	public UserInfoResponse getById(String id) {
-		User user = userQueryService.getById(id);
+		User user = userQueryService.getById(PREFIX + id);
 		return UserInfoResponse.from(user);
 	}
 }
