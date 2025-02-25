@@ -18,7 +18,6 @@ public class RefreshTokenService {
 	}
 
 	public void save(String userId, String token) {
-		refreshTokenRepository.findById(userId)
-			.ifPresent(refreshTokenRepository::delete);
 		refreshTokenRepository.save(RefreshToken.of(userId, token));
-	}}
+	}
+}

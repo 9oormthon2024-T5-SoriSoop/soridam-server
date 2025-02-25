@@ -19,17 +19,18 @@ public class RefreshTokenRepositoryImpl implements RefreshTokenRepository {
 	}
 
 	@Override
-	public Optional<RefreshToken> findById(String id) {
-		return redisRefreshTokenRepository.findById(id);
-	}
-
-	@Override
-	public void delete(RefreshToken refreshToken) {
-		redisRefreshTokenRepository.delete(refreshToken);
-	}
-
-	@Override
 	public void save(RefreshToken refreshToken) {
 		redisRefreshTokenRepository.save(refreshToken);
+	}
+
+
+	@Override
+	public boolean existById(String userId) {
+		return redisRefreshTokenRepository.existsById(userId);
+	}
+
+	@Override
+	public void deleteById(String userId) {
+		redisRefreshTokenRepository.deleteById(userId);
 	}
 }
