@@ -13,7 +13,6 @@ import sorisoop.soridam.domain.user.exception.UserNotFoundException;
 
 @Service
 @RequiredArgsConstructor
-@Transactional
 public class UserCommandService {
 	private final UserRepository userRepository;
 	private final BCryptPasswordEncoder bCryptPasswordEncoder;

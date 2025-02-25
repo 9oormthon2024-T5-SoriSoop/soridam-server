@@ -25,6 +25,7 @@ public class ReviewFacade {
 	private final ReviewQueryService reviewQueryService;
 	private final UserQueryService userQueryService;
 
+	@Transactional
 	public ReviewPersistResponse create(ReviewCreateRequest request) {
 		User author = userQueryService.me();
 
@@ -39,12 +40,14 @@ public class ReviewFacade {
 		return ReviewPersistResponse.from(review);
 	}
 
+	@Transactional
 	public void update(String reviewId, ReviewUpdateRequest request) {
 		User user = userQueryService.me();
 		Review review = reviewQueryService.getById(reviewId);
 		reviewCommandService.update(user, review, request.content(), request.rating());
 	}
 
+	@Transactional
 	public void delete(String reviewId) {
 		User user = userQueryService.me();
 		Review review = reviewQueryService.getById(reviewId);

@@ -56,6 +56,7 @@ public class NoiseFacade {
 		return Optional.of(NoiseReviewResponse.of(noises, reviews));
 	}
 
+	@Transactional(readOnly = true)
 	public NoiseListResponse getNearbyNoise(
 		NoiseSearchRequest requests, Radius radius, NoiseLevel noiseLevel) {
 		List<NoiseResponse> responses = noiseQueryService.getNearbyNoise(requests.x(), requests.y(), radius, noiseLevel).stream()
@@ -71,6 +72,7 @@ public class NoiseFacade {
 		return NoiseSummaryResponse.from(noise);
 	}
 
+	@Transactional
 	public NoisePersistResponse createNoise(NoiseCreateRequest request) {
 		User user = userQueryService.me();
 		Address address = addressCommandService.save(request.x(), request.y(), request.roadAddress(),

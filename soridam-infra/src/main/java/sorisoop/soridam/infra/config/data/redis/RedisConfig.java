@@ -1,4 +1,4 @@
-package sorisoop.soridam.infra.config.redis;
+package sorisoop.soridam.infra.config.data.redis;
 
 import java.time.Duration;
 

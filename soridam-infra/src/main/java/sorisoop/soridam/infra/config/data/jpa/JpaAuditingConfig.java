@@ -1,4 +1,4 @@
-package sorisoop.soridam.infra.config.jpa;
+package sorisoop.soridam.infra.config.data.jpa;
 
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 

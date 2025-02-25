@@ -1,6 +1,7 @@
 package sorisoop.soridam.auth.jwt.application;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import lombok.RequiredArgsConstructor;
 import sorisoop.soridam.auth.jwt.response.JwtResponse;
@@ -18,6 +19,7 @@ public class JwtService {
 	private final RefreshTokenService refreshTokenService;
 	private final JwtProvider jwtProvider;
 
+	@Transactional
 	public JwtResponse jwtLogin(String email, String password) {
 		User user = userCommandService.login(email, password);
 		JwtResponse response = getToken(user);
@@ -25,6 +27,7 @@ public class JwtService {
 		return response;
 	}
 
+	@Transactional(readOnly = true)
 	public JwtResponse reissue(String token) {
 		RefreshToken refreshToken = refreshTokenService.getToken(token);
 		String userId = refreshToken.getUserId();

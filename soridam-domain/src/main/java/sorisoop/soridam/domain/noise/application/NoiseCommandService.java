@@ -15,7 +15,6 @@ import sorisoop.soridam.domain.user.exception.InvalidUserException;
 import sorisoop.soridam.globalutil.user.UserUtil;
 
 @Service
-@Transactional
 @RequiredArgsConstructor
 public class NoiseCommandService {
 	private final NoiseRepository noiseRepository;

@@ -16,9 +16,9 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import sorisoop.soridam.api.noise.presentation.response.NoiseSummaryListResponse;
 import sorisoop.soridam.api.user.application.UserFacade;
 import sorisoop.soridam.api.user.presentation.request.UserCreateRequest;
+import sorisoop.soridam.api.user.presentation.response.UserInfoResponse;
 import sorisoop.soridam.api.user.presentation.response.UserPersistResponse;
 
 @RestController
@@ -33,11 +33,11 @@ public class UserApiController {
 		""")
 	@ApiResponse(responseCode = "200")
 	@GetMapping("/{userId}")
-	public ResponseEntity<NoiseSummaryListResponse> getUserNoises(
+	public ResponseEntity<UserInfoResponse> getUserNoises(
 		@Parameter(description = "조회할 사용자의 ID", example = "9f3b462d-0fe9-4e7a-ae5d-74f9d9fc3ba4")
 		@PathVariable String userId
 	) {
-		NoiseSummaryListResponse response = userFacade.getUserNoises(userId);
+		UserInfoResponse response = userFacade.getById(userId);
 		return ResponseEntity.ok(response);
 	}
 

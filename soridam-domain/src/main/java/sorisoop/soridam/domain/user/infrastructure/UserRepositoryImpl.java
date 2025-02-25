@@ -1,5 +1,7 @@
 package sorisoop.soridam.domain.user.infrastructure;
 
+import static sorisoop.soridam.globalutil.uuid.UuidPrefix.USER;
+
 import java.util.Optional;
 
 import org.springframework.stereotype.Repository;
@@ -31,6 +33,6 @@ public class UserRepositoryImpl implements UserRepository {
 
 	@Override
 	public Optional<User> findById(String id) {
-		return jpaUserRepository.findById(id);
+		return jpaUserRepository.findById(USER.getPrefix() + id);
 	}
 }

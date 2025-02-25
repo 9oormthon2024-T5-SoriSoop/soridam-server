@@ -17,7 +17,6 @@ import sorisoop.soridam.domain.noise.exception.NoiseNotFoundException;
 import sorisoop.soridam.globalutil.geometry.GeometryUtils;
 
 @Service
-@Transactional(readOnly = true)
 @RequiredArgsConstructor
 public class NoiseQueryService {
 	private final NoiseRepository noiseRepository;
