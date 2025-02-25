@@ -22,7 +22,7 @@ public class ReviewRepositoryImpl implements ReviewRepository {
 
 	@Override
 	public Optional<Review> findById(String id) {
-		return jpaReviewRepository.findById(formatId(id));
+		return jpaReviewRepository.findById(id);
 	}
 
 	@Override
@@ -38,9 +38,5 @@ public class ReviewRepositoryImpl implements ReviewRepository {
 	@Override
 	public List<Review> findByTargetId(String targetId) {
 		return jpaReviewRepository.findByTargetId(targetId);
-	}
-
-	private String formatId(String id) {
-		return id;
 	}
 }

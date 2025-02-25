@@ -23,7 +23,7 @@ public class ReviewQueryService {
 		return reviewRepository.findByTargetIdIn(targetIds);
 	}
 
-	public List<Review> getByTargetIdAndReviewType(String targetId) {
+	public List<Review> getByTargetId(String targetId) {
 		return reviewRepository.findByTargetId(targetId);
 	}
 }
