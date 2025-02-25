@@ -4,7 +4,6 @@ import java.time.LocalDate;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import lombok.RequiredArgsConstructor;
 import sorisoop.soridam.domain.user.domain.User;

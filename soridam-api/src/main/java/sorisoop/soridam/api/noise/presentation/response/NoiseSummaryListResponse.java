@@ -9,12 +9,12 @@ import lombok.Builder;
 
 @Builder
 public record NoiseSummaryListResponse(
-	@Schema(description = "소음 요약 정보 목록", requiredMode = REQUIRED)
-	List<NoiseSummaryResponse> responses
+	@Schema(description = "소음 데이터 목록", requiredMode = REQUIRED)
+	List<NoiseSummaryResponse> noises
 ) {
-	public static NoiseSummaryListResponse of(List<NoiseSummaryResponse> responses) {
+	public static NoiseSummaryListResponse of(List<NoiseSummaryResponse> noises) {
 		return builder()
-			.responses(responses)
+			.noises(noises)
 			.build();
 	}
 }

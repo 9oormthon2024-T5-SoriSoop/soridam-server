@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import lombok.Builder;
-import sorisoop.soridam.api.noise.presentation.response.NoiseResponse;
+import sorisoop.soridam.api.noise.presentation.response.NoiseSummaryResponse;
 import sorisoop.soridam.domain.user.domain.User;
 
 @Builder
@@ -19,7 +19,7 @@ public record UserInfoResponse(
 	String profileImageUrl,
 	int point,
 	LocalDateTime lastLoginAt,
-	List<NoiseResponse> noises
+	List<NoiseSummaryResponse> noises
 ) {
 	public static UserInfoResponse from(User user) {
 		return UserInfoResponse.builder()
@@ -33,7 +33,7 @@ public record UserInfoResponse(
 			.point(user.getPoint())
 			.lastLoginAt(user.getLastLoginAt())
 			.noises(user.getNoises().stream()
-				.map(NoiseResponse::from)
+				.map(NoiseSummaryResponse::from)
 				.toList())
 			.build();
 	}

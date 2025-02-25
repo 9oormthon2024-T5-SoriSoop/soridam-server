@@ -23,10 +23,11 @@ import lombok.RequiredArgsConstructor;
 import sorisoop.soridam.api.noise.application.NoiseFacade;
 import sorisoop.soridam.api.noise.presentation.request.NoiseCreateRequest;
 import sorisoop.soridam.api.noise.presentation.request.NoiseSearchRequest;
-import sorisoop.soridam.api.noise.presentation.response.NoiseReviewResponse;
 import sorisoop.soridam.api.noise.presentation.response.NoiseListResponse;
 import sorisoop.soridam.api.noise.presentation.response.NoisePersistResponse;
-import sorisoop.soridam.api.noise.presentation.response.NoiseSummaryResponse;
+import sorisoop.soridam.api.noise.presentation.response.NoiseResponse;
+import sorisoop.soridam.api.noise.presentation.response.NoiseReviewResponse;
+import sorisoop.soridam.api.noise.presentation.response.NoiseSummaryListResponse;
 import sorisoop.soridam.domain.noise.domain.NoiseLevel;
 import sorisoop.soridam.domain.noise.domain.Radius;
 
@@ -41,12 +42,12 @@ public class NoiseApiController {
 			- Description : 이 API는 해당 소음 데이터를 조회합니다.
 		""")
 	@ApiResponse(responseCode = "200")
-	@GetMapping("/{noiseId}")
-	public ResponseEntity<NoiseSummaryResponse> getUserNoiseDetail(
+	@GetMapping("/{id}")
+	public ResponseEntity<NoiseResponse> getUserNoiseDetail(
 		@Parameter(description = "조회할 noise 데이터의 ID", example = "10", required = true)
-		@PathVariable String noiseId
+		@PathVariable String id
 	) {
-		NoiseSummaryResponse response = noiseFacade.getNoise(noiseId);
+		NoiseResponse response = noiseFacade.getNoise(id);
 		return ResponseEntity.ok(response);
 	}
 
@@ -56,7 +57,7 @@ public class NoiseApiController {
 	@ApiResponse(responseCode = "200", description = "요청 성공")
 	@ApiResponse(responseCode = "204", description = "결과 없음")
 	@PostMapping("/nearby")
-	public ResponseEntity<NoiseListResponse> getNearbyNoise(
+	public ResponseEntity<NoiseSummaryListResponse> getNearbyNoise(
 		@Valid @RequestBody NoiseSearchRequest request,
 
 		@RequestParam(required = false, defaultValue = "FIVE_HUNDRED_METERS")
@@ -67,7 +68,7 @@ public class NoiseApiController {
 		@Parameter(description = "소음 검색 범위", example = "QUIET", required = true)
 		NoiseLevel level
 	) {
-		NoiseListResponse response = noiseFacade.getNearbyNoise(request, radius, level);
+		NoiseSummaryListResponse response = noiseFacade.getNearbyNoise(request, radius, level);
 		return ResponseEntity.ok(response);
 	}
 
@@ -76,7 +77,7 @@ public class NoiseApiController {
 		""")
 	@ApiResponse(responseCode = "200", description = "요청 성공")
 	@ApiResponse(responseCode = "204", description = "결과 없음")
-	@GetMapping
+	@GetMapping("/location")
 	public ResponseEntity<NoiseReviewResponse> getDetailNoise(
 		@RequestParam
 		@Parameter(description = "x 좌표", example = "127.07150", required = true)
@@ -118,5 +119,16 @@ public class NoiseApiController {
 		return ResponseEntity.noContent().build();
 	}
 
-
+	@Operation(summary = "본인이 등록한 noise 데이터 조회 API", description = """
+			- Description : 이 API는 댓글을 수정합니다.
+		""")
+	@ApiResponse(responseCode = "200")
+	@GetMapping
+	public ResponseEntity<NoiseListResponse> getUserNoises(
+		@Parameter(description = "조회할 사용자의 ID", example = "9f3b462d-0fe9-4e7a-ae5d-74f9d9fc3ba4")
+		@RequestParam String userId
+	) {
+		NoiseListResponse response = noiseFacade.getNoisesByUserId(userId);
+		return ResponseEntity.ok(response);
+	}
 }

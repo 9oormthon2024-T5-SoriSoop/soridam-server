@@ -1,7 +1,5 @@
 package sorisoop.soridam.domain.user.application;
 
-import static sorisoop.soridam.globalutil.uuid.UuidPrefix.USER;
-
 import java.util.List;
 
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -26,7 +24,7 @@ public class UserQueryService {
 	}
 
 	public User getById(String id) {
-		return userRepository.findById(USER.getPrefix() + id)
+		return userRepository.findById(id)
 			.orElseThrow(UserNotFoundException::new);
 	}
 
@@ -39,7 +37,7 @@ public class UserQueryService {
 		try{
 			Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 			String userId = ((UserDetails)principal).getUsername();
-			return getById(USER.getPrefix() + userId);
+			return getById(userId);
 		} catch (Exception e){
 			throw new UnauthorizedException();
 		}

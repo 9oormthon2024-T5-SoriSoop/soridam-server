@@ -9,4 +9,6 @@ import sorisoop.soridam.domain.noise.domain.Noise;
 
 public interface JpaNoiseRepository extends JpaRepository<Noise, String> {
 	List<Noise> findAllByAddress_Location(Point location);
+
+	List<Noise> findByUserId(String userId);
 }

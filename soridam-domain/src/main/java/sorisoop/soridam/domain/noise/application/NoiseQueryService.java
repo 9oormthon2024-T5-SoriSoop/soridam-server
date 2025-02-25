@@ -1,7 +1,5 @@
 package sorisoop.soridam.domain.noise.application;
 
-import static sorisoop.soridam.globalutil.uuid.UuidPrefix.NOISE;
-
 import java.util.List;
 
 import org.locationtech.jts.geom.Point;
@@ -32,7 +30,11 @@ public class NoiseQueryService {
 	}
 
 	public Noise getNoise(String id) {
-		return noiseRepository.findById(NOISE.getPrefix() + id)
+		return noiseRepository.findById(id)
 			.orElseThrow(NoiseNotFoundException::new);
+	}
+
+	public List<Noise> getNoisesByUserId(String userId) {
+		return noiseRepository.findByUserId(userId);
 	}
 }

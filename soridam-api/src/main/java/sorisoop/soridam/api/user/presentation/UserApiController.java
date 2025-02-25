@@ -28,8 +28,8 @@ import sorisoop.soridam.api.user.presentation.response.UserPersistResponse;
 public class UserApiController {
 	private final UserFacade userFacade;
 
-	@Operation(summary = "마이페이지 본인이 등록한 noise 데이터 조회 API", description = """
-			- Description : 이 API는 댓글을 수정합니다.
+	@Operation(summary = "유저 조회 API", description = """
+			- Description : 이 API는 유저를 조회합니다.
 		""")
 	@ApiResponse(responseCode = "200")
 	@GetMapping("/{userId}")

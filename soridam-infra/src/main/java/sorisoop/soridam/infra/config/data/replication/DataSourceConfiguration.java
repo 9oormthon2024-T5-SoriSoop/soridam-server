@@ -17,18 +17,22 @@ public class DataSourceConfiguration {
 	@Bean(MASTER_DATA_SOURCE)
 	@ConfigurationProperties(prefix = "spring.datasource.master")
 	public DataSource masterDataSource() {
-		return DataSourceBuilder
+		HikariDataSource dataSource = DataSourceBuilder
 			.create()
 			.type(HikariDataSource.class)
 			.build();
+		dataSource.setPoolName("master");
+		return dataSource;
 	}
 
 	@Bean(SLAVE_DATA_SOURCE)
 	@ConfigurationProperties(prefix = "spring.datasource.slave")
 	public DataSource slaveDataSource() {
-		return DataSourceBuilder
+		HikariDataSource dataSource = DataSourceBuilder
 			.create()
 			.type(HikariDataSource.class)
 			.build();
+		dataSource.setPoolName("slave");
+		return dataSource;
 	}
 }

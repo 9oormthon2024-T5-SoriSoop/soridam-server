@@ -44,4 +44,9 @@ public class NoiseRepositoryImpl implements NoiseRepository {
 	public void delete(Noise noise) {
 		jpaNoiseRepository.delete(noise);
 	}
+
+	@Override
+	public List<Noise> findByUserId(String userId) {
+		return jpaNoiseRepository.findByUserId(userId);
+	}
 }

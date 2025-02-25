@@ -1,17 +1,14 @@
 package sorisoop.soridam.api.user.application;
 
-import java.util.List;
+import static sorisoop.soridam.globalutil.uuid.UuidPrefix.USER;
 
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import lombok.RequiredArgsConstructor;
-import sorisoop.soridam.api.noise.presentation.response.NoiseSummaryListResponse;
-import sorisoop.soridam.api.noise.presentation.response.NoiseSummaryResponse;
 import sorisoop.soridam.api.user.presentation.request.UserCreateRequest;
 import sorisoop.soridam.api.user.presentation.response.UserInfoResponse;
 import sorisoop.soridam.api.user.presentation.response.UserPersistResponse;
-import sorisoop.soridam.domain.noise.domain.Noise;
 import sorisoop.soridam.domain.user.application.UserCommandService;
 import sorisoop.soridam.domain.user.application.UserQueryService;
 import sorisoop.soridam.domain.user.domain.User;
@@ -19,6 +16,8 @@ import sorisoop.soridam.domain.user.domain.User;
 @Component
 @RequiredArgsConstructor
 public class UserFacade {
+	private static final String USER_PREFIX = USER.getPrefix();
+
 	private final UserCommandService userCommandService;
 	private final UserQueryService userQueryService;
 
@@ -37,18 +36,8 @@ public class UserFacade {
 	}
 
 	@Transactional(readOnly = true)
-	public NoiseSummaryListResponse getUserNoises(String id) {
-		List<Noise> noises = userQueryService.getUserNoises(id);
-		List<NoiseSummaryResponse> responses = noises.stream()
-			.map(NoiseSummaryResponse::from)
-			.toList();
-
-		return NoiseSummaryListResponse.of(responses);
-	}
-
-	@Transactional(readOnly = true)
 	public UserInfoResponse getById(String id) {
-		User user = userQueryService.getById(id);
+		User user = userQueryService.getById(USER_PREFIX + id);
 		return UserInfoResponse.from(user);
 	}
 }
