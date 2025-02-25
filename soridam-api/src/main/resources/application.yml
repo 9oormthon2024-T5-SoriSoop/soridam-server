@@ -5,10 +5,16 @@ spring:
     name: sorisoop-server
 
   datasource:
-    url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/${DB_NAME:soridam}
-    username: ${DB_USERNAME:root}
-    password: ${DB_PASSWORD:root}
-    driver-class-name: org.postgresql.Driver
+    master:
+      jdbc-url: jdbc:postgresql://${DB_HOST:localhost}:${MASTER_DB_PORT:5432}/${DB_NAME:soridam}
+      username: ${DB_USERNAME:root}
+      password: ${DB_PASSWORD:root}
+      driver-class-name: org.postgresql.Driver
+    slave:
+      jdbc-url: jdbc:postgresql://${DB_HOST:localhost}:${SLAVE_DB_PORT:5433}/${DB_NAME:soridam}
+      username: ${DB_USERNAME:root}
+      password: ${DB_PASSWORD:root}
+      driver-class-name: org.postgresql.Driver
 
   jpa:
     hibernate:

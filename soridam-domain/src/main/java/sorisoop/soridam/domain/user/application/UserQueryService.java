@@ -7,7 +7,6 @@ import java.util.List;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import lombok.RequiredArgsConstructor;
 import sorisoop.soridam.domain.noise.domain.Noise;
@@ -21,7 +20,6 @@ import sorisoop.soridam.domain.user.exception.UserNotFoundException;
 public class UserQueryService {
 	private final UserRepository userRepository;
 
-	@Transactional(readOnly = true)
 	public List<Noise> getUserNoises(String id) {
 		User user = getById(id);
 		return user.getNoises();
