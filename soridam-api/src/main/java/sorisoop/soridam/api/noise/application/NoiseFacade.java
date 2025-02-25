@@ -1,5 +1,7 @@
 package sorisoop.soridam.api.noise.application;
 
+import static sorisoop.soridam.globalutil.uuid.UuidPrefix.NOISE;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -29,6 +31,8 @@ import sorisoop.soridam.domain.user.domain.User;
 @Component
 @RequiredArgsConstructor
 public class NoiseFacade {
+	private static final String prefix = NOISE.getPrefix();
+
 	private final NoiseCommandService noiseCommandService;
 	private final NoiseQueryService noiseQueryService;
 	private final UserQueryService userQueryService;
@@ -68,7 +72,7 @@ public class NoiseFacade {
 
 	@Transactional(readOnly = true)
 	public NoiseSummaryResponse getNoise(String id) {
-		Noise noise = noiseQueryService.getNoise(id);
+		Noise noise = noiseQueryService.getNoise(prefix + id);
 		return NoiseSummaryResponse.from(noise);
 	}
 
@@ -90,6 +94,6 @@ public class NoiseFacade {
 	@Transactional
 	public void deleteNoise(String id) {
 		User user = userQueryService.me();
-		noiseCommandService.deleteNoise(user, id);
+		noiseCommandService.deleteNoise(user, prefix + id);
 	}
 }

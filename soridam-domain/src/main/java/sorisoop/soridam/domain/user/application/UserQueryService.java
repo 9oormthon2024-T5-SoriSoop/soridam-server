@@ -39,7 +39,7 @@ public class UserQueryService {
 		try{
 			Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 			String userId = ((UserDetails)principal).getUsername();
-			return getById(USER.getPrefix() + userId);
+			return getById(userId);
 		} catch (Exception e){
 			throw new UnauthorizedException();
 		}
