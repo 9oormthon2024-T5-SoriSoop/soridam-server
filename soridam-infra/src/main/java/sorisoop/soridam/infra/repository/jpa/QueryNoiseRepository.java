@@ -37,14 +37,15 @@ public class QueryNoiseRepository {
 		return jpaQueryFactory.selectFrom(noise)
 			.where(
 				noise.avgDecibel.between(noiseLevel.getMinDecibel(), noiseLevel.getMaxDecibel()),
-				isWithinDistance(noise.address.location, point, radius.getRadiusInMeters() * 0.0000918)
+				isWithinDistance(noise.address.location, point, radius.getRadiusInMeters())
 			)
 			.fetch();
 	}
 
 	private BooleanExpression isWithinDistance(ComparablePath<Point> noisePoint, Point targetPoint, double distance) {
 		return Expressions.booleanTemplate(
-			"ST_DWithin({0}, ST_SetSRID({1}, 5181), {2})",
+			"ST_DWithin(ST_Transform({0}, 5186), " +
+				"ST_Transform(ST_SetSRID({1}, 4326), 5186), {2})",
 			noisePoint,
 			targetPoint,
 			distance
