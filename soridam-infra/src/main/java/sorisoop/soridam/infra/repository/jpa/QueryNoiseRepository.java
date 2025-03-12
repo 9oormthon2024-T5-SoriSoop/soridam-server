@@ -51,8 +51,4 @@ public class QueryNoiseRepository {
 			distance
 		).eq(true);
 	}
-
-
-
-
 }
