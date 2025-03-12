@@ -11,7 +11,7 @@ public class GeometryUtils {
 	private final GeometryFactory geometryFactory;
 
 	public GeometryUtils() {
-		this.geometryFactory = new GeometryFactory(new PrecisionModel(), 5181);
+		this.geometryFactory = new GeometryFactory(new PrecisionModel(), 4326);
 	}
 
 	public Point createPoint(double x, double y) {

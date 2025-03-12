@@ -24,7 +24,7 @@ public class Address {
 	@PrefixedUuid(ADDRESS)
 	private String id;
 
-	@Column(nullable = false, columnDefinition = "geometry(Point,5181)")
+	@Column(nullable = false, columnDefinition = "geometry(Point, 4326)")
 	private Point location;
 
 	@Column(nullable = false)
