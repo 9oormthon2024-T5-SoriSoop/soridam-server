@@ -21,7 +21,10 @@ public record AddressResponse(
 
 	@Schema(description = "지번 주소", example = "서울특별시 동대문구 장안동 366-7", requiredMode = REQUIRED)
 	@NotNull
-	String regionAddress
+	String regionAddress,
+
+	@Schema(description = "장소 카테고리", example = "대형마트", requiredMode = REQUIRED)
+	String category
 ) {
 	public static AddressResponse from(Address address) {
 		return AddressResponse.builder()
@@ -29,6 +32,7 @@ public record AddressResponse(
 			.y(address.getLocation().getY())
 			.roadAddress(address.getRoadAddress())
 			.regionAddress(address.getRegionAddress())
+			.category(address.getCategory().getDescription())
 			.build();
 	}
 }
