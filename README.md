@@ -29,8 +29,8 @@
 ## 기술 스택
 
 - **언어 및 프레임워크:** Spring Boot, Spring JPA, QueryDSL, Spring Security
-- **데이터베이스:** PostgreSQL (Command), MongoDB (Query - 적용 예정)
-- **도구 및 환경:** Docker, Redis, GitHub Actions, IntelliJ IDEA, WebSocket
+- **데이터베이스:** Postgis
+- **도구 및 환경:** Docker, Redis, GitHub Actions
 - **패턴 및 설계:** CQRS 패턴, 멀티 모듈 아키텍처
 
 ---
