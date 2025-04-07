@@ -1,5 +1,6 @@
 package sorisoop.soridam.domain.address.domain;
 
+import static jakarta.persistence.EnumType.STRING;
 import static lombok.AccessLevel.PROTECTED;
 import static sorisoop.soridam.globalutil.uuid.UuidPrefix.ADDRESS;
 
@@ -7,11 +8,13 @@ import org.locationtech.jts.geom.Point;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import sorisoop.soridam.domain.address.domain.enums.Category;
 import sorisoop.soridam.globalutil.uuid.PrefixedUuid;
 
 @Entity
@@ -33,11 +36,16 @@ public class Address {
 	@Column(nullable = false)
 	private String regionAddress;
 
-	public static Address create(Point location, String roadAddress, String regionAddress) {
+	@Enumerated(STRING)
+	@Column(nullable = false)
+	private Category category;
+
+	public static Address create(Point location, String roadAddress, String regionAddress, Category category) {
 		return Address.builder()
 			.location(location)
 			.roadAddress(roadAddress)
 			.regionAddress(regionAddress)
+			.category(category)
 			.build();
 	}
 }
