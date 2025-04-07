@@ -85,7 +85,8 @@ public class NoiseFacade {
 			request.x(),
 			request.y(),
 			request.roadAddress(),
-			request.regionAddress()
+			request.regionAddress(),
+			request.category()
 		);
 
 		Noise noise = noiseCommandService.createNoise(
