@@ -1,18 +1,20 @@
-package sorisoop.soridam.api.address.response;
+package sorisoop.soridam.api.address.presentation.request;
 
 import static io.swagger.v3.oas.annotations.media.Schema.RequiredMode.REQUIRED;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
-import sorisoop.soridam.domain.address.domain.Address;
+import sorisoop.soridam.domain.address.domain.enums.Category;
 
 @Builder
-public record AddressResponse(
+public record AddressCreateRequest(
 	@Schema(description = "X 좌표 (경도)", example = "126.9780", requiredMode = REQUIRED)
+	@NotNull
 	double x,
 
 	@Schema(description = "Y 좌표 (위도)", example = "37.5665", requiredMode = REQUIRED)
+	@NotNull
 	double y,
 
 	@Schema(description = "도로명 주소", example = "서울특별시 동대문구 장한로 110 (장안동)", requiredMode = REQUIRED)
@@ -23,16 +25,8 @@ public record AddressResponse(
 	@NotNull
 	String regionAddress,
 
-	@Schema(description = "장소 카테고리", example = "대형마트", requiredMode = REQUIRED)
-	String category
+	@Schema(description = "장소 카테고리", example = "MT1", requiredMode = REQUIRED)
+	@NotNull
+	Category category
 ) {
-	public static AddressResponse from(Address address) {
-		return AddressResponse.builder()
-			.x(address.getLocation().getX())
-			.y(address.getLocation().getY())
-			.roadAddress(address.getRoadAddress())
-			.regionAddress(address.getRegionAddress())
-			.category(address.getCategory().getDescription())
-			.build();
-	}
 }

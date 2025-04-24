@@ -14,11 +14,11 @@ public class AddressQueryService {
 
 	public Address getByRoadAddress(String roadAddress) {
 		return addressRepository.findByRoadAddress(roadAddress)
-			.orElse(null);
+			.orElseThrow(AddressNotFoundException::new);
 	}
 
-	public Address mustExistByRoadAddress(String roadAddress) {
-		return addressRepository.findByRoadAddress(roadAddress)
+	public Address getById(String id) {
+		return addressRepository.findById(id)
 			.orElseThrow(AddressNotFoundException::new);
 	}
 }
