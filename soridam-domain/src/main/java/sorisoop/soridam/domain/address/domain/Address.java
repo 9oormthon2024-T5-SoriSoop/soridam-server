@@ -30,7 +30,7 @@ public class Address {
 	@Column(nullable = false, columnDefinition = "geometry(Point, 4326)")
 	private Point location;
 
-	@Column(nullable = false)
+	@Column(nullable = false, unique = true)
 	private String roadAddress;
 
 	@Column(nullable = false)
