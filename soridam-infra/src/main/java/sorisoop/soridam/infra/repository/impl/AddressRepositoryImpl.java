@@ -34,4 +34,9 @@ public class AddressRepositoryImpl implements AddressRepository {
 	public void delete(Address address) {
 		jpaAddressRepository.delete(address);
 	}
+
+	@Override
+	public Optional<Address> findByRoadAddress(String roadAddress) {
+		return jpaAddressRepository.findByRoadAddress(roadAddress);
+	}
 }
