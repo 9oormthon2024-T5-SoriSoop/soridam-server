@@ -20,6 +20,7 @@ import sorisoop.soridam.api.noise.presentation.response.NoiseSummaryListResponse
 import sorisoop.soridam.api.noise.presentation.response.NoiseSummaryResponse;
 import sorisoop.soridam.api.review.presentation.response.ReviewResponse;
 import sorisoop.soridam.domain.address.application.AddressCommandService;
+import sorisoop.soridam.domain.address.application.AddressQueryService;
 import sorisoop.soridam.domain.address.domain.Address;
 import sorisoop.soridam.domain.noise.application.NoiseCommandService;
 import sorisoop.soridam.domain.noise.application.NoiseQueryService;
@@ -39,6 +40,7 @@ public class NoiseFacade {
 	private final NoiseQueryService noiseQueryService;
 	private final UserQueryService userQueryService;
 	private final AddressCommandService addressCommandService;
+	private final AddressQueryService addressQueryService;
 	private final ReviewQueryService reviewQueryService;
 
 	@Transactional(readOnly = true)
@@ -81,13 +83,17 @@ public class NoiseFacade {
 	@Transactional
 	public NoisePersistResponse createNoise(NoiseCreateRequest request) {
 		User user = userQueryService.me();
-		Address address = addressCommandService.save(
-			request.x(),
-			request.y(),
-			request.roadAddress(),
-			request.regionAddress(),
-			request.category()
-		);
+		Address address = addressQueryService.getByRoadAddress(request.roadAddress());
+
+		if(address == null) {
+			address = addressCommandService.save(
+				request.x(),
+				request.y(),
+				request.roadAddress(),
+				request.regionAddress(),
+				request.category()
+			);
+		}
 
 		Noise noise = noiseCommandService.createNoise(
 			user,

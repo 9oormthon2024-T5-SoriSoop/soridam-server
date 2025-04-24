@@ -11,4 +11,6 @@ public interface AddressRepository {
 	List<Address> findAll();
 
 	void delete(Address address);
+
+	Optional<Address> findByRoadAddress(String roadAddress);
 }

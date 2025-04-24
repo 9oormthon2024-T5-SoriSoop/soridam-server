@@ -4,7 +4,7 @@ import static io.swagger.v3.oas.annotations.media.Schema.RequiredMode.REQUIRED;
 
 import java.time.format.DateTimeFormatter;
 
-import sorisoop.soridam.api.address.response.AddressResponse;
+import sorisoop.soridam.api.address.presentation.response.AddressResponse;
 import sorisoop.soridam.domain.noise.domain.Noise;
 
 import io.swagger.v3.oas.annotations.media.Schema;
