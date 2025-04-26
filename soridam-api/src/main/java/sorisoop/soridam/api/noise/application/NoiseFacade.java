@@ -83,17 +83,7 @@ public class NoiseFacade {
 	@Transactional
 	public NoisePersistResponse createNoise(NoiseCreateRequest request) {
 		User user = userQueryService.me();
-		Address address = addressQueryService.getByRoadAddress(request.roadAddress());
-
-		if(address == null) {
-			address = addressCommandService.save(
-				request.x(),
-				request.y(),
-				request.roadAddress(),
-				request.regionAddress(),
-				request.category()
-			);
-		}
+		Address address = addressQueryService.getById(request.addressId());
 
 		Noise noise = noiseCommandService.createNoise(
 			user,

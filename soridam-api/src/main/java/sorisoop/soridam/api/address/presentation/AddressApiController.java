@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -42,16 +41,16 @@ public class AddressApiController {
 		return ResponseEntity.ok(response);
 	}
 
-	@Operation(summary = "id 기반 장소 조회 API", description = """
-			- Description : 이 API는 도로명 주소로 해당 장소를 조회합니다.
+	@Operation(summary = "도로명 주소 기반 장소 조회 또는 생성 API", description = """
+			- Description : 이 API는 도로명 주소로 장소를 조회하고,
+			존재하지 않으면 새로 데이터를 생성한 뒤 반환합니다.
 		""")
 	@ApiResponse(responseCode = "200")
-	@GetMapping("/road")
-	public ResponseEntity<AddressResponse> getByRoadAddress(
-		@Parameter(description = "조회할 장소의 ID", example = "충북 청주시 상당구 월평로 189", required = true)
-		@RequestParam String roadAddress
+	@PostMapping("/resolve")
+	public ResponseEntity<AddressPersistResponse> getByRoadAddress(
+		@Valid @RequestBody AddressCreateRequest request
 	) {
-		AddressResponse response = addressFacade.getByRoadAddress(roadAddress);
+		AddressPersistResponse response = addressFacade.getOrCreate(request);
 		return ResponseEntity.ok(response);
 	}
 

@@ -14,7 +14,7 @@ public class AddressQueryService {
 
 	public Address getByRoadAddress(String roadAddress) {
 		return addressRepository.findByRoadAddress(roadAddress)
-			.orElseThrow(AddressNotFoundException::new);
+			.orElse(null);
 	}
 
 	public Address getById(String id) {
