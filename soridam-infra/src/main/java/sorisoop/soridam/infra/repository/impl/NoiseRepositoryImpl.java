@@ -21,11 +21,6 @@ public class NoiseRepositoryImpl implements NoiseRepository {
 	private final QueryNoiseRepository queryNoiseRepository;
 
 	@Override
-	public List<Noise> findAllByAddress_Location(Point point) {
-		return jpaNoiseRepository.findAllByAddress_Location(point);
-	}
-
-	@Override
 	public List<Noise> findByAvgDecibelAndPoint(Point point, Radius radius, NoiseLevel noiseLevel) {
 		return queryNoiseRepository.findByAvgDecibelAndPoint(point, radius, noiseLevel);
 	}
@@ -48,5 +43,10 @@ public class NoiseRepositoryImpl implements NoiseRepository {
 	@Override
 	public List<Noise> findByUserId(String userId) {
 		return jpaNoiseRepository.findByUserId(userId);
+	}
+
+	@Override
+	public List<Noise> findByAddressId(String addressId) {
+		return jpaNoiseRepository.findByAddressId(addressId);
 	}
 }

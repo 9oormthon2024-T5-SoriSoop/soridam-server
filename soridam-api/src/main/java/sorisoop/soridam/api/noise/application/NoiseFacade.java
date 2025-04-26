@@ -19,7 +19,6 @@ import sorisoop.soridam.api.noise.presentation.response.NoiseReviewResponse;
 import sorisoop.soridam.api.noise.presentation.response.NoiseSummaryListResponse;
 import sorisoop.soridam.api.noise.presentation.response.NoiseSummaryResponse;
 import sorisoop.soridam.api.review.presentation.response.ReviewResponse;
-import sorisoop.soridam.domain.address.application.AddressCommandService;
 import sorisoop.soridam.domain.address.application.AddressQueryService;
 import sorisoop.soridam.domain.address.domain.Address;
 import sorisoop.soridam.domain.noise.application.NoiseCommandService;
@@ -39,13 +38,12 @@ public class NoiseFacade {
 	private final NoiseCommandService noiseCommandService;
 	private final NoiseQueryService noiseQueryService;
 	private final UserQueryService userQueryService;
-	private final AddressCommandService addressCommandService;
 	private final AddressQueryService addressQueryService;
 	private final ReviewQueryService reviewQueryService;
 
 	@Transactional(readOnly = true)
-	public Optional<NoiseReviewResponse> getDetailNoise(double x, double y) {
-		List<Noise> results = noiseQueryService.getDetailNoise(x, y);
+	public Optional<NoiseReviewResponse> getDetailNoise(String addressId) {
+		List<Noise> results = noiseQueryService.getDetailNoise(addressId);
 
 		List<String> resultIds = results.stream()
 			.map(Noise::getId)

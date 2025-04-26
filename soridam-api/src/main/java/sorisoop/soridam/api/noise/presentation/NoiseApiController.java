@@ -77,17 +77,11 @@ public class NoiseApiController {
 		""")
 	@ApiResponse(responseCode = "200", description = "요청 성공")
 	@ApiResponse(responseCode = "204", description = "결과 없음")
-	@GetMapping("/location")
+	@GetMapping("/by-address/{id}")
 	public ResponseEntity<NoiseReviewResponse> getDetailNoise(
-		@RequestParam
-		@Parameter(description = "x 좌표", example = "127.07150", required = true)
-		double x,
-
-		@RequestParam
-		@Parameter(description = "y 좌표", example = "37.3405", required = true)
-		double y
+		@PathVariable String id
 	){
-		Optional<NoiseReviewResponse> response = noiseFacade.getDetailNoise(x, y);
+		Optional<NoiseReviewResponse> response = noiseFacade.getDetailNoise(id);
 
 		return response
 			.map(ResponseEntity::ok)
