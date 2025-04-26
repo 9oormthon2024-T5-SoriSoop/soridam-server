@@ -4,7 +4,6 @@ import static sorisoop.soridam.globalutil.uuid.UuidPrefix.NOISE;
 import static sorisoop.soridam.globalutil.uuid.UuidPrefix.USER;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,11 +14,9 @@ import sorisoop.soridam.api.noise.presentation.request.NoiseSearchRequest;
 import sorisoop.soridam.api.noise.presentation.response.NoiseListResponse;
 import sorisoop.soridam.api.noise.presentation.response.NoisePersistResponse;
 import sorisoop.soridam.api.noise.presentation.response.NoiseResponse;
-import sorisoop.soridam.api.noise.presentation.response.NoiseReviewResponse;
 import sorisoop.soridam.api.noise.presentation.response.NoiseSummaryListResponse;
 import sorisoop.soridam.api.noise.presentation.response.NoiseSummaryResponse;
 import sorisoop.soridam.api.review.presentation.response.ReviewResponse;
-import sorisoop.soridam.domain.address.application.AddressCommandService;
 import sorisoop.soridam.domain.address.application.AddressQueryService;
 import sorisoop.soridam.domain.address.domain.Address;
 import sorisoop.soridam.domain.noise.application.NoiseCommandService;
@@ -39,29 +36,24 @@ public class NoiseFacade {
 	private final NoiseCommandService noiseCommandService;
 	private final NoiseQueryService noiseQueryService;
 	private final UserQueryService userQueryService;
-	private final AddressCommandService addressCommandService;
 	private final AddressQueryService addressQueryService;
 	private final ReviewQueryService reviewQueryService;
 
 	@Transactional(readOnly = true)
-	public Optional<NoiseReviewResponse> getDetailNoise(double x, double y) {
-		List<Noise> results = noiseQueryService.getDetailNoise(x, y);
+	public NoiseSummaryListResponse getNoisesByAddress(String addressId) {
+		List<Noise> results = noiseQueryService.getDetailNoise(addressId);
 
 		List<String> resultIds = results.stream()
 			.map(Noise::getId)
-			.toList();
-
-		if (results.isEmpty()) return Optional.empty();
-
-		List<NoiseSummaryResponse> noises = results.stream()
-			.map(NoiseSummaryResponse::from)
 			.toList();
 
 		List<ReviewResponse> reviews = reviewQueryService.getByTargetIdIn(resultIds).stream()
 			.map(ReviewResponse::from)
 			.toList();
 
-		return Optional.of(NoiseReviewResponse.of(noises, reviews));
+		return NoiseSummaryListResponse.of(results.stream()
+			.map(NoiseSummaryResponse::from)
+			.toList());
 	}
 
 	@Transactional(readOnly = true)
@@ -83,17 +75,7 @@ public class NoiseFacade {
 	@Transactional
 	public NoisePersistResponse createNoise(NoiseCreateRequest request) {
 		User user = userQueryService.me();
-		Address address = addressQueryService.getByRoadAddress(request.roadAddress());
-
-		if(address == null) {
-			address = addressCommandService.save(
-				request.x(),
-				request.y(),
-				request.roadAddress(),
-				request.regionAddress(),
-				request.category()
-			);
-		}
+		Address address = addressQueryService.getById(request.addressId());
 
 		Noise noise = noiseCommandService.createNoise(
 			user,

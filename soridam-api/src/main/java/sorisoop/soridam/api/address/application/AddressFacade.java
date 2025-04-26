@@ -40,4 +40,21 @@ public class AddressFacade {
 		Address address = addressQueryService.getById(id);
 		return AddressResponse.from(address);
 	}
+
+	@Transactional
+	public AddressPersistResponse getOrCreate(AddressCreateRequest request) {
+		Address address = addressQueryService.getByRoadAddress(request.roadAddress());
+
+		if(address == null) {
+			address = addressCommandService.save(
+				request.x(),
+				request.y(),
+				request.roadAddress(),
+				request.regionAddress(),
+				request.category()
+			);
+		}
+
+		return AddressPersistResponse.from(address);
+	}
 }
