@@ -67,4 +67,14 @@ public class ReviewFacade {
 
 		return ReviewListResponse.of(responses);
 	}
+
+	@Transactional(readOnly = true)
+	public ReviewListResponse getReviewsByTargetIds(List<String> targetIds) {
+		List<Review> reviews = reviewQueryService.getByTargetIdIn(targetIds);
+		List<ReviewResponse> responses = reviews.stream()
+			.map(ReviewResponse::from)
+			.toList();
+
+		return ReviewListResponse.of(responses);
+	}
 }

@@ -2,6 +2,8 @@ package sorisoop.soridam.api.review;
 
 import static org.springframework.http.HttpStatus.CREATED;
 
+import java.util.List;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,6 +21,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import sorisoop.soridam.api.noise.presentation.response.NoiseSummaryResponse;
 import sorisoop.soridam.api.review.application.ReviewFacade;
 import sorisoop.soridam.api.review.presentation.request.ReviewCreateRequest;
 import sorisoop.soridam.api.review.presentation.request.ReviewUpdateRequest;
@@ -72,6 +75,22 @@ public class ReviewApiController {
 		@Parameter(description = "리뷰 종류", example = "NOISE", required = true)
 		@RequestParam UuidPrefix reviewType) {
 		ReviewListResponse response = reviewFacade.getReviews(targetId, reviewType);
+		return ResponseEntity.ok(response);
+	}
+
+	@Operation(summary = "Noise 리스트 기반 리뷰 조회 API", description = """
+        - Description : Noise 리스트로부터 targetId를 추출해서 리뷰들을 조회합니다.
+    """)
+	@ApiResponse(responseCode = "200", description = "리뷰 조회 성공")
+	@PostMapping("/by-noise-summaries")
+	public ResponseEntity<ReviewListResponse> getReviewsByNoiseSummaries(
+		@RequestBody List<NoiseSummaryResponse> noiseSummaries
+	) {
+		List<String> resultIds = noiseSummaries.stream()
+			.map(NoiseSummaryResponse::id)
+			.toList();
+
+		ReviewListResponse response = reviewFacade.getReviewsByTargetIds(resultIds);
 		return ResponseEntity.ok(response);
 	}
 }

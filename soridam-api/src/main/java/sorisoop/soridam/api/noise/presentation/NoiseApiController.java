@@ -2,8 +2,6 @@ package sorisoop.soridam.api.noise.presentation;
 
 import static org.springframework.http.HttpStatus.CREATED;
 
-import java.util.Optional;
-
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,7 +24,6 @@ import sorisoop.soridam.api.noise.presentation.request.NoiseSearchRequest;
 import sorisoop.soridam.api.noise.presentation.response.NoiseListResponse;
 import sorisoop.soridam.api.noise.presentation.response.NoisePersistResponse;
 import sorisoop.soridam.api.noise.presentation.response.NoiseResponse;
-import sorisoop.soridam.api.noise.presentation.response.NoiseReviewResponse;
 import sorisoop.soridam.api.noise.presentation.response.NoiseSummaryListResponse;
 import sorisoop.soridam.domain.noise.domain.NoiseLevel;
 import sorisoop.soridam.domain.noise.domain.Radius;
@@ -78,14 +75,11 @@ public class NoiseApiController {
 	@ApiResponse(responseCode = "200", description = "요청 성공")
 	@ApiResponse(responseCode = "204", description = "결과 없음")
 	@GetMapping("/by-address/{id}")
-	public ResponseEntity<NoiseReviewResponse> getDetailNoise(
+	public ResponseEntity<NoiseSummaryListResponse> getDetailNoise(
 		@PathVariable String id
 	){
-		Optional<NoiseReviewResponse> response = noiseFacade.getDetailNoise(id);
-
-		return response
-			.map(ResponseEntity::ok)
-			.orElseGet(() -> ResponseEntity.noContent().build());
+		NoiseSummaryListResponse response = noiseFacade.getNoisesByAddress(id);
+		return ResponseEntity.ok(response);
   	}
 
 	@Operation(summary = "소음 데이터 생성 API", description = """
