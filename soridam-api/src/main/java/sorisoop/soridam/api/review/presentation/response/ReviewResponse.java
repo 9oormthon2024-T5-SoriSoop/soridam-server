@@ -8,6 +8,7 @@ import sorisoop.soridam.domain.review.domain.Review;
 
 @Builder
 public record ReviewResponse(
+	String targetId,
 	String authorId,
 	String content,
 	BigDecimal rating,
@@ -16,6 +17,7 @@ public record ReviewResponse(
 	public static ReviewResponse from(Review review) {
 		return ReviewResponse.builder()
 			.authorId(review.getAuthor().getNickname())
+			.targetId(review.getTargetId())
 			.content(review.getContent())
 			.rating(review.getRating())
 			.createdAt(review.getCreatedAt())
