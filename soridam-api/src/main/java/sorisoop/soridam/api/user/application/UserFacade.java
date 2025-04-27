@@ -16,8 +16,6 @@ import sorisoop.soridam.domain.user.domain.User;
 @Component
 @RequiredArgsConstructor
 public class UserFacade {
-	private static final String USER_PREFIX = USER.getPrefix();
-
 	private final UserCommandService userCommandService;
 	private final UserQueryService userQueryService;
 

@@ -20,7 +20,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import sorisoop.soridam.domain.common.BaseTimeEntity;
 import sorisoop.soridam.domain.user.domain.User;
-import sorisoop.soridam.globalutil.uuid.UuidPrefix;
 
 @Entity
 @Getter
@@ -37,7 +36,7 @@ public class Review extends BaseTimeEntity {
 
 	@Enumerated(STRING)
 	@Column(nullable = false, length = 25)
-	private UuidPrefix reviewType;
+	private ReviewType reviewType;
 
 	@ManyToOne(fetch = LAZY)
 	@JoinColumn(name = "author_id", nullable = false)
@@ -49,7 +48,7 @@ public class Review extends BaseTimeEntity {
 	@Column(nullable = false, precision = 2, scale = 1)
 	private BigDecimal rating;
 
-	public static Review create(Long targetId, UuidPrefix reviewType, User author, String content, BigDecimal rating) {
+	public static Review create(Long targetId, ReviewType reviewType, User author, String content, BigDecimal rating) {
 		return Review.builder()
 			.targetId(targetId)
 			.reviewType(reviewType)
