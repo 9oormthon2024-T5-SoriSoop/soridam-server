@@ -8,12 +8,12 @@ import sorisoop.soridam.domain.review.domain.Review;
 
 @Builder
 public record ReviewPersistResponse(
-	@Schema(description = "review ID", example = "asdfjklsadjklsamlsdfsldm", requiredMode = REQUIRED)
-	String id
+	@Schema(description = "review ID", example = "1", requiredMode = REQUIRED)
+	Long id
 ) {
 	public static ReviewPersistResponse from(Review review){
 		return ReviewPersistResponse.builder()
-			.id(review.extractUuid())
+			.id(review.getId())
 			.build();
 	}
 }

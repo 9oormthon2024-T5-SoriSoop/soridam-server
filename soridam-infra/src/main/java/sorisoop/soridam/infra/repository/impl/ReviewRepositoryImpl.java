@@ -21,7 +21,7 @@ public class ReviewRepositoryImpl implements ReviewRepository {
 	}
 
 	@Override
-	public Optional<Review> findById(String id) {
+	public Optional<Review> findById(Long id) {
 		return jpaReviewRepository.findById(id);
 	}
 

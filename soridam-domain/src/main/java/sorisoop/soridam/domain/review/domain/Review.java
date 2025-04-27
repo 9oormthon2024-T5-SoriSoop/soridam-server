@@ -2,14 +2,15 @@ package sorisoop.soridam.domain.review.domain;
 
 import static jakarta.persistence.EnumType.STRING;
 import static jakarta.persistence.FetchType.LAZY;
+import static jakarta.persistence.GenerationType.IDENTITY;
 import static lombok.AccessLevel.PROTECTED;
-import static sorisoop.soridam.globalutil.uuid.UuidPrefix.REVIEW;
 
 import java.math.BigDecimal;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
@@ -18,9 +19,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import sorisoop.soridam.domain.common.BaseTimeEntity;
-import sorisoop.soridam.domain.common.UuidExtractable;
 import sorisoop.soridam.domain.user.domain.User;
-import sorisoop.soridam.globalutil.uuid.PrefixedUuid;
 import sorisoop.soridam.globalutil.uuid.UuidPrefix;
 
 @Entity
@@ -28,10 +27,10 @@ import sorisoop.soridam.globalutil.uuid.UuidPrefix;
 @Builder
 @NoArgsConstructor(access = PROTECTED)
 @AllArgsConstructor(access = PROTECTED)
-public class Review extends BaseTimeEntity implements UuidExtractable {
+public class Review extends BaseTimeEntity {
 	@Id
-	@PrefixedUuid(REVIEW)
-	private String id;
+	@GeneratedValue(strategy = IDENTITY)
+	private Long id;
 
 	@Column(nullable = false)
 	private Long targetId;
