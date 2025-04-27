@@ -35,7 +35,7 @@ public class AddressApiController {
 	@GetMapping("/{id}")
 	public ResponseEntity<AddressResponse> getById(
 		@Parameter(description = "조회할 장소의 ID", example = "address-adsfadsf", required = true)
-		@PathVariable String id
+		@PathVariable Long id
 	) {
 		AddressResponse response = addressFacade.getById(id);
 		return ResponseEntity.ok(response);

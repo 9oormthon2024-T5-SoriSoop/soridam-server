@@ -1,6 +1,5 @@
 package sorisoop.soridam.api.noise.application;
 
-import static sorisoop.soridam.globalutil.uuid.UuidPrefix.NOISE;
 import static sorisoop.soridam.globalutil.uuid.UuidPrefix.USER;
 
 import java.util.List;
@@ -16,7 +15,6 @@ import sorisoop.soridam.api.noise.presentation.response.NoisePersistResponse;
 import sorisoop.soridam.api.noise.presentation.response.NoiseResponse;
 import sorisoop.soridam.api.noise.presentation.response.NoiseSummaryListResponse;
 import sorisoop.soridam.api.noise.presentation.response.NoiseSummaryResponse;
-import sorisoop.soridam.api.review.presentation.response.ReviewResponse;
 import sorisoop.soridam.domain.address.application.AddressQueryService;
 import sorisoop.soridam.domain.address.domain.Address;
 import sorisoop.soridam.domain.noise.application.NoiseCommandService;
@@ -24,32 +22,20 @@ import sorisoop.soridam.domain.noise.application.NoiseQueryService;
 import sorisoop.soridam.domain.noise.domain.Noise;
 import sorisoop.soridam.domain.noise.domain.NoiseLevel;
 import sorisoop.soridam.domain.noise.domain.Radius;
-import sorisoop.soridam.domain.review.application.ReviewQueryService;
 import sorisoop.soridam.domain.user.application.UserQueryService;
 import sorisoop.soridam.domain.user.domain.User;
 
 @Component
 @RequiredArgsConstructor
 public class NoiseFacade {
-	private static final String NOISE_PREFIX = NOISE.getPrefix();
-
 	private final NoiseCommandService noiseCommandService;
 	private final NoiseQueryService noiseQueryService;
 	private final UserQueryService userQueryService;
 	private final AddressQueryService addressQueryService;
-	private final ReviewQueryService reviewQueryService;
 
 	@Transactional(readOnly = true)
-	public NoiseSummaryListResponse getNoisesByAddress(String addressId) {
+	public NoiseSummaryListResponse getNoisesByAddress(Long addressId) {
 		List<Noise> results = noiseQueryService.getDetailNoise(addressId);
-
-		List<Long> resultIds = results.stream()
-			.map(Noise::getId)
-			.toList();
-
-		List<ReviewResponse> reviews = reviewQueryService.getByTargetIdIn(resultIds).stream()
-			.map(ReviewResponse::from)
-			.toList();
 
 		return NoiseSummaryListResponse.of(results.stream()
 			.map(NoiseSummaryResponse::from)

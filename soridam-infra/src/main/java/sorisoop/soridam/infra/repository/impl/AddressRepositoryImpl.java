@@ -21,7 +21,7 @@ public class AddressRepositoryImpl implements AddressRepository {
 	}
 
 	@Override
-	public Optional<Address> findById(String id) {
+	public Optional<Address> findById(Long id) {
 		return jpaAddressRepository.findById(id);
 	}
 

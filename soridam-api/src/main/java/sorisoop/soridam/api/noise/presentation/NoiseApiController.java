@@ -74,11 +74,11 @@ public class NoiseApiController {
 		""")
 	@ApiResponse(responseCode = "200", description = "요청 성공")
 	@ApiResponse(responseCode = "204", description = "결과 없음")
-	@GetMapping("/by-address/{id}")
+	@GetMapping("/by-address/{addressId}")
 	public ResponseEntity<NoiseSummaryListResponse> getDetailNoise(
-		@PathVariable String id
+		@PathVariable Long addressId
 	){
-		NoiseSummaryListResponse response = noiseFacade.getNoisesByAddress(id);
+		NoiseSummaryListResponse response = noiseFacade.getNoisesByAddress(addressId);
 		return ResponseEntity.ok(response);
   	}
 

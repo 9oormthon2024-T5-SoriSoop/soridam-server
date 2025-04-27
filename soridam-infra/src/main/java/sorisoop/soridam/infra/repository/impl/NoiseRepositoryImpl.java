@@ -46,7 +46,7 @@ public class NoiseRepositoryImpl implements NoiseRepository {
 	}
 
 	@Override
-	public List<Noise> findByAddressId(String addressId) {
+	public List<Noise> findByAddressId(Long addressId) {
 		return jpaNoiseRepository.findByAddressId(addressId);
 	}
 }

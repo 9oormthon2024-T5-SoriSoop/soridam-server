@@ -16,5 +16,5 @@ public interface NoiseRepository {
 
 	List<Noise> findByUserId(String userId);
 
-	List<Noise> findByAddressId(String addressId);
+	List<Noise> findByAddressId(Long addressId);
 }

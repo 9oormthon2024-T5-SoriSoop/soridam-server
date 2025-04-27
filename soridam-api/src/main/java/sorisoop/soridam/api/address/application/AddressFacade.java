@@ -36,7 +36,7 @@ public class AddressFacade {
 	}
 
 	@Transactional(readOnly = true)
-	public AddressResponse getById(String id) {
+	public AddressResponse getById(Long id) {
 		Address address = addressQueryService.getById(id);
 		return AddressResponse.from(address);
 	}

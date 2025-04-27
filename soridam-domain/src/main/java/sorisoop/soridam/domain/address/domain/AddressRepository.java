@@ -6,7 +6,7 @@ import java.util.Optional;
 public interface AddressRepository {
 	Address save(Address address);
 
-	Optional<Address> findById(String id);
+	Optional<Address> findById(Long id);
 
 	List<Address> findAll();
 

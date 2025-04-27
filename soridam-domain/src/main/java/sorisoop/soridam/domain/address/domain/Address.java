@@ -1,21 +1,21 @@
 package sorisoop.soridam.domain.address.domain;
 
 import static jakarta.persistence.EnumType.STRING;
+import static jakarta.persistence.GenerationType.IDENTITY;
 import static lombok.AccessLevel.PROTECTED;
-import static sorisoop.soridam.globalutil.uuid.UuidPrefix.ADDRESS;
 
 import org.locationtech.jts.geom.Point;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import sorisoop.soridam.domain.address.domain.enums.Category;
-import sorisoop.soridam.globalutil.uuid.PrefixedUuid;
 
 @Entity
 @Getter
@@ -24,8 +24,8 @@ import sorisoop.soridam.globalutil.uuid.PrefixedUuid;
 @AllArgsConstructor(access = PROTECTED)
 public class Address {
 	@Id
-	@PrefixedUuid(ADDRESS)
-	private String id;
+	@GeneratedValue(strategy = IDENTITY)
+	private Long id;
 
 	@Column(nullable = false, columnDefinition = "geometry(Point, 4326)")
 	private Point location;

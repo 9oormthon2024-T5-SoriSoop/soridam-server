@@ -19,7 +19,7 @@ public class NoiseQueryService {
 	private final NoiseRepository noiseRepository;
 	private final GeometryUtils geometryUtils;
 
-	public List<Noise> getDetailNoise(String addressId) {
+	public List<Noise> getDetailNoise(Long addressId) {
 		return noiseRepository.findByAddressId(addressId);
 	}
 

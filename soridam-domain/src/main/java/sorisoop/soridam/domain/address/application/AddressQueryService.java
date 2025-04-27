@@ -17,7 +17,7 @@ public class AddressQueryService {
 			.orElse(null);
 	}
 
-	public Address getById(String id) {
+	public Address getById(Long id) {
 		return addressRepository.findById(id)
 			.orElseThrow(AddressNotFoundException::new);
 	}
