@@ -10,7 +10,7 @@ public interface ReviewRepository {
 
 	void delete(Review review);
 
-	List<Review> findByTargetIdIn(List<String> targetIds);
+	List<Review> findByTargetIdIn(List<Long> targetIds);
 
-	List<Review> findByTargetId(String targetId);
+	List<Review> findByTargetId(Long targetId);
 }

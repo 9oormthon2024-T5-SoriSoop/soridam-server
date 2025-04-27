@@ -13,7 +13,7 @@ import lombok.Builder;
 @Builder
 public record NoiseSummaryResponse(
 	@Schema(description = "소음 ID", requiredMode = REQUIRED)
-	String id,
+	Long id,
 
 	@Schema(description = "소음 발생 지점 주소", requiredMode = REQUIRED)
 	AddressResponse address,

@@ -31,12 +31,12 @@ public class ReviewRepositoryImpl implements ReviewRepository {
 	}
 
 	@Override
-	public List<Review> findByTargetIdIn(List<String> targetIds) {
+	public List<Review> findByTargetIdIn(List<Long> targetIds) {
 		return jpaReviewRepository.findByTargetIdIn(targetIds);
 	}
 
 	@Override
-	public List<Review> findByTargetId(String targetId) {
+	public List<Review> findByTargetId(Long targetId) {
 		return jpaReviewRepository.findByTargetId(targetId);
 	}
 }

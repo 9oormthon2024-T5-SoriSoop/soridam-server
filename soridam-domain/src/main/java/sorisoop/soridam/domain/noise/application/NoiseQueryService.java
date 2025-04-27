@@ -28,7 +28,7 @@ public class NoiseQueryService {
 		return noiseRepository.findByAvgDecibelAndPoint(point, radius, noiseLevel);
 	}
 
-	public Noise getNoise(String id) {
+	public Noise getById(Long id) {
 		return noiseRepository.findById(id)
 			.orElseThrow(NoiseNotFoundException::new);
 	}

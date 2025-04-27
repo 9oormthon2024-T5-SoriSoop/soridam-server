@@ -34,7 +34,7 @@ public class Review extends BaseTimeEntity implements UuidExtractable {
 	private String id;
 
 	@Column(nullable = false)
-	private String targetId;
+	private Long targetId;
 
 	@Enumerated(STRING)
 	@Column(nullable = false, length = 25)
@@ -50,9 +50,9 @@ public class Review extends BaseTimeEntity implements UuidExtractable {
 	@Column(nullable = false, precision = 2, scale = 1)
 	private BigDecimal rating;
 
-	public static Review create(String targetId, UuidPrefix reviewType, User author, String content, BigDecimal rating) {
+	public static Review create(Long targetId, UuidPrefix reviewType, User author, String content, BigDecimal rating) {
 		return Review.builder()
-			.targetId(reviewType.getPrefix() + targetId)
+			.targetId(targetId)
 			.reviewType(reviewType)
 			.author(author)
 			.content(content)

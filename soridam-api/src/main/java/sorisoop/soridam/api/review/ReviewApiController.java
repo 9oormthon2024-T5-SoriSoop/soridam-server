@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -27,7 +26,6 @@ import sorisoop.soridam.api.review.presentation.request.ReviewCreateRequest;
 import sorisoop.soridam.api.review.presentation.request.ReviewUpdateRequest;
 import sorisoop.soridam.api.review.presentation.response.ReviewListResponse;
 import sorisoop.soridam.api.review.presentation.response.ReviewPersistResponse;
-import sorisoop.soridam.globalutil.uuid.UuidPrefix;
 
 @RestController
 @RequiredArgsConstructor
@@ -71,10 +69,8 @@ public class ReviewApiController {
 	@GetMapping("/{targetId}")
 	public ResponseEntity<ReviewListResponse> getReviews(
 		@Parameter(description = "리뷰 타겟 ID", example = "123", required = true)
-		@PathVariable String targetId,
-		@Parameter(description = "리뷰 종류", example = "NOISE", required = true)
-		@RequestParam UuidPrefix reviewType) {
-		ReviewListResponse response = reviewFacade.getReviews(targetId, reviewType);
+		@PathVariable Long targetId) {
+		ReviewListResponse response = reviewFacade.getReviews(targetId);
 		return ResponseEntity.ok(response);
 	}
 
@@ -86,7 +82,7 @@ public class ReviewApiController {
 	public ResponseEntity<ReviewListResponse> getReviewsByNoiseSummaries(
 		@RequestBody List<NoiseSummaryResponse> noiseSummaries
 	) {
-		List<String> resultIds = noiseSummaries.stream()
+		List<Long> resultIds = noiseSummaries.stream()
 			.map(NoiseSummaryResponse::id)
 			.toList();
 

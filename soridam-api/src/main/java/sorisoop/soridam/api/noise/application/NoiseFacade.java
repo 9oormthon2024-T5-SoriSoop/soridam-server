@@ -43,7 +43,7 @@ public class NoiseFacade {
 	public NoiseSummaryListResponse getNoisesByAddress(String addressId) {
 		List<Noise> results = noiseQueryService.getDetailNoise(addressId);
 
-		List<String> resultIds = results.stream()
+		List<Long> resultIds = results.stream()
 			.map(Noise::getId)
 			.toList();
 
@@ -67,8 +67,8 @@ public class NoiseFacade {
 	}
 
 	@Transactional(readOnly = true)
-	public NoiseResponse getNoise(String id) {
-		Noise noise = noiseQueryService.getNoise(NOISE_PREFIX + id);
+	public NoiseResponse getNoise(Long id) {
+		Noise noise = noiseQueryService.getById(id);
 		return NoiseResponse.from(noise);
 	}
 
@@ -88,9 +88,9 @@ public class NoiseFacade {
 	}
 
 	@Transactional
-	public void deleteNoise(String id) {
+	public void deleteNoise(Long id) {
 		User user = userQueryService.me();
-		noiseCommandService.deleteNoise(user, NOISE_PREFIX + id);
+		noiseCommandService.deleteNoise(user, id);
 	}
 
 	@Transactional(readOnly = true)

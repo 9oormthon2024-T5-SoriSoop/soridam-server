@@ -19,7 +19,7 @@ import sorisoop.soridam.globalutil.uuid.UuidPrefix;
 public class ReviewCommandService {
 	private final ReviewRepository reviewRepository;
 
-	public Review create(String targetId, UuidPrefix reviewType,
+	public Review create(Long targetId, UuidPrefix reviewType,
 		User author, String content, BigDecimal rating) {
 		Review review = Review.create(targetId, reviewType, author, content, rating);
 		return reviewRepository.save(review);

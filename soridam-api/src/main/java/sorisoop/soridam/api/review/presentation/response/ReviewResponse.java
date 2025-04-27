@@ -8,7 +8,7 @@ import sorisoop.soridam.domain.review.domain.Review;
 
 @Builder
 public record ReviewResponse(
-	String targetId,
+	Long targetId,
 	String authorId,
 	String content,
 	BigDecimal rating,

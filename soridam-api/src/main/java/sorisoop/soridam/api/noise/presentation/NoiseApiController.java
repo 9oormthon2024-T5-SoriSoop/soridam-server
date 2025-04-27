@@ -42,7 +42,7 @@ public class NoiseApiController {
 	@GetMapping("/{id}")
 	public ResponseEntity<NoiseResponse> getUserNoiseDetail(
 		@Parameter(description = "조회할 noise 데이터의 ID", example = "10", required = true)
-		@PathVariable String id
+		@PathVariable Long id
 	) {
 		NoiseResponse response = noiseFacade.getNoise(id);
 		return ResponseEntity.ok(response);
@@ -101,7 +101,7 @@ public class NoiseApiController {
   	@DeleteMapping("/{id}")
   	public ResponseEntity<Void> deleteNoise(
 		@Parameter(description = "삭제할 데이터의 ID", example = "1", required = true)
-		@PathVariable String id
+		@PathVariable Long id
   	) {
 		noiseFacade.deleteNoise(id);
 		return ResponseEntity.noContent().build();

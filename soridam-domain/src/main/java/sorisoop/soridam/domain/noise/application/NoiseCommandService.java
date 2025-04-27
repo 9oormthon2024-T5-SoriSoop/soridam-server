@@ -21,7 +21,7 @@ public class NoiseCommandService {
 		return noiseRepository.save(noise);
 	}
 
-	public void deleteNoise(User user, String id) {
+	public void deleteNoise(User user, Long id) {
 		Noise noise = noiseRepository.findById(id)
 			.orElseThrow(NoiseNotFoundException::new);
 

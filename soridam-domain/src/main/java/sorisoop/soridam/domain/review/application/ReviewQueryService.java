@@ -19,11 +19,11 @@ public class ReviewQueryService {
 			.orElseThrow(ReviewNotFoundException::new);
 	}
 
-	public List<Review> getByTargetIdIn(List<String> targetIds) {
+	public List<Review> getByTargetIdIn(List<Long> targetIds) {
 		return reviewRepository.findByTargetIdIn(targetIds);
 	}
 
-	public List<Review> getByTargetId(String targetId) {
+	public List<Review> getByTargetId(Long targetId) {
 		return reviewRepository.findByTargetId(targetId);
 	}
 }

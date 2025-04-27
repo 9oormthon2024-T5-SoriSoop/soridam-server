@@ -26,7 +26,7 @@ public class NoiseRepositoryImpl implements NoiseRepository {
 	}
 
 	@Override
-	public Optional<Noise> findById(String id) {
+	public Optional<Noise> findById(Long id) {
 		return jpaNoiseRepository.findById(id);
 	}
 

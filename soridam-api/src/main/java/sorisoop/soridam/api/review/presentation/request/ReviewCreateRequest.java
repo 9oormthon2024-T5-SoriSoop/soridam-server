@@ -14,9 +14,9 @@ import sorisoop.soridam.globalutil.uuid.UuidPrefix;
 
 @Builder
 public record ReviewCreateRequest(
-	@Schema(description = "게시글 ID", example = "uuid", requiredMode = REQUIRED)
+	@Schema(description = "게시글 ID", example = "1L", requiredMode = REQUIRED)
 	@NotBlank
-	String targetId,
+	Long targetId,
 
 	@Schema(description = "게시글 타입", example = "NOISE", requiredMode = REQUIRED)
 	@NotNull

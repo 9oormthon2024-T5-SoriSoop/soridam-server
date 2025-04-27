@@ -18,7 +18,6 @@ import sorisoop.soridam.domain.review.application.ReviewQueryService;
 import sorisoop.soridam.domain.review.domain.Review;
 import sorisoop.soridam.domain.user.application.UserQueryService;
 import sorisoop.soridam.domain.user.domain.User;
-import sorisoop.soridam.globalutil.uuid.UuidPrefix;
 
 @Component
 @RequiredArgsConstructor
@@ -59,8 +58,8 @@ public class ReviewFacade {
 	}
 
 	@Transactional(readOnly = true)
-	public ReviewListResponse getReviews(String targetId, UuidPrefix reviewType) {
-		List<Review> reviews = reviewQueryService.getByTargetId(reviewType.getPrefix() + targetId);
+	public ReviewListResponse getReviews(Long targetId) {
+		List<Review> reviews = reviewQueryService.getByTargetId(targetId);
 		List<ReviewResponse> responses = reviews.stream()
 			.map(ReviewResponse::from)
 			.toList();
@@ -69,7 +68,7 @@ public class ReviewFacade {
 	}
 
 	@Transactional(readOnly = true)
-	public ReviewListResponse getReviewsByTargetIds(List<String> targetIds) {
+	public ReviewListResponse getReviewsByTargetIds(List<Long> targetIds) {
 		List<Review> reviews = reviewQueryService.getByTargetIdIn(targetIds);
 		List<ReviewResponse> responses = reviews.stream()
 			.map(ReviewResponse::from)
