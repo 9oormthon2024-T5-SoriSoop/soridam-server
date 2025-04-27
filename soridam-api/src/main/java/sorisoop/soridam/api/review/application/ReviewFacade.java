@@ -44,16 +44,16 @@ public class ReviewFacade {
 	}
 
 	@Transactional
-	public void update(String reviewId, ReviewUpdateRequest request) {
+	public void update(Long id, ReviewUpdateRequest request) {
 		User user = userQueryService.me();
-		Review review = reviewQueryService.getById(REVIEW_PREFIX + reviewId);
+		Review review = reviewQueryService.getById(id);
 		reviewCommandService.update(user, review, request.content(), request.rating());
 	}
 
 	@Transactional
-	public void delete(String reviewId) {
+	public void delete(Long id) {
 		User user = userQueryService.me();
-		Review review = reviewQueryService.getById(REVIEW_PREFIX + reviewId);
+		Review review = reviewQueryService.getById(id);
 		reviewCommandService.delete(user, review);
 	}
 

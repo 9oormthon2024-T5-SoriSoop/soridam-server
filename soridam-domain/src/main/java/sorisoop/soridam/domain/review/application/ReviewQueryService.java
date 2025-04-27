@@ -14,7 +14,7 @@ import sorisoop.soridam.domain.review.exception.ReviewNotFoundException;
 public class ReviewQueryService {
 	private final ReviewRepository reviewRepository;
 
-	public Review getById(String id) {
+	public Review getById(Long id) {
 		return reviewRepository.findById(id)
 			.orElseThrow(ReviewNotFoundException::new);
 	}
