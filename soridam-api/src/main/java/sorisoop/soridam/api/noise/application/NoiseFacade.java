@@ -1,7 +1,5 @@
 package sorisoop.soridam.api.noise.application;
 
-import static sorisoop.soridam.globalutil.uuid.UuidPrefix.USER;
-
 import java.util.List;
 
 import org.springframework.stereotype.Component;
@@ -80,8 +78,8 @@ public class NoiseFacade {
 	}
 
 	@Transactional(readOnly = true)
-	public NoiseListResponse getNoisesByUserId(String userId) {
-		List<Noise> noises = noiseQueryService.getNoisesByUserId(USER.getPrefix() + userId);
+	public NoiseListResponse getNoisesByUserId(Long userId) {
+		List<Noise> noises = noiseQueryService.getNoisesByUserId(userId);
 		List<NoiseResponse> responses = noises.stream()
 			.map(NoiseResponse::from)
 			.toList();

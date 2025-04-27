@@ -7,7 +7,7 @@ import sorisoop.soridam.domain.user.domain.User;
 
 @Builder
 public record UserInfoResponse(
-	String id,
+	Long id,
 	String email,
 	String name,
 	String nickname,

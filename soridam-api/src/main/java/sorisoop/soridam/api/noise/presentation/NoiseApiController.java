@@ -114,7 +114,7 @@ public class NoiseApiController {
 	@GetMapping
 	public ResponseEntity<NoiseListResponse> getUserNoises(
 		@Parameter(description = "조회할 사용자의 ID", example = "9f3b462d-0fe9-4e7a-ae5d-74f9d9fc3ba4")
-		@RequestParam String userId
+		@RequestParam Long userId
 	) {
 		NoiseListResponse response = noiseFacade.getNoisesByUserId(userId);
 		return ResponseEntity.ok(response);

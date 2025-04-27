@@ -41,7 +41,7 @@ public class NoiseRepositoryImpl implements NoiseRepository {
 	}
 
 	@Override
-	public List<Noise> findByUserId(String userId) {
+	public List<Noise> findByUserId(Long userId) {
 		return jpaNoiseRepository.findByUserId(userId);
 	}
 

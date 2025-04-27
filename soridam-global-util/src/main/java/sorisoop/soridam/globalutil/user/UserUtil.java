@@ -4,10 +4,10 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class UserUtil {
-	public static boolean isSameUser(String user1, String user2) {
+	public static boolean isSameUser(Long user1, Long user2) {
 		if (user1 == null || user2 == null) {
-			return false;
+			return true;
 		}
-		return user1.equals(user2);
+		return !user1.equals(user2);
 	}
 }

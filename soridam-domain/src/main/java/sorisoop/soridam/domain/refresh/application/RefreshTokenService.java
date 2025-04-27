@@ -17,7 +17,7 @@ public class RefreshTokenService {
 			.orElseThrow(RefreshTokenNotFoundException::new);
 	}
 
-	public void save(String userId, String token) {
-		refreshTokenRepository.save(RefreshToken.of(userId, token));
+	public void save(Long id, String token) {
+		refreshTokenRepository.save(RefreshToken.of(id, token));
 	}
 }

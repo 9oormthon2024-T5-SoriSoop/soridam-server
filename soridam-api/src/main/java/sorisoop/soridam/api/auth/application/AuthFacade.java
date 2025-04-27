@@ -1,7 +1,5 @@
 package sorisoop.soridam.api.auth.application;
 
-import static sorisoop.soridam.globalutil.uuid.UuidPrefix.USER;
-
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -34,7 +32,7 @@ public class AuthFacade {
 		User user = userQueryService.getByEmail(request.email());
 		userCommandService.login(user, request.password());
 		JwtResponse response = getToken(user);
-		refreshTokenService.save(user.extractUuid(), response.refreshToken());
+		refreshTokenService.save(user.getId(), response.refreshToken());
 
 		return response;
 	}
@@ -56,17 +54,17 @@ public class AuthFacade {
 	@Transactional(readOnly = true)
 	public JwtResponse reissue(RefreshTokenRequest request) {
 		RefreshToken refreshToken = refreshTokenService.getToken(request.refreshToken());
-		String userId = refreshToken.getUserId();
+		Long userId = refreshToken.getUserId();
 
-		User user = userQueryService.getById(USER.getPrefix() + userId);
+		User user = userQueryService.getById(userId);
 		JwtResponse response = getToken(user);
 		refreshTokenService.save(userId, response.refreshToken());
 		return response;
 	}
 
 	private JwtResponse getToken(User user) {
-		String refreshToken = jwtProvider.generateRefreshToken(user.extractUuid(), user.getRole());
-		String accessToken = jwtProvider.generateAccessToken(user.extractUuid(), user.getRole());
+		String refreshToken = jwtProvider.generateRefreshToken(user.getId(), user.getRole());
+		String accessToken = jwtProvider.generateAccessToken(user.getId(), user.getRole());
 
 		return JwtResponse.of(accessToken, refreshToken);
 	}

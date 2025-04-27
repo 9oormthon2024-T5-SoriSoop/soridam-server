@@ -15,7 +15,7 @@ import sorisoop.soridam.domain.user.exception.UserNotFoundException;
 public class UserQueryService {
 	private final UserRepository userRepository;
 
-	public User getById(String id) {
+	public User getById(Long id) {
 		return userRepository.findById(id)
 			.orElseThrow(UserNotFoundException::new);
 	}
@@ -28,7 +28,7 @@ public class UserQueryService {
 	public User me() {
 		try{
 			Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-			String userId = ((UserDetails)principal).getUsername();
+			Long userId = Long.valueOf(((UserDetails)principal).getUsername());
 			return getById(userId);
 		} catch (Exception e){
 			throw new UnauthorizedException();

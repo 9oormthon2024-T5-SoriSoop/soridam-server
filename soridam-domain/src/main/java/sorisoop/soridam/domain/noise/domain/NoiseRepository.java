@@ -14,7 +14,7 @@ public interface NoiseRepository {
 
 	void delete(Noise noise);
 
-	List<Noise> findByUserId(String userId);
+	List<Noise> findByUserId(Long userId);
 
 	List<Noise> findByAddressId(Long addressId);
 }

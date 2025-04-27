@@ -33,8 +33,8 @@ public class UserFacade {
 	}
 
 	@Transactional(readOnly = true)
-	public UserInfoResponse getById(String id) {
-		User user = userQueryService.getById(USER_PREFIX + id);
+	public UserInfoResponse getById(Long id) {
+		User user = userQueryService.getById(id);
 		return UserInfoResponse.from(user);
 	}
 }
