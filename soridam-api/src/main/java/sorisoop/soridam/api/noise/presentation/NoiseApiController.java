@@ -20,13 +20,10 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import sorisoop.soridam.api.noise.application.NoiseFacade;
 import sorisoop.soridam.api.noise.presentation.request.NoiseCreateRequest;
-import sorisoop.soridam.api.noise.presentation.request.NoiseSearchRequest;
 import sorisoop.soridam.api.noise.presentation.response.NoiseListResponse;
 import sorisoop.soridam.api.noise.presentation.response.NoisePersistResponse;
 import sorisoop.soridam.api.noise.presentation.response.NoiseResponse;
 import sorisoop.soridam.api.noise.presentation.response.NoiseSummaryListResponse;
-import sorisoop.soridam.domain.noise.domain.NoiseLevel;
-import sorisoop.soridam.domain.noise.domain.Radius;
 
 @RestController
 @RequiredArgsConstructor
@@ -45,27 +42,6 @@ public class NoiseApiController {
 		@PathVariable Long id
 	) {
 		NoiseResponse response = noiseFacade.getNoise(id);
-		return ResponseEntity.ok(response);
-	}
-
-	@Operation(summary = "주변 소음 조회 API", description = """
-			- Description : 이 API는 주변 소음을 조회합니다.
-		""")
-	@ApiResponse(responseCode = "200", description = "요청 성공")
-	@ApiResponse(responseCode = "204", description = "결과 없음")
-	@PostMapping("/nearby")
-	public ResponseEntity<NoiseSummaryListResponse> getNearbyNoise(
-		@Valid @RequestBody NoiseSearchRequest request,
-
-		@RequestParam(required = false, defaultValue = "FIVE_HUNDRED_METERS")
-		@Parameter(description = "거리 검색 범위", example = "FIVE_HUNDRED_METERS", required = true)
-		Radius radius,
-
-		@RequestParam(required = false, defaultValue = "QUIET")
-		@Parameter(description = "소음 검색 범위", example = "QUIET", required = true)
-		NoiseLevel level
-	) {
-		NoiseSummaryListResponse response = noiseFacade.getNearbyNoise(request, radius, level);
 		return ResponseEntity.ok(response);
 	}
 

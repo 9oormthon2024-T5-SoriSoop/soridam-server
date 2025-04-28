@@ -3,6 +3,10 @@ package sorisoop.soridam.domain.address.domain;
 import java.util.List;
 import java.util.Optional;
 
+import org.locationtech.jts.geom.Point;
+
+import sorisoop.soridam.domain.address.domain.enums.Category;
+
 public interface AddressRepository {
 	Address save(Address address);
 
@@ -13,4 +17,6 @@ public interface AddressRepository {
 	void delete(Address address);
 
 	Optional<Address> findByRoadAddress(String roadAddress);
+
+	List<Address> findNearAddressesByPoint(Point point, int distanceMeter, List<Category> categories);
 }

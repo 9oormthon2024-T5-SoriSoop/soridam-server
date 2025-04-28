@@ -1,5 +1,7 @@
 package sorisoop.soridam.api.address.application;
 
+import java.util.List;
+
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -10,6 +12,7 @@ import sorisoop.soridam.api.address.presentation.response.AddressResponse;
 import sorisoop.soridam.domain.address.application.AddressCommandService;
 import sorisoop.soridam.domain.address.application.AddressQueryService;
 import sorisoop.soridam.domain.address.domain.Address;
+import sorisoop.soridam.domain.address.domain.enums.Category;
 
 @Component
 @RequiredArgsConstructor
@@ -30,9 +33,10 @@ public class AddressFacade {
 	}
 
 	@Transactional(readOnly = true)
-	public AddressResponse getByRoadAddress(String roadAddress) {
-		Address address = addressQueryService.getByRoadAddress(roadAddress);
-		return AddressResponse.from(address);
+	public List<AddressResponse> getAddressesNearPoint(double x, double y, int distanceMeter, List<Category> categories) {
+		return addressQueryService.getNearAddressesByPoint(x, y, distanceMeter, categories).stream()
+			.map(AddressResponse::from)
+			.toList();
 	}
 
 	@Transactional(readOnly = true)

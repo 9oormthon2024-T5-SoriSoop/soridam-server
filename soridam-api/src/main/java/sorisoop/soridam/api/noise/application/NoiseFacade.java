@@ -7,7 +7,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import lombok.RequiredArgsConstructor;
 import sorisoop.soridam.api.noise.presentation.request.NoiseCreateRequest;
-import sorisoop.soridam.api.noise.presentation.request.NoiseSearchRequest;
 import sorisoop.soridam.api.noise.presentation.response.NoiseListResponse;
 import sorisoop.soridam.api.noise.presentation.response.NoisePersistResponse;
 import sorisoop.soridam.api.noise.presentation.response.NoiseResponse;
@@ -18,8 +17,6 @@ import sorisoop.soridam.domain.address.domain.Address;
 import sorisoop.soridam.domain.noise.application.NoiseCommandService;
 import sorisoop.soridam.domain.noise.application.NoiseQueryService;
 import sorisoop.soridam.domain.noise.domain.Noise;
-import sorisoop.soridam.domain.noise.domain.NoiseLevel;
-import sorisoop.soridam.domain.noise.domain.Radius;
 import sorisoop.soridam.domain.user.application.UserQueryService;
 import sorisoop.soridam.domain.user.domain.User;
 
@@ -38,16 +35,6 @@ public class NoiseFacade {
 		return NoiseSummaryListResponse.of(results.stream()
 			.map(NoiseSummaryResponse::from)
 			.toList());
-	}
-
-	@Transactional(readOnly = true)
-	public NoiseSummaryListResponse getNearbyNoise(
-		NoiseSearchRequest requests, Radius radius, NoiseLevel noiseLevel) {
-		List<NoiseSummaryResponse> responses = noiseQueryService.getNearbyNoise(requests.x(), requests.y(), radius, noiseLevel).stream()
-			.map(NoiseSummaryResponse::from)
-			.toList();
-
-		return NoiseSummaryListResponse.of(responses);
 	}
 
 	@Transactional(readOnly = true)

@@ -6,6 +6,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
 import sorisoop.soridam.domain.address.domain.Address;
+import sorisoop.soridam.domain.address.domain.enums.Category;
 
 @Builder
 public record AddressResponse(
@@ -23,8 +24,8 @@ public record AddressResponse(
 	@NotNull
 	String regionAddress,
 
-	@Schema(description = "장소 카테고리", example = "대형마트", requiredMode = REQUIRED)
-	String category
+	@Schema(description = "장소 카테고리", example = "MT1", requiredMode = REQUIRED)
+	Category category
 ) {
 	public static AddressResponse from(Address address) {
 		return AddressResponse.builder()
@@ -32,7 +33,7 @@ public record AddressResponse(
 			.y(address.getLocation().getY())
 			.roadAddress(address.getRoadAddress())
 			.regionAddress(address.getRegionAddress())
-			.category(address.getCategory() == null ? null : address.getCategory().getDescription())
+			.category(address.getCategory())
 			.build();
 	}
 }
