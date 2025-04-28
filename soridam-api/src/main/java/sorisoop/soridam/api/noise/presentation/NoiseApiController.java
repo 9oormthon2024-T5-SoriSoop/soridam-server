@@ -45,12 +45,12 @@ public class NoiseApiController {
 		return ResponseEntity.ok(response);
 	}
 
-	@Operation(summary = "주변 소음 검색 후 마커 선택 장소 조회 API", description = """
-			- Description : 이 API는 주변 소음 검색 후 마커 선택 장소 조회를 조회합니다.
+	@Operation(summary = "해당 장소에 대한 소음 데이터 조회", description = """
+			- Description : 이 API는 선택한 장소에 대한 소음 데이터를 조회합니다.
 		""")
 	@ApiResponse(responseCode = "200", description = "요청 성공")
 	@ApiResponse(responseCode = "204", description = "결과 없음")
-	@GetMapping("/by-address/{addressId}")
+	@GetMapping("/address/{addressId}")
 	public ResponseEntity<NoiseSummaryListResponse> getDetailNoise(
 		@PathVariable Long addressId
 	){

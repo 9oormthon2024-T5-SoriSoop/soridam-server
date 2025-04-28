@@ -1,7 +1,5 @@
 package sorisoop.soridam.api.review.application;
 
-import static sorisoop.soridam.globalutil.uuid.UuidPrefix.REVIEW;
-
 import java.util.List;
 
 import org.springframework.stereotype.Component;
@@ -16,14 +14,13 @@ import sorisoop.soridam.api.review.presentation.response.ReviewResponse;
 import sorisoop.soridam.domain.review.application.ReviewCommandService;
 import sorisoop.soridam.domain.review.application.ReviewQueryService;
 import sorisoop.soridam.domain.review.domain.Review;
+import sorisoop.soridam.domain.review.domain.ReviewType;
 import sorisoop.soridam.domain.user.application.UserQueryService;
 import sorisoop.soridam.domain.user.domain.User;
 
 @Component
 @RequiredArgsConstructor
 public class ReviewFacade {
-	private final static String REVIEW_PREFIX = REVIEW.getPrefix();
-
 	private final ReviewCommandService reviewCommandService;
 	private final ReviewQueryService reviewQueryService;
 	private final UserQueryService userQueryService;
@@ -58,8 +55,8 @@ public class ReviewFacade {
 	}
 
 	@Transactional(readOnly = true)
-	public ReviewListResponse getReviews(Long targetId) {
-		List<Review> reviews = reviewQueryService.getByTargetId(targetId);
+	public ReviewListResponse getReviews(Long targetId, ReviewType reviewType) {
+		List<Review> reviews = reviewQueryService.getByTargetIdAndReviewType(targetId, reviewType);
 		List<ReviewResponse> responses = reviews.stream()
 			.map(ReviewResponse::from)
 			.toList();
@@ -68,8 +65,8 @@ public class ReviewFacade {
 	}
 
 	@Transactional(readOnly = true)
-	public ReviewListResponse getReviewsByTargetIds(List<Long> targetIds) {
-		List<Review> reviews = reviewQueryService.getByTargetIdIn(targetIds);
+	public ReviewListResponse getReviewsByTargetIds(List<Long> targetIds, ReviewType reviewType) {
+		List<Review> reviews = reviewQueryService.getByTargetIdInAndReviewType(targetIds, reviewType);
 		List<ReviewResponse> responses = reviews.stream()
 			.map(ReviewResponse::from)
 			.toList();

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import lombok.RequiredArgsConstructor;
 import sorisoop.soridam.domain.review.domain.Review;
 import sorisoop.soridam.domain.review.domain.ReviewRepository;
+import sorisoop.soridam.domain.review.domain.ReviewType;
 import sorisoop.soridam.domain.review.exception.ReviewNotFoundException;
 
 @Service
@@ -19,11 +20,11 @@ public class ReviewQueryService {
 			.orElseThrow(ReviewNotFoundException::new);
 	}
 
-	public List<Review> getByTargetIdIn(List<Long> targetIds) {
-		return reviewRepository.findByTargetIdIn(targetIds);
+	public List<Review> getByTargetIdInAndReviewType(List<Long> targetIds, ReviewType reviewType) {
+		return reviewRepository.findByTargetIdInAndReviewType(targetIds, reviewType);
 	}
 
-	public List<Review> getByTargetId(Long targetId) {
-		return reviewRepository.findByTargetId(targetId);
+	public List<Review> getByTargetIdAndReviewType(Long targetId, ReviewType reviewType) {
+		return reviewRepository.findByTargetIdAndReviewType(targetId, reviewType);
 	}
 }

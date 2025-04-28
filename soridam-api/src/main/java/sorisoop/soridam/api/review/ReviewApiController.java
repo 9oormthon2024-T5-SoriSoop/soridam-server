@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -20,12 +21,12 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import sorisoop.soridam.api.noise.presentation.response.NoiseSummaryResponse;
 import sorisoop.soridam.api.review.application.ReviewFacade;
 import sorisoop.soridam.api.review.presentation.request.ReviewCreateRequest;
 import sorisoop.soridam.api.review.presentation.request.ReviewUpdateRequest;
 import sorisoop.soridam.api.review.presentation.response.ReviewListResponse;
 import sorisoop.soridam.api.review.presentation.response.ReviewPersistResponse;
+import sorisoop.soridam.domain.review.domain.ReviewType;
 
 @RestController
 @RequiredArgsConstructor
@@ -69,25 +70,29 @@ public class ReviewApiController {
 	@GetMapping("/{targetId}")
 	public ResponseEntity<ReviewListResponse> getReviews(
 		@Parameter(description = "리뷰 타겟 ID", example = "123", required = true)
-		@PathVariable Long targetId) {
-		ReviewListResponse response = reviewFacade.getReviews(targetId);
-		return ResponseEntity.ok(response);
-	}
-
-	@Operation(summary = "Noise 리스트 기반 리뷰 조회 API", description = """
-        - Description : Noise 리스트로부터 targetId를 추출해서 리뷰들을 조회합니다.
-    """)
-	@ApiResponse(responseCode = "200", description = "리뷰 조회 성공")
-	@PostMapping("/by-noise-summaries")
-	public ResponseEntity<ReviewListResponse> getReviewsByNoiseSummaries(
-		@RequestBody List<NoiseSummaryResponse> noiseSummaries
+		@PathVariable Long targetId,
+		@Parameter(description = "대상 종류 (ex: NOISE, ADDRESS 등)", required = true, example = "NOISE")
+		@RequestParam ReviewType type
 	) {
-		List<Long> resultIds = noiseSummaries.stream()
-			.map(NoiseSummaryResponse::id)
-			.toList();
-
-		ReviewListResponse response = reviewFacade.getReviewsByTargetIds(resultIds);
+		ReviewListResponse response = reviewFacade.getReviews(targetId, type);
 		return ResponseEntity.ok(response);
 	}
+
+	@Operation(summary = "대상 ID 목록 기반 리뷰 조회 API", description = """
+    - Description : 여러 대상 ID와 리뷰 타입을 기반으로 리뷰를 조회합니다.
+""")
+	@ApiResponse(responseCode = "200", description = "리뷰 조회 성공")
+	@GetMapping("/by-target-ids")
+	public ResponseEntity<ReviewListResponse> getReviewsByTargetIds(
+		@Parameter(description = "리뷰를 조회할 대상 ID 리스트", required = true, example = "[1,2,3]")
+		@RequestParam List<Long> targetIds,
+
+		@Parameter(description = "대상 종류 (ex: NOISE, ADDRESS 등)", required = true)
+		@RequestParam ReviewType type
+	) {
+		ReviewListResponse response = reviewFacade.getReviewsByTargetIds(targetIds, type);
+		return ResponseEntity.ok(response);
+	}
+
 }
 
