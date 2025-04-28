@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 public class UserUtil {
 	public static boolean isSameUser(Long user1, Long user2) {
 		if (user1 == null || user2 == null) {
-			return true;
+			return false;
 		}
 		return !user1.equals(user2);
 	}
