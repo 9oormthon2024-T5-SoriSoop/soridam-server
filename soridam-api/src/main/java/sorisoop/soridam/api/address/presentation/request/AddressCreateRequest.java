@@ -25,8 +25,7 @@ public record AddressCreateRequest(
 	@NotNull
 	String regionAddress,
 
-	@Schema(description = "장소 카테고리", example = "MT1", requiredMode = REQUIRED)
-	@NotNull
+	@Schema(description = "장소 카테고리", example = "MT1")
 	Category category
 ) {
 }

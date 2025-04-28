@@ -6,9 +6,10 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public enum Radius {
+	ONE_HUNDRED_METERS(100),
+	TWO_HUNDRED_FIFTY_METERS(250),
 	FIVE_HUNDRED_METERS(500),
-	ONE_KILOMETER(1000),
-	TWO_KILOMETERS(2000);
+	ONE_KILOMETER(1000);
 
 	private final int radiusInMeters;
 }

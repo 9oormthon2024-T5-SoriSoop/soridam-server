@@ -32,7 +32,7 @@ public record AddressResponse(
 			.y(address.getLocation().getY())
 			.roadAddress(address.getRoadAddress())
 			.regionAddress(address.getRegionAddress())
-			.category(address.getCategory().getDescription())
+			.category(address.getCategory() == null ? null : address.getCategory().getDescription())
 			.build();
 	}
 }

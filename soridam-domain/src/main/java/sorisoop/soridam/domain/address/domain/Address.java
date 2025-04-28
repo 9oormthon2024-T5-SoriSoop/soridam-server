@@ -37,7 +37,6 @@ public class Address {
 	private String regionAddress;
 
 	@Enumerated(STRING)
-	@Column(nullable = false)
 	private Category category;
 
 	public static Address create(Point location, String roadAddress, String regionAddress, Category category) {
