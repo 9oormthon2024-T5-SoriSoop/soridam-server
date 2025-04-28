@@ -37,7 +37,7 @@ public class ReviewCommandService {
 	}
 
 	private void validateUser(Long user1, Long user2) {
-		if (UserUtil.isSameUser(user1, user2)) {
+		if (!UserUtil.isSameUser(user1, user2)) {
 			throw new InvalidUserException();
 		}
 	}

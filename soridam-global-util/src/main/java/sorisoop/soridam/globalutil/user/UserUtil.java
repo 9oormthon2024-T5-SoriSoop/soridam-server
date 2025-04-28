@@ -8,6 +8,6 @@ public class UserUtil {
 		if (user1 == null || user2 == null) {
 			return false;
 		}
-		return !user1.equals(user2);
+		return user1.equals(user2);
 	}
 }
