@@ -7,20 +7,19 @@ import java.math.BigDecimal;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.DecimalMax;
 import jakarta.validation.constraints.DecimalMin;
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
-import sorisoop.soridam.globalutil.uuid.UuidPrefix;
+import sorisoop.soridam.domain.review.domain.ReviewType;
 
 @Builder
 public record ReviewCreateRequest(
-	@Schema(description = "게시글 ID", example = "uuid", requiredMode = REQUIRED)
-	@NotBlank
-	String targetId,
+	@Schema(description = "게시글 ID", example = "1", requiredMode = REQUIRED)
+	@NotNull
+	Long targetId,
 
 	@Schema(description = "게시글 타입", example = "NOISE", requiredMode = REQUIRED)
 	@NotNull
-	UuidPrefix reviewType,
+	ReviewType reviewType,
 
 	@Schema(description = "작성 내용", example = "content", requiredMode = REQUIRED)
 	String content,

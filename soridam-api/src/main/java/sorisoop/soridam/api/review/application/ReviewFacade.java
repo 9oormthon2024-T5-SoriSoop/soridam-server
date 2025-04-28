@@ -1,7 +1,5 @@
 package sorisoop.soridam.api.review.application;
 
-import static sorisoop.soridam.globalutil.uuid.UuidPrefix.REVIEW;
-
 import java.util.List;
 
 import org.springframework.stereotype.Component;
@@ -16,15 +14,13 @@ import sorisoop.soridam.api.review.presentation.response.ReviewResponse;
 import sorisoop.soridam.domain.review.application.ReviewCommandService;
 import sorisoop.soridam.domain.review.application.ReviewQueryService;
 import sorisoop.soridam.domain.review.domain.Review;
+import sorisoop.soridam.domain.review.domain.ReviewType;
 import sorisoop.soridam.domain.user.application.UserQueryService;
 import sorisoop.soridam.domain.user.domain.User;
-import sorisoop.soridam.globalutil.uuid.UuidPrefix;
 
 @Component
 @RequiredArgsConstructor
 public class ReviewFacade {
-	private final static String REVIEW_PREFIX = REVIEW.getPrefix();
-
 	private final ReviewCommandService reviewCommandService;
 	private final ReviewQueryService reviewQueryService;
 	private final UserQueryService userQueryService;
@@ -45,22 +41,22 @@ public class ReviewFacade {
 	}
 
 	@Transactional
-	public void update(String reviewId, ReviewUpdateRequest request) {
+	public void update(Long id, ReviewUpdateRequest request) {
 		User user = userQueryService.me();
-		Review review = reviewQueryService.getById(REVIEW_PREFIX + reviewId);
+		Review review = reviewQueryService.getById(id);
 		reviewCommandService.update(user, review, request.content(), request.rating());
 	}
 
 	@Transactional
-	public void delete(String reviewId) {
+	public void delete(Long id) {
 		User user = userQueryService.me();
-		Review review = reviewQueryService.getById(REVIEW_PREFIX + reviewId);
+		Review review = reviewQueryService.getById(id);
 		reviewCommandService.delete(user, review);
 	}
 
 	@Transactional(readOnly = true)
-	public ReviewListResponse getReviews(String targetId, UuidPrefix reviewType) {
-		List<Review> reviews = reviewQueryService.getByTargetId(reviewType.getPrefix() + targetId);
+	public ReviewListResponse getReviews(Long targetId, ReviewType reviewType) {
+		List<Review> reviews = reviewQueryService.getByTargetIdAndReviewType(targetId, reviewType);
 		List<ReviewResponse> responses = reviews.stream()
 			.map(ReviewResponse::from)
 			.toList();
@@ -69,8 +65,8 @@ public class ReviewFacade {
 	}
 
 	@Transactional(readOnly = true)
-	public ReviewListResponse getReviewsByTargetIds(List<String> targetIds) {
-		List<Review> reviews = reviewQueryService.getByTargetIdIn(targetIds);
+	public ReviewListResponse getReviewsByTargetIds(List<Long> targetIds, ReviewType reviewType) {
+		List<Review> reviews = reviewQueryService.getByTargetIdInAndReviewType(targetIds, reviewType);
 		List<ReviewResponse> responses = reviews.stream()
 			.map(ReviewResponse::from)
 			.toList();

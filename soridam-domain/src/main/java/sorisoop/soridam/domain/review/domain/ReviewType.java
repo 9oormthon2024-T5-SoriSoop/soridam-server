@@ -6,8 +6,8 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public enum ReviewType {
-	NOISE("소음"),
+	ADDRESS("장소"),
 	;
 
-	private String description;
+	private final String description;
 }

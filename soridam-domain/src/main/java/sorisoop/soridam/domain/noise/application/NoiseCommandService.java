@@ -21,7 +21,7 @@ public class NoiseCommandService {
 		return noiseRepository.save(noise);
 	}
 
-	public void deleteNoise(User user, String id) {
+	public void deleteNoise(User user, Long id) {
 		Noise noise = noiseRepository.findById(id)
 			.orElseThrow(NoiseNotFoundException::new);
 
@@ -30,7 +30,7 @@ public class NoiseCommandService {
 		noiseRepository.delete(noise);
 	}
 
-	private void validateUser(String user1, String user2) {
+	private void validateUser(Long user1, Long user2) {
 		if (!UserUtil.isSameUser(user1, user2)) {
 			throw new InvalidUserException();
 		}

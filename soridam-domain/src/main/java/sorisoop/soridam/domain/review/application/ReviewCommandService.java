@@ -8,10 +8,10 @@ import org.springframework.transaction.annotation.Transactional;
 import lombok.RequiredArgsConstructor;
 import sorisoop.soridam.domain.review.domain.Review;
 import sorisoop.soridam.domain.review.domain.ReviewRepository;
+import sorisoop.soridam.domain.review.domain.ReviewType;
 import sorisoop.soridam.domain.user.domain.User;
 import sorisoop.soridam.domain.user.exception.InvalidUserException;
 import sorisoop.soridam.globalutil.user.UserUtil;
-import sorisoop.soridam.globalutil.uuid.UuidPrefix;
 
 @Service
 @Transactional
@@ -19,7 +19,7 @@ import sorisoop.soridam.globalutil.uuid.UuidPrefix;
 public class ReviewCommandService {
 	private final ReviewRepository reviewRepository;
 
-	public Review create(String targetId, UuidPrefix reviewType,
+	public Review create(Long targetId, ReviewType reviewType,
 		User author, String content, BigDecimal rating) {
 		Review review = Review.create(targetId, reviewType, author, content, rating);
 		return reviewRepository.save(review);
@@ -36,7 +36,7 @@ public class ReviewCommandService {
 		reviewRepository.delete(review);
 	}
 
-	private void validateUser(String user1, String user2) {
+	private void validateUser(Long user1, Long user2) {
 		if (!UserUtil.isSameUser(user1, user2)) {
 			throw new InvalidUserException();
 		}

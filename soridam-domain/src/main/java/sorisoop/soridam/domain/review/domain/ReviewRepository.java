@@ -6,11 +6,11 @@ import java.util.Optional;
 public interface ReviewRepository {
 	Review save(Review review);
 
-	Optional<Review> findById(String id);
+	Optional<Review> findById(Long id);
 
 	void delete(Review review);
 
-	List<Review> findByTargetIdIn(List<String> targetIds);
+	List<Review> findByTargetIdInAndReviewType(List<Long> targetIds, ReviewType reviewType);
 
-	List<Review> findByTargetId(String targetId);
+	List<Review> findByTargetIdAndReviewType(Long targetId, ReviewType reviewType);
 }

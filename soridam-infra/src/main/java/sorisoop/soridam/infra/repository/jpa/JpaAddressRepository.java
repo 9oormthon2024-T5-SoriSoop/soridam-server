@@ -6,6 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import sorisoop.soridam.domain.address.domain.Address;
 
-public interface JpaAddressRepository extends JpaRepository<Address, String> {
+public interface JpaAddressRepository extends JpaRepository<Address, Long> {
 	Optional<Address> findByRoadAddress(String roadAddress);
 }

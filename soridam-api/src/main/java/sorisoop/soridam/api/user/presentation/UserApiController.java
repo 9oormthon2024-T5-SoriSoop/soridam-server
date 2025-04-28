@@ -35,7 +35,7 @@ public class UserApiController {
 	@GetMapping("/{userId}")
 	public ResponseEntity<UserInfoResponse> getUserNoises(
 		@Parameter(description = "조회할 사용자의 ID", example = "9f3b462d-0fe9-4e7a-ae5d-74f9d9fc3ba4")
-		@PathVariable String userId
+		@PathVariable Long userId
 	) {
 		UserInfoResponse response = userFacade.getById(userId);
 		return ResponseEntity.ok(response);

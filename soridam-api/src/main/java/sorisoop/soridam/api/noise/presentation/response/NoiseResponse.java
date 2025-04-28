@@ -13,7 +13,7 @@ import lombok.Builder;
 @Builder
 public record NoiseResponse(
 	@Schema(description = "소음 ID", example = "1", requiredMode = REQUIRED)
-	String id,
+	Long id,
 
 	@Schema(description = "소음 발생 지점 주소", requiredMode = REQUIRED)
 	AddressResponse address,
@@ -31,7 +31,7 @@ public record NoiseResponse(
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy년 MM월 dd일 HH시 mm분");
 		AddressResponse addressResponse = AddressResponse.from(noise.getAddress());
 		return builder()
-			.id(noise.extractUuid())
+			.id(noise.getId())
 			.address(addressResponse)
 			.avgDecibel(noise.getAvgDecibel())
 			.maxDecibel(noise.getMaxDecibel())

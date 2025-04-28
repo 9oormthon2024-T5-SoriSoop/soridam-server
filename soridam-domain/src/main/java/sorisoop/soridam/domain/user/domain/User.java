@@ -1,8 +1,8 @@
 package sorisoop.soridam.domain.user.domain;
 
 import static jakarta.persistence.EnumType.STRING;
+import static jakarta.persistence.GenerationType.IDENTITY;
 import static lombok.AccessLevel.PROTECTED;
-import static sorisoop.soridam.globalutil.uuid.UuidPrefix.USER;
 
 import java.time.LocalDateTime;
 
@@ -11,6 +11,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -19,9 +20,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import sorisoop.soridam.domain.common.BaseTimeEntity;
 import sorisoop.soridam.domain.common.Provider;
-import sorisoop.soridam.domain.common.UuidExtractable;
 import sorisoop.soridam.domain.user.exception.InvalidPasswordException;
-import sorisoop.soridam.globalutil.uuid.PrefixedUuid;
 
 @Entity
 @Getter
@@ -29,10 +28,10 @@ import sorisoop.soridam.globalutil.uuid.PrefixedUuid;
 @Table(name = "\"user\"")
 @NoArgsConstructor(access = PROTECTED)
 @AllArgsConstructor(access = PROTECTED)
-public class User extends BaseTimeEntity implements UuidExtractable {
+public class User extends BaseTimeEntity {
 	@Id
-	@PrefixedUuid(USER)
-	private String id;
+	@GeneratedValue(strategy = IDENTITY)
+	private Long id;
 
 	private String oauthIdentity;
 

@@ -6,8 +6,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import sorisoop.soridam.domain.noise.domain.Noise;
 
-public interface JpaNoiseRepository extends JpaRepository<Noise, String> {
-	List<Noise> findByUserId(String userId);
+public interface JpaNoiseRepository extends JpaRepository<Noise, Long> {
+	List<Noise> findByUserId(Long userId);
 
-	List<Noise> findByAddressId(String addressId);
+	List<Noise> findByAddressId(Long addressId);
 }

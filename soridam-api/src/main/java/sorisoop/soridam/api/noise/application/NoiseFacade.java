@@ -1,8 +1,5 @@
 package sorisoop.soridam.api.noise.application;
 
-import static sorisoop.soridam.globalutil.uuid.UuidPrefix.NOISE;
-import static sorisoop.soridam.globalutil.uuid.UuidPrefix.USER;
-
 import java.util.List;
 
 import org.springframework.stereotype.Component;
@@ -10,46 +7,30 @@ import org.springframework.transaction.annotation.Transactional;
 
 import lombok.RequiredArgsConstructor;
 import sorisoop.soridam.api.noise.presentation.request.NoiseCreateRequest;
-import sorisoop.soridam.api.noise.presentation.request.NoiseSearchRequest;
 import sorisoop.soridam.api.noise.presentation.response.NoiseListResponse;
 import sorisoop.soridam.api.noise.presentation.response.NoisePersistResponse;
 import sorisoop.soridam.api.noise.presentation.response.NoiseResponse;
 import sorisoop.soridam.api.noise.presentation.response.NoiseSummaryListResponse;
 import sorisoop.soridam.api.noise.presentation.response.NoiseSummaryResponse;
-import sorisoop.soridam.api.review.presentation.response.ReviewResponse;
 import sorisoop.soridam.domain.address.application.AddressQueryService;
 import sorisoop.soridam.domain.address.domain.Address;
 import sorisoop.soridam.domain.noise.application.NoiseCommandService;
 import sorisoop.soridam.domain.noise.application.NoiseQueryService;
 import sorisoop.soridam.domain.noise.domain.Noise;
-import sorisoop.soridam.domain.noise.domain.NoiseLevel;
-import sorisoop.soridam.domain.noise.domain.Radius;
-import sorisoop.soridam.domain.review.application.ReviewQueryService;
 import sorisoop.soridam.domain.user.application.UserQueryService;
 import sorisoop.soridam.domain.user.domain.User;
 
 @Component
 @RequiredArgsConstructor
 public class NoiseFacade {
-	private static final String NOISE_PREFIX = NOISE.getPrefix();
-
 	private final NoiseCommandService noiseCommandService;
 	private final NoiseQueryService noiseQueryService;
 	private final UserQueryService userQueryService;
 	private final AddressQueryService addressQueryService;
-	private final ReviewQueryService reviewQueryService;
 
 	@Transactional(readOnly = true)
-	public NoiseSummaryListResponse getNoisesByAddress(String addressId) {
+	public NoiseSummaryListResponse getNoisesByAddress(Long addressId) {
 		List<Noise> results = noiseQueryService.getDetailNoise(addressId);
-
-		List<String> resultIds = results.stream()
-			.map(Noise::getId)
-			.toList();
-
-		List<ReviewResponse> reviews = reviewQueryService.getByTargetIdIn(resultIds).stream()
-			.map(ReviewResponse::from)
-			.toList();
 
 		return NoiseSummaryListResponse.of(results.stream()
 			.map(NoiseSummaryResponse::from)
@@ -57,18 +38,8 @@ public class NoiseFacade {
 	}
 
 	@Transactional(readOnly = true)
-	public NoiseSummaryListResponse getNearbyNoise(
-		NoiseSearchRequest requests, Radius radius, NoiseLevel noiseLevel) {
-		List<NoiseSummaryResponse> responses = noiseQueryService.getNearbyNoise(requests.x(), requests.y(), radius, noiseLevel).stream()
-			.map(NoiseSummaryResponse::from)
-			.toList();
-
-		return NoiseSummaryListResponse.of(responses);
-	}
-
-	@Transactional(readOnly = true)
-	public NoiseResponse getNoise(String id) {
-		Noise noise = noiseQueryService.getNoise(NOISE_PREFIX + id);
+	public NoiseResponse getNoise(Long id) {
+		Noise noise = noiseQueryService.getById(id);
 		return NoiseResponse.from(noise);
 	}
 
@@ -88,14 +59,14 @@ public class NoiseFacade {
 	}
 
 	@Transactional
-	public void deleteNoise(String id) {
+	public void deleteNoise(Long id) {
 		User user = userQueryService.me();
-		noiseCommandService.deleteNoise(user, NOISE_PREFIX + id);
+		noiseCommandService.deleteNoise(user, id);
 	}
 
 	@Transactional(readOnly = true)
-	public NoiseListResponse getNoisesByUserId(String userId) {
-		List<Noise> noises = noiseQueryService.getNoisesByUserId(USER.getPrefix() + userId);
+	public NoiseListResponse getNoisesByUserId(Long userId) {
+		List<Noise> noises = noiseQueryService.getNoisesByUserId(userId);
 		List<NoiseResponse> responses = noises.stream()
 			.map(NoiseResponse::from)
 			.toList();

@@ -8,12 +8,12 @@ import sorisoop.soridam.domain.noise.domain.Noise;
 
 @Builder
 public record NoisePersistResponse(
-	@Schema(description = "noise ID", example = "nse_asdfjklsadjklsamlsdfsldm", requiredMode = REQUIRED)
-	String id
+	@Schema(description = "noise ID", example = "1", requiredMode = REQUIRED)
+	Long id
 ) {
 	public static NoisePersistResponse from(Noise noise){
 		return NoisePersistResponse.builder()
-			.id(noise.extractUuid())
+			.id(noise.getId())
 			.build();
 	}
 }

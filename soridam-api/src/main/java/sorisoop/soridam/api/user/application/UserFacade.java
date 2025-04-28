@@ -16,8 +16,6 @@ import sorisoop.soridam.domain.user.domain.User;
 @Component
 @RequiredArgsConstructor
 public class UserFacade {
-	private static final String USER_PREFIX = USER.getPrefix();
-
 	private final UserCommandService userCommandService;
 	private final UserQueryService userQueryService;
 
@@ -33,8 +31,8 @@ public class UserFacade {
 	}
 
 	@Transactional(readOnly = true)
-	public UserInfoResponse getById(String id) {
-		User user = userQueryService.getById(USER_PREFIX + id);
+	public UserInfoResponse getById(Long id) {
+		User user = userQueryService.getById(id);
 		return UserInfoResponse.from(user);
 	}
 }

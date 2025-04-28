@@ -5,11 +5,11 @@ import sorisoop.soridam.domain.user.domain.User;
 
 @Builder
 public record UserPersistResponse(
-	String userId
+	Long id
 ) {
 	public static UserPersistResponse from(User user) {
 		return UserPersistResponse.builder()
-			.userId(user.extractUuid())
+			.id(user.getId())
 			.build();
 	}
 }

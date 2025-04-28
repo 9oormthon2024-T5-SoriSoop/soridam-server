@@ -6,15 +6,13 @@ import java.util.Optional;
 import org.locationtech.jts.geom.Point;
 
 public interface NoiseRepository {
-	List<Noise> findByAvgDecibelAndPoint(Point point, Radius radius, NoiseLevel noiseLevel);
-
-	Optional<Noise> findById(String id);
+	Optional<Noise> findById(Long id);
 
 	Noise save(Noise noise);
 
 	void delete(Noise noise);
 
-	List<Noise> findByUserId(String userId);
+	List<Noise> findByUserId(Long userId);
 
-	List<Noise> findByAddressId(String addressId);
+	List<Noise> findByAddressId(Long addressId);
 }

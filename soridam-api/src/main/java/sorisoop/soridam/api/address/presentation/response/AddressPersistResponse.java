@@ -8,8 +8,8 @@ import sorisoop.soridam.domain.address.domain.Address;
 
 @Builder
 public record AddressPersistResponse(
-	@Schema(description = "address ID", example = "address-asdfjklsadjklsamlsdfsldm", requiredMode = REQUIRED)
-	String id
+	@Schema(description = "address ID", example = "1", requiredMode = REQUIRED)
+	Long id
 ) {
 	public static AddressPersistResponse from(Address address) {
 		return AddressPersistResponse.builder()

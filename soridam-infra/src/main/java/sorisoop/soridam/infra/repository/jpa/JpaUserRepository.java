@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import sorisoop.soridam.domain.common.Provider;
 import sorisoop.soridam.domain.user.domain.User;
 
-public interface JpaUserRepository extends JpaRepository<User, String> {
+public interface JpaUserRepository extends JpaRepository<User, Long> {
 	Optional<User> findByEmail(String email);
 
 	Optional<User> findByOauthIdentityAndProvider(String oauthIdentifier, Provider provider);
