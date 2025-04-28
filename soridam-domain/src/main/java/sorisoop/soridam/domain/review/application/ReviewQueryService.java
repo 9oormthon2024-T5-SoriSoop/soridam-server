@@ -21,6 +21,7 @@ public class ReviewQueryService {
 	}
 
 	public List<Review> getByTargetIdInAndReviewType(List<Long> targetIds, ReviewType reviewType) {
+		if (targetIds.isEmpty()) return List.of();
 		return reviewRepository.findByTargetIdInAndReviewType(targetIds, reviewType);
 	}
 
