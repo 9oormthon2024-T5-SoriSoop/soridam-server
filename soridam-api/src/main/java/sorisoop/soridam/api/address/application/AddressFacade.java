@@ -7,6 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import lombok.RequiredArgsConstructor;
 import sorisoop.soridam.api.address.presentation.request.AddressCreateRequest;
+import sorisoop.soridam.api.address.presentation.response.AddressListResponse;
 import sorisoop.soridam.api.address.presentation.response.AddressPersistResponse;
 import sorisoop.soridam.api.address.presentation.response.AddressResponse;
 import sorisoop.soridam.domain.address.application.AddressCommandService;
@@ -33,10 +34,12 @@ public class AddressFacade {
 	}
 
 	@Transactional(readOnly = true)
-	public List<AddressResponse> getAddressesNearPoint(double x, double y, int distanceMeter, List<Category> categories) {
-		return addressQueryService.getNearAddressesByPoint(x, y, distanceMeter, categories).stream()
+	public AddressListResponse getAddressesNearPoint(double x, double y, int distanceMeter, List<Category> categories) {
+		List<AddressResponse> responses = addressQueryService.getNearAddressesByPoint(x, y, distanceMeter, categories).stream()
 			.map(AddressResponse::from)
 			.toList();
+
+		return AddressListResponse.of(responses);
 	}
 
 	@Transactional(readOnly = true)

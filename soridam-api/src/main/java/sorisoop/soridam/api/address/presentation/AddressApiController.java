@@ -21,6 +21,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import sorisoop.soridam.api.address.application.AddressFacade;
 import sorisoop.soridam.api.address.presentation.request.AddressCreateRequest;
+import sorisoop.soridam.api.address.presentation.response.AddressListResponse;
 import sorisoop.soridam.api.address.presentation.response.AddressPersistResponse;
 import sorisoop.soridam.api.address.presentation.response.AddressResponse;
 import sorisoop.soridam.domain.address.domain.enums.Category;
@@ -85,7 +86,7 @@ public class AddressApiController {
 	@ApiResponse(responseCode = "200", description = "요청 성공")
 	@ApiResponse(responseCode = "204", description = "결과 없음")
 	@GetMapping("/nearby")
-	public ResponseEntity<List<AddressResponse>> getNearbyNoise(
+	public ResponseEntity<AddressListResponse> getNearbyNoise(
 		@RequestParam @Parameter(description = "현재 위치 X 좌표 (longitude)", example = "127.12345", required = true)
 		double x,
 
