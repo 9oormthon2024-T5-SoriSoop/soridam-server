@@ -2,6 +2,8 @@ package sorisoop.soridam.api.noise.application;
 
 import java.util.List;
 
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -10,8 +12,8 @@ import sorisoop.soridam.api.noise.presentation.request.NoiseCreateRequest;
 import sorisoop.soridam.api.noise.presentation.response.NoiseListResponse;
 import sorisoop.soridam.api.noise.presentation.response.NoisePersistResponse;
 import sorisoop.soridam.api.noise.presentation.response.NoiseResponse;
-import sorisoop.soridam.api.noise.presentation.response.NoiseSummaryListResponse;
 import sorisoop.soridam.api.noise.presentation.response.NoiseSummaryResponse;
+import sorisoop.soridam.common.response.SliceResponse;
 import sorisoop.soridam.domain.address.application.AddressQueryService;
 import sorisoop.soridam.domain.address.domain.Address;
 import sorisoop.soridam.domain.noise.application.NoiseCommandService;
@@ -29,13 +31,22 @@ public class NoiseFacade {
 	private final AddressQueryService addressQueryService;
 
 	@Transactional(readOnly = true)
-	public NoiseSummaryListResponse getNoisesByAddress(Long addressId) {
-		List<Noise> results = noiseQueryService.getDetailNoise(addressId);
-
-		return NoiseSummaryListResponse.of(results.stream()
+	public SliceResponse<NoiseSummaryResponse> getNoisesByAddress(Long addressId, Long lastId, int limit) {
+		Pageable pageable = PageRequest.of(0, limit + 1);
+		List<NoiseSummaryResponse> results = noiseQueryService.getDetailNoise(addressId, lastId, pageable).stream()
 			.map(NoiseSummaryResponse::from)
-			.toList());
+			.toList();
+
+		boolean hasNext = results.size() > limit;
+		if (hasNext) {
+			results = results.subList(0, limit);
+		}
+
+		Long newLastId = results.isEmpty() ? null : results.getLast().id();
+
+		return SliceResponse.of(results, newLastId, hasNext);
 	}
+
 
 	@Transactional(readOnly = true)
 	public NoiseResponse getNoise(Long id) {

@@ -23,7 +23,8 @@ import sorisoop.soridam.api.noise.presentation.request.NoiseCreateRequest;
 import sorisoop.soridam.api.noise.presentation.response.NoiseListResponse;
 import sorisoop.soridam.api.noise.presentation.response.NoisePersistResponse;
 import sorisoop.soridam.api.noise.presentation.response.NoiseResponse;
-import sorisoop.soridam.api.noise.presentation.response.NoiseSummaryListResponse;
+import sorisoop.soridam.api.noise.presentation.response.NoiseSummaryResponse;
+import sorisoop.soridam.common.response.SliceResponse;
 
 @RestController
 @RequiredArgsConstructor
@@ -51,10 +52,12 @@ public class NoiseApiController {
 	@ApiResponse(responseCode = "200", description = "요청 성공")
 	@ApiResponse(responseCode = "204", description = "결과 없음")
 	@GetMapping("/address/{addressId}")
-	public ResponseEntity<NoiseSummaryListResponse> getDetailNoise(
-		@PathVariable Long addressId
+	public ResponseEntity<SliceResponse<NoiseSummaryResponse>> getDetailNoise(
+		@PathVariable Long addressId,
+		@RequestParam(required = false) Long lastId,
+		@RequestParam int limit
 	){
-		NoiseSummaryListResponse response = noiseFacade.getNoisesByAddress(addressId);
+		SliceResponse<NoiseSummaryResponse> response = noiseFacade.getNoisesByAddress(addressId, lastId, limit);
 		return ResponseEntity.ok(response);
   	}
 

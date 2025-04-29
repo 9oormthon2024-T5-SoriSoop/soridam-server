@@ -2,6 +2,7 @@ package sorisoop.soridam.domain.noise.application;
 
 import java.util.List;
 
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
@@ -14,8 +15,8 @@ import sorisoop.soridam.domain.noise.exception.NoiseNotFoundException;
 public class NoiseQueryService {
 	private final NoiseRepository noiseRepository;
 
-	public List<Noise> getDetailNoise(Long addressId) {
-		return noiseRepository.findByAddressId(addressId);
+	public List<Noise> getDetailNoise(Long addressId, Long lastId, Pageable pageable) {
+		return noiseRepository.findByAddressIdWithCursor(addressId, lastId, pageable);
 	}
 
 	public Noise getById(Long id) {
