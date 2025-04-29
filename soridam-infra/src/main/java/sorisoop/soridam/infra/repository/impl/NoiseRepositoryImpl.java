@@ -3,18 +3,20 @@ package sorisoop.soridam.infra.repository.impl;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Repository;
 
 import lombok.RequiredArgsConstructor;
 import sorisoop.soridam.domain.noise.domain.Noise;
 import sorisoop.soridam.domain.noise.domain.NoiseRepository;
 import sorisoop.soridam.infra.repository.jpa.JpaNoiseRepository;
+import sorisoop.soridam.infra.repository.jpa.QueryNoiseRepository;
 
 @Repository
 @RequiredArgsConstructor
 public class NoiseRepositoryImpl implements NoiseRepository {
 	private final JpaNoiseRepository jpaNoiseRepository;
+	private final QueryNoiseRepository queryNoiseRepository;
 
 	@Override
 	public Optional<Noise> findById(Long id) {
@@ -37,7 +39,17 @@ public class NoiseRepositoryImpl implements NoiseRepository {
 	}
 
 	@Override
-	public List<Noise> findByAddressIdWithCursor(Long addressId, Long lastId, Pageable pageable) {
-		return jpaNoiseRepository.findByAddressIdWithCursor(addressId, lastId, pageable);
+	public List<Noise> findByAddressWithCursorAndAvgDecibelRange(
+		Long addressId,
+		String lastValue,
+		int minAvg,
+		int maxAvg,
+		int limit,
+		Sort sort
+	) {
+		return queryNoiseRepository.findByAddressWithCursorAndAvgDecibelRange(
+			addressId, lastValue, minAvg, maxAvg, limit, sort
+		);
 	}
+
 }

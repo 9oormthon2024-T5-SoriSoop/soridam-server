@@ -9,6 +9,7 @@ import sorisoop.soridam.domain.noise.domain.Noise;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;
+import sorisoop.soridam.api.noise.presentation.enums.NoiseLevel;
 
 @Builder
 public record NoiseResponse(
@@ -25,7 +26,10 @@ public record NoiseResponse(
 	int maxDecibel,
 
 	@Schema(description = "작성일자", example = "2024년 12월 14일 21시 37분", requiredMode = REQUIRED)
-	String createdAt
+	String createdAt,
+
+	@Schema(description = "소음 레벨", example = "NOLMAL", requiredMode = REQUIRED)
+	NoiseLevel noiseLevel
 ) {
 	public static NoiseResponse from(Noise noise) {
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy년 MM월 dd일 HH시 mm분");
@@ -36,6 +40,7 @@ public record NoiseResponse(
 			.avgDecibel(noise.getAvgDecibel())
 			.maxDecibel(noise.getMaxDecibel())
 			.createdAt(noise.getCreatedAt().format(formatter))
+			.noiseLevel(NoiseLevel.from(noise.getAvgDecibel()))
 			.build();
 	}
 }

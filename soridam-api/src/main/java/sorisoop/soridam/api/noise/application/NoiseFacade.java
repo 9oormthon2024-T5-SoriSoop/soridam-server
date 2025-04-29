@@ -2,12 +2,14 @@ package sorisoop.soridam.api.noise.application;
 
 import java.util.List;
 
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import lombok.RequiredArgsConstructor;
+import sorisoop.soridam.api.common.SortDirection;
+import sorisoop.soridam.api.noise.presentation.enums.NoiseLevel;
+import sorisoop.soridam.api.noise.presentation.enums.NoiseSortField;
 import sorisoop.soridam.api.noise.presentation.request.NoiseCreateRequest;
 import sorisoop.soridam.api.noise.presentation.response.NoiseListResponse;
 import sorisoop.soridam.api.noise.presentation.response.NoisePersistResponse;
@@ -31,20 +33,38 @@ public class NoiseFacade {
 	private final AddressQueryService addressQueryService;
 
 	@Transactional(readOnly = true)
-	public SliceResponse<NoiseSummaryResponse> getNoisesByAddress(Long addressId, Long lastId, int limit) {
-		Pageable pageable = PageRequest.of(0, limit + 1);
-		List<NoiseSummaryResponse> results = noiseQueryService.getDetailNoise(addressId, lastId, pageable).stream()
+	public SliceResponse<NoiseSummaryResponse> getByAddressWithCursorAndAvgDecibelRange(Long addressId, String lastValue, int limit, NoiseLevel level, NoiseSortField sort, SortDirection order) {
+		Sort sortSpec = Sort.by(order.toSpringSortDirection(), sort.getValue());
+
+		int minDecibel = (level != null) ? level.getMinDecibel() : 0;
+		int maxDecibel = (level != null) ? level.getMaxDecibel() : 120;
+
+		List<Noise> noises = noiseQueryService.getByAddressWithCursorAndAvgDecibelRange(addressId, lastValue,
+			minDecibel, maxDecibel, limit + 1, sortSpec);
+
+		boolean hasNext = noises.size() > limit;
+		if (hasNext) {
+			noises = noises.subList(0, limit);
+		}
+
+		List<NoiseSummaryResponse> responses = noises.stream()
 			.map(NoiseSummaryResponse::from)
 			.toList();
 
-		boolean hasNext = results.size() > limit;
-		if (hasNext) {
-			results = results.subList(0, limit);
-		}
+		String newLastCursor = noises.isEmpty()
+			? null
+			: extractCursorValue(responses.get(responses.size() - 1), sortSpec);
 
-		Long newLastId = results.isEmpty() ? null : results.getLast().id();
+		return SliceResponse.of(responses, newLastCursor, hasNext);
+	}
 
-		return SliceResponse.of(results, newLastId, hasNext);
+	private String extractCursorValue(NoiseSummaryResponse response, Sort sort) {
+		String sortProperty = sort.stream().findFirst().orElseThrow().getProperty();
+		return switch (sortProperty) {
+			case "id" -> response.id().toString();
+			case "avgDecibel" -> String.valueOf(response.avgDecibel());
+			default -> throw new IllegalArgumentException("지원하지 않는 정렬 기준입니다: " + sortProperty);
+		};
 	}
 
 

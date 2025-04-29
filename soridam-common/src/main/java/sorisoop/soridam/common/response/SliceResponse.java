@@ -7,13 +7,13 @@ import lombok.Builder;
 @Builder
 public record SliceResponse<T>(
 	List<T> contents,
-	Long lastId,
+	String lastValue,
 	boolean hasNext
 ) {
-	public static <T> SliceResponse<T> of(List<T> contents, Long lastId, boolean hasNext) {
+	public static <T> SliceResponse<T> of(List<T> contents, String lastValue, boolean hasNext) {
 		return SliceResponse.<T>builder()
 			.contents(contents)
-			.lastId(lastId)
+			.lastValue(lastValue)
 			.hasNext(hasNext)
 			.build();
 	}
