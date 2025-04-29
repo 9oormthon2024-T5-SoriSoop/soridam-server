@@ -3,6 +3,7 @@ package sorisoop.soridam.infra.repository.impl;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
 import lombok.RequiredArgsConstructor;
@@ -36,7 +37,7 @@ public class NoiseRepositoryImpl implements NoiseRepository {
 	}
 
 	@Override
-	public List<Noise> findByAddressId(Long addressId) {
-		return jpaNoiseRepository.findByAddressId(addressId);
+	public List<Noise> findByAddressIdWithCursor(Long addressId, Long lastId, Pageable pageable) {
+		return jpaNoiseRepository.findByAddressIdWithCursor(addressId, lastId, pageable);
 	}
 }

@@ -3,7 +3,7 @@ package sorisoop.soridam.domain.noise.domain;
 import java.util.List;
 import java.util.Optional;
 
-import org.locationtech.jts.geom.Point;
+import org.springframework.data.domain.Pageable;
 
 public interface NoiseRepository {
 	Optional<Noise> findById(Long id);
@@ -14,5 +14,5 @@ public interface NoiseRepository {
 
 	List<Noise> findByUserId(Long userId);
 
-	List<Noise> findByAddressId(Long addressId);
+	List<Noise> findByAddressIdWithCursor(Long addressId, Long lastId, Pageable pageable);
 }
