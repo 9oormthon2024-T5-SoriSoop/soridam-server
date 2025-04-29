@@ -9,7 +9,7 @@ import sorisoop.soridam.domain.noise.domain.Noise;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;
-import sorisoop.soridam.domain.noise.domain.NoiseLevel;
+import sorisoop.soridam.api.noise.presentation.enums.NoiseLevel;
 
 @Builder
 public record NoiseResponse(

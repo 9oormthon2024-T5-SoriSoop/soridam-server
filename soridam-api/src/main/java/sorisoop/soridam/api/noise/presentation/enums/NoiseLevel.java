@@ -1,4 +1,4 @@
-package sorisoop.soridam.domain.noise.domain;
+package sorisoop.soridam.api.noise.presentation.enums;
 
 import java.util.Arrays;
 

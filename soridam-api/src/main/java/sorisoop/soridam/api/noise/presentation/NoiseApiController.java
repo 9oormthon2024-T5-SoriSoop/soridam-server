@@ -18,13 +18,16 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import sorisoop.soridam.api.common.SortDirection;
 import sorisoop.soridam.api.noise.application.NoiseFacade;
+import sorisoop.soridam.api.noise.presentation.enums.NoiseSortField;
 import sorisoop.soridam.api.noise.presentation.request.NoiseCreateRequest;
 import sorisoop.soridam.api.noise.presentation.response.NoiseListResponse;
 import sorisoop.soridam.api.noise.presentation.response.NoisePersistResponse;
 import sorisoop.soridam.api.noise.presentation.response.NoiseResponse;
 import sorisoop.soridam.api.noise.presentation.response.NoiseSummaryResponse;
 import sorisoop.soridam.common.response.SliceResponse;
+import sorisoop.soridam.api.noise.presentation.enums.NoiseLevel;
 
 @RestController
 @RequiredArgsConstructor
@@ -54,10 +57,28 @@ public class NoiseApiController {
 	@GetMapping("/address/{addressId}")
 	public ResponseEntity<SliceResponse<NoiseSummaryResponse>> getDetailNoise(
 		@PathVariable Long addressId,
-		@RequestParam(required = false) Long lastId,
-		@RequestParam int limit
+
+		@RequestParam(required = false)
+		@Parameter(description = "커서 페이징을 위한 마지막 noiseId", example = "1024")
+		String lastValue,
+
+		@RequestParam(defaultValue = "10")
+		@Parameter(description = "가져올 데이터 개수", example = "10")
+		int limit,
+
+		@RequestParam(required = false)
+		@Parameter(description = "소음 수준 필터링", example = "QUIET")
+		NoiseLevel level,
+
+		@RequestParam(defaultValue = "ID")
+		@Parameter(description = "정렬 기준 필드", example = "ID")
+		NoiseSortField sort,
+
+		@RequestParam(defaultValue = "DESC")
+		@Parameter(description = "정렬 순서", example = "DESC")
+		SortDirection order
 	){
-		SliceResponse<NoiseSummaryResponse> response = noiseFacade.getNoisesByAddress(addressId, lastId, limit);
+		SliceResponse<NoiseSummaryResponse> response = noiseFacade.getByAddressWithCursorAndAvgDecibelRange(addressId, lastValue, limit, level, sort, order);
 		return ResponseEntity.ok(response);
   	}
 
