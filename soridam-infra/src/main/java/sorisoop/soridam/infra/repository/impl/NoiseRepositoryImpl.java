@@ -3,6 +3,7 @@ package sorisoop.soridam.infra.repository.impl;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Repository;
 
@@ -50,6 +51,11 @@ public class NoiseRepositoryImpl implements NoiseRepository {
 		return queryNoiseRepository.findByAddressWithCursorAndAvgDecibelRange(
 			addressId, lastValue, minAvg, maxAvg, limit, sort
 		);
+	}
+
+	@Override
+	public List<Long> findTop50IdByAddressId(Long id, Pageable pageable) {
+		return jpaNoiseRepository.findTop50IdByAddressId(id, pageable);
 	}
 
 }
