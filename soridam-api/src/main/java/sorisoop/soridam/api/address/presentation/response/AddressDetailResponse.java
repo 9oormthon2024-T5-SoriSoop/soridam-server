@@ -9,7 +9,7 @@ import sorisoop.soridam.domain.address.domain.Address;
 import sorisoop.soridam.domain.address.domain.enums.Category;
 
 @Builder
-public record AddressResponse(
+public record AddressDetailResponse(
 	@Schema(description = "장소 Idx", example = "1", requiredMode = REQUIRED)
 	Long id,
 
@@ -23,20 +23,33 @@ public record AddressResponse(
 	@NotNull
 	String roadAddress,
 
+	@Schema(description = "지번 주소", example = "서울특별시 동대문구 장안동 366-7", requiredMode = REQUIRED)
+	@NotNull
+	String regionAddress,
+
+	@Schema(description = "장소 카테고리", example = "MT1", requiredMode = REQUIRED)
+	Category category,
+
 	@Schema(description = "장소명, 업체명", example = "경기대학교")
 	String placeName,
 
-	@Schema(description = "장소 카테고리", example = "MT1", requiredMode = REQUIRED)
-	Category category
+	@Schema(description = "장소 상세페이지 url", example = "경기대학교")
+	String placeUrl,
+
+	@Schema(description = "장소에 대한 리뷰 요약", example = "조용해서 공부하기 좋습니다.")
+	String summary
 ) {
-	public static AddressResponse from(Address address) {
-		return AddressResponse.builder()
+	public static AddressDetailResponse from(Address address, String summary) {
+		return AddressDetailResponse.builder()
 			.id(address.getId())
 			.x(address.getLocation().getX())
 			.y(address.getLocation().getY())
 			.roadAddress(address.getRoadAddress())
-			.placeName(address.getPlaceName())
+			.regionAddress(address.getRegionAddress())
 			.category(address.getCategory())
+			.placeName(address.getPlaceName())
+			.placeUrl(address.getPlaceUrl())
+			.summary(summary)
 			.build();
 	}
 }

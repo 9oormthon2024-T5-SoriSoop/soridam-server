@@ -7,6 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import lombok.RequiredArgsConstructor;
 import sorisoop.soridam.api.address.presentation.request.AddressCreateRequest;
+import sorisoop.soridam.api.address.presentation.response.AddressDetailResponse;
 import sorisoop.soridam.api.address.presentation.response.AddressListResponse;
 import sorisoop.soridam.api.address.presentation.response.AddressPersistResponse;
 import sorisoop.soridam.api.address.presentation.response.AddressResponse;
@@ -14,12 +15,14 @@ import sorisoop.soridam.domain.address.application.AddressCommandService;
 import sorisoop.soridam.domain.address.application.AddressQueryService;
 import sorisoop.soridam.domain.address.domain.Address;
 import sorisoop.soridam.domain.address.domain.enums.Category;
+import sorisoop.soridam.infra.repository.redis.SummaryCacheService;
 
 @Component
 @RequiredArgsConstructor
 public class AddressFacade {
 	private final AddressQueryService addressQueryService;
 	private final AddressCommandService addressCommandService;
+	private final SummaryCacheService summaryCacheService;
 
 	@Transactional
 	public AddressPersistResponse create(AddressCreateRequest request) {
@@ -28,7 +31,9 @@ public class AddressFacade {
 			request.y(),
 			request.roadAddress(),
 			request.regionAddress(),
-			request.category()
+			request.category(),
+			request.placeName(),
+			request.placeUrl()
 		);
 		return AddressPersistResponse.from(address);
 	}
@@ -43,14 +48,15 @@ public class AddressFacade {
 	}
 
 	@Transactional(readOnly = true)
-	public AddressResponse getById(Long id) {
+	public AddressDetailResponse getById(Long id) {
 		Address address = addressQueryService.getById(id);
-		return AddressResponse.from(address);
+		String summary = summaryCacheService.get(id);
+		return AddressDetailResponse.from(address, summary);
 	}
 
 	@Transactional
 	public AddressPersistResponse getOrCreate(AddressCreateRequest request) {
-		Address address = addressQueryService.getByRoadAddress(request.roadAddress());
+		Address address = addressQueryService.getByRoadAddressAndPlaceName(request.roadAddress(), request.placeName());
 
 		if(address == null) {
 			address = addressCommandService.save(
@@ -58,7 +64,9 @@ public class AddressFacade {
 				request.y(),
 				request.roadAddress(),
 				request.regionAddress(),
-				request.category()
+				request.category(),
+				request.placeName(),
+				request.placeUrl()
 			);
 		}
 
