@@ -25,6 +25,12 @@ public record AddressCreateRequest(
 	@NotNull
 	String regionAddress,
 
+	@Schema(description = "장소명, 업체명", example = "경기대학교")
+	String placeName,
+
+	@Schema(description = "장소 상세페이지 url", example = "경기대학교")
+	String placeUrl,
+
 	@Schema(description = "장소 카테고리", example = "MT1")
 	Category category
 ) {

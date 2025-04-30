@@ -16,7 +16,7 @@ public interface AddressRepository {
 
 	void delete(Address address);
 
-	Optional<Address> findByRoadAddress(String roadAddress);
+	Optional<Address> findByRoadAddressAndPlaceName(String roadAddress, String placeName);
 
 	List<Address> findNearAddressesByPoint(Point point, int distanceMeter, List<Category> categories);
 }

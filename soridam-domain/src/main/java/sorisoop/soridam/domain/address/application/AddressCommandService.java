@@ -15,9 +15,9 @@ public class AddressCommandService {
 	private final AddressRepository addressRepository;
 	private final GeometryUtils geometryUtils;
 
-	public Address save(double x, double y, String roadAddress, String regionAddress, Category category) {
+	public Address save(double x, double y, String roadAddress, String regionAddress, Category category, String placeName, String placeUrl) {
 		Point location = geometryUtils.createPoint(x, y);
-		Address address = Address.create(location, roadAddress, regionAddress, category);
+		Address address = Address.create(location, roadAddress, regionAddress, category, placeName, placeUrl);
 		return addressRepository.save(address);
 	}
 }

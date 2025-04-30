@@ -18,8 +18,8 @@ public class AddressQueryService {
 	private final AddressRepository addressRepository;
 	private final GeometryUtils geometryUtils;
 
-	public Address getByRoadAddress(String roadAddress) {
-		return addressRepository.findByRoadAddress(roadAddress)
+	public Address getByRoadAddressAndPlaceName(String roadAddress, String placeName) {
+		return addressRepository.findByRoadAddressAndPlaceName(roadAddress, placeName)
 			.orElse(null);
 	}
 

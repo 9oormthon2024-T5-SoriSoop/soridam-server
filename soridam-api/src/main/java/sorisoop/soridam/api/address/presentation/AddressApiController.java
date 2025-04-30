@@ -21,9 +21,9 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import sorisoop.soridam.api.address.application.AddressFacade;
 import sorisoop.soridam.api.address.presentation.request.AddressCreateRequest;
+import sorisoop.soridam.api.address.presentation.response.AddressDetailResponse;
 import sorisoop.soridam.api.address.presentation.response.AddressListResponse;
 import sorisoop.soridam.api.address.presentation.response.AddressPersistResponse;
-import sorisoop.soridam.api.address.presentation.response.AddressResponse;
 import sorisoop.soridam.domain.address.domain.enums.Category;
 
 @RestController
@@ -38,11 +38,11 @@ public class AddressApiController {
 		""")
 	@ApiResponse(responseCode = "200")
 	@GetMapping("/{id}")
-	public ResponseEntity<AddressResponse> getById(
+	public ResponseEntity<AddressDetailResponse> getById(
 		@Parameter(description = "조회할 장소의 ID", example = "address-adsfadsf", required = true)
 		@PathVariable Long id
 	) {
-		AddressResponse response = addressFacade.getById(id);
+		AddressDetailResponse response = addressFacade.getById(id);
 		return ResponseEntity.ok(response);
 	}
 

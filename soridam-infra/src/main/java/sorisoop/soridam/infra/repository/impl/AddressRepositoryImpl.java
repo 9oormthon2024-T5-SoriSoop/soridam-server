@@ -40,8 +40,8 @@ public class AddressRepositoryImpl implements AddressRepository {
 	}
 
 	@Override
-	public Optional<Address> findByRoadAddress(String roadAddress) {
-		return jpaAddressRepository.findByRoadAddress(roadAddress);
+	public Optional<Address> findByRoadAddressAndPlaceName(String roadAddress, String placeName) {
+		return jpaAddressRepository.findByRoadAddressAndPlaceName(roadAddress, placeName);
 	}
 
 	@Override

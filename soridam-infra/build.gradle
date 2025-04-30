@@ -8,6 +8,7 @@ jar {
 
 dependencies {
     implementation project(':soridam-domain')
+    implementation project(':soridam-common')
 
     implementation 'org.apache.commons:commons-collections4:4.5.0'
 
@@ -27,4 +28,7 @@ dependencies {
     // 데이터베이스와 상호작용 (JPA 사용)
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+
+    // webClient
+    implementation 'org.springframework.boot:spring-boot-starter-webflux'
 }
