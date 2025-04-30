@@ -39,7 +39,7 @@ public record AddressDetailResponse(
 	@Schema(description = "장소에 대한 리뷰 요약", example = "조용해서 공부하기 좋습니다.")
 	String summary
 ) {
-	public static AddressDetailResponse from(Address address, String summary) {
+	public static AddressDetailResponse of(Address address, String summary) {
 		return AddressDetailResponse.builder()
 			.id(address.getId())
 			.x(address.getLocation().getX())

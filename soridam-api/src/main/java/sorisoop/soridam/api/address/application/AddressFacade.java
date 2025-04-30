@@ -51,7 +51,7 @@ public class AddressFacade {
 	public AddressDetailResponse getById(Long id) {
 		Address address = addressQueryService.getById(id);
 		String summary = summaryCacheService.get(id);
-		return AddressDetailResponse.from(address, summary);
+		return AddressDetailResponse.of(address, summary);
 	}
 
 	@Transactional

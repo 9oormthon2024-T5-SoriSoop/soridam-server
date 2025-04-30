@@ -5,6 +5,8 @@ import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.beans.factory.annotation.Value;
 
 import lombok.RequiredArgsConstructor;
+import sorisoop.soridam.infra.openai.exception.OpenAiRequestException;
+
 @Component
 @RequiredArgsConstructor
 public class OpenAiClient {
@@ -27,7 +29,7 @@ public class OpenAiClient {
 			.onStatus(
 				status -> status.is4xxClientError() || status.is5xxServerError(),
 				clientResponse -> clientResponse.bodyToMono(String.class)
-					.map(body -> new RuntimeException("OpenAI API 에러: " + body))
+					.map(body -> new OpenAiRequestException())
 			)
 			.bodyToMono(OpenAiResponse.class)
 			.map(OpenAiResponse::extractMessage)

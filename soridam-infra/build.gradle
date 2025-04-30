@@ -8,6 +8,7 @@ jar {
 
 dependencies {
     implementation project(':soridam-domain')
+    implementation project(':soridam-common')
 
     implementation 'org.apache.commons:commons-collections4:4.5.0'
 

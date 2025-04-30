@@ -22,12 +22,7 @@ public class OpenAiService {
 
 		String prompt = buildPrompt(address, reviews);
 
-		try {
-			return openAiClient.requestChatCompletion(prompt);
-		} catch (Exception e) {
-			log.error("GPT 요약 요청 실패: {}", e.getMessage());
-			return "요약을 생성하지 못했습니다.";
-		}
+		return openAiClient.requestChatCompletion(prompt);
 	}
 
 	private String buildPrompt(Address address, List<String> reviews) {
