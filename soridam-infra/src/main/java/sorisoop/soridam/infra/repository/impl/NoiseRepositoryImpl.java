@@ -54,8 +54,8 @@ public class NoiseRepositoryImpl implements NoiseRepository {
 	}
 
 	@Override
-	public List<Long> findTop50IdByAddressId(Long id, Pageable pageable) {
-		return jpaNoiseRepository.findTop50IdByAddressId(id, pageable);
+	public List<Long> findTop50IdByPlaceId(Long placeId, Pageable pageable) {
+		return jpaNoiseRepository.findTop50IdByPlaceId(placeId, pageable);
 	}
 
 }

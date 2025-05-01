@@ -11,13 +11,13 @@ import sorisoop.soridam.domain.place.domain.Place;
 import sorisoop.soridam.domain.place.domain.PlaceRepository;
 import sorisoop.soridam.domain.place.domain.enums.Category;
 import sorisoop.soridam.infra.repository.jpa.JpaAddressRepository;
-import sorisoop.soridam.infra.repository.jpa.QueryAddressRepository;
+import sorisoop.soridam.infra.repository.jpa.QueryReviewRepository;
 
 @Repository
 @RequiredArgsConstructor
 public class PlaceRepositoryImpl implements PlaceRepository {
 	private final JpaAddressRepository jpaAddressRepository;
-	private final QueryAddressRepository queryAddressRepository;
+	private final QueryReviewRepository queryReviewRepository;
 
 	@Override
 	public Place save(Place place) {
@@ -45,7 +45,7 @@ public class PlaceRepositoryImpl implements PlaceRepository {
 	}
 
 	@Override
-	public List<Place> findNearAddressesByPoint(Point point, int distanceMeter, List<Category> categories) {
-		return queryAddressRepository.findNearAddressesByPoint(point, distanceMeter, categories);
+	public List<Place> findNearPlacesByPoint(Point point, int distanceMeter, List<Category> categories) {
+		return queryReviewRepository.findNearAddressesByPoint(point, distanceMeter, categories);
 	}
 }

@@ -28,8 +28,8 @@ public class PlaceQueryService {
 			.orElseThrow(AddressNotFoundException::new);
 	}
 
-	public List<Place> getNearAddressesByPoint(double x, double y, int distanceMeter, List<Category> categories) {
+	public List<Place> getNearPlacesByPoint(double x, double y, int distanceMeter, List<Category> categories) {
 		Point point = geometryUtils.createPoint(x, y);
-		return placeRepository.findNearAddressesByPoint(point, distanceMeter, categories);
+		return placeRepository.findNearPlacesByPoint(point, distanceMeter, categories);
 	}
 }

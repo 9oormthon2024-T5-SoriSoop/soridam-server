@@ -39,8 +39,8 @@ public class PlaceFacade {
 	}
 
 	@Transactional(readOnly = true)
-	public PlaceListResponse getAddressesNearPoint(double x, double y, int distanceMeter, List<Category> categories) {
-		List<PlaceResponse> responses = placeQueryService.getNearAddressesByPoint(x, y, distanceMeter, categories).stream()
+	public PlaceListResponse getNearPlacesByPoint(double x, double y, int distanceMeter, List<Category> categories) {
+		List<PlaceResponse> responses = placeQueryService.getNearPlacesByPoint(x, y, distanceMeter, categories).stream()
 			.map(PlaceResponse::from)
 			.toList();
 

@@ -34,7 +34,7 @@ public class QueryNoiseRepository {
 	) {
 		BooleanBuilder builder = new BooleanBuilder();
 
-		builder.and(noise.address.id.eq(addressId));
+		builder.and(noise.place.id.eq(addressId));
 		builder.and(noise.avgDecibel.between(minAvg, maxAvg));
 
 		if (lastValue != null) {

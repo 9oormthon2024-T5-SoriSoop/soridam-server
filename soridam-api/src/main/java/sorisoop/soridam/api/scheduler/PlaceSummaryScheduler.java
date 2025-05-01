@@ -37,7 +37,7 @@ public class PlaceSummaryScheduler {
 
 		for (Place place : places) {
 			try {
-				List<Long> noiseIds = noiseRepository.findTop50IdByAddressId(place.getId(), PageRequest.of(0, 50));
+				List<Long> noiseIds = noiseRepository.findTop50IdByPlaceId(place.getId(), PageRequest.of(0, 50));
 				if (noiseIds.size() < 50) continue;
 
 				List<Review> reviews = reviewRepository.findByTargetIdInAndReviewType(noiseIds, ADDRESS);

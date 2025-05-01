@@ -101,6 +101,6 @@ public class PlaceApiController {
 		@Parameter(description = "필터링할 카테고리 리스트", example = "[\"MT1\", \"CS2\"]")
 		List<Category> categories
 	) {
-		return ResponseEntity.ok(placeFacade.getAddressesNearPoint(x, y, distanceMeter, categories));
+		return ResponseEntity.ok(placeFacade.getNearPlacesByPoint(x, y, distanceMeter, categories));
 	}
 }

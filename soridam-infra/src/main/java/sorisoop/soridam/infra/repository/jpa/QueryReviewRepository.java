@@ -1,5 +1,7 @@
 package sorisoop.soridam.infra.repository.jpa;
 
+import static sorisoop.soridam.domain.place.domain.QPlace.place;
+
 import java.util.List;
 
 import org.locationtech.jts.geom.Point;
@@ -13,25 +15,23 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 
 import lombok.RequiredArgsConstructor;
 import sorisoop.soridam.domain.place.domain.Place;
-import sorisoop.soridam.domain.place.domain.QAddress;
 import sorisoop.soridam.domain.place.domain.enums.Category;
 
 @Repository
 @RequiredArgsConstructor
-public class QueryAddressRepository {
+public class QueryReviewRepository {
 	private final JPAQueryFactory queryFactory;
 
 	public List<Place> findNearAddressesByPoint(Point point, int distanceMeter, List<Category> categories) {
-		QAddress address = QAddress.address;
 		BooleanBuilder builder = new BooleanBuilder();
 
 		if (categories != null && !categories.isEmpty()) {
-			builder.and(address.category.in(categories));
+			builder.and(place.category.in(categories));
 		}
 
-		builder.and(isWithinDistance(address.location, point, distanceMeter));
+		builder.and(isWithinDistance(place.location, point, distanceMeter));
 
-		return queryFactory.selectFrom(address)
+		return queryFactory.selectFrom(place)
 			.where(builder)
 			.fetch();
 	}
