@@ -1,4 +1,4 @@
-package sorisoop.soridam.domain.address.domain;
+package sorisoop.soridam.domain.place.domain;
 
 import static jakarta.persistence.EnumType.STRING;
 import static jakarta.persistence.GenerationType.IDENTITY;
@@ -18,7 +18,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import sorisoop.soridam.domain.address.domain.enums.Category;
+import sorisoop.soridam.domain.place.domain.enums.Category;
 
 @Entity
 @Table(
@@ -32,7 +32,7 @@ import sorisoop.soridam.domain.address.domain.enums.Category;
 @Builder
 @NoArgsConstructor(access = PROTECTED)
 @AllArgsConstructor(access = PROTECTED)
-public class Address {
+public class Place {
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
 	private Long id;
@@ -53,8 +53,8 @@ public class Address {
 
 	private String placeUrl;
 
-	public static Address create(Point location, String roadAddress, String regionAddress, Category category, String placeName, String placeUrl) {
-		return Address.builder()
+	public static Place create(Point location, String roadAddress, String regionAddress, Category category, String placeName, String placeUrl) {
+		return Place.builder()
 			.location(location)
 			.roadAddress(roadAddress)
 			.regionAddress(regionAddress)

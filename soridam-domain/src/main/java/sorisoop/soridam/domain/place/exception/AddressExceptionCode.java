@@ -1,4 +1,4 @@
-package sorisoop.soridam.domain.address.exception;
+package sorisoop.soridam.domain.place.exception;
 
 import static org.springframework.http.HttpStatus.NOT_FOUND;
 

@@ -24,7 +24,7 @@ import sorisoop.soridam.api.address.presentation.request.AddressCreateRequest;
 import sorisoop.soridam.api.address.presentation.response.AddressDetailResponse;
 import sorisoop.soridam.api.address.presentation.response.AddressListResponse;
 import sorisoop.soridam.api.address.presentation.response.AddressPersistResponse;
-import sorisoop.soridam.domain.address.domain.enums.Category;
+import sorisoop.soridam.domain.place.domain.enums.Category;
 
 @RestController
 @RequiredArgsConstructor

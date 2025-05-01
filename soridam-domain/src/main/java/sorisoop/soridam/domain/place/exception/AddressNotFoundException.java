@@ -1,6 +1,6 @@
-package sorisoop.soridam.domain.address.exception;
+package sorisoop.soridam.domain.place.exception;
 
-import static sorisoop.soridam.domain.address.exception.AddressExceptionCode.ADDRESS_NOT_FOUND;
+import static sorisoop.soridam.domain.place.exception.AddressExceptionCode.ADDRESS_NOT_FOUND;
 
 import sorisoop.soridam.common.exception.CustomException;
 

@@ -11,22 +11,22 @@ import sorisoop.soridam.api.address.presentation.response.AddressDetailResponse;
 import sorisoop.soridam.api.address.presentation.response.AddressListResponse;
 import sorisoop.soridam.api.address.presentation.response.AddressPersistResponse;
 import sorisoop.soridam.api.address.presentation.response.AddressResponse;
-import sorisoop.soridam.domain.address.application.AddressCommandService;
-import sorisoop.soridam.domain.address.application.AddressQueryService;
-import sorisoop.soridam.domain.address.domain.Address;
-import sorisoop.soridam.domain.address.domain.enums.Category;
+import sorisoop.soridam.domain.place.application.PlaceCommandService;
+import sorisoop.soridam.domain.place.application.PlaceQueryService;
+import sorisoop.soridam.domain.place.domain.Place;
+import sorisoop.soridam.domain.place.domain.enums.Category;
 import sorisoop.soridam.infra.repository.redis.SummaryCacheService;
 
 @Component
 @RequiredArgsConstructor
 public class AddressFacade {
-	private final AddressQueryService addressQueryService;
-	private final AddressCommandService addressCommandService;
+	private final PlaceQueryService placeQueryService;
+	private final PlaceCommandService placeCommandService;
 	private final SummaryCacheService summaryCacheService;
 
 	@Transactional
 	public AddressPersistResponse create(AddressCreateRequest request) {
-		Address address = addressCommandService.save(
+		Place place = placeCommandService.save(
 			request.x(),
 			request.y(),
 			request.roadAddress(),
@@ -35,12 +35,12 @@ public class AddressFacade {
 			request.placeName(),
 			request.placeUrl()
 		);
-		return AddressPersistResponse.from(address);
+		return AddressPersistResponse.from(place);
 	}
 
 	@Transactional(readOnly = true)
 	public AddressListResponse getAddressesNearPoint(double x, double y, int distanceMeter, List<Category> categories) {
-		List<AddressResponse> responses = addressQueryService.getNearAddressesByPoint(x, y, distanceMeter, categories).stream()
+		List<AddressResponse> responses = placeQueryService.getNearAddressesByPoint(x, y, distanceMeter, categories).stream()
 			.map(AddressResponse::from)
 			.toList();
 
@@ -49,17 +49,17 @@ public class AddressFacade {
 
 	@Transactional(readOnly = true)
 	public AddressDetailResponse getById(Long id) {
-		Address address = addressQueryService.getById(id);
+		Place place = placeQueryService.getById(id);
 		String summary = summaryCacheService.get(id);
-		return AddressDetailResponse.of(address, summary);
+		return AddressDetailResponse.of(place, summary);
 	}
 
 	@Transactional
 	public AddressPersistResponse getOrCreate(AddressCreateRequest request) {
-		Address address = addressQueryService.getByRoadAddressAndPlaceName(request.roadAddress(), request.placeName());
+		Place place = placeQueryService.getByRoadAddressAndPlaceName(request.roadAddress(), request.placeName());
 
-		if(address == null) {
-			address = addressCommandService.save(
+		if(place == null) {
+			place = placeCommandService.save(
 				request.x(),
 				request.y(),
 				request.roadAddress(),
@@ -70,6 +70,6 @@ public class AddressFacade {
 			);
 		}
 
-		return AddressPersistResponse.from(address);
+		return AddressPersistResponse.from(place);
 	}
 }

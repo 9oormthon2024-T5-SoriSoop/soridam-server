@@ -5,8 +5,8 @@ import static io.swagger.v3.oas.annotations.media.Schema.RequiredMode.REQUIRED;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
-import sorisoop.soridam.domain.address.domain.Address;
-import sorisoop.soridam.domain.address.domain.enums.Category;
+import sorisoop.soridam.domain.place.domain.Place;
+import sorisoop.soridam.domain.place.domain.enums.Category;
 
 @Builder
 public record AddressResponse(
@@ -29,14 +29,14 @@ public record AddressResponse(
 	@Schema(description = "장소 카테고리", example = "MT1", requiredMode = REQUIRED)
 	Category category
 ) {
-	public static AddressResponse from(Address address) {
+	public static AddressResponse from(Place place) {
 		return AddressResponse.builder()
-			.id(address.getId())
-			.x(address.getLocation().getX())
-			.y(address.getLocation().getY())
-			.roadAddress(address.getRoadAddress())
-			.placeName(address.getPlaceName())
-			.category(address.getCategory())
+			.id(place.getId())
+			.x(place.getLocation().getX())
+			.y(place.getLocation().getY())
+			.roadAddress(place.getRoadAddress())
+			.placeName(place.getPlaceName())
+			.category(place.getCategory())
 			.build();
 	}
 }

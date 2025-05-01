@@ -1,4 +1,4 @@
-package sorisoop.soridam.domain.address.domain.enums;
+package sorisoop.soridam.domain.place.domain.enums;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
