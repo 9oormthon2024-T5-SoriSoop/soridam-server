@@ -50,9 +50,9 @@ public class PlaceSummaryScheduler {
 
 				summaryCacheService.save(place.getId(), summary);
 
-				log.info("요약 성공 - addressId={} summary={}", place.getId(), summary);
+				log.info("요약 성공 - placeId={} summary={}", place.getId(), summary);
 			} catch (Exception e) {
-				log.warn("요약 실패 - addressId={}, error={}", place.getId(), e.getMessage());
+				log.warn("요약 실패 - placeId={}, error={}", place.getId(), e.getMessage());
 			}
 		}
 

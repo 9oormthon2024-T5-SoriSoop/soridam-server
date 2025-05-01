@@ -17,7 +17,7 @@ public record NoiseResponse(
 	Long id,
 
 	@Schema(description = "소음 발생 지점 주소", requiredMode = REQUIRED)
-	PlaceResponse address,
+	PlaceResponse place,
 
 	@Schema(description = "평균 데시벨", example = "50", requiredMode = REQUIRED)
 	int avgDecibel,
@@ -36,7 +36,7 @@ public record NoiseResponse(
 		PlaceResponse placeResponse = PlaceResponse.from(noise.getPlace());
 		return builder()
 			.id(noise.getId())
-			.address(placeResponse)
+			.place(placeResponse)
 			.avgDecibel(noise.getAvgDecibel())
 			.maxDecibel(noise.getMaxDecibel())
 			.createdAt(noise.getCreatedAt().format(formatter))

@@ -10,38 +10,38 @@ import lombok.RequiredArgsConstructor;
 import sorisoop.soridam.domain.place.domain.Place;
 import sorisoop.soridam.domain.place.domain.PlaceRepository;
 import sorisoop.soridam.domain.place.domain.enums.Category;
-import sorisoop.soridam.infra.repository.jpa.JpaAddressRepository;
+import sorisoop.soridam.infra.repository.jpa.JpaPlaceRepository;
 import sorisoop.soridam.infra.repository.jpa.QueryReviewRepository;
 
 @Repository
 @RequiredArgsConstructor
 public class PlaceRepositoryImpl implements PlaceRepository {
-	private final JpaAddressRepository jpaAddressRepository;
+	private final JpaPlaceRepository jpaPlaceRepository;
 	private final QueryReviewRepository queryReviewRepository;
 
 	@Override
 	public Place save(Place place) {
-		return jpaAddressRepository.save(place);
+		return jpaPlaceRepository.save(place);
 	}
 
 	@Override
 	public Optional<Place> findById(Long id) {
-		return jpaAddressRepository.findById(id);
+		return jpaPlaceRepository.findById(id);
 	}
 
 	@Override
 	public List<Place> findAll() {
-		return jpaAddressRepository.findAll();
+		return jpaPlaceRepository.findAll();
 	}
 
 	@Override
 	public void delete(Place place) {
-		jpaAddressRepository.delete(place);
+		jpaPlaceRepository.delete(place);
 	}
 
 	@Override
 	public Optional<Place> findByRoadAddressAndPlaceName(String roadAddress, String placeName) {
-		return jpaAddressRepository.findByRoadAddressAndPlaceName(roadAddress, placeName);
+		return jpaPlaceRepository.findByRoadAddressAndPlaceName(roadAddress, placeName);
 	}
 
 	@Override
