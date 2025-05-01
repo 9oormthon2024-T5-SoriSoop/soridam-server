@@ -13,7 +13,7 @@ public record NoiseListResponse(
     [
       {
         "id": 1001,
-        "address": {
+        "place": {
           "x": 126.9780,
           "y": 37.5665,
           "roadAddress": "서울특별시 동대문구 장한로 110 (장안동)",
@@ -26,7 +26,7 @@ public record NoiseListResponse(
       },
       {
         "id": 1000,
-        "address": {
+        "place": {
           "x": 127.1234,
           "y": 37.4567,
           "roadAddress": "서울특별시 강남구 테헤란로 212",

@@ -1,14 +1,14 @@
-package sorisoop.soridam.api.address.presentation.request;
+package sorisoop.soridam.api.place.presentation.request;
 
 import static io.swagger.v3.oas.annotations.media.Schema.RequiredMode.REQUIRED;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
-import sorisoop.soridam.domain.address.domain.enums.Category;
+import sorisoop.soridam.domain.place.domain.enums.Category;
 
 @Builder
-public record AddressCreateRequest(
+public record PlaceCreateRequest(
 	@Schema(description = "X 좌표 (경도)", example = "126.9780", requiredMode = REQUIRED)
 	@NotNull
 	double x,

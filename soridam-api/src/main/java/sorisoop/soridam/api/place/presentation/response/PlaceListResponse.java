@@ -1,4 +1,4 @@
-package sorisoop.soridam.api.address.presentation.response;
+package sorisoop.soridam.api.place.presentation.response;
 
 import static io.swagger.v3.oas.annotations.media.Schema.RequiredMode.REQUIRED;
 
@@ -8,9 +8,9 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;
 
 @Builder
-public record AddressListResponse(
+public record PlaceListResponse(
 	@Schema(
-		description = "주소 응답 리스트",
+		description = "장소 응답 리스트",
 		example = """
         [
           {
@@ -31,10 +31,10 @@ public record AddressListResponse(
         """,
 		requiredMode = REQUIRED
 	)
-	List<AddressResponse> responses
+	List<PlaceResponse> responses
 ) {
-	public static AddressListResponse of(List<AddressResponse> responses) {
-		return AddressListResponse.builder()
+	public static PlaceListResponse of(List<PlaceResponse> responses) {
+		return PlaceListResponse.builder()
 			.responses(responses)
 			.build();
 	}

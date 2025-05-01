@@ -1,4 +1,4 @@
-package sorisoop.soridam.domain.address.exception;
+package sorisoop.soridam.domain.place.exception;
 
 import static org.springframework.http.HttpStatus.NOT_FOUND;
 
@@ -10,8 +10,8 @@ import sorisoop.soridam.common.exception.ExceptionCode;
 
 @Getter
 @AllArgsConstructor
-public enum AddressExceptionCode implements ExceptionCode {
-	ADDRESS_NOT_FOUND(NOT_FOUND, "해당 주소를 찾을 수 없습니다."),
+public enum PlaceExceptionCode implements ExceptionCode {
+	PLACE_NOT_FOUND(NOT_FOUND, "해당 장소를 찾을 수 없습니다."),
 	;
 
 	private final HttpStatus status;

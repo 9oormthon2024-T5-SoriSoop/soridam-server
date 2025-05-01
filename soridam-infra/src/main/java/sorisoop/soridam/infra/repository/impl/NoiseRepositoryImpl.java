@@ -40,22 +40,22 @@ public class NoiseRepositoryImpl implements NoiseRepository {
 	}
 
 	@Override
-	public List<Noise> findByAddressWithCursorAndAvgDecibelRange(
-		Long addressId,
+	public List<Noise> findByPlaceWithCursorAndAvgDecibelRange(
+		Long placeId,
 		String lastValue,
 		int minAvg,
 		int maxAvg,
 		int limit,
 		Sort sort
 	) {
-		return queryNoiseRepository.findByAddressWithCursorAndAvgDecibelRange(
-			addressId, lastValue, minAvg, maxAvg, limit, sort
+		return queryNoiseRepository.findByPlaceWithCursorAndAvgDecibelRange(
+			placeId, lastValue, minAvg, maxAvg, limit, sort
 		);
 	}
 
 	@Override
-	public List<Long> findTop50IdByAddressId(Long id, Pageable pageable) {
-		return jpaNoiseRepository.findTop50IdByAddressId(id, pageable);
+	public List<Long> findTop50IdByPlaceId(Long placeId, Pageable pageable) {
+		return jpaNoiseRepository.findTop50IdByPlaceId(placeId, pageable);
 	}
 
 }

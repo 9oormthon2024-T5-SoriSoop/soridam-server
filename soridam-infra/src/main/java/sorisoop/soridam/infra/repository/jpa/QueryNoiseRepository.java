@@ -24,8 +24,8 @@ public class QueryNoiseRepository {
 	private final JPAQueryFactory queryFactory;
 	private static final PathBuilder<Noise> noisePath = new PathBuilder<>(Noise.class, "noise");
 
-	public List<Noise> findByAddressWithCursorAndAvgDecibelRange(
-		Long addressId,
+	public List<Noise> findByPlaceWithCursorAndAvgDecibelRange(
+		Long placeId,
 		String lastValue,
 		int minAvg,
 		int maxAvg,
@@ -34,7 +34,7 @@ public class QueryNoiseRepository {
 	) {
 		BooleanBuilder builder = new BooleanBuilder();
 
-		builder.and(noise.address.id.eq(addressId));
+		builder.and(noise.place.id.eq(placeId));
 		builder.and(noise.avgDecibel.between(minAvg, maxAvg));
 
 		if (lastValue != null) {

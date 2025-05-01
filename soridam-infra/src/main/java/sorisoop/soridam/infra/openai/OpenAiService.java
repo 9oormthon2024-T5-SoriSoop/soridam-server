@@ -8,8 +8,8 @@ import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import sorisoop.soridam.domain.address.domain.Address;
-import sorisoop.soridam.domain.address.domain.enums.Category;
+import sorisoop.soridam.domain.place.domain.Place;
+import sorisoop.soridam.domain.place.domain.enums.Category;
 
 @Slf4j
 @Service
@@ -17,17 +17,17 @@ import sorisoop.soridam.domain.address.domain.enums.Category;
 public class OpenAiService {
 	private final OpenAiClient openAiClient;
 
-	public String summarizeReviews(Address address, List<String> reviews) {
+	public String summarizeReviews(Place place, List<String> reviews) {
 		if (reviews == null || reviews.isEmpty()) return null;
 
-		String prompt = buildPrompt(address, reviews);
+		String prompt = buildPrompt(place, reviews);
 
 		return openAiClient.requestChatCompletion(prompt);
 	}
 
-	private String buildPrompt(Address address, List<String> reviews) {
-		String roadAddress = address.getRoadAddress();
-		String categoryText = Optional.ofNullable(address.getCategory())
+	private String buildPrompt(Place place, List<String> reviews) {
+		String roadAddress = place.getRoadAddress();
+		String categoryText = Optional.ofNullable(place.getCategory())
 			.map(Category::getDescription)
 			.orElse(null);
 

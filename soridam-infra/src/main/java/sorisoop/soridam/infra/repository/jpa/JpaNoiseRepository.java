@@ -12,6 +12,6 @@ import sorisoop.soridam.domain.noise.domain.Noise;
 public interface JpaNoiseRepository extends JpaRepository<Noise, Long> {
 	List<Noise> findByUserId(Long userId);
 
-	@Query("select n.id from Noise n where n.address.id = :addressId order by n.id desc")
-	List<Long> findTop50IdByAddressId(@Param("addressId") Long addressId, Pageable pageable);
+	@Query("select n.id from Noise n where n.place.id = :placeId order by n.id desc")
+	List<Long> findTop50IdByPlaceId(@Param("placeId") Long placeId, Pageable pageable);
 }

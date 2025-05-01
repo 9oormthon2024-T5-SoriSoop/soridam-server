@@ -4,7 +4,7 @@ import static io.swagger.v3.oas.annotations.media.Schema.RequiredMode.REQUIRED;
 
 import java.time.format.DateTimeFormatter;
 
-import sorisoop.soridam.api.address.presentation.response.AddressResponse;
+import sorisoop.soridam.api.place.presentation.response.PlaceResponse;
 import sorisoop.soridam.domain.noise.domain.Noise;
 
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -17,7 +17,7 @@ public record NoiseResponse(
 	Long id,
 
 	@Schema(description = "소음 발생 지점 주소", requiredMode = REQUIRED)
-	AddressResponse address,
+	PlaceResponse place,
 
 	@Schema(description = "평균 데시벨", example = "50", requiredMode = REQUIRED)
 	int avgDecibel,
@@ -33,10 +33,10 @@ public record NoiseResponse(
 ) {
 	public static NoiseResponse from(Noise noise) {
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy년 MM월 dd일 HH시 mm분");
-		AddressResponse addressResponse = AddressResponse.from(noise.getAddress());
+		PlaceResponse placeResponse = PlaceResponse.from(noise.getPlace());
 		return builder()
 			.id(noise.getId())
-			.address(addressResponse)
+			.place(placeResponse)
 			.avgDecibel(noise.getAvgDecibel())
 			.maxDecibel(noise.getMaxDecibel())
 			.createdAt(noise.getCreatedAt().format(formatter))

@@ -15,9 +15,16 @@ import sorisoop.soridam.domain.noise.exception.NoiseNotFoundException;
 public class NoiseQueryService {
 	private final NoiseRepository noiseRepository;
 
-	public List<Noise> getByAddressWithCursorAndAvgDecibelRange(Long addressId, String lastValue, int minAvg, int maxAvg, int limit, Sort sort) {
-		return noiseRepository.findByAddressWithCursorAndAvgDecibelRange(
-			addressId, lastValue, minAvg, maxAvg, limit, sort
+	public List<Noise> getByPlaceWithCursorAndAvgDecibelRange(
+		Long placeId,
+		String lastValue,
+		int minAvg,
+		int maxAvg,
+		int limit,
+		Sort sort
+	) {
+		return noiseRepository.findByPlaceWithCursorAndAvgDecibelRange(
+			placeId, lastValue, minAvg, maxAvg, limit, sort
 		);
 	}
 

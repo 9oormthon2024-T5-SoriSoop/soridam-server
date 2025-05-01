@@ -1,4 +1,4 @@
-package sorisoop.soridam.api.address.presentation;
+package sorisoop.soridam.api.place.presentation;
 
 import static org.springframework.http.HttpStatus.CREATED;
 
@@ -19,30 +19,30 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import sorisoop.soridam.api.address.application.AddressFacade;
-import sorisoop.soridam.api.address.presentation.request.AddressCreateRequest;
-import sorisoop.soridam.api.address.presentation.response.AddressDetailResponse;
-import sorisoop.soridam.api.address.presentation.response.AddressListResponse;
-import sorisoop.soridam.api.address.presentation.response.AddressPersistResponse;
-import sorisoop.soridam.domain.address.domain.enums.Category;
+import sorisoop.soridam.api.place.application.PlaceFacade;
+import sorisoop.soridam.api.place.presentation.request.PlaceCreateRequest;
+import sorisoop.soridam.api.place.presentation.response.PlaceDetailResponse;
+import sorisoop.soridam.api.place.presentation.response.PlaceListResponse;
+import sorisoop.soridam.api.place.presentation.response.PlacePersistResponse;
+import sorisoop.soridam.domain.place.domain.enums.Category;
 
 @RestController
 @RequiredArgsConstructor
-@Tag(name = "Address", description = "장소 API")
-@RequestMapping("/api/addresses")
-public class AddressApiController {
-	private final AddressFacade addressFacade;
+@Tag(name = "Place", description = "장소 API")
+@RequestMapping("/api/places")
+public class PlaceApiController {
+	private final PlaceFacade placeFacade;
 
 	@Operation(summary = "id 기반 장소 조회 API", description = """
 			- Description : 이 API는 id로 해당 장소를 조회합니다.
 		""")
 	@ApiResponse(responseCode = "200")
 	@GetMapping("/{id}")
-	public ResponseEntity<AddressDetailResponse> getById(
-		@Parameter(description = "조회할 장소의 ID", example = "address-adsfadsf", required = true)
+	public ResponseEntity<PlaceDetailResponse> getById(
+		@Parameter(description = "조회할 장소의 ID", example = "1", required = true)
 		@PathVariable Long id
 	) {
-		AddressDetailResponse response = addressFacade.getById(id);
+		PlaceDetailResponse response = placeFacade.getById(id);
 		return ResponseEntity.ok(response);
 	}
 
@@ -52,10 +52,10 @@ public class AddressApiController {
 		""")
 	@ApiResponse(responseCode = "200")
 	@PostMapping("/resolve")
-	public ResponseEntity<AddressPersistResponse> getByRoadAddress(
-		@Valid @RequestBody AddressCreateRequest request
+	public ResponseEntity<PlacePersistResponse> getByRoadAddress(
+		@Valid @RequestBody PlaceCreateRequest request
 	) {
-		AddressPersistResponse response = addressFacade.getOrCreate(request);
+		PlacePersistResponse response = placeFacade.getOrCreate(request);
 		return ResponseEntity.ok(response);
 	}
 
@@ -64,10 +64,10 @@ public class AddressApiController {
 		""")
 	@ApiResponse(responseCode = "201")
 	@PostMapping
-	public ResponseEntity<AddressPersistResponse> create(
-		@Valid @RequestBody AddressCreateRequest request
+	public ResponseEntity<PlacePersistResponse> create(
+		@Valid @RequestBody PlaceCreateRequest request
 	) {
-		AddressPersistResponse response = addressFacade.create(request);
+		PlacePersistResponse response = placeFacade.create(request);
 		return ResponseEntity.status(CREATED).body(response);
 	}
 
@@ -86,7 +86,7 @@ public class AddressApiController {
 	@ApiResponse(responseCode = "200", description = "요청 성공")
 	@ApiResponse(responseCode = "204", description = "결과 없음")
 	@GetMapping("/nearby")
-	public ResponseEntity<AddressListResponse> getNearbyNoise(
+	public ResponseEntity<PlaceListResponse> getNearbyNoise(
 		@RequestParam @Parameter(description = "현재 위치 X 좌표 (longitude)", example = "127.12345", required = true)
 		double x,
 
@@ -101,6 +101,6 @@ public class AddressApiController {
 		@Parameter(description = "필터링할 카테고리 리스트", example = "[\"MT1\", \"CS2\"]")
 		List<Category> categories
 	) {
-		return ResponseEntity.ok(addressFacade.getAddressesNearPoint(x, y, distanceMeter, categories));
+		return ResponseEntity.ok(placeFacade.getNearPlacesByPoint(x, y, distanceMeter, categories));
 	}
 }

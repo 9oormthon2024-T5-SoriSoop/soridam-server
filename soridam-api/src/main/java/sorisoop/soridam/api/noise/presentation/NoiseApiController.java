@@ -54,9 +54,9 @@ public class NoiseApiController {
 		""")
 	@ApiResponse(responseCode = "200", description = "요청 성공")
 	@ApiResponse(responseCode = "204", description = "결과 없음")
-	@GetMapping("/address/{addressId}")
+	@GetMapping("/place/{placeId}")
 	public ResponseEntity<SliceResponse<NoiseSummaryResponse>> getDetailNoise(
-		@PathVariable Long addressId,
+		@PathVariable Long placeId,
 
 		@RequestParam(required = false)
 		@Parameter(description = "커서 페이징을 위한 마지막 noiseId", example = "1024")
@@ -78,7 +78,7 @@ public class NoiseApiController {
 		@Parameter(description = "정렬 순서", example = "DESC")
 		SortDirection order
 	){
-		SliceResponse<NoiseSummaryResponse> response = noiseFacade.getByAddressWithCursorAndAvgDecibelRange(addressId, lastValue, limit, level, sort, order);
+		SliceResponse<NoiseSummaryResponse> response = noiseFacade.getByPlaceWithCursorAndAvgDecibelRange(placeId, lastValue, limit, level, sort, order);
 		return ResponseEntity.ok(response);
   	}
 
