@@ -14,7 +14,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import sorisoop.soridam.domain.address.domain.Address;
+import sorisoop.soridam.domain.place.domain.Place;
 import sorisoop.soridam.domain.common.BaseTimeEntity;
 import sorisoop.soridam.domain.user.domain.User;
 
@@ -34,7 +34,7 @@ public class Noise extends BaseTimeEntity{
 
 	@ManyToOne(fetch = LAZY)
 	@JoinColumn(name = "address_id", nullable = false)
-	private Address address;
+	private Place place;
 
 	@Column(nullable = false)
 	private int maxDecibel;
@@ -42,11 +42,11 @@ public class Noise extends BaseTimeEntity{
 	@Column(nullable = false)
 	private int avgDecibel;
 
-	public static Noise create(User user, Address address, int maxDecibel,
+	public static Noise create(User user, Place place, int maxDecibel,
 		int avgDecibel) {
 		return builder()
 			.user(user)
-			.address(address)
+			.place(place)
 			.maxDecibel(maxDecibel)
 			.avgDecibel(avgDecibel)
 			.build();

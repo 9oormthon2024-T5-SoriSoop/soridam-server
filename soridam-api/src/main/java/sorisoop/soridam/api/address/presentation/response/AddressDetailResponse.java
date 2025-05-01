@@ -5,8 +5,8 @@ import static io.swagger.v3.oas.annotations.media.Schema.RequiredMode.REQUIRED;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
-import sorisoop.soridam.domain.address.domain.Address;
-import sorisoop.soridam.domain.address.domain.enums.Category;
+import sorisoop.soridam.domain.place.domain.Place;
+import sorisoop.soridam.domain.place.domain.enums.Category;
 
 @Builder
 public record AddressDetailResponse(
@@ -39,16 +39,16 @@ public record AddressDetailResponse(
 	@Schema(description = "장소에 대한 리뷰 요약", example = "조용해서 공부하기 좋습니다.")
 	String summary
 ) {
-	public static AddressDetailResponse of(Address address, String summary) {
+	public static AddressDetailResponse of(Place place, String summary) {
 		return AddressDetailResponse.builder()
-			.id(address.getId())
-			.x(address.getLocation().getX())
-			.y(address.getLocation().getY())
-			.roadAddress(address.getRoadAddress())
-			.regionAddress(address.getRegionAddress())
-			.category(address.getCategory())
-			.placeName(address.getPlaceName())
-			.placeUrl(address.getPlaceUrl())
+			.id(place.getId())
+			.x(place.getLocation().getX())
+			.y(place.getLocation().getY())
+			.roadAddress(place.getRoadAddress())
+			.regionAddress(place.getRegionAddress())
+			.category(place.getCategory())
+			.placeName(place.getPlaceName())
+			.placeUrl(place.getPlaceUrl())
 			.summary(summary)
 			.build();
 	}

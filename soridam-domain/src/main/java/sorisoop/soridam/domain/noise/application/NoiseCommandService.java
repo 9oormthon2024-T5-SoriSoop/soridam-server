@@ -3,7 +3,7 @@ package sorisoop.soridam.domain.noise.application;
 import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
-import sorisoop.soridam.domain.address.domain.Address;
+import sorisoop.soridam.domain.place.domain.Place;
 import sorisoop.soridam.domain.noise.domain.Noise;
 import sorisoop.soridam.domain.noise.domain.NoiseRepository;
 import sorisoop.soridam.domain.noise.exception.NoiseNotFoundException;
@@ -16,8 +16,8 @@ import sorisoop.soridam.globalutil.user.UserUtil;
 public class NoiseCommandService {
 	private final NoiseRepository noiseRepository;
 
-	public Noise createNoise(User user, Address address, int maxDecibel, int avgDecibel) {
-		Noise noise = Noise.create(user, address, maxDecibel, avgDecibel);
+	public Noise createNoise(User user, Place place, int maxDecibel, int avgDecibel) {
+		Noise noise = Noise.create(user, place, maxDecibel, avgDecibel);
 		return noiseRepository.save(noise);
 	}
 

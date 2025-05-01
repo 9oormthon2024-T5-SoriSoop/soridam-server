@@ -33,7 +33,7 @@ public record NoiseResponse(
 ) {
 	public static NoiseResponse from(Noise noise) {
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy년 MM월 dd일 HH시 mm분");
-		AddressResponse addressResponse = AddressResponse.from(noise.getAddress());
+		AddressResponse addressResponse = AddressResponse.from(noise.getPlace());
 		return builder()
 			.id(noise.getId())
 			.address(addressResponse)

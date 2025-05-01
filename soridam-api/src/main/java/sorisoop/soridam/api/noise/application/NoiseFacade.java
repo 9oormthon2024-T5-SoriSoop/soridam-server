@@ -16,8 +16,8 @@ import sorisoop.soridam.api.noise.presentation.response.NoisePersistResponse;
 import sorisoop.soridam.api.noise.presentation.response.NoiseResponse;
 import sorisoop.soridam.api.noise.presentation.response.NoiseSummaryResponse;
 import sorisoop.soridam.common.response.SliceResponse;
-import sorisoop.soridam.domain.address.application.AddressQueryService;
-import sorisoop.soridam.domain.address.domain.Address;
+import sorisoop.soridam.domain.place.application.PlaceQueryService;
+import sorisoop.soridam.domain.place.domain.Place;
 import sorisoop.soridam.domain.noise.application.NoiseCommandService;
 import sorisoop.soridam.domain.noise.application.NoiseQueryService;
 import sorisoop.soridam.domain.noise.domain.Noise;
@@ -30,7 +30,7 @@ public class NoiseFacade {
 	private final NoiseCommandService noiseCommandService;
 	private final NoiseQueryService noiseQueryService;
 	private final UserQueryService userQueryService;
-	private final AddressQueryService addressQueryService;
+	private final PlaceQueryService placeQueryService;
 
 	@Transactional(readOnly = true)
 	public SliceResponse<NoiseSummaryResponse> getByAddressWithCursorAndAvgDecibelRange(Long addressId, String lastValue, int limit, NoiseLevel level, NoiseSortField sort, SortDirection order) {
@@ -77,11 +77,11 @@ public class NoiseFacade {
 	@Transactional
 	public NoisePersistResponse createNoise(NoiseCreateRequest request) {
 		User user = userQueryService.me();
-		Address address = addressQueryService.getById(request.addressId());
+		Place place = placeQueryService.getById(request.addressId());
 
 		Noise noise = noiseCommandService.createNoise(
 			user,
-			address,
+			place,
 			request.maxDecibel(),
 			request.avgDecibel()
 		);

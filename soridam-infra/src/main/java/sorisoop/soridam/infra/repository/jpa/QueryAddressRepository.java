@@ -12,16 +12,16 @@ import com.querydsl.core.types.dsl.Expressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 
 import lombok.RequiredArgsConstructor;
-import sorisoop.soridam.domain.address.domain.Address;
-import sorisoop.soridam.domain.address.domain.QAddress;
-import sorisoop.soridam.domain.address.domain.enums.Category;
+import sorisoop.soridam.domain.place.domain.Place;
+import sorisoop.soridam.domain.place.domain.QAddress;
+import sorisoop.soridam.domain.place.domain.enums.Category;
 
 @Repository
 @RequiredArgsConstructor
 public class QueryAddressRepository {
 	private final JPAQueryFactory queryFactory;
 
-	public List<Address> findNearAddressesByPoint(Point point, int distanceMeter, List<Category> categories) {
+	public List<Place> findNearAddressesByPoint(Point point, int distanceMeter, List<Category> categories) {
 		QAddress address = QAddress.address;
 		BooleanBuilder builder = new BooleanBuilder();
 

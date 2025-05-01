@@ -11,8 +11,8 @@ import org.springframework.stereotype.Component;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import sorisoop.soridam.domain.address.domain.Address;
-import sorisoop.soridam.domain.address.domain.AddressRepository;
+import sorisoop.soridam.domain.place.domain.Place;
+import sorisoop.soridam.domain.place.domain.PlaceRepository;
 import sorisoop.soridam.domain.noise.domain.NoiseRepository;
 import sorisoop.soridam.domain.review.domain.Review;
 import sorisoop.soridam.domain.review.domain.ReviewRepository;
@@ -23,7 +23,7 @@ import sorisoop.soridam.infra.repository.redis.SummaryCacheService;
 @Component
 @RequiredArgsConstructor
 public class AddressSummaryScheduler {
-	private final AddressRepository addressRepository;
+	private final PlaceRepository placeRepository;
 	private final ReviewRepository reviewRepository;
 	private final NoiseRepository noiseRepository;
 	private final OpenAiService openaiService;
@@ -33,11 +33,11 @@ public class AddressSummaryScheduler {
 	public void summarizeAllAddresses() {
 		log.info("장소 요약 스케줄러 시작");
 
-		List<Address> addresses = addressRepository.findAll();
+		List<Place> places = placeRepository.findAll();
 
-		for (Address address : addresses) {
+		for (Place place : places) {
 			try {
-				List<Long> noiseIds = noiseRepository.findTop50IdByAddressId(address.getId(), PageRequest.of(0, 50));
+				List<Long> noiseIds = noiseRepository.findTop50IdByAddressId(place.getId(), PageRequest.of(0, 50));
 				if (noiseIds.size() < 50) continue;
 
 				List<Review> reviews = reviewRepository.findByTargetIdInAndReviewType(noiseIds, ADDRESS);
@@ -46,13 +46,13 @@ public class AddressSummaryScheduler {
 					.map(Review::getContent)
 					.collect(Collectors.toList());
 
-				String summary = openaiService.summarizeReviews(address, contents);
+				String summary = openaiService.summarizeReviews(place, contents);
 
-				summaryCacheService.save(address.getId(), summary);
+				summaryCacheService.save(place.getId(), summary);
 
-				log.info("요약 성공 - addressId={} summary={}", address.getId(), summary);
+				log.info("요약 성공 - addressId={} summary={}", place.getId(), summary);
 			} catch (Exception e) {
-				log.warn("요약 실패 - addressId={}, error={}", address.getId(), e.getMessage());
+				log.warn("요약 실패 - addressId={}, error={}", place.getId(), e.getMessage());
 			}
 		}
 
