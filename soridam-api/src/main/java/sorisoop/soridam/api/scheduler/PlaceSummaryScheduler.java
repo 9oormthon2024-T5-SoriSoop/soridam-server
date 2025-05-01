@@ -22,7 +22,7 @@ import sorisoop.soridam.infra.repository.redis.SummaryCacheService;
 @Slf4j
 @Component
 @RequiredArgsConstructor
-public class AddressSummaryScheduler {
+public class PlaceSummaryScheduler {
 	private final PlaceRepository placeRepository;
 	private final ReviewRepository reviewRepository;
 	private final NoiseRepository noiseRepository;
