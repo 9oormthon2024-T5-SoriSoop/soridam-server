@@ -28,8 +28,8 @@ import sorisoop.soridam.domain.place.domain.enums.Category;
 
 @RestController
 @RequiredArgsConstructor
-@Tag(name = "Address", description = "장소 API")
-@RequestMapping("/api/addresses")
+@Tag(name = "Place", description = "장소 API")
+@RequestMapping("/api/places")
 public class PlaceApiController {
 	private final PlaceFacade placeFacade;
 
@@ -39,7 +39,7 @@ public class PlaceApiController {
 	@ApiResponse(responseCode = "200")
 	@GetMapping("/{id}")
 	public ResponseEntity<PlaceDetailResponse> getById(
-		@Parameter(description = "조회할 장소의 ID", example = "address-adsfadsf", required = true)
+		@Parameter(description = "조회할 장소의 ID", example = "1", required = true)
 		@PathVariable Long id
 	) {
 		PlaceDetailResponse response = placeFacade.getById(id);
