@@ -33,13 +33,20 @@ public class NoiseFacade {
 	private final PlaceQueryService placeQueryService;
 
 	@Transactional(readOnly = true)
-	public SliceResponse<NoiseSummaryResponse> getByAddressWithCursorAndAvgDecibelRange(Long addressId, String lastValue, int limit, NoiseLevel level, NoiseSortField sort, SortDirection order) {
+	public SliceResponse<NoiseSummaryResponse> getByPlaceWithCursorAndAvgDecibelRange(
+		Long placeId,
+		String lastValue,
+		int limit,
+		NoiseLevel level,
+		NoiseSortField sort,
+		SortDirection order
+	) {
 		Sort sortSpec = Sort.by(order.toSpringSortDirection(), sort.getValue());
 
 		int minDecibel = (level != null) ? level.getMinDecibel() : 0;
 		int maxDecibel = (level != null) ? level.getMaxDecibel() : 120;
 
-		List<Noise> noises = noiseQueryService.getByAddressWithCursorAndAvgDecibelRange(addressId, lastValue,
+		List<Noise> noises = noiseQueryService.getByPlaceWithCursorAndAvgDecibelRange(placeId, lastValue,
 			minDecibel, maxDecibel, limit + 1, sortSpec);
 
 		boolean hasNext = noises.size() > limit;

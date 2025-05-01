@@ -15,7 +15,7 @@ public interface NoiseRepository {
 
 	List<Noise> findByUserId(Long userId);
 
-	List<Noise> findByAddressWithCursorAndAvgDecibelRange(Long addressId, String lastValue, int minAvg, int maxAvg, int limit, Sort sort);
+	List<Noise> findByPlaceWithCursorAndAvgDecibelRange(Long placeId, String lastValue, int minAvg, int maxAvg, int limit, Sort sort);
 
 	List<Long> findTop50IdByPlaceId(Long placeId, Pageable pageable);
 }

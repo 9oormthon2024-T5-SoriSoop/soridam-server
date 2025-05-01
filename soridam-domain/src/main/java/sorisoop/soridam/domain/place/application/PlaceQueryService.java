@@ -9,7 +9,7 @@ import lombok.RequiredArgsConstructor;
 import sorisoop.soridam.domain.place.domain.Place;
 import sorisoop.soridam.domain.place.domain.PlaceRepository;
 import sorisoop.soridam.domain.place.domain.enums.Category;
-import sorisoop.soridam.domain.place.exception.AddressNotFoundException;
+import sorisoop.soridam.domain.place.exception.PlaceNotFoundException;
 import sorisoop.soridam.globalutil.geometry.GeometryUtils;
 
 @Service
@@ -25,7 +25,7 @@ public class PlaceQueryService {
 
 	public Place getById(Long id) {
 		return placeRepository.findById(id)
-			.orElseThrow(AddressNotFoundException::new);
+			.orElseThrow(PlaceNotFoundException::new);
 	}
 
 	public List<Place> getNearPlacesByPoint(double x, double y, int distanceMeter, List<Category> categories) {

@@ -40,16 +40,16 @@ public class NoiseRepositoryImpl implements NoiseRepository {
 	}
 
 	@Override
-	public List<Noise> findByAddressWithCursorAndAvgDecibelRange(
-		Long addressId,
+	public List<Noise> findByPlaceWithCursorAndAvgDecibelRange(
+		Long placeId,
 		String lastValue,
 		int minAvg,
 		int maxAvg,
 		int limit,
 		Sort sort
 	) {
-		return queryNoiseRepository.findByAddressWithCursorAndAvgDecibelRange(
-			addressId, lastValue, minAvg, maxAvg, limit, sort
+		return queryNoiseRepository.findByPlaceWithCursorAndAvgDecibelRange(
+			placeId, lastValue, minAvg, maxAvg, limit, sort
 		);
 	}
 
