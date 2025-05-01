@@ -54,7 +54,7 @@ public class NoiseApiController {
 		""")
 	@ApiResponse(responseCode = "200", description = "요청 성공")
 	@ApiResponse(responseCode = "204", description = "결과 없음")
-	@GetMapping("/address/{placeId}")
+	@GetMapping("/place/{placeId}")
 	public ResponseEntity<SliceResponse<NoiseSummaryResponse>> getDetailNoise(
 		@PathVariable Long placeId,
 
