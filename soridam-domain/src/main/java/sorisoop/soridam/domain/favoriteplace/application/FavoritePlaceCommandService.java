@@ -1,0 +1,47 @@
+package sorisoop.soridam.domain.favoriteplace.application;
+
+import org.springframework.stereotype.Service;
+
+import lombok.RequiredArgsConstructor;
+import sorisoop.soridam.domain.favoriteplace.domain.FavoritePlace;
+import sorisoop.soridam.domain.favoriteplace.domain.FavoritePlaceRepository;
+import sorisoop.soridam.domain.favoriteplace.exception.AlreadyExistFavoritePlaceException;
+import sorisoop.soridam.domain.favoriteplace.exception.FavoritePlaceNotFoundException;
+
+@Service
+@RequiredArgsConstructor
+public class FavoritePlaceCommandService {
+	private final FavoritePlaceRepository favoritePlaceRepository;
+
+	public FavoritePlace save(FavoritePlace favoritePlace) {
+		boolean alreadyExists = favoritePlaceRepository.existsByUserIdAndPlaceId(
+			favoritePlace.getUser().getId(), favoritePlace.getPlace().getId()
+		);
+
+		if (alreadyExists) {
+			throw new AlreadyExistFavoritePlaceException();
+		}
+
+		return favoritePlaceRepository.save(favoritePlace);
+	}
+
+	public void deleteById(Long id) {
+		boolean exists = favoritePlaceRepository.existsById(id);
+
+		if (!exists) {
+			throw new FavoritePlaceNotFoundException();
+		}
+
+		favoritePlaceRepository.deleteById(id);
+	}
+
+	public void deleteByUserIdAndPlaceId(Long userId, Long placeId) {
+		boolean exists = favoritePlaceRepository.existsByUserIdAndPlaceId(userId, placeId);
+
+		if (!exists) {
+			throw new FavoritePlaceNotFoundException();
+		}
+
+		favoritePlaceRepository.deleteByUserIdAndPlaceId(userId, placeId);
+	}
+}

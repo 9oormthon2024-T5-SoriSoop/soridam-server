@@ -6,7 +6,11 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface FavoritePlaceRepository {
+	FavoritePlace save(FavoritePlace favoritePlace);
+
 	boolean existsByUserIdAndPlaceId(Long userId, Long placeId);
+
+	boolean existsById(Long id);
 
 	List<FavoritePlace> findByUserId(Long userId);
 

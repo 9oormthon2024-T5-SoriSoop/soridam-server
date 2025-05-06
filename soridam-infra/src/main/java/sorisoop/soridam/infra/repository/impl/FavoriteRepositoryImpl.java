@@ -15,8 +15,18 @@ public class FavoriteRepositoryImpl implements FavoritePlaceRepository {
 	private final JpaFavoritePlaceRepository jpaFavoritePlaceRepository;
 
 	@Override
+	public FavoritePlace save(FavoritePlace favoritePlace) {
+		return jpaFavoritePlaceRepository.save(favoritePlace);
+	}
+
+	@Override
 	public boolean existsByUserIdAndPlaceId(Long userId, Long placeId) {
 		return jpaFavoritePlaceRepository.existsByUserIdAndPlaceId(userId, placeId);
+	}
+
+	@Override
+	public boolean existsById(Long id) {
+		return jpaFavoritePlaceRepository.existsById(id);
 	}
 
 	@Override
