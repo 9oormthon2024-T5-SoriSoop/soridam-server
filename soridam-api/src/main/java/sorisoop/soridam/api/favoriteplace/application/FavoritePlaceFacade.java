@@ -1,4 +1,4 @@
-package sorisoop.soridam.api.favoriteplace;
+package sorisoop.soridam.api.favoriteplace.application;
 
 import java.util.List;
 

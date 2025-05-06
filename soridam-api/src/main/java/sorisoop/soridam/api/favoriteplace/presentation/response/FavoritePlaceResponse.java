@@ -32,6 +32,7 @@ public record FavoritePlaceResponse(
 
 		return FavoritePlaceResponse.builder()
 			.id(favoritePlace.getId())
+			.placeId(place.getId())
 			.roadAddress(place.getRoadAddress())
 			.placeName(place.getPlaceName())
 			.category(place.getCategory())
