@@ -1,4 +1,4 @@
-package sorisoop.soridam.domain.favoriteplace;
+package sorisoop.soridam.domain.favoriteplace.domain;
 
 import static jakarta.persistence.FetchType.LAZY;
 import static jakarta.persistence.GenerationType.IDENTITY;
