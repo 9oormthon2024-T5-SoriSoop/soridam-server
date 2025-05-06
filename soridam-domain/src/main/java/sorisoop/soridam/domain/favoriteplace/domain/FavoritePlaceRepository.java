@@ -12,7 +12,7 @@ public interface FavoritePlaceRepository {
 
 	boolean existsById(Long id);
 
-	List<FavoritePlace> findByUserId(Long userId);
+	List<FavoritePlace> findByUserIdWithCursor(Long userId, Long lastId, int limit);
 
 	void deleteByUserIdAndPlaceId(Long userId, Long placeId);
 

@@ -13,11 +13,7 @@ import sorisoop.soridam.domain.favoriteplace.domain.FavoritePlaceRepository;
 public class FavoritePlaceQueryService {
 	private final FavoritePlaceRepository favoritePlaceRepository;
 
-	public boolean existsUserIdAndPlaceId(Long userId, Long placeId) {
-		return favoritePlaceRepository.existsByUserIdAndPlaceId(userId, placeId);
-	}
-
-	public List<FavoritePlace> findByUserId(Long userId) {
-		return favoritePlaceRepository.findByUserId(userId);
+	public List<FavoritePlace> findByUserIdWithCursor(Long userId, Long lastId, int limit) {
+		return favoritePlaceRepository.findByUserIdWithCursor(userId, lastId, limit);
 	}
 }

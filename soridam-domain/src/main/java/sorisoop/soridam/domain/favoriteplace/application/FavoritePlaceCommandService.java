@@ -7,21 +7,23 @@ import sorisoop.soridam.domain.favoriteplace.domain.FavoritePlace;
 import sorisoop.soridam.domain.favoriteplace.domain.FavoritePlaceRepository;
 import sorisoop.soridam.domain.favoriteplace.exception.AlreadyExistFavoritePlaceException;
 import sorisoop.soridam.domain.favoriteplace.exception.FavoritePlaceNotFoundException;
+import sorisoop.soridam.domain.place.domain.Place;
+import sorisoop.soridam.domain.user.domain.User;
 
 @Service
 @RequiredArgsConstructor
 public class FavoritePlaceCommandService {
 	private final FavoritePlaceRepository favoritePlaceRepository;
 
-	public FavoritePlace save(FavoritePlace favoritePlace) {
+	public FavoritePlace save(User user, Place place) {
 		boolean alreadyExists = favoritePlaceRepository.existsByUserIdAndPlaceId(
-			favoritePlace.getUser().getId(), favoritePlace.getPlace().getId()
+			user.getId(), place.getId()
 		);
 
 		if (alreadyExists) {
 			throw new AlreadyExistFavoritePlaceException();
 		}
-
+		FavoritePlace favoritePlace = FavoritePlace.create(user, place);
 		return favoritePlaceRepository.save(favoritePlace);
 	}
 

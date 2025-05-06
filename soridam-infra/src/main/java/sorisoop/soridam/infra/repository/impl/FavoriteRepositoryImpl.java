@@ -8,11 +8,13 @@ import lombok.RequiredArgsConstructor;
 import sorisoop.soridam.domain.favoriteplace.domain.FavoritePlace;
 import sorisoop.soridam.domain.favoriteplace.domain.FavoritePlaceRepository;
 import sorisoop.soridam.infra.repository.jpa.JpaFavoritePlaceRepository;
+import sorisoop.soridam.infra.repository.jpa.QueryFavoritePlaceRepository;
 
 @Repository
 @RequiredArgsConstructor
 public class FavoriteRepositoryImpl implements FavoritePlaceRepository {
 	private final JpaFavoritePlaceRepository jpaFavoritePlaceRepository;
+	private final QueryFavoritePlaceRepository queryFavoritePlaceRepository;
 
 	@Override
 	public FavoritePlace save(FavoritePlace favoritePlace) {
@@ -30,8 +32,8 @@ public class FavoriteRepositoryImpl implements FavoritePlaceRepository {
 	}
 
 	@Override
-	public List<FavoritePlace> findByUserId(Long userId) {
-		return jpaFavoritePlaceRepository.findByUserId(userId);
+	public List<FavoritePlace> findByUserIdWithCursor(Long userId, Long lastId, int limit) {
+		return queryFavoritePlaceRepository.findByUserIdWithCursor(userId, lastId, limit);
 	}
 
 	@Override
