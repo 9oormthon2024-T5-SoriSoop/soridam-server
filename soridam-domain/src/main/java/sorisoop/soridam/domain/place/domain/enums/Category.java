@@ -1,5 +1,7 @@
 package sorisoop.soridam.domain.place.domain.enums;
 
+import java.util.Arrays;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -27,4 +29,11 @@ public enum Category {
 	;
 
 	private final String description;
+
+	public static Category fromCode(String code) {
+		return Arrays.stream(values())
+			.filter(c -> c.name().equals(code))
+			.findFirst()
+			.orElse(null);
+	}
 }

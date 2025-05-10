@@ -57,3 +57,8 @@ openai:
   api:
     url: ${OPENAI_API_URL}
     key: ${OPENAI_API_KEY}
+
+kakao:
+  api:
+    key: ${KAKAO_API_KEY}
+    url: ${KAKAO_API_URL}

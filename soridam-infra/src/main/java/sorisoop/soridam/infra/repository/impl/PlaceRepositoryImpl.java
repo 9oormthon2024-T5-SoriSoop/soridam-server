@@ -48,4 +48,9 @@ public class PlaceRepositoryImpl implements PlaceRepository {
 	public List<Place> findNearPlacesByPoint(Point point, int distanceMeter, List<Category> categories) {
 		return queryReviewRepository.findNearAddressesByPoint(point, distanceMeter, categories);
 	}
+
+	@Override
+	public boolean existsByRoadAddressAndPlaceName(String roadAddress, String placeName) {
+		return jpaPlaceRepository.existsByRoadAddressAndPlaceName(roadAddress, placeName);
+	}
 }

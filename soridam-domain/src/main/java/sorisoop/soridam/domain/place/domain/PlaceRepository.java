@@ -19,4 +19,6 @@ public interface PlaceRepository {
 	Optional<Place> findByRoadAddressAndPlaceName(String roadAddress, String placeName);
 
 	List<Place> findNearPlacesByPoint(Point point, int distanceMeter, List<Category> categories);
+
+	boolean existsByRoadAddressAndPlaceName(String roadAddress, String placeName);
 }
