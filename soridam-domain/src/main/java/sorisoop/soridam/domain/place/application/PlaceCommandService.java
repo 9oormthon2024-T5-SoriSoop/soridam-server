@@ -20,4 +20,15 @@ public class PlaceCommandService {
 		Place place = Place.create(location, roadAddress, regionAddress, category, placeName, placeUrl);
 		return placeRepository.save(place);
 	}
+
+	public void saveIfNotExists(double x, double y, String roadAddress, String regionAddress, Category category, String placeName, String placeUrl) {
+		Point location = geometryUtils.createPoint(x, y);
+
+		boolean exists = placeRepository.existsByRoadAddressAndPlaceName(roadAddress, placeName);
+		if (!exists) {
+			Place place = Place.create(location, roadAddress, regionAddress, category, placeName, placeUrl);
+			placeRepository.save(place);
+		}
+	}
+
 }

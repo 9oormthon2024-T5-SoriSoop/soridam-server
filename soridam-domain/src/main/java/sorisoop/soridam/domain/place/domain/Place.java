@@ -18,6 +18,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import sorisoop.soridam.domain.common.BaseTimeEntity;
 import sorisoop.soridam.domain.place.domain.enums.Category;
 
 @Entity
@@ -31,7 +32,7 @@ import sorisoop.soridam.domain.place.domain.enums.Category;
 @Builder
 @NoArgsConstructor(access = PROTECTED)
 @AllArgsConstructor(access = PROTECTED)
-public class Place {
+public class Place extends BaseTimeEntity {
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
 	private Long id;

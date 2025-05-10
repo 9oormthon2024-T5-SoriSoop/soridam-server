@@ -19,6 +19,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import sorisoop.soridam.api.place.application.KakaoPlaceService;
 import sorisoop.soridam.api.place.application.PlaceFacade;
 import sorisoop.soridam.api.place.presentation.request.PlaceCreateRequest;
 import sorisoop.soridam.api.place.presentation.response.PlaceDetailResponse;
@@ -32,6 +33,7 @@ import sorisoop.soridam.domain.place.domain.enums.Category;
 @RequestMapping("/api/places")
 public class PlaceApiController {
 	private final PlaceFacade placeFacade;
+	private final KakaoPlaceService kakaoPlaceService;
 
 	@Operation(summary = "id 기반 장소 조회 API", description = """
 			- Description : 이 API는 id로 해당 장소를 조회합니다.
@@ -102,5 +104,13 @@ public class PlaceApiController {
 		List<Category> categories
 	) {
 		return ResponseEntity.ok(placeFacade.getNearPlacesByPoint(x, y, distanceMeter, categories));
+	}
+
+	@Operation(summary = "카카오 장소 데이터 수집")
+	@PostMapping("/import-all")
+	public ResponseEntity<Void> importPlacesByGrid(
+	) {
+		kakaoPlaceService.importPlacesForAllRegions();
+		return ResponseEntity.ok().build();
 	}
 }
