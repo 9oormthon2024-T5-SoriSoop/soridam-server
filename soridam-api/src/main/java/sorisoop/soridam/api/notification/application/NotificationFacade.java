@@ -1,4 +1,4 @@
-package sorisoop.soridam.api.notification;
+package sorisoop.soridam.api.notification.application;
 
 import java.util.List;
 
@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import lombok.RequiredArgsConstructor;
+import sorisoop.soridam.api.notification.presentation.response.NotificationResponse;
 import sorisoop.soridam.common.response.SliceResponse;
 import sorisoop.soridam.domain.notification.domain.Notification;
 import sorisoop.soridam.domain.notification.application.NotificationCommandService;

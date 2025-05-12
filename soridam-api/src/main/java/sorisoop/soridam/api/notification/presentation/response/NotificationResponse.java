@@ -1,4 +1,4 @@
-package sorisoop.soridam.api.notification;
+package sorisoop.soridam.api.notification.presentation.response;
 
 import java.time.LocalDateTime;
 
