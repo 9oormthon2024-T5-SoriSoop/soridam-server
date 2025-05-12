@@ -1,4 +1,4 @@
-package sorisoop.soridam.domain.notification;
+package sorisoop.soridam.domain.notification.domain.enums;
 
 public enum NotificationType {
 	REVIEW,

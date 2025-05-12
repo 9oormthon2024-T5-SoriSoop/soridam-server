@@ -1,9 +1,9 @@
-package sorisoop.soridam.domain.notification;
+package sorisoop.soridam.domain.notification.domain;
 
 import static jakarta.persistence.EnumType.STRING;
 import static jakarta.persistence.GenerationType.IDENTITY;
 import static lombok.AccessLevel.PROTECTED;
-import static sorisoop.soridam.domain.notification.NotificationType.REVIEW;
+import static sorisoop.soridam.domain.notification.domain.enums.NotificationType.REVIEW;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Enumerated;
@@ -14,6 +14,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import sorisoop.soridam.domain.common.BaseTimeEntity;
+import sorisoop.soridam.domain.notification.domain.enums.NotificationType;
 
 @Entity
 @Getter

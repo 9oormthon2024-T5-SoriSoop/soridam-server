@@ -16,7 +16,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import sorisoop.soridam.domain.favoriteplace.application.FavoritePlaceQueryService;
-import sorisoop.soridam.domain.notification.Notification;
+import sorisoop.soridam.domain.notification.domain.Notification;
 import sorisoop.soridam.domain.notification.application.NotificationCommandService;
 
 @Component
