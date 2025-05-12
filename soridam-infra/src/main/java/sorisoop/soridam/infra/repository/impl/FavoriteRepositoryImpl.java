@@ -45,4 +45,9 @@ public class FavoriteRepositoryImpl implements FavoritePlaceRepository {
 	public void deleteById(Long id) {
 		jpaFavoritePlaceRepository.deleteById(id);
 	}
+
+	@Override
+	public List<FavoritePlace> findByPlaceId(Long placeId) {
+		return jpaFavoritePlaceRepository.findByPlaceId(placeId);
+	}
 }
