@@ -12,4 +12,6 @@ public interface JpaFavoritePlaceRepository extends JpaRepository<FavoritePlace,
 	List<FavoritePlace> findByUserId(Long userId);
 
 	void deleteByUserIdAndPlaceId(Long userId, Long placeId);
+
+	List<FavoritePlace> findByPlaceId(Long placeId);
 }

@@ -17,4 +17,6 @@ public interface FavoritePlaceRepository {
 	void deleteByUserIdAndPlaceId(Long userId, Long placeId);
 
 	void deleteById(Long id);
+
+	List<FavoritePlace> findByPlaceId(Long placeId);
 }

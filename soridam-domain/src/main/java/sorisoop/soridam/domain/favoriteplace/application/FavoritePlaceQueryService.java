@@ -16,4 +16,8 @@ public class FavoritePlaceQueryService {
 	public List<FavoritePlace> findByUserIdWithCursor(Long userId, Long lastId, int limit) {
 		return favoritePlaceRepository.findByUserIdWithCursor(userId, lastId, limit);
 	}
+
+	public List<FavoritePlace> findByPlaceId(Long placeId) {
+		return favoritePlaceRepository.findByPlaceId(placeId);
+	}
 }
