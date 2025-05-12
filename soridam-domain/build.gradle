@@ -12,7 +12,7 @@ dependencies {
 
     // 지리 데이터 관리 도구
     implementation 'org.locationtech.jts:jts-core:1.20.0'
-    implementation 'org.hibernate:hibernate-spatial:6.6.13.Final'
+    implementation 'org.hibernate:hibernate-spatial:6.6.14.Final'
 
     // Querydsl 관련 의존성 (타입 안전한 쿼리 작성)
     implementation 'com.querydsl:querydsl-jpa:5.0.0:jakarta' // Querydsl JPA 지원
