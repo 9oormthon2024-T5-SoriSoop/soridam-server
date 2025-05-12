@@ -55,6 +55,10 @@ public class ReviewNotificationConsumer {
 
 	private void consumeLoop() {
 		while (running) {
+			if (Thread.currentThread().isInterrupted()) {
+				log.warn("인터럽트 감지: Redis Stream 소비 루프 종료");
+				break;
+			}
 			try {
 				List<MapRecord<String, Object, Object>> messages = readMessages();
 				if (messages != null) {

@@ -21,7 +21,7 @@ public class QueryNotificationRepository {
 		BooleanBuilder builder = new BooleanBuilder();
 		builder.and(notification.receiverId.eq(receiverId));
 		if (lastId != null) {
-			builder.and(notification.receiverId.lt(lastId));
+			builder.and(notification.id.lt(lastId));
 		}
 
 		return jpaQueryFactory.selectFrom(notification)
