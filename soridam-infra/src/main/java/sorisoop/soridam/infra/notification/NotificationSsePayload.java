@@ -18,7 +18,7 @@ public record NotificationSsePayload(
 			.type(notification.getType())
 			.content(notification.getContent())
 			.targetId(notification.getPlaceId())
-			.createdAt(LocalDateTime.now())
+			.createdAt(notification.getCreatedAt())
 			.build();
 	}
 }

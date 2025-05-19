@@ -29,13 +29,15 @@ public class NotificationAsyncService {
 					Long placeId = favoritePlace.placeId();
 					String placeName = favoritePlace.placeName();
 					String content = String.format("즐겨찾기한 장소 %s에 새로운 리뷰가 등록되었습니다.", placeName);
-					Notification notification = Notification.createReviewNotification(userId, placeId, content);
-					NotificationSsePayload payload = NotificationSsePayload.from(notification);
-					sseEmitterManager.sendToUser(userId, payload);
-					return notification;
+					return Notification.createReviewNotification(userId, placeId, content);
 				})
 				.toList();
 			notificationCommandService.createNotifications(notifications);
+
+			notifications.forEach(notification -> {
+				NotificationSsePayload payload = NotificationSsePayload.from(notification);
+				sseEmitterManager.sendToUser(notification.getReceiverId(), payload);
+			});
 		} catch (Exception e) {
 			log.error("리뷰 알림 전송 중 오류 발생: {}", e.getMessage(), e);
 		}
