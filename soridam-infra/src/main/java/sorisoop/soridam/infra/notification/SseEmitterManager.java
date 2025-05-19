@@ -22,7 +22,7 @@ public class SseEmitterManager {
 		return emitter;
 	}
 
-	public void sendToUser(Long userId, NotificationSsePayload payload) {
+	public void sendToUser(Long userId, Object payload) {
 		SseEmitter emitter = emitters.get(userId);
 		if (emitter != null) {
 			try {
