@@ -9,6 +9,9 @@ import org.springframework.scheduling.annotation.AsyncConfigurer;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Configuration
 @EnableAsync
 public class AsyncConfig implements AsyncConfigurer {
@@ -28,9 +31,10 @@ public class AsyncConfig implements AsyncConfigurer {
 	@Override
 	public AsyncUncaughtExceptionHandler getAsyncUncaughtExceptionHandler() {
 		return (ex, method, params) -> {
-			System.err.println("[Async Error] " + ex.getMessage());
-			System.err.println("→ Method: " + method.getName());
-			Arrays.stream(params).forEach(p -> System.err.println("→ Param: " + p));
+			log.error("[Async Error] Exception: {} in method: {}", ex.getMessage(), method.getName(), ex);
+			if (log.isDebugEnabled()) {
+				Arrays.stream(params).forEach(p -> log.debug("→ Parameter: {}", p));
+			}
 		};
 	}
 }
