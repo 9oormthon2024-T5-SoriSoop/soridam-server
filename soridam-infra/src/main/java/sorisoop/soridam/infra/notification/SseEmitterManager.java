@@ -22,12 +22,12 @@ public class SseEmitterManager {
 		return emitter;
 	}
 
-	public void sendToUser(Long userId, String content) {
+	public void sendToUser(Long userId, NotificationSsePayload payload) {
 		SseEmitter emitter = emitters.get(userId);
 		if (emitter != null) {
 			try {
 				emitter.send(SseEmitter.event()
-					.data(content));
+					.data(payload));
 			} catch (Exception e) {
 				emitter.completeWithError(e);
 			}
