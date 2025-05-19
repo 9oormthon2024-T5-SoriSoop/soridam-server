@@ -1,4 +1,4 @@
-package sorisoop.soridam.infra.config.data.redis.event;
+package sorisoop.soridam.infra.notification;
 
 import java.time.LocalDateTime;
 

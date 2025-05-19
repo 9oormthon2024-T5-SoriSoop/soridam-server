@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 import lombok.RequiredArgsConstructor;
 import sorisoop.soridam.domain.favoriteplace.domain.FavoritePlace;
 import sorisoop.soridam.domain.favoriteplace.domain.FavoritePlaceRepository;
+import sorisoop.soridam.domain.notification.domain.dto.ReviewNotificationTarget;
 import sorisoop.soridam.infra.repository.jpa.JpaFavoritePlaceRepository;
 import sorisoop.soridam.infra.repository.jpa.QueryFavoritePlaceRepository;
 
@@ -47,7 +48,7 @@ public class FavoriteRepositoryImpl implements FavoritePlaceRepository {
 	}
 
 	@Override
-	public List<FavoritePlace> findByPlaceId(Long placeId) {
-		return jpaFavoritePlaceRepository.findByPlaceId(placeId);
+	public List<ReviewNotificationTarget> findTargetsByPlaceIdExcludingUser(Long placeId, Long userId) {
+		return jpaFavoritePlaceRepository.findTargetsByPlaceIdExcludingUser(placeId, userId);
 	}
 }
