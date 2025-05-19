@@ -17,8 +17,8 @@ import sorisoop.soridam.domain.review.domain.Review;
 import sorisoop.soridam.domain.review.domain.ReviewType;
 import sorisoop.soridam.domain.user.application.UserQueryService;
 import sorisoop.soridam.domain.user.domain.User;
-import sorisoop.soridam.infra.config.data.redis.event.ReviewCreatedEvent;
-import sorisoop.soridam.infra.config.data.redis.event.ReviewEventPublisher;
+import sorisoop.soridam.infra.notification.ReviewCreatedEvent;
+import sorisoop.soridam.infra.notification.NotificationAsyncService;
 
 @Component
 @RequiredArgsConstructor
@@ -26,7 +26,7 @@ public class ReviewFacade {
 	private final ReviewCommandService reviewCommandService;
 	private final ReviewQueryService reviewQueryService;
 	private final UserQueryService userQueryService;
-	private final ReviewEventPublisher reviewEventPublisher;
+	private final NotificationAsyncService notificationAsyncService;
 
 	@Transactional
 	public ReviewPersistResponse create(ReviewCreateRequest request) {
@@ -41,7 +41,7 @@ public class ReviewFacade {
 		);
 
 		ReviewCreatedEvent event = ReviewCreatedEvent.from(review);
-		reviewEventPublisher.publishReviewEvent(event);
+		notificationAsyncService.sendReviewNotification(event);
 		return ReviewPersistResponse.from(review);
 	}
 
