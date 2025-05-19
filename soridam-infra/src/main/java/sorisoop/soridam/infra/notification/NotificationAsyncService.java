@@ -37,5 +37,4 @@ public class NotificationAsyncService {
 			log.error("리뷰 알림 전송 중 오류 발생: {}", e.getMessage(), e);
 		}
 	}
-
 }
