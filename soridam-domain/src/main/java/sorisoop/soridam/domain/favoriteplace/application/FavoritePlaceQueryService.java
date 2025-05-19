@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import lombok.RequiredArgsConstructor;
 import sorisoop.soridam.domain.favoriteplace.domain.FavoritePlace;
 import sorisoop.soridam.domain.favoriteplace.domain.FavoritePlaceRepository;
+import sorisoop.soridam.domain.notification.domain.dto.ReviewNotificationTarget;
 
 @Service
 @RequiredArgsConstructor
@@ -17,7 +18,7 @@ public class FavoritePlaceQueryService {
 		return favoritePlaceRepository.findByUserIdWithCursor(userId, lastId, limit);
 	}
 
-	public List<FavoritePlace> findByPlaceId(Long placeId) {
-		return favoritePlaceRepository.findByPlaceId(placeId);
+	public List<ReviewNotificationTarget> findTargetsByPlaceIdExcludingUser(Long placeId, Long userId) {
+		return favoritePlaceRepository.findTargetsByPlaceIdExcludingUser(placeId, userId);
 	}
 }

@@ -1,7 +1,6 @@
 package sorisoop.soridam.infra.notification;
 
 import java.util.List;
-import java.util.Objects;
 
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
@@ -22,12 +21,12 @@ public class NotificationAsyncService {
 	@Async
 	public void sendReviewNotification(ReviewCreatedEvent event) {
 		try {
-			List<Notification> notifications = favoritePlaceQueryService.findByPlaceId(event.placeId()).stream()
-				.filter(fp -> !Objects.equals(fp.getUser().getId(), event.writerId())) // 본인 제외
+			List<Notification> notifications = favoritePlaceQueryService.findTargetsByPlaceIdExcludingUser(event.placeId(),
+					event.writerId()).stream()
 				.map(favoritePlace -> {
-					Long userId = favoritePlace.getUser().getId();
-					Long placeId = favoritePlace.getPlace().getId();
-					String placeName = favoritePlace.getPlace().getPlaceName();
+					Long userId = favoritePlace.userId();
+					Long placeId = favoritePlace.placeId();
+					String placeName = favoritePlace.placeName();
 					String content = String.format("즐겨찾기한 장소 %s에 새로운 리뷰가 등록되었습니다.", placeName);
 					return Notification.createReviewNotification(userId, placeId, content);
 				})

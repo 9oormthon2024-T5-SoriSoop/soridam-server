@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import sorisoop.soridam.domain.favoriteplace.domain.FavoritePlace;
+import sorisoop.soridam.domain.notification.domain.dto.ReviewNotificationTarget;
 
 public interface JpaFavoritePlaceRepository extends JpaRepository<FavoritePlace, Long> {
 	boolean existsByUserIdAndPlaceId(Long userId, Long placeId);
@@ -15,6 +16,18 @@ public interface JpaFavoritePlaceRepository extends JpaRepository<FavoritePlace,
 
 	void deleteByUserIdAndPlaceId(Long userId, Long placeId);
 
-	@Query("SELECT fp FROM FavoritePlace fp JOIN FETCH fp.user JOIN FETCH fp.place WHERE fp.place.id = :placeId")
-	List<FavoritePlace> findByPlaceId(@Param("placeId") Long placeId);
+	@Query("""
+    	SELECT new sorisoop.soridam.domain.notification.domain.dto.ReviewNotificationTarget(
+        	fp.user.id,
+        	fp.place.id,
+        	fp.place.placeName
+    	)
+    	FROM FavoritePlace fp
+    	WHERE fp.place.id = :placeId
+      	AND fp.user.id <> :excludeUserId
+	""")
+	List<ReviewNotificationTarget> findTargetsByPlaceIdExcludingUser(
+		@Param("placeId") Long placeId,
+		@Param("excludeUserId") Long excludeUserId
+	);
 }

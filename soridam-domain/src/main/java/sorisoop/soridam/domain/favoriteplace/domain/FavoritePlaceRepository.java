@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
+import sorisoop.soridam.domain.notification.domain.dto.ReviewNotificationTarget;
+
 @Repository
 public interface FavoritePlaceRepository {
 	FavoritePlace save(FavoritePlace favoritePlace);
@@ -18,5 +20,5 @@ public interface FavoritePlaceRepository {
 
 	void deleteById(Long id);
 
-	List<FavoritePlace> findByPlaceId(Long placeId);
+	List<ReviewNotificationTarget> findTargetsByPlaceIdExcludingUser(Long placeId, Long userId);
 }
