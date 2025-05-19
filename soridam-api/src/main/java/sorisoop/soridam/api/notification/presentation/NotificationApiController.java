@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -44,5 +45,10 @@ public class NotificationApiController {
 	) {
 		notificationFacade.markAsRead(id);
 		return ResponseEntity.noContent().build();
+	}
+
+	@GetMapping("/subscribe")
+	public ResponseEntity<SseEmitter> subscribe() {
+		return ResponseEntity.ok(notificationFacade.sseConnect());
 	}
 }

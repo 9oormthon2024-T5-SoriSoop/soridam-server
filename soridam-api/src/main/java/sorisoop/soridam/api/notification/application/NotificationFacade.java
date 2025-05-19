@@ -4,15 +4,17 @@ import java.util.List;
 
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
 import lombok.RequiredArgsConstructor;
 import sorisoop.soridam.api.notification.presentation.response.NotificationResponse;
 import sorisoop.soridam.common.response.SliceResponse;
-import sorisoop.soridam.domain.notification.domain.Notification;
 import sorisoop.soridam.domain.notification.application.NotificationCommandService;
 import sorisoop.soridam.domain.notification.application.NotificationQueryService;
+import sorisoop.soridam.domain.notification.domain.Notification;
 import sorisoop.soridam.domain.user.application.UserQueryService;
 import sorisoop.soridam.domain.user.domain.User;
+import sorisoop.soridam.infra.notification.SseEmitterManager;
 
 @Component
 @RequiredArgsConstructor
@@ -20,6 +22,7 @@ public class NotificationFacade {
 	private final UserQueryService userQueryService;
 	private final NotificationQueryService notificationQueryService;
 	private final NotificationCommandService notificationCommandService;
+	private final SseEmitterManager sseEmitterManager;
 
 	@Transactional(readOnly = true)
 	public SliceResponse<NotificationResponse> getMyNotifications(Long lastId, int limit) {
@@ -44,5 +47,11 @@ public class NotificationFacade {
 	public void markAsRead(Long id) {
 		Notification notification = notificationQueryService.getById(id);
 		notificationCommandService.markAsRead(notification);
+	}
+
+	@Transactional
+	public SseEmitter sseConnect() {
+		User receiver = userQueryService.me();
+		return sseEmitterManager.connect(receiver.getId());
 	}
 }

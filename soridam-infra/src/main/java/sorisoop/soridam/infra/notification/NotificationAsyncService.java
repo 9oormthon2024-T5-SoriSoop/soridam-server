@@ -17,6 +17,7 @@ import sorisoop.soridam.domain.notification.domain.Notification;
 public class NotificationAsyncService {
 	private final NotificationCommandService notificationCommandService;
 	private final FavoritePlaceQueryService favoritePlaceQueryService;
+	private final SseEmitterManager sseEmitterManager;
 
 	@Async
 	public void sendReviewNotification(ReviewCreatedEvent event) {
@@ -28,6 +29,7 @@ public class NotificationAsyncService {
 					Long placeId = favoritePlace.placeId();
 					String placeName = favoritePlace.placeName();
 					String content = String.format("즐겨찾기한 장소 %s에 새로운 리뷰가 등록되었습니다.", placeName);
+					sseEmitterManager.sendToUser(userId, content);
 					return Notification.createReviewNotification(userId, placeId, content);
 				})
 				.toList();
