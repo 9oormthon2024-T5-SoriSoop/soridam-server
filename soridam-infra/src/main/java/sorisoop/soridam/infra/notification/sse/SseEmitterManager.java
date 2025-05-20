@@ -15,13 +15,23 @@ import sorisoop.soridam.infra.notification.sse.exception.SseConnectionFailedExce
 @Component
 public class SseEmitterManager {
 	private static final Long TIMEOUT = 60 * 60 * 1000L;
+	private static final String EVENT_NAME = "review-notification";
 
 	private final ConcurrentHashMap<Long, CopyOnWriteArraySet<SseEmitter>> userEmitters = new ConcurrentHashMap<>();
 
 	public SseEmitter connect(Long userId) {
 		try {
+			CopyOnWriteArraySet<SseEmitter> userEmitterSet = userEmitters.computeIfAbsent(userId, k -> new CopyOnWriteArraySet<>());
+
+			if (userEmitterSet.size() >= 10) {
+				log.warn("Emitter 수 초과: userId={}, 제거 전 count={}", userId, userEmitterSet.size());
+				SseEmitter oldest = userEmitterSet.iterator().next();
+				oldest.complete();
+				userEmitterSet.remove(oldest);
+			}
+
 			SseEmitter emitter = new SseEmitter(TIMEOUT);
-			userEmitters.computeIfAbsent(userId, k -> new CopyOnWriteArraySet<>()).add(emitter);
+			userEmitterSet.add(emitter);
 
 			emitter.onCompletion(() -> removeEmitter(userId, emitter));
 			emitter.onTimeout(() -> removeEmitter(userId, emitter));
@@ -30,12 +40,14 @@ public class SseEmitterManager {
 				removeEmitter(userId, emitter);
 			});
 
+			log.info("SSE 연결 완료: userId={}, emitterHash={}", userId, emitter.hashCode());
 			return emitter;
+
 		} catch (Exception e) {
-			log.error("SSE 연결 중 예외 발생: userId={}, error={}", userId, e.getMessage(), e);
 			throw new SseConnectionFailedException();
 		}
 	}
+
 
 
 	private void removeEmitter(Long userId, SseEmitter emitter) {
@@ -57,16 +69,17 @@ public class SseEmitterManager {
 		for (SseEmitter emitter : emitters) {
 			try {
 				emitter.send(SseEmitter.event()
-					.name("review-notification")
+					.name(EVENT_NAME)
 					.data(payload));
 			} catch (IOException e) {
-				log.warn("SSE 전송 실패: userId={}, emitterHash={}", userId, emitter.hashCode());
+				log.warn("SSE 전송 실패: userId={}, emitterHash={}, error={}", userId, emitter.hashCode(), e.getMessage());
 				deadEmitters.add(emitter);
 				emitter.completeWithError(e);
 			}
 		}
 
 		if (!deadEmitters.isEmpty()) {
+			log.info("제거된 죽은 Emitter 수: {}, userId={}", deadEmitters.size(), userId);
 			emitters.removeAll(deadEmitters);
 			if (emitters.isEmpty()) {
 				userEmitters.remove(userId);
