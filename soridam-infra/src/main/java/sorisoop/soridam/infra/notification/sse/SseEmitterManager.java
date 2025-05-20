@@ -1,4 +1,4 @@
-package sorisoop.soridam.infra.notification;
+package sorisoop.soridam.infra.notification.sse;
 
 import java.io.IOException;
 import java.util.Set;
@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
 import lombok.extern.slf4j.Slf4j;
+import sorisoop.soridam.infra.notification.sse.exception.SseConnectionFailedException;
 
 @Slf4j
 @Component
@@ -29,11 +30,10 @@ public class SseEmitterManager {
 				removeEmitter(userId, emitter);
 			});
 
-			log.info("SSE 연결 완료: userId={}, emitterHash={}", userId, emitter.hashCode());
 			return emitter;
 		} catch (Exception e) {
 			log.error("SSE 연결 중 예외 발생: userId={}, error={}", userId, e.getMessage(), e);
-			throw new RuntimeException("SSE 연결에 실패했습니다.", e);
+			throw new SseConnectionFailedException();
 		}
 	}
 

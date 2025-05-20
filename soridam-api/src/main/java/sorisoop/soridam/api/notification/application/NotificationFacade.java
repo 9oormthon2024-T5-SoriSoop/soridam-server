@@ -14,7 +14,7 @@ import sorisoop.soridam.domain.notification.application.NotificationQueryService
 import sorisoop.soridam.domain.notification.domain.Notification;
 import sorisoop.soridam.domain.user.application.UserQueryService;
 import sorisoop.soridam.domain.user.domain.User;
-import sorisoop.soridam.infra.notification.SseEmitterManager;
+import sorisoop.soridam.infra.notification.sse.SseEmitterManager;
 
 @Component
 @RequiredArgsConstructor

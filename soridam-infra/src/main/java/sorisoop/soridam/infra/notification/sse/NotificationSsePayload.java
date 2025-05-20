@@ -1,4 +1,4 @@
-package sorisoop.soridam.infra.notification;
+package sorisoop.soridam.infra.notification.sse;
 
 import java.time.LocalDateTime;
 
