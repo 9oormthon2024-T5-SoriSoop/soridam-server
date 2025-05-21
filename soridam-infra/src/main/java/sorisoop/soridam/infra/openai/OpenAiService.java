@@ -8,8 +8,8 @@ import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import sorisoop.soridam.domain.place.domain.Place;
-import sorisoop.soridam.domain.place.domain.enums.Category;
+import sorisoop.soridam.domain.place_service.place.domain.Place;
+import sorisoop.soridam.domain.place_service.place.domain.enums.Category;
 
 @Slf4j
 @Service

@@ -14,8 +14,8 @@ import sorisoop.soridam.auth.oauth.exception.OidcExpiredException;
 import sorisoop.soridam.auth.oauth.exception.OidcInvalidAudienceException;
 import sorisoop.soridam.auth.oauth.exception.OidcInvalidIssuerException;
 import sorisoop.soridam.domain.common.Provider;
-import sorisoop.soridam.domain.user.domain.User;
-import sorisoop.soridam.domain.user.domain.UserRepository;
+import sorisoop.soridam.domain.user_service.user.domain.User;
+import sorisoop.soridam.domain.user_service.user.domain.UserRepository;
 
 @RequiredArgsConstructor
 public abstract class OidcService {

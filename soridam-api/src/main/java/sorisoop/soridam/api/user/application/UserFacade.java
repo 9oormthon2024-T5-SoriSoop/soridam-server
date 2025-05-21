@@ -1,7 +1,5 @@
 package sorisoop.soridam.api.user.application;
 
-import static sorisoop.soridam.globalutil.uuid.UuidPrefix.USER;
-
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -9,9 +7,9 @@ import lombok.RequiredArgsConstructor;
 import sorisoop.soridam.api.user.presentation.request.UserCreateRequest;
 import sorisoop.soridam.api.user.presentation.response.UserInfoResponse;
 import sorisoop.soridam.api.user.presentation.response.UserPersistResponse;
-import sorisoop.soridam.domain.user.application.UserCommandService;
-import sorisoop.soridam.domain.user.application.UserQueryService;
-import sorisoop.soridam.domain.user.domain.User;
+import sorisoop.soridam.domain.user_service.user.application.UserCommandService;
+import sorisoop.soridam.domain.user_service.user.application.UserQueryService;
+import sorisoop.soridam.domain.user_service.user.domain.User;
 
 @Component
 @RequiredArgsConstructor

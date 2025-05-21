@@ -7,9 +7,9 @@ import org.springframework.stereotype.Component;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import sorisoop.soridam.domain.favoriteplace.application.FavoritePlaceQueryService;
-import sorisoop.soridam.domain.notification.application.NotificationCommandService;
-import sorisoop.soridam.domain.notification.domain.Notification;
+import sorisoop.soridam.domain.favorite_service.application.FavoritePlaceQueryService;
+import sorisoop.soridam.domain.notification_service.application.NotificationCommandService;
+import sorisoop.soridam.domain.notification_service.domain.Notification;
 import sorisoop.soridam.infra.notification.sse.NotificationSsePayload;
 import sorisoop.soridam.infra.notification.sse.SseEmitterManager;
 

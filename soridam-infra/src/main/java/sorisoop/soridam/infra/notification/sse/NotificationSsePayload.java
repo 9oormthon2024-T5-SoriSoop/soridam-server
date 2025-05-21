@@ -3,8 +3,8 @@ package sorisoop.soridam.infra.notification.sse;
 import java.time.LocalDateTime;
 
 import lombok.Builder;
-import sorisoop.soridam.domain.notification.domain.Notification;
-import sorisoop.soridam.domain.notification.domain.enums.NotificationType;
+import sorisoop.soridam.domain.notification_service.domain.Notification;
+import sorisoop.soridam.domain.notification_service.domain.enums.NotificationType;
 
 @Builder
 public record NotificationSsePayload(
