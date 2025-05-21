@@ -40,5 +40,15 @@ public class Good extends BaseTimeEntity {
 			this.stock--;
 		}
 	}
+
+	public static Good create(String name, String description, int pointCost, String imageUrl, Integer stock) {
+		return Good.builder()
+			.name(name)
+			.description(description)
+			.pointCost(pointCost)
+			.imageUrl(imageUrl)
+			.stock(stock)
+			.build();
+	}
 }
 
