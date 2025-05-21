@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 import lombok.Builder;
-import sorisoop.soridam.domain.review.domain.Review;
+import sorisoop.soridam.domain.review_service.domain.Review;
 
 @Builder
 public record ReviewResponse(
