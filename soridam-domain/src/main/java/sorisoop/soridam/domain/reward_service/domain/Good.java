@@ -35,10 +35,20 @@ public class Good extends BaseTimeEntity {
 
 	private Integer stock;
 
+	private boolean isHidden;
+
 	public void decreaseStock() {
 		if (stock != null && stock > 0) {
 			this.stock--;
 		}
+	}
+
+	public void hide() {
+		this.isHidden = true;
+	}
+
+	public void show() {
+		this.isHidden = false;
 	}
 
 	public static Good create(String name, String description, int pointCost, String imageUrl, Integer stock) {
@@ -48,6 +58,7 @@ public class Good extends BaseTimeEntity {
 			.pointCost(pointCost)
 			.imageUrl(imageUrl)
 			.stock(stock)
+			.isHidden(false)
 			.build();
 	}
 }

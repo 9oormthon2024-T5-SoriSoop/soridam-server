@@ -1,5 +1,8 @@
 package sorisoop.soridam.infra.repository.reward_service.impl;
 
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.stereotype.Repository;
 
 import lombok.RequiredArgsConstructor;
@@ -15,5 +18,15 @@ public class GoodRepositoryImpl implements GoodRepository {
 	@Override
 	public Good save(Good good) {
 		return jpaGoodRepository.save(good);
+	}
+
+	@Override
+	public List<Good> findByHiddenFalse() {
+		return jpaGoodRepository.findByHiddenFalse();
+	}
+
+	@Override
+	public Optional<Good> findById(Long id) {
+		return jpaGoodRepository.findById(id);
 	}
 }

@@ -15,4 +15,12 @@ public class RewardCommandService {
 		Good good = Good.create(name, description, pointCost, imageUrl, stock);
 		return goodRepository.save(good);
 	}
+
+	public void hideGood(Good good) {
+		good.hide();
+	}
+
+	public void showGood(Good good) {
+		good.show();
+	}
 }
