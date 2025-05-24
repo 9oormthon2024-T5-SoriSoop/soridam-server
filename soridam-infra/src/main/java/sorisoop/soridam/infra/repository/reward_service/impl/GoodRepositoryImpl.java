@@ -6,8 +6,8 @@ import java.util.Optional;
 import org.springframework.stereotype.Repository;
 
 import lombok.RequiredArgsConstructor;
-import sorisoop.soridam.domain.reward_service.domain.Good;
-import sorisoop.soridam.domain.reward_service.repository.GoodRepository;
+import sorisoop.soridam.domain.rewarditem_service.domain.Good;
+import sorisoop.soridam.domain.rewarditem_service.repository.GoodRepository;
 import sorisoop.soridam.infra.repository.reward_service.jpa.JpaGoodRepository;
 
 @Repository

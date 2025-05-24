@@ -1,4 +1,4 @@
-package sorisoop.soridam.api.reward.presentation;
+package sorisoop.soridam.api.goods.presentation;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,18 +13,17 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import sorisoop.soridam.api.reward.RewardFacade;
-import sorisoop.soridam.api.reward.presentation.request.GoodCreateRequest;
-import sorisoop.soridam.api.reward.presentation.response.GoodListResponse;
-import sorisoop.soridam.api.reward.presentation.response.GoodPersistResponse;
+import sorisoop.soridam.api.goods.application.GoodsFacade;
+import sorisoop.soridam.api.goods.presentation.request.GoodCreateRequest;
+import sorisoop.soridam.api.goods.presentation.response.GoodListResponse;
+import sorisoop.soridam.api.goods.presentation.response.GoodPersistResponse;
 
 @RestController
 @RequiredArgsConstructor
-@Tag(name = "Reward", description = "보상 API")
-@RequestMapping("/api/reward")
-public class RewardApiController {
-
-	private final RewardFacade rewardFacade;
+@Tag(name = "Goods", description = "보상 물품 API")
+@RequestMapping("/api/goods")
+public class GoodsApiController {
+	private final GoodsFacade goodsFacade;
 
 	@Operation(summary = "상품 등록 API", description = """
         - Description : 이 API는 새로운 보상 상품을 등록합니다.
@@ -35,7 +34,7 @@ public class RewardApiController {
 	public ResponseEntity<GoodPersistResponse> createGood(
 		@Valid @RequestBody GoodCreateRequest request
 	) {
-		GoodPersistResponse response = rewardFacade.createGood(request);
+		GoodPersistResponse response = goodsFacade.createGood(request);
 		return ResponseEntity.status(201).body(response);
 	}
 
@@ -44,9 +43,9 @@ public class RewardApiController {
         - 관리자 권한이 필요합니다.
     """)
 	@ApiResponse(responseCode = "200", description = "숨김 처리 성공")
-	@PostMapping("/goods/{goodId}/hide")
-	public ResponseEntity<Void> hideGood(@PathVariable Long goodId) {
-		rewardFacade.hideGood(goodId);
+	@PostMapping("/{id}/hide")
+	public ResponseEntity<Void> hideGood(@PathVariable Long id) {
+		goodsFacade.hideGood(id);
 		return ResponseEntity.ok().build();
 	}
 
@@ -55,9 +54,9 @@ public class RewardApiController {
         - 관리자 권한이 필요합니다.
     """)
 	@ApiResponse(responseCode = "200", description = "표시 처리 성공")
-	@PostMapping("/goods/{goodId}/show")
-	public ResponseEntity<Void> showGood(@PathVariable Long goodId) {
-		rewardFacade.showGood(goodId);
+	@PostMapping("/{id}/show")
+	public ResponseEntity<Void> showGood(@PathVariable Long id) {
+		goodsFacade.showGood(id);
 		return ResponseEntity.ok().build();
 	}
 
@@ -66,8 +65,8 @@ public class RewardApiController {
         - 숨겨진 상품도 포함됩니다.
     """)
 	@ApiResponse(responseCode = "200", description = "상품 목록 조회 성공")
-	@GetMapping("/goods")
+	@GetMapping
 	public ResponseEntity<GoodListResponse> getAllGoods() {
-		return ResponseEntity.ok(rewardFacade.getAllGoods());
+		return ResponseEntity.ok(goodsFacade.getAllGoods());
 	}
 }

@@ -2,7 +2,7 @@ package sorisoop.soridam.infra.repository.place_service.query;
 
 import static com.querydsl.core.types.Order.ASC;
 import static com.querydsl.core.types.Order.DESC;
-import static sorisoop.soridam.domain.noise.domain.QNoise.noise;
+import static sorisoop.soridam.domain.place_service.noise.domain.QNoise.noise;
 
 import java.util.ArrayList;
 import java.util.List;

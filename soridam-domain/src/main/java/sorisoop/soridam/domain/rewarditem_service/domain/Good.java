@@ -1,10 +1,12 @@
-package sorisoop.soridam.domain.reward_service.domain;
+package sorisoop.soridam.domain.rewarditem_service.domain;
 
+import static jakarta.persistence.EnumType.STRING;
 import static jakarta.persistence.GenerationType.IDENTITY;
 import static lombok.AccessLevel.PROTECTED;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
@@ -25,6 +27,10 @@ public class Good extends BaseTimeEntity {
 
 	@Column(nullable = false)
 	private String name;
+
+	@Column(nullable = false)
+	@Enumerated(STRING)
+	private GoodType type;
 
 	private String description;
 
@@ -51,9 +57,10 @@ public class Good extends BaseTimeEntity {
 		this.isHidden = false;
 	}
 
-	public static Good create(String name, String description, int pointCost, String imageUrl, Integer stock) {
+	public static Good create(String name, GoodType type, String description, int pointCost, String imageUrl, Integer stock) {
 		return Good.builder()
 			.name(name)
+			.type(type)
 			.description(description)
 			.pointCost(pointCost)
 			.imageUrl(imageUrl)

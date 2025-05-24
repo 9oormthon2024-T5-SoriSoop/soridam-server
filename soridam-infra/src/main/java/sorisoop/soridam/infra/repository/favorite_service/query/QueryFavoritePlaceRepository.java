@@ -1,6 +1,6 @@
 package sorisoop.soridam.infra.repository.favorite_service.query;
 
-import static sorisoop.soridam.domain.favoriteplace.domain.QFavoritePlace.favoritePlace;
+import static sorisoop.soridam.domain.favorite_service.domain.QFavoritePlace.favoritePlace;
 
 import java.util.List;
 

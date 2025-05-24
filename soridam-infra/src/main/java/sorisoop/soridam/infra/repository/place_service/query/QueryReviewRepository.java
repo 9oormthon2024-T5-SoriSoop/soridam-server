@@ -1,6 +1,6 @@
 package sorisoop.soridam.infra.repository.place_service.query;
 
-import static sorisoop.soridam.domain.place.domain.QPlace.place;
+import static sorisoop.soridam.domain.place_service.place.domain.QPlace.place;
 
 import java.util.List;
 

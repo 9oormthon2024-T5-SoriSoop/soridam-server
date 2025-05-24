@@ -21,6 +21,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import sorisoop.soridam.domain.common.BaseTimeEntity;
+import sorisoop.soridam.domain.rewarditem_service.domain.Good;
 import sorisoop.soridam.domain.user_service.user.domain.User;
 
 @Entity

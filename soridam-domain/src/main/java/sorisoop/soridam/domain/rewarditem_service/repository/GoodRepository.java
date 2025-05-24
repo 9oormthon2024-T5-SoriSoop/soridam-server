@@ -1,11 +1,11 @@
-package sorisoop.soridam.domain.reward_service.repository;
+package sorisoop.soridam.domain.rewarditem_service.repository;
 
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Repository;
 
-import sorisoop.soridam.domain.reward_service.domain.Good;
+import sorisoop.soridam.domain.rewarditem_service.domain.Good;
 
 @Repository
 public interface GoodRepository {
