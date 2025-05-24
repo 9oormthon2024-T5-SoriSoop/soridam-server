@@ -11,11 +11,11 @@ import sorisoop.soridam.api.place.presentation.response.PlaceDetailResponse;
 import sorisoop.soridam.api.place.presentation.response.PlaceListResponse;
 import sorisoop.soridam.api.place.presentation.response.PlacePersistResponse;
 import sorisoop.soridam.api.place.presentation.response.PlaceResponse;
-import sorisoop.soridam.domain.place.application.PlaceCommandService;
-import sorisoop.soridam.domain.place.application.PlaceQueryService;
-import sorisoop.soridam.domain.place.domain.Place;
-import sorisoop.soridam.domain.place.domain.enums.Category;
-import sorisoop.soridam.infra.repository.redis.SummaryCacheService;
+import sorisoop.soridam.domain.place_service.place.application.PlaceCommandService;
+import sorisoop.soridam.domain.place_service.place.application.PlaceQueryService;
+import sorisoop.soridam.domain.place_service.place.domain.Place;
+import sorisoop.soridam.domain.place_service.place.domain.enums.Category;
+import sorisoop.soridam.infra.repository.place_service.SummaryCacheService;
 
 @Component
 @RequiredArgsConstructor

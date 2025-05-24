@@ -6,8 +6,8 @@ import java.time.LocalDateTime;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;
-import sorisoop.soridam.domain.notification.domain.Notification;
-import sorisoop.soridam.domain.notification.domain.enums.NotificationType;
+import sorisoop.soridam.domain.notification_service.domain.Notification;
+import sorisoop.soridam.domain.notification_service.domain.enums.NotificationType;
 
 @Builder
 public record NotificationResponse(

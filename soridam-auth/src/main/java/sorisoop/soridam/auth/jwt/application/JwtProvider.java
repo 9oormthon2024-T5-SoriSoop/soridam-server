@@ -25,8 +25,8 @@ import sorisoop.soridam.auth.jwt.exception.JwtInvalidException;
 import sorisoop.soridam.auth.jwt.exception.JwtMalformedException;
 import sorisoop.soridam.auth.jwt.exception.JwtSignatureInvalidException;
 import sorisoop.soridam.auth.jwt.exception.JwtUnsupportedException;
-import sorisoop.soridam.domain.user.domain.Role;
-import sorisoop.soridam.domain.user.exception.UnauthorizedException;
+import sorisoop.soridam.domain.user_service.user.domain.Role;
+import sorisoop.soridam.domain.user_service.user.exception.UnauthorizedException;
 
 @Service
 @RequiredArgsConstructor

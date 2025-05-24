@@ -10,13 +10,13 @@ import sorisoop.soridam.api.favoriteplace.presentation.request.FavoritePlaceCrea
 import sorisoop.soridam.api.favoriteplace.presentation.response.FavoritePlacePersistResponse;
 import sorisoop.soridam.api.favoriteplace.presentation.response.FavoritePlaceResponse;
 import sorisoop.soridam.common.response.SliceResponse;
-import sorisoop.soridam.domain.favoriteplace.application.FavoritePlaceCommandService;
-import sorisoop.soridam.domain.favoriteplace.application.FavoritePlaceQueryService;
-import sorisoop.soridam.domain.favoriteplace.domain.FavoritePlace;
-import sorisoop.soridam.domain.place.application.PlaceQueryService;
-import sorisoop.soridam.domain.place.domain.Place;
-import sorisoop.soridam.domain.user.application.UserQueryService;
-import sorisoop.soridam.domain.user.domain.User;
+import sorisoop.soridam.domain.favorite_service.application.FavoritePlaceCommandService;
+import sorisoop.soridam.domain.favorite_service.application.FavoritePlaceQueryService;
+import sorisoop.soridam.domain.favorite_service.domain.FavoritePlace;
+import sorisoop.soridam.domain.place_service.place.application.PlaceQueryService;
+import sorisoop.soridam.domain.place_service.place.domain.Place;
+import sorisoop.soridam.domain.user_service.user.application.UserQueryService;
+import sorisoop.soridam.domain.user_service.user.domain.User;
 
 @Component
 @RequiredArgsConstructor

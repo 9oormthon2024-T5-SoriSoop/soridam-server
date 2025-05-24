@@ -6,7 +6,7 @@ import java.time.format.DateTimeFormatter;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;
-import sorisoop.soridam.domain.noise.domain.Noise;
+import sorisoop.soridam.domain.place_service.noise.domain.Noise;
 
 @Builder
 public record NoiseSummaryResponse(

@@ -1,77 +1,72 @@
-# 소리담 백엔드 서버
+![Architecture Diagram](./docs/logo.png)
 
-> **소리담(Soridam)**은 사용자가 측정한 소음 데이터를 기반으로 조용한 장소를 탐색할 수 있도록 돕는 위치 기반 소음 관리 서비스입니다.
+## 🗂 프로젝트 소개
 
-이 저장소는 `소리담`의 **백엔드 시스템**을 위한 레포지토리로, `Spring Boot`, `PostGIS`, `Redis`, `QueryDSL`, `WebClient(OpenAI)` 등을 활용하여 기능을 제공합니다.
+> “시끄러운 공간 속에서 벗어나고 싶은 이들을 위해, 진짜 조용한 장소를 찾다.”
 
----
-
-## 📦 프로젝트 구조
-
-```
-soridam-server/
-├── api        # Presentation Layer (API, Facade)
-├── domain     # Domain Layer (Entity, Repository Interface, Business Logic)
-├── infra      # Infrastructure Layer (JPA/QueryDSL 구현체, Redis, 외부 API)
-├── common     # 공통 유틸, 에러 처리, 커스텀 예외 등
-```
+소리담은 사용자 참여 기반의 소음 측정 및 장소 리뷰 시스템을 통해, 혼자 있고 싶은 사람, 공부하고 싶은 사람, 조용한 대화를 나누고 싶은 사람들에게 유용한 장소 정보를 제공합니다.
 
 ---
 
-## 🚀 주요 기능
+## 🧱 기술 스택
 
-### 📍 장소 기반 소음 데이터 관리
-- 실시간 소음 등록 및 조회
-- 소음 측정값(평균/최대 데시벨) 저장
-- 시간순, 평균순 정렬 및 필터링 지원
-
-### 🗺️ 소음 지도 기능
-- 위치 기반 반경 검색 (ex. 500m 이내)
-- PostGIS 기반 거리 계산 및 필터 적용
-- 장소 유형, 소음 수준 필터링 가능
-
-### ✍️ 리뷰 기능
-- 소음 데이터에 대한 사용자 리뷰 등록
-- 장소 단위 리뷰 요약(GPT) 및 캐싱 제공
-
-### 🧠 GPT 기반 요약
-- 장소 리뷰를 분석하여 요약 문구 생성
-- OpenAI GPT-3.5-turbo 사용
-- 장소별 최신 50개 소음 리뷰 기반으로 생성
-- Redis 캐시에 저장하여 조회 최적화
-
-### 🕐 스케줄러
-- 매주 월요일 자동 리뷰 요약 실행
-- 요약 실패 시 개별 로깅 처리 후 다음 장소로 계속 진행
+* **Language**: Java 17
+* **Framework**: Spring Boot 3
+* **Database**: PostgreSQL + PostGIS (위치 기반)
+* **Cache/Queue**: Redis (Streams, Cache)
+* **API**: Kakao Map API
+* **Security**: JWT 인증, Spring Security
+* **Infra**: Docker, GitHub Actions, Swagger
 
 ---
 
-## ⚙️ 기술 스택
+## 🧩 아키텍처 다이어그램
 
-| 분류            | 기술                         |
-|----------------|------------------------------|
-| Language       | Java 17                      |
-| Framework      | Spring Boot 3.x              |
-| ORM            | Spring Data JPA, QueryDSL    |
-| DB             | PostgreSQL + PostGIS         |
-| Caching        | Redis                        |
-| Messaging      | (추후 확장) Kafka 예정        |
-| External API   | OpenAI API (GPT-3.5-turbo)   |
-| Infra          | Docker, GitHub Actions       |
-| Architecture   | CQRS, 멀티모듈               |
+![Architecture Diagram](./docs/architecture.png)
+
+> 추후 추가 예정입니다.
 
 ---
 
-## 📌 향후 계획
+## 🗂 ERD 다이어그램
 
-- WebSocket 기반 실시간 알림 기능 추가
-- 데이터 기반 추천 기능 시범 도입
-- 사용자 위치 기반 실시간 소음 알림 기능 확장
+![ERD Diagram](./docs/soridam-erd.png)
+
+> 사용자, 장소, 소음, 리뷰, 즐겨찾기, 알림, 포인트, 상품, 교환 요청까지의 전체 관계 구조를 시각화한 ERD입니다.
+
+---
+
+## 🎯 주요 기능 요약
+
+| 기능         | 설명                                          |
+| ---------- | ------------------------------------------- |
+| 회원가입/로그인   | 이메일 기반 또는 OAuth 연동                          |
+| 토큰 기반 인증   | Access/Refresh Token 기반 JWT 인증 구현           |
+| 장소 등록      | Kakao Map API + 좌표 기반 장소 등록                 |
+| 소음 측정 등록   | 장소별 소음 측정 데이터 등록 (max/avg dB)               |
+| 장소 검색      | 사용자 위치 반경 내 조용한 장소 검색 (거리 기반 정렬)            |
+| 리뷰 등록 및 조회 | 장소에 대한 후기 작성 및 평균 평점 반영                     |
+| 리뷰 요약 기능   | GPT를 활용해 장소 리뷰를 요약하고 Redis에 캐싱              |
+| 즐겨찾기       | 사용자 관심 장소 즐겨찾기 추가/삭제                        |
+| 알림         | 즐겨찾기 장소에 새 리뷰 등록 시 실시간 알림 (Redis Stream 기반) |
+| 포인트 적립 시스템 | 소음 데이터 등록 시 포인트 지급 로그 관리                    |
+| 포인트 상점     | 상품 목록 조회 및 포인트 교환 요청 처리                     |
+| 관리자 승인 기능  | 상품 교환 요청에 대한 상태 변경 (PENDING → APPROVED)     |
 
 ---
 
-## 👨‍💻 팀 소개
+## 💡 API 명세서
 
-- 본 프로젝트는 대규모 서비스를 설계 및 운영하는 백엔드 기술 학습을 목적으로 구성되었으며, 실제 소음 환경 문제 해결에도 기여할 수 있는 방향으로 발전 중입니다.
+전체 API 명세는 아래 마크다운 형식으로 확인 가능합니다.
+
+> 인증이 필요한 API는 `Authorization: Bearer {accessToken}` 헤더를 포함해야 합니다.
+
+(아래는 이전에 작성한 API 섹션 그대로 유지됩니다)
 
 ---
+
+## 🔗 Swagger 문서
+
+👉 [📄 Swagger API 문서 보기](https://soridam-api.example.com/swagger-ui.html)
+
+> 이 링크는 실제 배포 환경에 따라 변경될 수 있습니다. 개발 단계에서는 로컬 주소(`http://localhost:8080/swagger-ui.html`)를 참고하세요.

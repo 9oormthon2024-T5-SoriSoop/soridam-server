@@ -1,7 +1,7 @@
 package sorisoop.soridam.api.user.presentation.response;
 
 import lombok.Builder;
-import sorisoop.soridam.domain.user.domain.User;
+import sorisoop.soridam.domain.user_service.user.domain.User;
 
 @Builder
 public record UserPersistResponse(
