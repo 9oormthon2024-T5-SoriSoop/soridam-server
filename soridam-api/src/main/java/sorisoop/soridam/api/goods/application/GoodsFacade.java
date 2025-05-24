@@ -23,6 +23,7 @@ public class GoodsFacade {
 	public GoodPersistResponse createGood(GoodCreateRequest request) {
 		Good good = rewardCommandService.createGood(
 			request.name(),
+			request.goodType(),
 			request.description(),
 			request.pointCost(),
 			request.imageUrl(),

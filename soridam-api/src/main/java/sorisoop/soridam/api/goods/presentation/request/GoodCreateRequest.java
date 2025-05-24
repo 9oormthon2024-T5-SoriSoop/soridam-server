@@ -5,11 +5,15 @@ import static io.swagger.v3.oas.annotations.media.Schema.RequiredMode.REQUIRED;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
+import sorisoop.soridam.domain.rewarditem_service.domain.GoodType;
 
 public record GoodCreateRequest(
 	@Schema(description = "상품 이름", example = "스타벅스 아메리카노", requiredMode = REQUIRED)
 	@NotBlank
 	String name,
+
+	@Schema(description = "상품 타입", example = "GIFTICON", requiredMode = REQUIRED)
+	GoodType goodType,
 
 	@Schema(description = "상품 설명", example = "기프티콘 형태의 커피 상품")
 	String description,
