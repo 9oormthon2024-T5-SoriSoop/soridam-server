@@ -5,6 +5,7 @@ import static jakarta.persistence.FetchType.LAZY;
 import static jakarta.persistence.GenerationType.IDENTITY;
 import static lombok.AccessLevel.PROTECTED;
 import static sorisoop.soridam.domain.reward.domain.RedemptionStatus.APPROVED;
+import static sorisoop.soridam.domain.reward.domain.RedemptionStatus.PENDING;
 import static sorisoop.soridam.domain.reward.domain.RedemptionStatus.REJECTED;
 
 import java.time.LocalDateTime;
@@ -46,14 +47,28 @@ public class PointRedemption extends BaseTimeEntity {
 	@Column(nullable = false)
 	private RedemptionStatus status;
 
+	@Column(length = 100)
+	private String issuedCode;
+
+	private String adminComment;
+
 	private LocalDateTime redeemedAt;
 
-	public void approve() {
+	public static PointRedemption create(User user, Good good) {
+		return PointRedemption.builder()
+			.user(user)
+			.good(good)
+			.status(PENDING)
+			.build();
+	}
+	public void approve(String issuedCode) {
 		this.status = APPROVED;
+		this.issuedCode = issuedCode;
 		this.redeemedAt = LocalDateTime.now();
 	}
 
-	public void reject() {
+	public void reject(String adminComment) {
+		this.adminComment = adminComment;
 		this.status = REJECTED;
 	}
 }

@@ -33,5 +33,13 @@ public class UserPoint extends BaseTimeEntity {
 	private int amount; // +: 적립 / -: 차감
 
 	private String reason;
+
+	public static UserPoint create(User user, int amount, String reason) {
+		return UserPoint.builder()
+			.user(user)
+			.amount(amount)
+			.reason(reason)
+			.build();
+	}
 }
 

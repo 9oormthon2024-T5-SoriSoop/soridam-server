@@ -68,5 +68,29 @@ public class Good extends BaseTimeEntity {
 			.hidden(false)
 			.build();
 	}
+
+	public void updateName(String name) {
+		this.name = name;
+	}
+
+	public void updateType(GoodType type) {
+		this.type = type;
+	}
+
+	public void updateDescription(String description) {
+		this.description = description;
+	}
+
+	public void updatePointCost(int pointCost) {
+		this.pointCost = pointCost;
+	}
+
+	public void updateImageUrl(String imageUrl) {
+		this.imageUrl = imageUrl;
+	}
+
+	public void updateStock(Integer stock) {
+		this.stock = stock;
+	}
 }
 
