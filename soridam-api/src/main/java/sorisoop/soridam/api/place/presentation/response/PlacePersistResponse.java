@@ -4,7 +4,7 @@ import static io.swagger.v3.oas.annotations.media.Schema.RequiredMode.REQUIRED;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;
-import sorisoop.soridam.domain.place_service.place.domain.Place;
+import sorisoop.soridam.domain.place.place.domain.Place;
 
 @Builder
 public record PlacePersistResponse(
