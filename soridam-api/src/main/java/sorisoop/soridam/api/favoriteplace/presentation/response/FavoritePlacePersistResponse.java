@@ -4,7 +4,7 @@ import static io.swagger.v3.oas.annotations.media.Schema.RequiredMode.REQUIRED;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;
-import sorisoop.soridam.domain.favorite_service.domain.FavoritePlace;
+import sorisoop.soridam.domain.favorite.domain.FavoritePlace;
 
 @Builder
 public record FavoritePlacePersistResponse(

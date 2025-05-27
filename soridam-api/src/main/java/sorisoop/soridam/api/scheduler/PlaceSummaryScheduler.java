@@ -1,6 +1,6 @@
 package sorisoop.soridam.api.scheduler;
 
-import static sorisoop.soridam.domain.review_service.domain.ReviewType.ADDRESS;
+import static sorisoop.soridam.domain.review.domain.ReviewType.ADDRESS;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -11,13 +11,13 @@ import org.springframework.stereotype.Component;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import sorisoop.soridam.domain.place_service.place.domain.Place;
-import sorisoop.soridam.domain.place_service.place.domain.PlaceRepository;
-import sorisoop.soridam.domain.place_service.noise.domain.NoiseRepository;
-import sorisoop.soridam.domain.review_service.domain.Review;
-import sorisoop.soridam.domain.review_service.domain.ReviewRepository;
+import sorisoop.soridam.domain.place.place.domain.Place;
+import sorisoop.soridam.domain.place.place.domain.PlaceRepository;
+import sorisoop.soridam.domain.place.noise.domain.NoiseRepository;
+import sorisoop.soridam.domain.review.domain.Review;
+import sorisoop.soridam.domain.review.domain.ReviewRepository;
 import sorisoop.soridam.infra.openai.OpenAiService;
-import sorisoop.soridam.infra.repository.place_service.SummaryCacheService;
+import sorisoop.soridam.infra.repository.redis.SummaryCacheService;
 
 @Slf4j
 @Component

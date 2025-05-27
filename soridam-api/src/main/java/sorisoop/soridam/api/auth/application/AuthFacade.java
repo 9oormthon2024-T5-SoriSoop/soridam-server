@@ -11,11 +11,11 @@ import sorisoop.soridam.auth.jwt.application.JwtProvider;
 import sorisoop.soridam.auth.jwt.response.JwtResponse;
 import sorisoop.soridam.auth.oauth.google.GoogleOidcService;
 import sorisoop.soridam.auth.oauth.kakao.KakaoOidcService;
-import sorisoop.soridam.domain.user_service.refresh.application.RefreshTokenService;
-import sorisoop.soridam.domain.user_service.refresh.domain.RefreshToken;
-import sorisoop.soridam.domain.user_service.user.application.UserCommandService;
-import sorisoop.soridam.domain.user_service.user.application.UserQueryService;
-import sorisoop.soridam.domain.user_service.user.domain.User;
+import sorisoop.soridam.domain.user.refresh.application.RefreshTokenService;
+import sorisoop.soridam.domain.user.refresh.domain.RefreshToken;
+import sorisoop.soridam.domain.user.user.application.UserCommandService;
+import sorisoop.soridam.domain.user.user.application.UserQueryService;
+import sorisoop.soridam.domain.user.user.domain.User;
 
 @Service
 @RequiredArgsConstructor

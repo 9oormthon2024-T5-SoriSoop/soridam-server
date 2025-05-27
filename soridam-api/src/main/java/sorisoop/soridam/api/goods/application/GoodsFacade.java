@@ -9,9 +9,9 @@ import lombok.RequiredArgsConstructor;
 import sorisoop.soridam.api.goods.presentation.request.GoodCreateRequest;
 import sorisoop.soridam.api.goods.presentation.response.GoodListResponse;
 import sorisoop.soridam.api.goods.presentation.response.GoodPersistResponse;
-import sorisoop.soridam.domain.rewarditem_service.application.RewardItemCommandService;
-import sorisoop.soridam.domain.rewarditem_service.application.RewardItemQueryService;
-import sorisoop.soridam.domain.rewarditem_service.domain.Good;
+import sorisoop.soridam.domain.rewarditem.application.RewardItemCommandService;
+import sorisoop.soridam.domain.rewarditem.application.RewardItemQueryService;
+import sorisoop.soridam.domain.rewarditem.domain.Good;
 
 @Component
 @RequiredArgsConstructor

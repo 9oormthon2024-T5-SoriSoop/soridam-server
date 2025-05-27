@@ -1,7 +1,7 @@
 package sorisoop.soridam.api.goods.presentation.response;
 
 import lombok.Builder;
-import sorisoop.soridam.domain.rewarditem_service.domain.Good;
+import sorisoop.soridam.domain.rewarditem.domain.Good;
 
 @Builder
 public record GoodResponse(

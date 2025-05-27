@@ -20,7 +20,6 @@ public abstract class BaseTimeEntity {
 	protected LocalDateTime createdAt;
 
 	@UpdateTimestamp
-	@Column(nullable = false)
 	protected LocalDateTime updatedAt;
 
 

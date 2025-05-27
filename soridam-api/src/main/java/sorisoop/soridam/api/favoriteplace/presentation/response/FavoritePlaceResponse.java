@@ -5,9 +5,9 @@ import static io.swagger.v3.oas.annotations.media.Schema.RequiredMode.REQUIRED;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
-import sorisoop.soridam.domain.favorite_service.domain.FavoritePlace;
-import sorisoop.soridam.domain.place_service.place.domain.Place;
-import sorisoop.soridam.domain.place_service.place.domain.enums.Category;
+import sorisoop.soridam.domain.favorite.domain.FavoritePlace;
+import sorisoop.soridam.domain.place.place.domain.Place;
+import sorisoop.soridam.domain.place.place.domain.enums.Category;
 
 @Builder
 public record FavoritePlaceResponse(

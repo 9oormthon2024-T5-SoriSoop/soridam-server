@@ -4,7 +4,7 @@ import static io.swagger.v3.oas.annotations.media.Schema.RequiredMode.REQUIRED;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;
-import sorisoop.soridam.domain.rewarditem_service.domain.Good;
+import sorisoop.soridam.domain.rewarditem.domain.Good;
 
 @Builder
 public record GoodPersistResponse(

@@ -11,12 +11,12 @@ import sorisoop.soridam.api.review.presentation.request.ReviewUpdateRequest;
 import sorisoop.soridam.api.review.presentation.response.ReviewListResponse;
 import sorisoop.soridam.api.review.presentation.response.ReviewPersistResponse;
 import sorisoop.soridam.api.review.presentation.response.ReviewResponse;
-import sorisoop.soridam.domain.review_service.application.ReviewCommandService;
-import sorisoop.soridam.domain.review_service.application.ReviewQueryService;
-import sorisoop.soridam.domain.review_service.domain.Review;
-import sorisoop.soridam.domain.review_service.domain.ReviewType;
-import sorisoop.soridam.domain.user_service.user.application.UserQueryService;
-import sorisoop.soridam.domain.user_service.user.domain.User;
+import sorisoop.soridam.domain.review.application.ReviewCommandService;
+import sorisoop.soridam.domain.review.application.ReviewQueryService;
+import sorisoop.soridam.domain.review.domain.Review;
+import sorisoop.soridam.domain.review.domain.ReviewType;
+import sorisoop.soridam.domain.user.user.application.UserQueryService;
+import sorisoop.soridam.domain.user.user.domain.User;
 import sorisoop.soridam.infra.notification.ReviewCreatedEvent;
 import sorisoop.soridam.infra.notification.NotificationAsyncService;
 

@@ -9,11 +9,11 @@ import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 import lombok.RequiredArgsConstructor;
 import sorisoop.soridam.api.notification.presentation.response.NotificationResponse;
 import sorisoop.soridam.common.response.SliceResponse;
-import sorisoop.soridam.domain.notification_service.application.NotificationCommandService;
-import sorisoop.soridam.domain.notification_service.application.NotificationQueryService;
-import sorisoop.soridam.domain.notification_service.domain.Notification;
-import sorisoop.soridam.domain.user_service.user.application.UserQueryService;
-import sorisoop.soridam.domain.user_service.user.domain.User;
+import sorisoop.soridam.domain.notification.application.NotificationCommandService;
+import sorisoop.soridam.domain.notification.application.NotificationQueryService;
+import sorisoop.soridam.domain.notification.domain.Notification;
+import sorisoop.soridam.domain.user.user.application.UserQueryService;
+import sorisoop.soridam.domain.user.user.domain.User;
 import sorisoop.soridam.infra.notification.sse.SseEmitterManager;
 
 @Component
