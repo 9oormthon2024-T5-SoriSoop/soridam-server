@@ -30,11 +30,11 @@ public class RewardAsyncService {
 			User user = userRepository.findById(event.userId())
 				.orElseThrow(() -> new IllegalStateException("사용자가 존재하지 않습니다."));
 
-			int requiredPoint = redemption.getGood().getPointCost();
+			int requiredPoint = redemption.getRewardItem().getPointCost();
 
 			user.subtractTotalPoint(requiredPoint);
 
-			String reason = "상품 교환: " + redemption.getGood().getName();
+			String reason = "상품 교환: " + redemption.getRewardItem().getName();
 			userPointRepository.save(UserPoint.create(user, -requiredPoint, reason));
 
 			redemption.approve("CODE-" + redemption.getId());

@@ -11,7 +11,7 @@ import sorisoop.soridam.api.good.presentation.response.GoodListResponse;
 import sorisoop.soridam.api.good.presentation.response.GoodPersistResponse;
 import sorisoop.soridam.domain.rewarditem.application.RewardItemCommandService;
 import sorisoop.soridam.domain.rewarditem.application.RewardItemQueryService;
-import sorisoop.soridam.domain.rewarditem.domain.Good;
+import sorisoop.soridam.domain.rewarditem.domain.RewardItem;
 
 @Component
 @RequiredArgsConstructor
@@ -21,33 +21,33 @@ public class GoodsFacade {
 
 	@Transactional
 	public GoodPersistResponse createGood(GoodCreateRequest request) {
-		Good good = rewardCommandService.createGood(
+		RewardItem rewardItem = rewardCommandService.createGood(
 			request.name(),
-			request.goodType(),
+			request.rewardItemType(),
 			request.description(),
 			request.pointCost(),
 			request.imageUrl(),
 			request.stock()
 		);
 
-		return GoodPersistResponse.from(good);
+		return GoodPersistResponse.from(rewardItem);
 	}
 
 	@Transactional
 	public void hideGood(Long goodId) {
-		Good good = rewardItemQueryService.getGoodById(goodId);
-		rewardCommandService.hideGood(good);
+		RewardItem rewardItem = rewardItemQueryService.getGoodById(goodId);
+		rewardCommandService.hideGood(rewardItem);
 	}
 
 	@Transactional
 	public void showGood(Long goodId) {
-		Good good = rewardItemQueryService.getGoodById(goodId);
-		rewardCommandService.showGood(good);
+		RewardItem rewardItem = rewardItemQueryService.getGoodById(goodId);
+		rewardCommandService.showGood(rewardItem);
 	}
 
 	@Transactional
 	public GoodListResponse getAllGoods() {
-		List<Good> goods = rewardItemQueryService.getGoods();
-		return GoodListResponse.from(goods);
+		List<RewardItem> rewardItems = rewardItemQueryService.getGoods();
+		return GoodListResponse.from(rewardItems);
 	}
 }

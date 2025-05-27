@@ -1,7 +1,7 @@
 package sorisoop.soridam.api.good.presentation.response;
 
 import lombok.Builder;
-import sorisoop.soridam.domain.rewarditem.domain.Good;
+import sorisoop.soridam.domain.rewarditem.domain.RewardItem;
 
 @Builder
 public record GoodResponse(
@@ -13,15 +13,15 @@ public record GoodResponse(
 	Integer stock,
 	boolean isHidden
 ) {
-	public static GoodResponse from(Good good) {
+	public static GoodResponse from(RewardItem rewardItem) {
 		return GoodResponse.builder()
-			.id(good.getId())
-			.name(good.getName())
-			.description(good.getDescription())
-			.pointCost(good.getPointCost())
-			.imageUrl(good.getImageUrl())
-			.stock(good.getStock())
-			.isHidden(good.isHidden())
+			.id(rewardItem.getId())
+			.name(rewardItem.getName())
+			.description(rewardItem.getDescription())
+			.pointCost(rewardItem.getPointCost())
+			.imageUrl(rewardItem.getImageUrl())
+			.stock(rewardItem.getStock())
+			.isHidden(rewardItem.isHidden())
 			.build();
 	}
 }

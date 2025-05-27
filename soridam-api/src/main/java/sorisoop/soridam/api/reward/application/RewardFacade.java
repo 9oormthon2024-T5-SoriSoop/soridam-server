@@ -7,7 +7,7 @@ import sorisoop.soridam.api.reward.presentation.PointRedemptionPersistResponse;
 import sorisoop.soridam.domain.reward.application.RewardService;
 import sorisoop.soridam.domain.reward.domain.PointRedemption;
 import sorisoop.soridam.domain.rewarditem.application.RewardItemQueryService;
-import sorisoop.soridam.domain.rewarditem.domain.Good;
+import sorisoop.soridam.domain.rewarditem.domain.RewardItem;
 import sorisoop.soridam.domain.user.user.application.UserQueryService;
 import sorisoop.soridam.domain.user.user.domain.User;
 import sorisoop.soridam.infra.reward.RedemptionRequestedEvent;
@@ -23,9 +23,9 @@ public class RewardFacade {
 
 	public PointRedemptionPersistResponse requestReward(Long goodId) {
 		User user = userQueryService.me();
-		Good good = rewardItemQueryService.getGoodById(goodId);
+		RewardItem rewardItem = rewardItemQueryService.getGoodById(goodId);
 
-		PointRedemption pointRedemption = rewardService.requestRedemption(user, good);
+		PointRedemption pointRedemption = rewardService.requestRedemption(user, rewardItem);
 		RedemptionRequestedEvent event = RedemptionRequestedEvent.of(pointRedemption.getId(), user.getId());
 		rewardAsyncService.handleRedemptionRequest(event);
 		return PointRedemptionPersistResponse.from(pointRedemption);

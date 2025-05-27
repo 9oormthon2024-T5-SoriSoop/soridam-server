@@ -20,7 +20,7 @@ import sorisoop.soridam.domain.common.BaseTimeEntity;
 @NoArgsConstructor(access = PROTECTED)
 @AllArgsConstructor(access = PROTECTED)
 @Builder
-public class Good extends BaseTimeEntity {
+public class RewardItem extends BaseTimeEntity {
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
 	private Long id;
@@ -30,7 +30,7 @@ public class Good extends BaseTimeEntity {
 
 	@Column(nullable = false)
 	@Enumerated(STRING)
-	private GoodType type;
+	private RewardItemType type;
 
 	private String description;
 
@@ -57,8 +57,8 @@ public class Good extends BaseTimeEntity {
 		this.hidden = false;
 	}
 
-	public static Good create(String name, GoodType type, String description, int pointCost, String imageUrl, Integer stock) {
-		return Good.builder()
+	public static RewardItem create(String name, RewardItemType type, String description, int pointCost, String imageUrl, Integer stock) {
+		return RewardItem.builder()
 			.name(name)
 			.type(type)
 			.description(description)
@@ -73,7 +73,7 @@ public class Good extends BaseTimeEntity {
 		this.name = name;
 	}
 
-	public void updateType(GoodType type) {
+	public void updateType(RewardItemType type) {
 		this.type = type;
 	}
 

@@ -5,7 +5,7 @@ import lombok.RequiredArgsConstructor;
 
 @Getter
 @RequiredArgsConstructor
-public enum GoodType {
+public enum RewardItemType {
 	GIFTICON("기프티콘"),
 	COUPON("할인쿠폰"),
 	ETC("기타");

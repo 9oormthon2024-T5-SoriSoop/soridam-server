@@ -22,7 +22,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import sorisoop.soridam.domain.common.BaseTimeEntity;
-import sorisoop.soridam.domain.rewarditem.domain.Good;
+import sorisoop.soridam.domain.rewarditem.domain.RewardItem;
 import sorisoop.soridam.domain.user.user.domain.User;
 
 @Entity
@@ -41,7 +41,7 @@ public class PointRedemption extends BaseTimeEntity {
 
 	@ManyToOne(fetch = LAZY)
 	@JoinColumn(name = "good_id", nullable = false)
-	private Good good;
+	private RewardItem rewardItem;
 
 	@Enumerated(STRING)
 	@Column(nullable = false)
@@ -54,10 +54,10 @@ public class PointRedemption extends BaseTimeEntity {
 
 	private LocalDateTime redeemedAt;
 
-	public static PointRedemption create(User user, Good good) {
+	public static PointRedemption create(User user, RewardItem rewardItem) {
 		return PointRedemption.builder()
 			.user(user)
-			.good(good)
+			.rewardItem(rewardItem)
 			.status(PENDING)
 			.build();
 	}
