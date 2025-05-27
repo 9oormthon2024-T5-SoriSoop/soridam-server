@@ -1,4 +1,4 @@
-package sorisoop.soridam.api.goods.presentation.response;
+package sorisoop.soridam.api.good.presentation.response;
 
 import lombok.Builder;
 import sorisoop.soridam.domain.rewarditem.domain.Good;

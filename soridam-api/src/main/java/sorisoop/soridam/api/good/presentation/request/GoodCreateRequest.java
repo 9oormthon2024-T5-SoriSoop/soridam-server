@@ -1,4 +1,4 @@
-package sorisoop.soridam.api.goods.presentation.request;
+package sorisoop.soridam.api.good.presentation.request;
 
 import static io.swagger.v3.oas.annotations.media.Schema.RequiredMode.REQUIRED;
 

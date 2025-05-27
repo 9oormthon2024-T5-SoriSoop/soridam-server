@@ -1,4 +1,4 @@
-package sorisoop.soridam.api.goods.presentation;
+package sorisoop.soridam.api.good.presentation;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,10 +13,10 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import sorisoop.soridam.api.goods.application.GoodsFacade;
-import sorisoop.soridam.api.goods.presentation.request.GoodCreateRequest;
-import sorisoop.soridam.api.goods.presentation.response.GoodListResponse;
-import sorisoop.soridam.api.goods.presentation.response.GoodPersistResponse;
+import sorisoop.soridam.api.good.application.GoodsFacade;
+import sorisoop.soridam.api.good.presentation.request.GoodCreateRequest;
+import sorisoop.soridam.api.good.presentation.response.GoodListResponse;
+import sorisoop.soridam.api.good.presentation.response.GoodPersistResponse;
 
 @RestController
 @RequiredArgsConstructor

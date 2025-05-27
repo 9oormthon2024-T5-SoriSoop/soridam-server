@@ -3,6 +3,7 @@ package sorisoop.soridam.api.reward.application;
 import org.springframework.stereotype.Component;
 
 import lombok.RequiredArgsConstructor;
+import sorisoop.soridam.api.reward.presentation.PointRedemptionPersistResponse;
 import sorisoop.soridam.domain.reward.application.RewardService;
 import sorisoop.soridam.domain.reward.domain.PointRedemption;
 import sorisoop.soridam.domain.rewarditem.application.RewardItemQueryService;
@@ -20,13 +21,13 @@ public class RewardFacade {
 	private final RewardItemQueryService rewardItemQueryService;
 	private final RewardAsyncService rewardAsyncService;
 
-	public PointRedemption requestReward(Long goodId) {
+	public PointRedemptionPersistResponse requestReward(Long goodId) {
 		User user = userQueryService.me();
 		Good good = rewardItemQueryService.getGoodById(goodId);
 
 		PointRedemption pointRedemption = rewardService.requestRedemption(user, good);
 		RedemptionRequestedEvent event = RedemptionRequestedEvent.of(pointRedemption.getId(), user.getId());
 		rewardAsyncService.handleRedemptionRequest(event);
-		return pointRedemption;
+		return PointRedemptionPersistResponse.from(pointRedemption);
 	}
 }

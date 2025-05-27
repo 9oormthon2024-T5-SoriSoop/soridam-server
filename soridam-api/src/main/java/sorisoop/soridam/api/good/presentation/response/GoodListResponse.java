@@ -1,4 +1,4 @@
-package sorisoop.soridam.api.goods.presentation.response;
+package sorisoop.soridam.api.good.presentation.response;
 
 import java.util.List;
 

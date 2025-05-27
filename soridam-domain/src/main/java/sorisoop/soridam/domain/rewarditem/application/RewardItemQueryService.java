@@ -6,6 +6,8 @@ import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
 import sorisoop.soridam.domain.rewarditem.domain.Good;
+import sorisoop.soridam.domain.rewarditem.exception.RewardItemNotFoundException;
+import sorisoop.soridam.domain.rewarditem.exception.RewardItemOutOfStockException;
 import sorisoop.soridam.domain.rewarditem.repository.GoodRepository;
 
 @Service
@@ -18,6 +20,11 @@ public class RewardItemQueryService {
 	}
 
 	public Good getGoodById(Long id) {
-		return goodRepository.findById(id).orElseThrow();
+		Good good = goodRepository.findById(id)
+			.orElseThrow(RewardItemNotFoundException::new);
+
+		if (good.getStock() <= 0) throw new RewardItemOutOfStockException();
+
+		return good;
 	}
 }
