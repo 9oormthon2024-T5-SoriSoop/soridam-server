@@ -5,10 +5,10 @@ import lombok.Builder;
 @Builder
 public record LikeInfoDto(
 	long targetId,
-	int likeCount,
+	long likeCount,
 	boolean liked
 ) {
-	public static LikeInfoDto of(long targetId, int likeCount, boolean liked) {
+	public static LikeInfoDto of(long targetId, long likeCount, boolean liked) {
 		return LikeInfoDto.builder()
 			.targetId(targetId)
 			.likeCount(likeCount)

@@ -19,7 +19,7 @@ public class LikeRepositoryImpl implements LikeRepository {
 	private final JpaLikeRepository jpaLikeRepository;
 
 	@Override
-	public int countByLikeTypeAndTargetId(LikeType type, long targetId) {
+	public long countByLikeTypeAndTargetId(LikeType type, long targetId) {
 		return jpaLikeRepository.countByLikeTypeAndTargetId(type, targetId);
 	}
 

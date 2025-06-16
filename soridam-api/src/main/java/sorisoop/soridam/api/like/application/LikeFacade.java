@@ -41,7 +41,7 @@ public class LikeFacade {
 		Map<Long, Long> likeCountMap = likeQueryService.getLikeCountMap(likeType, targetIds);
 
 		List<LikeInfoDto> results = targetIds.stream()
-			.map(id -> LikeInfoDto.of(id, likeCountMap.getOrDefault(id, 0L).intValue(), likedMap.getOrDefault(id, false)))
+			.map(id -> LikeInfoDto.of(id, likeCountMap.getOrDefault(id, 0L), likedMap.getOrDefault(id, false)))
 			.toList();
 
 		return LikeInfoListResponse.from(results);

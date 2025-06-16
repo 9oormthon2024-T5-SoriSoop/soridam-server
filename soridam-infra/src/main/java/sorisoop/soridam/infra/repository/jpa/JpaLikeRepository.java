@@ -12,7 +12,7 @@ import sorisoop.soridam.domain.like.domain.LikeType;
 import sorisoop.soridam.domain.user.user.domain.User;
 
 public interface JpaLikeRepository extends JpaRepository<Like, Long> {
-	int countByLikeTypeAndTargetId(LikeType type, long targetId);
+	long countByLikeTypeAndTargetId(LikeType type, long targetId);
 
 	List<Like> findByUserAndLikeTypeAndTargetIdIn(User user, LikeType likeType, List<Long> targetIds);
 

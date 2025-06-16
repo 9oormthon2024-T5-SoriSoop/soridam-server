@@ -7,7 +7,7 @@ import sorisoop.soridam.domain.like.application.dto.LikeCountDto;
 import sorisoop.soridam.domain.user.user.domain.User;
 
 public interface LikeRepository {
-	int countByLikeTypeAndTargetId(LikeType type, long targetId);
+	long countByLikeTypeAndTargetId(LikeType type, long targetId);
 
 	List<Like> findByUserAndLikeTypeAndTargetIdIn(User user, LikeType likeType, List<Long> targetIds);
 
