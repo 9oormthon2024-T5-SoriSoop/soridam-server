@@ -2,7 +2,8 @@ package sorisoop.soridam.infra.config.data.redis;
 
 import java.time.Duration;
 
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.data.redis.RedisProperties;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
@@ -14,27 +15,24 @@ import org.springframework.data.redis.repository.configuration.EnableRedisReposi
 import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 
+import lombok.RequiredArgsConstructor;
+
 @Configuration
 @EnableRedisRepositories(basePackages = "sorisoop.soridam.infra.repository.redis")
+@EnableConfigurationProperties(RedisProperties.class)
+@RequiredArgsConstructor
 public class RedisConfig {
-	@Value("${spring.data.redis.host}")
-	String redisHost;
-
-	@Value("${spring.data.redis.port}")
-	int redisPort;
-
-	@Value("${spring.data.redis.password}")
-	String redisPassword;
+	private final RedisProperties redisProperties;
 
 	@Bean
 	public RedisConnectionFactory redisConnectionFactory() {
 		RedisStandaloneConfiguration configuration = new RedisStandaloneConfiguration();
-		configuration.setHostName(redisHost);
-		configuration.setPort(redisPort);
-		configuration.setPassword(redisPassword);
+		configuration.setHostName(redisProperties.getHost());
+		configuration.setPort(redisProperties.getPort());
+		configuration.setPassword(redisProperties.getPassword());
 
 		LettuceClientConfiguration clientConfig = LettuceClientConfiguration.builder()
-			.commandTimeout(Duration.ofSeconds(5))
+			.commandTimeout(redisProperties.getTimeout())
 			.shutdownTimeout(Duration.ofSeconds(2))
 			.build();
 

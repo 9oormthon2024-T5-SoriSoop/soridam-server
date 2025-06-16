@@ -1,9 +1,12 @@
 package sorisoop.soridam.infra.repository.jpa;
 
+import static jakarta.persistence.LockModeType.PESSIMISTIC_WRITE;
+
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Lock;
 import org.springframework.data.jpa.repository.Query;
 
 import sorisoop.soridam.domain.like.application.dto.LikeCountDto;
@@ -24,5 +27,6 @@ public interface JpaLikeRepository extends JpaRepository<Like, Long> {
 
 	boolean existsByUserAndLikeTypeAndTargetId(User user, LikeType likeType, long targetId);
 
+	@Lock(PESSIMISTIC_WRITE)
 	Optional<Like> findByUserAndLikeTypeAndTargetId(User user, LikeType likeType, Long targetId);
 }
