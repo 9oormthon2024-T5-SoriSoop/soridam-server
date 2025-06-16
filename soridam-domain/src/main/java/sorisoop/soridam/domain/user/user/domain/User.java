@@ -53,8 +53,6 @@ public class User extends BaseTimeEntity {
 
 	private LocalDateTime lastLoginAt;
 
-	private int totalPoint;
-
 	public void isPasswordMatching(String rawPassword, PasswordEncoder passwordEncoder) {
 		if (!passwordEncoder.matches(rawPassword, this.password)) {
 			throw new InvalidPasswordException();
@@ -68,7 +66,6 @@ public class User extends BaseTimeEntity {
 			.name(name)
 			.nickname(nickname)
 			.role(Role.USER)
-			.totalPoint(0)
 			.build();
 	}
 
@@ -78,7 +75,6 @@ public class User extends BaseTimeEntity {
 			.name(name)
 			.provider(provider)
 			.role(Role.USER)
-			.totalPoint(0)
 			.build();
 	}
 
@@ -89,7 +85,6 @@ public class User extends BaseTimeEntity {
 			.email(email)
 			.provider(provider)
 			.role(Role.USER)
-			.totalPoint(0)
 			.build();
 	}
 
@@ -99,9 +94,5 @@ public class User extends BaseTimeEntity {
 
 	public void updateNickname(String nickname) {
 		this.nickname = nickname;
-	}
-
-	public void subtractTotalPoint(int point) {
-		this.totalPoint -= point;
 	}
 }
