@@ -27,7 +27,7 @@ import sorisoop.soridam.domain.user.user.domain.User;
 @NoArgsConstructor(access = PROTECTED)
 @AllArgsConstructor(access = PROTECTED)
 @Table(name = "likes", uniqueConstraints = {
-	@UniqueConstraint(columnNames = {"user_id", "type", "target_id"})
+	@UniqueConstraint(columnNames = {"user_id", "like_type", "target_id"})
 })
 public class Like extends BaseTimeEntity {
 	@Id
@@ -39,7 +39,7 @@ public class Like extends BaseTimeEntity {
 	private User user;
 
 	@Enumerated(STRING)
-	@Column(nullable = false)
+	@Column(nullable = false, name = "like_type")
 	private LikeType likeType;
 
 	@Column(nullable = false, name = "target_id")
