@@ -20,9 +20,9 @@ import sorisoop.soridam.domain.user.user.domain.User;
 public class LikeQueryService {
 	private final LikeRepository likeRepository;
 
-	public LikeInfoDto getLikeInfo(User user, LikeType type, long targetId) {
-		int likeCount = likeRepository.countByLikeTypeAndTargetId(type, targetId);
-		boolean liked = likeRepository.existsByUserAndLikeTypeAndTargetId(user, type, targetId);
+	public LikeInfoDto getLikeInfo(User user, LikeType likeType, long targetId) {
+		int likeCount = likeRepository.countByLikeTypeAndTargetId(likeType, targetId);
+		boolean liked = likeRepository.existsByUserAndLikeTypeAndTargetId(user, likeType, targetId);
 
 		return LikeInfoDto.of(targetId, likeCount, liked);
 	}

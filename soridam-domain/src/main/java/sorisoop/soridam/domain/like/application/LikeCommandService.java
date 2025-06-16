@@ -13,14 +13,14 @@ import sorisoop.soridam.domain.user.user.domain.User;
 public class LikeCommandService {
 	private final LikeRepository likeRepository;
 
-	public boolean toggleLike(User user, LikeType type, Long targetId) {
-		return likeRepository.findByUserAndLikeTypeAndTargetId(user, type, targetId)
+	public boolean toggleLike(User user, LikeType likeType, Long targetId) {
+		return likeRepository.findByUserAndLikeTypeAndTargetId(user, likeType, targetId)
 			.map(existingLike -> {
 				likeRepository.delete(existingLike);
 				return false;
 			})
 			.orElseGet(() -> {
-				Like like = Like.create(user, type, targetId);
+				Like like = Like.create(user, likeType, targetId);
 				likeRepository.save(like);
 				return true;
 			});
