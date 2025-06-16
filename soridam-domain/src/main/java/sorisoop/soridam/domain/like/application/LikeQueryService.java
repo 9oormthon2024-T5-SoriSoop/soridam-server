@@ -24,7 +24,7 @@ public class LikeQueryService {
 		int likeCount = likeRepository.countByLikeTypeAndTargetId(type, targetId);
 		boolean liked = likeRepository.existsByUserAndLikeTypeAndTargetId(user, type, targetId);
 
-		return new LikeInfoDto(targetId, likeCount, liked);
+		return LikeInfoDto.of(targetId, likeCount, liked);
 	}
 
 
