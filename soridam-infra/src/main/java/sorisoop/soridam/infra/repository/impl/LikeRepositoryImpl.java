@@ -1,6 +1,7 @@
 package sorisoop.soridam.infra.repository.impl;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Repository;
 
@@ -35,5 +36,20 @@ public class LikeRepositoryImpl implements LikeRepository {
 	@Override
 	public boolean existsByUserAndLikeTypeAndTargetId(User user, LikeType likeType, long targetId) {
 		return jpaLikeRepository.existsByUserAndLikeTypeAndTargetId(user, likeType, targetId);
+	}
+
+	@Override
+	public void delete(Like like) {
+		jpaLikeRepository.delete(like);
+	}
+
+	@Override
+	public void save(Like like) {
+		jpaLikeRepository.save(like);
+	}
+
+	@Override
+	public Optional<Like> findByUserAndLikeTypeAndTargetId(User user, LikeType likeType, Long targetId) {
+		return jpaLikeRepository.findByUserAndLikeTypeAndTargetId(user, likeType, targetId);
 	}
 }
