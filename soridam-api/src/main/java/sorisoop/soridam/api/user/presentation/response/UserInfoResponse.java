@@ -3,7 +3,7 @@ package sorisoop.soridam.api.user.presentation.response;
 import java.time.LocalDateTime;
 
 import lombok.Builder;
-import sorisoop.soridam.domain.user_service.user.domain.User;
+import sorisoop.soridam.domain.user.user.domain.User;
 
 @Builder
 public record UserInfoResponse(

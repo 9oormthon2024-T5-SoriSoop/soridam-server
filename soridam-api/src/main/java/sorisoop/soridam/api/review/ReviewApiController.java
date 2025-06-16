@@ -26,7 +26,7 @@ import sorisoop.soridam.api.review.presentation.request.ReviewCreateRequest;
 import sorisoop.soridam.api.review.presentation.request.ReviewUpdateRequest;
 import sorisoop.soridam.api.review.presentation.response.ReviewListResponse;
 import sorisoop.soridam.api.review.presentation.response.ReviewPersistResponse;
-import sorisoop.soridam.domain.review_service.domain.ReviewType;
+import sorisoop.soridam.domain.review.domain.ReviewType;
 
 @RestController
 @RequiredArgsConstructor

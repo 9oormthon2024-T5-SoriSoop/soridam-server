@@ -6,9 +6,9 @@ import java.util.Set;
 import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
-import sorisoop.soridam.domain.place_service.place.application.PlaceCommandService;
-import sorisoop.soridam.domain.place_service.place.domain.enums.Category;
-import sorisoop.soridam.domain.place_service.place.domain.enums.Region;
+import sorisoop.soridam.domain.place.place.application.PlaceCommandService;
+import sorisoop.soridam.domain.place.place.domain.enums.Category;
+import sorisoop.soridam.domain.place.place.domain.enums.Region;
 import sorisoop.soridam.infra.kakao.KakaoMapClient;
 import sorisoop.soridam.infra.kakao.KakaoPlaceResponse;
 

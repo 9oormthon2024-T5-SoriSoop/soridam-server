@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
-import sorisoop.soridam.domain.user_service.user.exception.UnauthorizedException;
+import sorisoop.soridam.domain.user.user.exception.UnauthorizedException;
 
 @Slf4j
 @Component

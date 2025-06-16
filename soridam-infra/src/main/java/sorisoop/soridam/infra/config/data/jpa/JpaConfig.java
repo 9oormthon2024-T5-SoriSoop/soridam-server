@@ -11,7 +11,6 @@ import sorisoop.soridam.infra.config.base.SoriDamConfig;
 
 @EntityScan(basePackages = "sorisoop.soridam.domain")
 @Configuration
-/*@EnableJpaRepositories(basePackages = "sorisoop.soridam")*/
 public class JpaConfig implements SoriDamConfig {
 	private final EntityManager entityManager;
 

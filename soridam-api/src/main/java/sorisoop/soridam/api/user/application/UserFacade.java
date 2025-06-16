@@ -7,9 +7,9 @@ import lombok.RequiredArgsConstructor;
 import sorisoop.soridam.api.user.presentation.request.UserCreateRequest;
 import sorisoop.soridam.api.user.presentation.response.UserInfoResponse;
 import sorisoop.soridam.api.user.presentation.response.UserPersistResponse;
-import sorisoop.soridam.domain.user_service.user.application.UserCommandService;
-import sorisoop.soridam.domain.user_service.user.application.UserQueryService;
-import sorisoop.soridam.domain.user_service.user.domain.User;
+import sorisoop.soridam.domain.user.user.application.UserCommandService;
+import sorisoop.soridam.domain.user.user.application.UserQueryService;
+import sorisoop.soridam.domain.user.user.domain.User;
 
 @Component
 @RequiredArgsConstructor

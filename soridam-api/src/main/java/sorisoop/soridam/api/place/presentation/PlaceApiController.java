@@ -25,7 +25,7 @@ import sorisoop.soridam.api.place.presentation.request.PlaceCreateRequest;
 import sorisoop.soridam.api.place.presentation.response.PlaceDetailResponse;
 import sorisoop.soridam.api.place.presentation.response.PlaceListResponse;
 import sorisoop.soridam.api.place.presentation.response.PlacePersistResponse;
-import sorisoop.soridam.domain.place_service.place.domain.enums.Category;
+import sorisoop.soridam.domain.place.place.domain.enums.Category;
 
 @RestController
 @RequiredArgsConstructor

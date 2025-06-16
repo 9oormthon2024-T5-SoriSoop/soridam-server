@@ -5,7 +5,7 @@ import static io.swagger.v3.oas.annotations.media.Schema.RequiredMode.REQUIRED;
 import java.time.format.DateTimeFormatter;
 
 import sorisoop.soridam.api.place.presentation.response.PlaceResponse;
-import sorisoop.soridam.domain.place_service.noise.domain.Noise;
+import sorisoop.soridam.domain.place.noise.domain.Noise;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;

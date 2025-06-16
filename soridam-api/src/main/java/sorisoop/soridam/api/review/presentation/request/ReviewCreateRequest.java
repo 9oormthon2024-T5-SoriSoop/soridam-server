@@ -9,7 +9,7 @@ import jakarta.validation.constraints.DecimalMax;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
-import sorisoop.soridam.domain.review_service.domain.ReviewType;
+import sorisoop.soridam.domain.review.domain.ReviewType;
 
 @Builder
 public record ReviewCreateRequest(

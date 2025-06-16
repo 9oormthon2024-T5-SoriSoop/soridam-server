@@ -16,13 +16,13 @@ import sorisoop.soridam.api.noise.presentation.response.NoisePersistResponse;
 import sorisoop.soridam.api.noise.presentation.response.NoiseResponse;
 import sorisoop.soridam.api.noise.presentation.response.NoiseSummaryResponse;
 import sorisoop.soridam.common.response.SliceResponse;
-import sorisoop.soridam.domain.place_service.place.application.PlaceQueryService;
-import sorisoop.soridam.domain.place_service.place.domain.Place;
-import sorisoop.soridam.domain.place_service.noise.application.NoiseCommandService;
-import sorisoop.soridam.domain.place_service.noise.application.NoiseQueryService;
-import sorisoop.soridam.domain.place_service.noise.domain.Noise;
-import sorisoop.soridam.domain.user_service.user.application.UserQueryService;
-import sorisoop.soridam.domain.user_service.user.domain.User;
+import sorisoop.soridam.domain.place.place.application.PlaceQueryService;
+import sorisoop.soridam.domain.place.place.domain.Place;
+import sorisoop.soridam.domain.place.noise.application.NoiseCommandService;
+import sorisoop.soridam.domain.place.noise.application.NoiseQueryService;
+import sorisoop.soridam.domain.place.noise.domain.Noise;
+import sorisoop.soridam.domain.user.user.application.UserQueryService;
+import sorisoop.soridam.domain.user.user.domain.User;
 
 @Component
 @RequiredArgsConstructor
