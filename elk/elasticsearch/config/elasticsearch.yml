@@ -7,3 +7,6 @@ network.host: 0.0.0.0
 
 xpack.license.self_generated.type: trial
 xpack.security.enabled: true
+
+# 추후 확장 시 제거
+discovery.type: single-node
