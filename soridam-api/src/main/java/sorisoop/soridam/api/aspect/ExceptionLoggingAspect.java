@@ -18,7 +18,7 @@ import sorisoop.soridam.globalutil.logging.LoggingUtils;
 @Component
 public class ExceptionLoggingAspect {
 	@Pointcut("execution(public * sorisoop.soridam..*(..)) && "
-		+ "!execution(* sorisoop.soridam.api..application..*(..)) && "
+		+ "!execution(* sorisoop.soridam.api..*(..)) && "
 		+ "!execution(* sorisoop.soridam.common..*(..)) && "
 		+ "!@annotation(sorisoop.soridam.common.log.annotation.NoLogging) && "
 		+ "!@annotation(org.springframework.boot.context.properties.ConfigurationProperties)"
