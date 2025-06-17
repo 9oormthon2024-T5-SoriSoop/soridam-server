@@ -38,3 +38,6 @@ out/
 
 ## docker-compose ##
 docker-compose.yml
+
+## log
+logs/
