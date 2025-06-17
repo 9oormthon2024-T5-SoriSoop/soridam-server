@@ -7,6 +7,7 @@ import org.aspectj.lang.annotation.AfterThrowing;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
+import org.slf4j.MDC;
 import org.springframework.stereotype.Component;
 
 import lombok.extern.slf4j.Slf4j;
@@ -34,6 +35,8 @@ public class ServerErrorLoggingAspect {
 		List<String> arguments = LoggingUtils.getArguments(joinPoint);
 		String parameterMessage = LoggingUtils.getParameterMessage(arguments);
 
+		MDC.put("status", "500");
+
 		log.error("[SERVER ERROR] POINT : {} || ARGUMENTS : {}", className, parameterMessage);
 		log.error("[SERVER ERROR] MESSAGE : {}", exception.getMessage());
 		Throwable cause = exception.getCause();
@@ -45,5 +48,7 @@ public class ServerErrorLoggingAspect {
 		log.error("[SERVER ERROR] FINAL POINT : {}",
 		    (stackTrace != null && stackTrace.length > 0) ? stackTrace[0] : "No stack trace available"
 		);
+
+		MDC.remove("status");
 	}
 }

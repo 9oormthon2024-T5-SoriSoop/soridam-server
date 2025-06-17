@@ -86,8 +86,7 @@
                         "userId": "%X{userId}",
                         "uri": "%X{uri}",
                         "method": "%X{method}",
-                        "status": "%X{status}",
-                        "durationMs": "%X{durationMs}"
+                        "status": "%X{status}"
                         }
                     </pattern>
                 </pattern>
