@@ -7,30 +7,6 @@
     <property name="LOG_FILE_INFO" value="${LOG_PATH}/info.log" />
     <property name="LOG_FILE_ERROR" value="${LOG_PATH}/error.log" />
 
-    <encoder class="net.logstash.logback.encoder.LoggingEventCompositeJsonEncoder">
-        <providers>
-            <timestamp />
-            <pattern>
-                <pattern>
-                    {
-                    "level": "%level",
-                    "logger": "%logger",
-                    "thread": "%thread",
-                    "message": "%message",
-                    "requestId": "%X{requestId}",
-                    "userId": "%X{userId}",
-                    "clientIp": "%X{clientIp}",
-                    "uri": "%X{uri}",
-                    "method": "%X{method}",
-                    "status": "%X{status}",
-                    "durationMs": "%X{durationMs}"
-                    }
-                </pattern>
-            </pattern>
-            <stackTrace />
-        </providers>
-    </encoder>
-
     <appender name="INFO_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <file>${LOG_FILE_INFO}</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
@@ -51,6 +27,7 @@
                         "level": "%level",
                         "logger": "%logger",
                         "message": "%message",
+                        "clientIp": "%X{clientIp}",
                         "requestId": "%X{requestId}",
                         "userId": "%X{userId}",
                         "uri": "%X{uri}",
@@ -82,6 +59,7 @@
                         "level": "%level",
                         "logger": "%logger",
                         "message": "%message",
+                        "clientIp": "%X{clientIp}",
                         "requestId": "%X{requestId}",
                         "userId": "%X{userId}",
                         "uri": "%X{uri}",

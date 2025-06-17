@@ -8,9 +8,7 @@ filebeat.inputs:
     json.add_error_key: true
     json.overwrite_keys: true
 
-processors:
-  - add_host_metadata: ~
-  - add_docker_metadata: ~
+processors: []
 
 output.logstash:
   hosts: ["logstash:5044"]
