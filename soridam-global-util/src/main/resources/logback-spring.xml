@@ -6,7 +6,9 @@
     <property name="LOG_PATH" value="./logs" />
     <property name="LOG_FILE_INFO" value="${LOG_PATH}/info.log" />
     <property name="LOG_FILE_ERROR" value="${LOG_PATH}/error.log" />
+    <property name="LOG_FILE_WARN" value="${LOG_PATH}/warn.log" />
 
+    <!-- INFO -->
     <appender name="INFO_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <file>${LOG_FILE_INFO}</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
@@ -20,27 +22,16 @@
         </filter>
         <encoder class="net.logstash.logback.encoder.LoggingEventCompositeJsonEncoder">
             <providers>
-                <timestamp />
-                <pattern>
-                    <pattern>
-                        {
-                        "level": "%level",
-                        "logger": "%logger",
-                        "message": "%message",
-                        "clientIp": "%X{clientIp}",
-                        "requestId": "%X{requestId}",
-                        "userId": "%X{userId}",
-                        "uri": "%X{uri}",
-                        "method": "%X{method}",
-                        "status": "%X{status}",
-                        "durationMs": "%X{durationMs}"
-                        }
-                    </pattern>
-                </pattern>
+                <timestamp fieldName="@timestamp"/>
+                <logLevel />
+                <loggerName />
+                <message />
+                <mdc />
             </providers>
         </encoder>
     </appender>
 
+    <!-- ERROR -->
     <appender name="ERROR_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <file>${LOG_FILE_ERROR}</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
@@ -52,29 +43,19 @@
         </filter>
         <encoder class="net.logstash.logback.encoder.LoggingEventCompositeJsonEncoder">
             <providers>
-                <timestamp />
-                <pattern>
-                    <pattern>
-                        {
-                        "level": "%level",
-                        "logger": "%logger",
-                        "message": "%message",
-                        "clientIp": "%X{clientIp}",
-                        "requestId": "%X{requestId}",
-                        "userId": "%X{userId}",
-                        "uri": "%X{uri}",
-                        "method": "%X{method}",
-                        "status": "%X{status}"
-                        }
-                    </pattern>
-                </pattern>
+                <timestamp fieldName="@timestamp"/>
+                <logLevel />
+                <loggerName />
+                <message />
+                <mdc />
                 <stackTrace />
             </providers>
         </encoder>
     </appender>
 
+    <!-- WARN -->
     <appender name="WARN_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>${LOG_PATH}/warn.log</file>
+        <file>${LOG_FILE_WARN}</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <fileNamePattern>${LOG_PATH}/warn.%d{yyyy-MM-dd}.log</fileNamePattern>
             <maxHistory>30</maxHistory>
@@ -86,44 +67,28 @@
         </filter>
         <encoder class="net.logstash.logback.encoder.LoggingEventCompositeJsonEncoder">
             <providers>
-                <timestamp />
-                <pattern>
-                    <pattern>
-                        {
-                        "level": "%level",
-                        "logger": "%logger",
-                        "message": "%message",
-                        "clientIp": "%X{clientIp}",
-                        "requestId": "%X{requestId}",
-                        "userId": "%X{userId}",
-                        "uri": "%X{uri}",
-                        "method": "%X{method}",
-                        "status": "%X{status}",
-                        "durationMs": "%X{durationMs}"
-                        }
-                    </pattern>
-                </pattern>
+                <timestamp fieldName="@timestamp"/>
+                <logLevel />
+                <loggerName />
+                <message />
+                <mdc />
             </providers>
         </encoder>
     </appender>
 
+    <!-- 콘솔 -->
     <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
         <encoder class="net.logstash.logback.encoder.LoggingEventCompositeJsonEncoder">
             <providers>
-                <timestamp />
-                <pattern>
-                    <pattern>
-                        {
-                        "level": "%level",
-                        "logger": "%logger",
-                        "message": "%message"
-                        }
-                    </pattern>
-                </pattern>
+                <timestamp fieldName="@timestamp"/>
+                <logLevel />
+                <loggerName />
+                <message />
             </providers>
         </encoder>
     </appender>
 
+    <!-- 루트 레벨 설정 -->
     <root level="INFO">
         <appender-ref ref="CONSOLE" />
         <appender-ref ref="INFO_FILE" />
