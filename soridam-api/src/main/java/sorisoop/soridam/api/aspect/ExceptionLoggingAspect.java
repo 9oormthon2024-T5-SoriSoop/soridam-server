@@ -7,6 +7,7 @@ import org.aspectj.lang.annotation.AfterThrowing;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
+import org.slf4j.MDC;
 import org.springframework.stereotype.Component;
 
 import lombok.extern.slf4j.Slf4j;
@@ -18,7 +19,7 @@ import sorisoop.soridam.globalutil.logging.LoggingUtils;
 @Component
 public class ExceptionLoggingAspect {
 	@Pointcut("execution(public * sorisoop.soridam..*(..)) && "
-		+ "!execution(* sorisoop.soridam.api..application..*(..)) && "
+		+ "!execution(* sorisoop.soridam.api..*(..)) && "
 		+ "!execution(* sorisoop.soridam.common..*(..)) && "
 		+ "!@annotation(sorisoop.soridam.common.log.annotation.NoLogging) && "
 		+ "!@annotation(org.springframework.boot.context.properties.ConfigurationProperties)"
@@ -34,10 +35,14 @@ public class ExceptionLoggingAspect {
 		List<String> arguments = LoggingUtils.getArguments(joinPoint);
 		String parameterMessage = LoggingUtils.getParameterMessage(arguments);
 
+		MDC.put("status", String.valueOf(exception.getCode().getStatus().value()));
+
 		log.error("[ERROR] POINT : {} || EXCEPTION : {} || ARGUMENTS : {}", className, exception.getCode().getCode(),
 			parameterMessage);
 		log.error("[ERROR] FINAL POINT : {}", exception.getStackTrace()[0]);
 		log.error("[ERROR] MESSAGE : {}", exception.getMessage());
+
+		MDC.remove("status");
 	}
 
 }

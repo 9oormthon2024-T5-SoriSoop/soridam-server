@@ -4,8 +4,10 @@ import java.lang.reflect.Field;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
+import java.util.UUID;
 
 import org.aspectj.lang.JoinPoint;
+import org.slf4j.MDC;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
@@ -57,31 +59,37 @@ public class LoggingUtils {
 		return String.join(" | ", arguments);
 	}
 
-	public static void logRequest() {
+	public static void logRequest(HttpServletRequest request) {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		String userId =
 			(authentication == null || Objects.equals(authentication.getName(), "anonymousUser")) ? "anonymous" :
 				authentication.getName();
 		String clientIp = HttpReqResUtils.getClientIpAddressIfServletRequestExist();
+		String requestId = UUID.randomUUID().toString();
 
-		log.info("[REQUEST] CLIENT IP : {} || USER ID : {}", clientIp, userId);
+		MDC.put("requestId", requestId);
+		MDC.put("userId", userId);
+		MDC.put("clientIp", clientIp);
+		MDC.put("uri", request.getRequestURI());
+		MDC.put("method", request.getMethod());
+
+		log.info("HTTP request started");
 	}
 
 	public static void logDuration(HttpServletRequest request, HttpServletResponse response, Exception ex) {
-		String requestUrl = request.getRequestURI();
-		String httpMethod = request.getMethod();
-		int httpStatus = response.getStatus();
+		int status = response.getStatus();
+		long startTime = (Long) request.getAttribute("startTime");
+		long duration = System.currentTimeMillis() - startTime;
 
-		long startTime = (Long)request.getAttribute("startTime");
-		long endTime = System.currentTimeMillis();
-		long duration = endTime - startTime;
+		MDC.put("status", String.valueOf(status));
+		MDC.put("durationMs", String.valueOf(duration));
 
 		if (ex == null) {
-			log.info("[DURATION] ENDPOINT : {} {} || STATUS : {} || DURATION : {}ms", httpMethod, requestUrl,
-				httpStatus, duration);
+			log.info("HTTP request completed");
 		} else {
-			log.error("[DURATION] ENDPOINT : {} {} || STATUS : {} || DURATION : {}ms || EXCEPTION : {}",
-				httpMethod, requestUrl, httpStatus, duration, ex.getMessage());
+			log.error("HTTP request failed", ex);
 		}
+
+		MDC.clear();
 	}
 }

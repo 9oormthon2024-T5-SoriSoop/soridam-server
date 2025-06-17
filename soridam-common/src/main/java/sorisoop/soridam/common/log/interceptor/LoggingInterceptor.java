@@ -1,6 +1,7 @@
 package sorisoop.soridam.common.log.interceptor;
 
 import java.lang.reflect.Method;
+import java.util.UUID;
 
 import org.springframework.stereotype.Component;
 import org.springframework.web.method.HandlerMethod;
@@ -19,8 +20,11 @@ public class LoggingInterceptor implements HandlerInterceptor {
 	public boolean preHandle(HttpServletRequest request, @NotNull HttpServletResponse response,
 		@NotNull Object handler) {
 		if (isNoLogging(handler)) return true;
+
+		String requestId = UUID.randomUUID().toString();
+		request.setAttribute("requestId", requestId);
 		request.setAttribute("startTime", System.currentTimeMillis());
-		LoggingUtils.logRequest();
+		LoggingUtils.logRequest(request);
 		return true;
 	}
 
@@ -28,6 +32,7 @@ public class LoggingInterceptor implements HandlerInterceptor {
 	public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler,
 		Exception ex) {
 		if (isNoLogging(handler)) return;
+
 		LoggingUtils.logDuration(request, response, ex);
 	}
 
