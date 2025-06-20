@@ -1,6 +1,7 @@
 package sorisoop.soridam.api.review.application;
 
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -62,8 +63,8 @@ public class ReviewFacade {
 	}
 
 	@Transactional(readOnly = true)
-	public ReviewListResponse getReviews(Long targetId) {
-		List<Review> reviews = reviewQueryService.getByPlaceId(targetId);
+	public ReviewListResponse getReviews(Long placeId) {
+		List<Review> reviews = reviewQueryService.getByPlaceId(placeId);
 		List<ReviewResponse> responses = reviews.stream()
 			.map(ReviewResponse::from)
 			.toList();
@@ -72,8 +73,8 @@ public class ReviewFacade {
 	}
 
 	@Transactional(readOnly = true)
-	public ReviewListResponse getReviewsByPlaceIds(List<Long> targetIds) {
-		List<Review> reviews = reviewQueryService.getByPlaceIdIn(targetIds);
+	public ReviewListResponse getReviewsByPlaceIds(Set<Long> placeIds) {
+		List<Review> reviews = reviewQueryService.getByPlaceIdIn(placeIds);
 		List<ReviewResponse> responses = reviews.stream()
 			.map(ReviewResponse::from)
 			.toList();

@@ -1,6 +1,7 @@
 package sorisoop.soridam.domain.review.application;
 
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.stereotype.Service;
 
@@ -19,9 +20,9 @@ public class ReviewQueryService {
 			.orElseThrow(ReviewNotFoundException::new);
 	}
 
-	public List<Review> getByPlaceIdIn(List<Long> targetIds) {
-		if (targetIds.isEmpty()) return List.of();
-		return reviewRepository.findByPlaceIdIn(targetIds);
+	public List<Review> getByPlaceIdIn(Set<Long> placeIds) {
+		if (placeIds.isEmpty()) return List.of();
+		return reviewRepository.findByPlaceIdIn(placeIds);
 	}
 
 	public List<Review> getByPlaceId(Long placeId) {

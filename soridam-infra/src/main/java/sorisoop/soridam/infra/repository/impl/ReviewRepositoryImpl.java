@@ -2,6 +2,7 @@ package sorisoop.soridam.infra.repository.impl;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import org.springframework.stereotype.Repository;
 
@@ -31,7 +32,7 @@ public class ReviewRepositoryImpl implements ReviewRepository {
 	}
 
 	@Override
-	public List<Review> findByPlaceIdIn(List<Long> placeIds) {
+	public List<Review> findByPlaceIdIn(Set<Long> placeIds) {
 		return jpaReviewRepository.findByPlaceIdIn(placeIds);
 	}
 
