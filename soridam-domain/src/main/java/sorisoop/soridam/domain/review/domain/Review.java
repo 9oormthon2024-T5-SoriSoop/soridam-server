@@ -19,6 +19,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import sorisoop.soridam.domain.common.BaseTimeEntity;
+import sorisoop.soridam.domain.place.place.domain.Place;
 import sorisoop.soridam.domain.user.user.domain.User;
 
 @Entity
@@ -31,8 +32,9 @@ public class Review extends BaseTimeEntity {
 	@GeneratedValue(strategy = IDENTITY)
 	private Long id;
 
-	@Column(nullable = false)
-	private Long targetId;
+	@ManyToOne(fetch = LAZY)
+	@JoinColumn(name = "place_id", nullable = false)
+	private Place place;
 
 	@Enumerated(STRING)
 	@Column(nullable = false, length = 25)
@@ -48,9 +50,9 @@ public class Review extends BaseTimeEntity {
 	@Column(nullable = false, precision = 2, scale = 1)
 	private BigDecimal rating;
 
-	public static Review create(Long targetId, ReviewType reviewType, User author, String content, BigDecimal rating) {
+	public static Review create(Place place, ReviewType reviewType, User author, String content, BigDecimal rating) {
 		return Review.builder()
-			.targetId(targetId)
+			.place(place)
 			.reviewType(reviewType)
 			.author(author)
 			.content(content)
