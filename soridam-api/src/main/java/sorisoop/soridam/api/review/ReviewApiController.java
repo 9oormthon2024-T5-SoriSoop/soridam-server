@@ -26,7 +26,6 @@ import sorisoop.soridam.api.review.presentation.request.ReviewCreateRequest;
 import sorisoop.soridam.api.review.presentation.request.ReviewUpdateRequest;
 import sorisoop.soridam.api.review.presentation.response.ReviewListResponse;
 import sorisoop.soridam.api.review.presentation.response.ReviewPersistResponse;
-import sorisoop.soridam.domain.review.domain.ReviewType;
 
 @RestController
 @RequiredArgsConstructor
@@ -70,11 +69,9 @@ public class ReviewApiController {
 	@GetMapping("/{targetId}")
 	public ResponseEntity<ReviewListResponse> getReviews(
 		@Parameter(description = "리뷰 타겟 ID", example = "123", required = true)
-		@PathVariable Long targetId,
-		@Parameter(description = "대상 종류 (ex: NOISE, ADDRESS 등)", required = true, example = "NOISE")
-		@RequestParam ReviewType type
+		@PathVariable Long targetId
 	) {
-		ReviewListResponse response = reviewFacade.getReviews(targetId, type);
+		ReviewListResponse response = reviewFacade.getReviews(targetId);
 		return ResponseEntity.ok(response);
 	}
 
@@ -85,12 +82,9 @@ public class ReviewApiController {
 	@GetMapping("/by-target-ids")
 	public ResponseEntity<ReviewListResponse> getReviewsByTargetIds(
 		@Parameter(description = "리뷰를 조회할 대상 ID 리스트", required = true, example = "[1,2,3]")
-		@RequestParam List<Long> targetIds,
-
-		@Parameter(description = "대상 종류 (ex: NOISE, ADDRESS 등)", required = true)
-		@RequestParam ReviewType type
+		@RequestParam List<Long> targetIds
 	) {
-		ReviewListResponse response = reviewFacade.getReviewsByTargetIds(targetIds, type);
+		ReviewListResponse response = reviewFacade.getReviewsByPlaceIds(targetIds);
 		return ResponseEntity.ok(response);
 	}
 

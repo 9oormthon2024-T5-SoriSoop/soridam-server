@@ -6,8 +6,12 @@ import static jakarta.persistence.GenerationType.IDENTITY;
 import static lombok.AccessLevel.PROTECTED;
 
 import java.math.BigDecimal;
+import java.util.HashSet;
+import java.util.Set;
 
+import jakarta.persistence.CollectionTable;
 import jakarta.persistence.Column;
+import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
@@ -36,9 +40,11 @@ public class Review extends BaseTimeEntity {
 	@JoinColumn(name = "place_id", nullable = false)
 	private Place place;
 
+	@ElementCollection(targetClass = ReviewTag.class)
+	@CollectionTable(name = "review_tags", joinColumns = @JoinColumn(name = "review_id"))
 	@Enumerated(STRING)
-	@Column(nullable = false, length = 25)
-	private ReviewType reviewType;
+	@Column(name = "tag")
+	private Set<ReviewTag> tags = new HashSet<>();
 
 	@ManyToOne(fetch = LAZY)
 	@JoinColumn(name = "author_id", nullable = false)
@@ -50,10 +56,10 @@ public class Review extends BaseTimeEntity {
 	@Column(nullable = false, precision = 2, scale = 1)
 	private BigDecimal rating;
 
-	public static Review create(Place place, ReviewType reviewType, User author, String content, BigDecimal rating) {
+	public static Review create(Place place, Set<ReviewTag> tags, User author, String content, BigDecimal rating) {
 		return Review.builder()
 			.place(place)
-			.reviewType(reviewType)
+			.tags(tags != null ? tags : new HashSet<>())
 			.author(author)
 			.content(content)
 			.rating(rating)
@@ -66,5 +72,12 @@ public class Review extends BaseTimeEntity {
 
 	public void updateRating(BigDecimal rating) {
 		this.rating = rating;
+	}
+
+	public void updateTags(Set<ReviewTag> tags) {
+		this.tags.clear();
+		if (tags != null) {
+			this.tags.addAll(tags);
+		}
 	}
 }

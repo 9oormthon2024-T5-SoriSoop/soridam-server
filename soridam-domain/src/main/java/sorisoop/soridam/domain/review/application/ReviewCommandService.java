@@ -1,14 +1,16 @@
 package sorisoop.soridam.domain.review.application;
 
 import java.math.BigDecimal;
+import java.util.Set;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import lombok.RequiredArgsConstructor;
+import sorisoop.soridam.domain.place.place.domain.Place;
 import sorisoop.soridam.domain.review.domain.Review;
 import sorisoop.soridam.domain.review.domain.ReviewRepository;
-import sorisoop.soridam.domain.review.domain.ReviewType;
+import sorisoop.soridam.domain.review.domain.ReviewTag;
 import sorisoop.soridam.domain.user.user.domain.User;
 import sorisoop.soridam.domain.user.user.exception.InvalidUserException;
 import sorisoop.soridam.globalutil.user.UserUtil;
@@ -19,9 +21,9 @@ import sorisoop.soridam.globalutil.user.UserUtil;
 public class ReviewCommandService {
 	private final ReviewRepository reviewRepository;
 
-	public Review create(Long targetId, ReviewType reviewType,
+	public Review create(Place place, Set<ReviewTag> tags,
 		User author, String content, BigDecimal rating) {
-		Review review = Review.create(targetId, reviewType, author, content, rating);
+		Review review = Review.create(place, tags, author, content, rating);
 		return reviewRepository.save(review);
 	}
 

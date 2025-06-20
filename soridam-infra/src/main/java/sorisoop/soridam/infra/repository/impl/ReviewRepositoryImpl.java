@@ -8,7 +8,6 @@ import org.springframework.stereotype.Repository;
 import lombok.RequiredArgsConstructor;
 import sorisoop.soridam.domain.review.domain.Review;
 import sorisoop.soridam.domain.review.domain.ReviewRepository;
-import sorisoop.soridam.domain.review.domain.ReviewType;
 import sorisoop.soridam.infra.repository.jpa.JpaReviewRepository;
 
 @Repository
@@ -32,12 +31,12 @@ public class ReviewRepositoryImpl implements ReviewRepository {
 	}
 
 	@Override
-	public List<Review> findByTargetIdInAndReviewType(List<Long> targetIds, ReviewType reviewType) {
-		return jpaReviewRepository.findByTargetIdInAndReviewType(targetIds, reviewType);
+	public List<Review> findByPlaceIdIn(List<Long> placeIds) {
+		return jpaReviewRepository.findByPlaceIdIn(placeIds);
 	}
 
 	@Override
-	public List<Review> findByTargetIdAndReviewType(Long targetId, ReviewType reviewType) {
-		return jpaReviewRepository.findByTargetIdAndReviewType(targetId, reviewType);
+	public List<Review> findByPlaceId(Long placeId) {
+		return jpaReviewRepository.findByPlaceId(placeId);
 	}
 }

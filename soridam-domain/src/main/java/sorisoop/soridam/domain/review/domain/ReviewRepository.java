@@ -10,7 +10,7 @@ public interface ReviewRepository {
 
 	void delete(Review review);
 
-	List<Review> findByTargetIdInAndReviewType(List<Long> targetIds, ReviewType reviewType);
+	List<Review> findByPlaceIdIn(List<Long> placeIds);
 
-	List<Review> findByTargetIdAndReviewType(Long targetId, ReviewType reviewType);
+	List<Review> findByPlaceId(Long placeId);
 }

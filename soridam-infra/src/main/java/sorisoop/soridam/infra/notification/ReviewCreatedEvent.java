@@ -16,7 +16,7 @@ public record ReviewCreatedEvent(
 	public static ReviewCreatedEvent from(Review review) {
 		return ReviewCreatedEvent.builder()
 			.reviewId(review.getId())
-			.placeId(review.getTargetId())
+			.placeId(review.getPlace().getId())
 			.writerId(review.getAuthor().getId())
 			.createdAt(review.getCreatedAt())
 			.build();
