@@ -44,7 +44,7 @@ public class Review extends BaseTimeEntity {
 	@CollectionTable(name = "review_tags", joinColumns = @JoinColumn(name = "review_id"))
 	@Enumerated(STRING)
 	@Column(name = "tag")
-	private Set<ReviewTag> tags = new HashSet<>();
+	private Set<ReviewTag> tags;
 
 	@ManyToOne(fetch = LAZY)
 	@JoinColumn(name = "author_id", nullable = false)
