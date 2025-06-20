@@ -2,7 +2,7 @@ package sorisoop.soridam.api.review;
 
 import static org.springframework.http.HttpStatus.CREATED;
 
-import java.util.List;
+import java.util.Set;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -26,7 +26,6 @@ import sorisoop.soridam.api.review.presentation.request.ReviewCreateRequest;
 import sorisoop.soridam.api.review.presentation.request.ReviewUpdateRequest;
 import sorisoop.soridam.api.review.presentation.response.ReviewListResponse;
 import sorisoop.soridam.api.review.presentation.response.ReviewPersistResponse;
-import sorisoop.soridam.domain.review.domain.ReviewType;
 
 @RestController
 @RequiredArgsConstructor
@@ -67,14 +66,12 @@ public class ReviewApiController {
 
 	@Operation(summary = "리뷰 조회 API", description = "리뷰를 조회합니다.")
 	@ApiResponse(responseCode = "200", description = "리뷰 조회 성공")
-	@GetMapping("/{targetId}")
+	@GetMapping("/{placeId}")
 	public ResponseEntity<ReviewListResponse> getReviews(
 		@Parameter(description = "리뷰 타겟 ID", example = "123", required = true)
-		@PathVariable Long targetId,
-		@Parameter(description = "대상 종류 (ex: NOISE, ADDRESS 등)", required = true, example = "NOISE")
-		@RequestParam ReviewType type
+		@PathVariable Long placeId
 	) {
-		ReviewListResponse response = reviewFacade.getReviews(targetId, type);
+		ReviewListResponse response = reviewFacade.getReviews(placeId);
 		return ResponseEntity.ok(response);
 	}
 
@@ -82,15 +79,12 @@ public class ReviewApiController {
     - Description : 여러 대상 ID와 리뷰 타입을 기반으로 리뷰를 조회합니다.
 """)
 	@ApiResponse(responseCode = "200", description = "리뷰 조회 성공")
-	@GetMapping("/by-target-ids")
-	public ResponseEntity<ReviewListResponse> getReviewsByTargetIds(
+	@GetMapping("/by-place-ids")
+	public ResponseEntity<ReviewListResponse> getReviewsByPlaceIds(
 		@Parameter(description = "리뷰를 조회할 대상 ID 리스트", required = true, example = "[1,2,3]")
-		@RequestParam List<Long> targetIds,
-
-		@Parameter(description = "대상 종류 (ex: NOISE, ADDRESS 등)", required = true)
-		@RequestParam ReviewType type
+		@RequestParam Set<Long> placeIds
 	) {
-		ReviewListResponse response = reviewFacade.getReviewsByTargetIds(targetIds, type);
+		ReviewListResponse response = reviewFacade.getReviewsByPlaceIds(placeIds);
 		return ResponseEntity.ok(response);
 	}
 

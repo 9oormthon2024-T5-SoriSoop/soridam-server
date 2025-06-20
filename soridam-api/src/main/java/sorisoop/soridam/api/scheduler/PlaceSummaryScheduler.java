@@ -1,7 +1,5 @@
 package sorisoop.soridam.api.scheduler;
 
-import static sorisoop.soridam.domain.review.domain.ReviewType.ADDRESS;
-
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -40,7 +38,7 @@ public class PlaceSummaryScheduler {
 				List<Long> noiseIds = noiseRepository.findTop50IdByPlaceId(place.getId(), PageRequest.of(0, 50));
 				if (noiseIds.size() < 50) continue;
 
-				List<Review> reviews = reviewRepository.findByTargetIdInAndReviewType(noiseIds, ADDRESS);
+				List<Review> reviews = reviewRepository.findByPlaceId(place.getId());
 
 				List<String> contents = reviews.stream()
 					.map(Review::getContent)

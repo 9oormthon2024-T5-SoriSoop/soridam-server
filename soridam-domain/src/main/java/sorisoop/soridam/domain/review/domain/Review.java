@@ -6,8 +6,12 @@ import static jakarta.persistence.GenerationType.IDENTITY;
 import static lombok.AccessLevel.PROTECTED;
 
 import java.math.BigDecimal;
+import java.util.HashSet;
+import java.util.Set;
 
+import jakarta.persistence.CollectionTable;
 import jakarta.persistence.Column;
+import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
@@ -19,6 +23,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import sorisoop.soridam.domain.common.BaseTimeEntity;
+import sorisoop.soridam.domain.place.place.domain.Place;
 import sorisoop.soridam.domain.user.user.domain.User;
 
 @Entity
@@ -31,12 +36,15 @@ public class Review extends BaseTimeEntity {
 	@GeneratedValue(strategy = IDENTITY)
 	private Long id;
 
-	@Column(nullable = false)
-	private Long targetId;
+	@ManyToOne(fetch = LAZY)
+	@JoinColumn(name = "place_id", nullable = false)
+	private Place place;
 
+	@ElementCollection(targetClass = ReviewTag.class)
+	@CollectionTable(name = "review_tags", joinColumns = @JoinColumn(name = "review_id"))
 	@Enumerated(STRING)
-	@Column(nullable = false, length = 25)
-	private ReviewType reviewType;
+	@Column(name = "tag")
+	private Set<ReviewTag> tags;
 
 	@ManyToOne(fetch = LAZY)
 	@JoinColumn(name = "author_id", nullable = false)
@@ -48,10 +56,10 @@ public class Review extends BaseTimeEntity {
 	@Column(nullable = false, precision = 2, scale = 1)
 	private BigDecimal rating;
 
-	public static Review create(Long targetId, ReviewType reviewType, User author, String content, BigDecimal rating) {
+	public static Review create(Place place, Set<ReviewTag> tags, User author, String content, BigDecimal rating) {
 		return Review.builder()
-			.targetId(targetId)
-			.reviewType(reviewType)
+			.place(place)
+			.tags(tags != null ? tags : new HashSet<>())
 			.author(author)
 			.content(content)
 			.rating(rating)
@@ -64,5 +72,12 @@ public class Review extends BaseTimeEntity {
 
 	public void updateRating(BigDecimal rating) {
 		this.rating = rating;
+	}
+
+	public void updateTags(Set<ReviewTag> tags) {
+		this.tags.clear();
+		if (tags != null) {
+			this.tags.addAll(tags);
+		}
 	}
 }

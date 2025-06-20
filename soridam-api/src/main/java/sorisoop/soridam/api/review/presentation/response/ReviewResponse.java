@@ -9,7 +9,7 @@ import sorisoop.soridam.domain.review.domain.Review;
 @Builder
 public record ReviewResponse(
 	Long id,
-	Long targetId,
+	Long placeId,
 	String authorId,
 	String content,
 	BigDecimal rating,
@@ -19,7 +19,7 @@ public record ReviewResponse(
 		return ReviewResponse.builder()
 			.id(review.getId())
 			.authorId(review.getAuthor().getNickname())
-			.targetId(review.getTargetId())
+			.placeId(review.getPlace().getId())
 			.content(review.getContent())
 			.rating(review.getRating())
 			.createdAt(review.getCreatedAt())

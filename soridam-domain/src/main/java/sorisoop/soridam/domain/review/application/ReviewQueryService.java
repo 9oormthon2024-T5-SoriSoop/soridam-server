@@ -1,13 +1,13 @@
 package sorisoop.soridam.domain.review.application;
 
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
 import sorisoop.soridam.domain.review.domain.Review;
 import sorisoop.soridam.domain.review.domain.ReviewRepository;
-import sorisoop.soridam.domain.review.domain.ReviewType;
 import sorisoop.soridam.domain.review.exception.ReviewNotFoundException;
 
 @Service
@@ -20,12 +20,12 @@ public class ReviewQueryService {
 			.orElseThrow(ReviewNotFoundException::new);
 	}
 
-	public List<Review> getByTargetIdInAndReviewType(List<Long> targetIds, ReviewType reviewType) {
-		if (targetIds.isEmpty()) return List.of();
-		return reviewRepository.findByTargetIdInAndReviewType(targetIds, reviewType);
+	public List<Review> getByPlaceIdIn(Set<Long> placeIds) {
+		if (placeIds.isEmpty()) return List.of();
+		return reviewRepository.findByPlaceIdIn(placeIds);
 	}
 
-	public List<Review> getByTargetIdAndReviewType(Long targetId, ReviewType reviewType) {
-		return reviewRepository.findByTargetIdAndReviewType(targetId, reviewType);
+	public List<Review> getByPlaceId(Long placeId) {
+		return reviewRepository.findByPlaceId(placeId);
 	}
 }
