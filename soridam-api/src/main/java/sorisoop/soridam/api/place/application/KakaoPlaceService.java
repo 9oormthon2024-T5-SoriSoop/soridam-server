@@ -31,16 +31,20 @@ public class KakaoPlaceService {
 
 	public void importPlacesForAllRegions() {
 		for (Region region : Region.values()) {
+			Set<String> seenPlaceIds = new HashSet<>();
+			List<PlaceInsertDto> batch = new ArrayList<>();
+
 			for (Category category : Category.values()) {
-				importPlacesByGrid(region, category);
+				List<PlaceInsertDto> partial = importPlacesByGrid(region, category, seenPlaceIds);
+				batch.addAll(partial);
 			}
+
+			placeCommandService.saveAll(batch);
 		}
 	}
 
-	private void importPlacesByGrid(Region region, Category category) {
-		Set<String> seenPlaceIds = new HashSet<>();
+	private List<PlaceInsertDto> importPlacesByGrid(Region region, Category category, Set<String> seenPlaceIds) {
 		List<PlaceInsertDto> batch = new ArrayList<>();
-
 		for (int i = 0; i < GRID; i++) {
 			for (int j = 0; j < GRID; j++) {
 				double x = region.getX() + (X_GAP * i);
@@ -83,7 +87,7 @@ public class KakaoPlaceService {
 			}
 		}
 
-		placeCommandService.saveAll(batch);
+		return batch;
 	}
 
 }

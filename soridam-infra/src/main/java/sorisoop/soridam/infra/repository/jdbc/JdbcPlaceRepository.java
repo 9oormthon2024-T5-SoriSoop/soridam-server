@@ -24,7 +24,8 @@ public class JdbcPlaceRepository {
 
 		// ST_GeomFromText 사용 시 문자열 그대로 넘겨야 함 (PGobject 사용하지 않음)
 		String sql = "INSERT INTO place (location, roadaddress, regionaddress, category, placename, placeurl, createdat) " +
-			"VALUES (ST_GeomFromText(?, 4326), ?, ?, ?, ?, ?, ?)";
+			"VALUES (ST_GeomFromText(?, 4326), ?, ?, ?, ?, ?, ?) " +
+			"ON CONFLICT (regionaddress, placename) DO NOTHING";
 
 		jdbcTemplate.batchUpdate(sql, new BatchPreparedStatementSetter() {
 			@Override
