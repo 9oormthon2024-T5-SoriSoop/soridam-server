@@ -1,14 +1,19 @@
 package sorisoop.soridam.api.place.application;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
+import org.locationtech.jts.geom.Point;
 import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
 import sorisoop.soridam.domain.place.place.application.PlaceCommandService;
+import sorisoop.soridam.domain.place.place.domain.dto.PlaceInsertDto;
 import sorisoop.soridam.domain.place.place.domain.enums.Category;
 import sorisoop.soridam.domain.place.place.domain.enums.Region;
+import sorisoop.soridam.globalutil.geometry.GeometryUtils;
 import sorisoop.soridam.infra.kakao.KakaoMapClient;
 import sorisoop.soridam.infra.kakao.KakaoPlaceResponse;
 
@@ -17,6 +22,7 @@ import sorisoop.soridam.infra.kakao.KakaoPlaceResponse;
 public class KakaoPlaceService {
 	private final KakaoMapClient kakaoMapClient;
 	private final PlaceCommandService placeCommandService;
+	private final GeometryUtils geometryUtils;
 
 	private static final double X_GAP = 0.011;    // 경도 1km 간격
 	private static final double Y_GAP = 0.009;    // 위도 1km 간격
@@ -33,6 +39,7 @@ public class KakaoPlaceService {
 
 	private void importPlacesByGrid(Region region, Category category) {
 		Set<String> seenPlaceIds = new HashSet<>();
+		List<PlaceInsertDto> batch = new ArrayList<>();
 
 		for (int i = 0; i < GRID; i++) {
 			for (int j = 0; j < GRID; j++) {
@@ -50,29 +57,33 @@ public class KakaoPlaceService {
 					int beforeSize = seenPlaceIds.size();
 
 					for (KakaoPlaceResponse.KakaoPlace place : response.getDocuments()) {
-						String key = place.getRoad_address_name() + "::" + place.getPlace_name();
-						if (!seenPlaceIds.add(key)) continue;
-
-						placeCommandService.saveIfNotExists(
+						Point location = geometryUtils.createPoint(
 							Double.parseDouble(place.getX()),
-							Double.parseDouble(place.getY()),
+							Double.parseDouble(place.getY())
+						);
+
+						PlaceInsertDto dto = PlaceInsertDto.of(
+							location,
 							place.getRoad_address_name(),
 							place.getAddress_name(),
 							Category.fromCode(place.getCategory_group_code()),
 							place.getPlace_name(),
 							place.getPlace_url()
 						);
+						String key = dto.generateKey();
+						if (!seenPlaceIds.add(key)) continue;
+
+						batch.add(dto);
 					}
 
-					if (seenPlaceIds.size() == beforeSize) {
-						sameCount++;
-					} else {
-						sameCount = 0;
-					}
+					if (seenPlaceIds.size() == beforeSize) sameCount++;
+					else sameCount = 0;
 					page++;
 				}
 			}
 		}
+
+		placeCommandService.saveAll(batch);
 	}
 
 }
