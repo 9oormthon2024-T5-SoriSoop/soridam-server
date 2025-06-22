@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 import lombok.RequiredArgsConstructor;
 import sorisoop.soridam.domain.place.place.domain.Place;
 import sorisoop.soridam.domain.place.place.domain.PlaceRepository;
-import sorisoop.soridam.domain.place.place.domain.dto.PlaceInsertDto;
+import sorisoop.soridam.domain.place.place.dto.PlaceInsertDto;
 import sorisoop.soridam.domain.place.place.domain.enums.Category;
 import sorisoop.soridam.infra.repository.jdbc.JdbcPlaceRepository;
 import sorisoop.soridam.infra.repository.jpa.JpaPlaceRepository;
@@ -60,6 +60,6 @@ public class PlaceRepositoryImpl implements PlaceRepository {
 	@Override
 	public void saveAll(List<PlaceInsertDto> places) {
 		jdbcPlaceRepository.batchInsert(places);
-		
+
 	}
 }

@@ -1,4 +1,4 @@
-package sorisoop.soridam.domain.place.place.domain.dto;
+package sorisoop.soridam.domain.place.place.dto;
 
 import org.locationtech.jts.geom.Point;
 

@@ -11,7 +11,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import lombok.RequiredArgsConstructor;
-import sorisoop.soridam.domain.place.place.domain.dto.PlaceInsertDto;
+import sorisoop.soridam.domain.place.place.dto.PlaceInsertDto;
 
 @Repository
 @RequiredArgsConstructor

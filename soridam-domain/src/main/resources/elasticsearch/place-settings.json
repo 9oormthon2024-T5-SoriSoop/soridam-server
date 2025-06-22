@@ -1,0 +1,41 @@
+{
+  "analysis": {
+    "filter": {
+      "place_synonyms": {
+        "type": "synonym",
+        "synonyms": [
+          "조용한, 고요한, 한적한, 적막한, 조용히 쉴 수 있는",
+          "카페, 커피숍, cafe",
+          "공원, 정원, 산책로, 휴식공간",
+          "도서관, 책방, 서점, library, book store",
+          "지하철, 전철, subway",
+          "학교, 대학, 캠퍼스",
+          "음식점, 식당, 맛집, restaurant",
+          "스터디카페, 공부방, 스터디룸"
+        ]
+      }
+    },
+    "analyzer": {
+      "place_name_analyzer": {
+        "type": "custom",
+        "tokenizer": "nori_tokenizer",
+        "filter": [
+          "nori_part_of_speech",
+          "nori_readingform",
+          "lowercase",
+          "place_synonyms"
+        ]
+      },
+      "place_description_analyzer": {
+        "type": "custom",
+        "char_filter": ["html_strip"],
+        "tokenizer": "nori_tokenizer",
+        "filter": [
+          "nori_part_of_speech",
+          "nori_readingform",
+          "lowercase"
+        ]
+      }
+    }
+  }
+}

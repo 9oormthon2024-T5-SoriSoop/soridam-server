@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
 import sorisoop.soridam.domain.place.place.application.PlaceCommandService;
-import sorisoop.soridam.domain.place.place.domain.dto.PlaceInsertDto;
+import sorisoop.soridam.domain.place.place.dto.PlaceInsertDto;
 import sorisoop.soridam.domain.place.place.domain.enums.Category;
 import sorisoop.soridam.domain.place.place.domain.enums.Region;
 import sorisoop.soridam.globalutil.geometry.GeometryUtils;

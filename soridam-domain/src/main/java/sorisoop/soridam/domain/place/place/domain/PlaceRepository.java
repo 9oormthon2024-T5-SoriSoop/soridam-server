@@ -5,7 +5,7 @@ import java.util.Optional;
 
 import org.locationtech.jts.geom.Point;
 
-import sorisoop.soridam.domain.place.place.domain.dto.PlaceInsertDto;
+import sorisoop.soridam.domain.place.place.dto.PlaceInsertDto;
 import sorisoop.soridam.domain.place.place.domain.enums.Category;
 
 public interface PlaceRepository {

@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import lombok.RequiredArgsConstructor;
 import sorisoop.soridam.domain.place.place.domain.Place;
 import sorisoop.soridam.domain.place.place.domain.PlaceRepository;
-import sorisoop.soridam.domain.place.place.domain.dto.PlaceInsertDto;
+import sorisoop.soridam.domain.place.place.dto.PlaceInsertDto;
 import sorisoop.soridam.domain.place.place.domain.enums.Category;
 import sorisoop.soridam.globalutil.geometry.GeometryUtils;
 
