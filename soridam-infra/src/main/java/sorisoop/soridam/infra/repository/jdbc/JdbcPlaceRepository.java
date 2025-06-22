@@ -22,17 +22,21 @@ public class JdbcPlaceRepository {
 	public void batchInsert(List<PlaceInsertDto> places) {
 		if (places == null || places.isEmpty()) return;
 
-		String sql = """
-			INSERT INTO place (
-				location, road_address, region_address, category, place_name, place_url, created_at
-			) VALUES (?, ?, ?, ?, ?, ?)
-		""";
+		// ST_GeomFromText 사용 시 문자열 그대로 넘겨야 함 (PGobject 사용하지 않음)
+		String sql = "INSERT INTO place (location, roadaddress, regionaddress, category, placename, placeurl, createdat) " +
+			"VALUES (ST_GeomFromText(?, 4326), ?, ?, ?, ?, ?, ?)";
 
 		jdbcTemplate.batchUpdate(sql, new BatchPreparedStatementSetter() {
 			@Override
 			public void setValues(PreparedStatement ps, int i) throws SQLException {
 				PlaceInsertDto place = places.get(i);
-				ps.setObject(1, place.location());
+
+				// POINT(x y) 문자열만 넘긴다. 따옴표는 자동 처리됨.
+				String wkt = String.format("POINT(%f %f)",
+					place.location().getX(),
+					place.location().getY());
+
+				ps.setString(1, wkt);
 				ps.setString(2, place.roadAddress());
 				ps.setString(3, place.regionAddress());
 				ps.setString(4, place.category().name());
@@ -48,4 +52,3 @@ public class JdbcPlaceRepository {
 		});
 	}
 }
-

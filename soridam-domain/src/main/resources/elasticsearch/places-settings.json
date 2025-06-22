@@ -4,7 +4,7 @@
       "place_synonyms": {
         "type": "synonym",
         "synonyms": [
-          "조용한, 고요한, 한적한, 적막한, 조용히 쉴 수 있는",
+          "조용한, 고요한, 한적한, 적막한",
           "카페, 커피숍, cafe",
           "공원, 정원, 산책로, 휴식공간",
           "도서관, 책방, 서점, library, book store",
@@ -18,6 +18,7 @@
     "analyzer": {
       "place_name_analyzer": {
         "type": "custom",
+        "char_filter": [],
         "tokenizer": "nori_tokenizer",
         "filter": [
           "nori_part_of_speech",

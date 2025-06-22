@@ -35,5 +35,6 @@ public class PlaceCommandService {
 	}
 
 	public void saveAll(List<PlaceInsertDto> batch) {
+		placeRepository.saveAll(batch);
 	}
 }

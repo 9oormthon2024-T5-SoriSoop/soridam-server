@@ -30,12 +30,20 @@ spring:
     init:
       mode: always
 
+  elasticsearch:
+    uris: http://${ES_HOST:localhost}:${ES_PORT:9200}
+    username: ${ES_USERNAME:elastic}
+    password: ${ES_PASSWORD}
+
   data:
     redis:
       host: ${REDIS_HOST:localhost}
       port: ${REDIS_PORT:6379}
       password: ${REDIS_PASSWORD}
       timeout: 5000
+    elasticsearch:
+      repositories:
+        enabled: true
 
 springdoc:
   default-consumes-media-type: application/json
