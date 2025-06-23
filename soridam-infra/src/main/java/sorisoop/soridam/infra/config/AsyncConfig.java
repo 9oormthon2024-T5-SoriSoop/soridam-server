@@ -2,6 +2,7 @@ package sorisoop.soridam.infra.config;
 
 import java.util.Arrays;
 import java.util.concurrent.Executor;
+import java.util.concurrent.ThreadPoolExecutor;
 
 import org.springframework.aop.interceptor.AsyncUncaughtExceptionHandler;
 import org.springframework.context.annotation.Configuration;
@@ -21,9 +22,10 @@ public class AsyncConfig implements AsyncConfigurer {
 		int processors = Runtime.getRuntime().availableProcessors();
 		executor.setCorePoolSize(processors);
 		executor.setMaxPoolSize(processors * 2);
-		executor.setQueueCapacity(50);
-		executor.setKeepAliveSeconds(60);
+		executor.setQueueCapacity(100);
+		executor.setKeepAliveSeconds(120);
 		executor.setThreadNamePrefix("AsyncExecutor-");
+		executor.setRejectedExecutionHandler(new ThreadPoolExecutor.CallerRunsPolicy());
 		executor.initialize();
 		return executor;
 	}
