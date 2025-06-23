@@ -63,10 +63,10 @@ public class PlaceRepositoryImpl implements PlaceRepository {
 	@Override
 	public void saveAll(List<PlaceInsertDto> places) {
 		jdbcPlaceRepository.batchInsert(places);
+	}
 
-		List<PlaceDocument> documents = places.stream()
-			.map(PlaceDocument::from)
-			.toList();
-		documentPlaceRepository.saveAll(documents);
+	@Override
+	public void saveAllDocuments(List<PlaceDocument> placeDocuments) {
+		documentPlaceRepository.saveAll(placeDocuments);
 	}
 }

@@ -5,8 +5,9 @@ import java.util.Optional;
 
 import org.locationtech.jts.geom.Point;
 
-import sorisoop.soridam.domain.place.place.dto.PlaceInsertDto;
+import sorisoop.soridam.domain.place.place.document.PlaceDocument;
 import sorisoop.soridam.domain.place.place.domain.enums.Category;
+import sorisoop.soridam.domain.place.place.dto.PlaceInsertDto;
 
 public interface PlaceRepository {
 	Place save(Place place);
@@ -24,4 +25,6 @@ public interface PlaceRepository {
 	boolean existsByRoadAddressAndPlaceName(String roadAddress, String placeName);
 
 	void saveAll(List<PlaceInsertDto> places);
+
+	void saveAllDocuments(List<PlaceDocument> placeDocuments);
 }

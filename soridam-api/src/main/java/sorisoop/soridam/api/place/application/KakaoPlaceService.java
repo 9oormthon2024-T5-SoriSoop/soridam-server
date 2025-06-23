@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
 import sorisoop.soridam.domain.place.place.application.PlaceCommandService;
+import sorisoop.soridam.domain.place.place.application.PlaceDocumentService;
+import sorisoop.soridam.domain.place.place.document.PlaceDocument;
 import sorisoop.soridam.domain.place.place.dto.PlaceInsertDto;
 import sorisoop.soridam.domain.place.place.domain.enums.Category;
 import sorisoop.soridam.domain.place.place.domain.enums.Region;
@@ -22,6 +24,7 @@ import sorisoop.soridam.infra.kakao.KakaoPlaceResponse;
 public class KakaoPlaceService {
 	private final KakaoMapClient kakaoMapClient;
 	private final PlaceCommandService placeCommandService;
+	private final PlaceDocumentService placeDocumentService;
 	private final GeometryUtils geometryUtils;
 
 	private static final double X_GAP = 0.011;    // 경도 1km 간격
@@ -40,6 +43,11 @@ public class KakaoPlaceService {
 			}
 
 			placeCommandService.saveAll(batch);
+
+			List<PlaceDocument> placeDocuments = batch.stream()
+				.map(PlaceDocument::from)
+				.toList();
+			placeDocumentService.saveAllAsync(placeDocuments);
 		}
 	}
 
