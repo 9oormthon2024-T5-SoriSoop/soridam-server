@@ -28,7 +28,14 @@ dependencies {
     // 데이터베이스와 상호작용 (JPA 사용)
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+    implementation 'org.springframework.boot:spring-boot-starter-jdbc'
 
     // webClient
     implementation 'org.springframework.boot:spring-boot-starter-webflux'
+
+    // elasticsearch
+    implementation("org.springframework.boot:spring-boot-starter-data-elasticsearch")
+    implementation("co.elastic.clients:elasticsearch-java:8.11.3")
+
+    implementation 'org.postgresql:postgresql'
 }

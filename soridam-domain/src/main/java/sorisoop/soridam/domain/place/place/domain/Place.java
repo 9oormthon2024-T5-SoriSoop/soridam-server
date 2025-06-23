@@ -23,9 +23,9 @@ import sorisoop.soridam.domain.place.place.domain.enums.Category;
 
 @Entity
 @Table(
-	uniqueConstraints = @UniqueConstraint(columnNames = {"roadAddress", "placeName"}),
+	uniqueConstraints = @UniqueConstraint(columnNames = {"regionAddress", "placeName"}),
 	indexes = {
-		@Index(name = "idx_address_road_place", columnList = "roadAddress, placeName")
+		@Index(name = "idx_address_region_place", columnList = "regionAddress, placeName")
 	}
 )
 @Getter
