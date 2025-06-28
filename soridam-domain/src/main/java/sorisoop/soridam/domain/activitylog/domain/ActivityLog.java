@@ -1,4 +1,4 @@
-package sorisoop.soridam.domain.activitylog;
+package sorisoop.soridam.domain.activitylog.domain;
 
 import java.time.LocalDateTime;
 

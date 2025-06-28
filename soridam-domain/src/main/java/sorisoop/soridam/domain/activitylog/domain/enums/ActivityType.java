@@ -1,4 +1,4 @@
-package sorisoop.soridam.domain.activitylog;
+package sorisoop.soridam.domain.activitylog.domain.enums;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
