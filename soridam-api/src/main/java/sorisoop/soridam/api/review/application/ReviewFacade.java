@@ -1,5 +1,7 @@
 package sorisoop.soridam.api.review.application;
 
+import static sorisoop.soridam.domain.activitylog.domain.enums.ActivityType.REVIEW;
+
 import java.util.List;
 import java.util.Set;
 
@@ -12,6 +14,7 @@ import sorisoop.soridam.api.review.presentation.request.ReviewUpdateRequest;
 import sorisoop.soridam.api.review.presentation.response.ReviewListResponse;
 import sorisoop.soridam.api.review.presentation.response.ReviewPersistResponse;
 import sorisoop.soridam.api.review.presentation.response.ReviewResponse;
+import sorisoop.soridam.domain.activitylog.application.ActivityLogService;
 import sorisoop.soridam.domain.place.place.application.PlaceQueryService;
 import sorisoop.soridam.domain.place.place.domain.Place;
 import sorisoop.soridam.domain.review.application.ReviewCommandService;
@@ -30,6 +33,7 @@ public class ReviewFacade {
 	private final PlaceQueryService placeQueryService;
 	private final UserQueryService userQueryService;
 	private final NotificationAsyncService notificationAsyncService;
+	private final ActivityLogService activityLogService;
 
 	@Transactional
 	public ReviewPersistResponse create(ReviewCreateRequest request) {
@@ -45,6 +49,7 @@ public class ReviewFacade {
 
 		ReviewCreatedEvent event = ReviewCreatedEvent.from(review);
 		notificationAsyncService.sendReviewNotification(event);
+		activityLogService.save(author, place, REVIEW);
 		return ReviewPersistResponse.from(review);
 	}
 
