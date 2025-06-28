@@ -12,6 +12,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+import sorisoop.soridam.domain.activitylog.domain.enums.ActivityType;
 
 @Getter
 @Setter
