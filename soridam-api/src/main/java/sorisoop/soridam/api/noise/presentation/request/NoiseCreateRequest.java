@@ -11,7 +11,7 @@ import lombok.Builder;
 public record NoiseCreateRequest(
 	@Schema(description = "장소 id", example = "1", requiredMode = REQUIRED)
 	@NotNull
-	Long addressId,
+	Long placeId,
 
 	@Schema(description = "평균 데시벨", example = "50", requiredMode = REQUIRED)
 	@NotNull

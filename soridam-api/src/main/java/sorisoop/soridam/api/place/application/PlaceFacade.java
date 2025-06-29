@@ -1,5 +1,7 @@
 package sorisoop.soridam.api.place.application;
 
+import static sorisoop.soridam.domain.activitylog.domain.enums.ActivityType.VIEW;
+
 import java.util.List;
 
 import org.springframework.stereotype.Component;
@@ -11,10 +13,13 @@ import sorisoop.soridam.api.place.presentation.response.PlaceDetailResponse;
 import sorisoop.soridam.api.place.presentation.response.PlaceListResponse;
 import sorisoop.soridam.api.place.presentation.response.PlacePersistResponse;
 import sorisoop.soridam.api.place.presentation.response.PlaceResponse;
+import sorisoop.soridam.domain.activitylog.application.ActivityLogService;
 import sorisoop.soridam.domain.place.place.application.PlaceCommandService;
 import sorisoop.soridam.domain.place.place.application.PlaceQueryService;
 import sorisoop.soridam.domain.place.place.domain.Place;
 import sorisoop.soridam.domain.place.place.domain.enums.Category;
+import sorisoop.soridam.domain.user.user.application.UserQueryService;
+import sorisoop.soridam.domain.user.user.domain.User;
 import sorisoop.soridam.infra.repository.redis.SummaryCacheService;
 
 @Component
@@ -23,6 +28,8 @@ public class PlaceFacade {
 	private final PlaceQueryService placeQueryService;
 	private final PlaceCommandService placeCommandService;
 	private final SummaryCacheService summaryCacheService;
+	private final UserQueryService userQueryService;
+	private final ActivityLogService activityLogService;
 
 	@Transactional
 	public PlacePersistResponse create(PlaceCreateRequest request) {
@@ -51,6 +58,12 @@ public class PlaceFacade {
 	public PlaceDetailResponse getById(Long id) {
 		Place place = placeQueryService.getById(id);
 		String summary = summaryCacheService.get(id);
+
+		User user = userQueryService.meForLog();
+		if (user != null) {
+			activityLogService.save(user, place, VIEW);
+		}
+
 		return PlaceDetailResponse.of(place, summary);
 	}
 

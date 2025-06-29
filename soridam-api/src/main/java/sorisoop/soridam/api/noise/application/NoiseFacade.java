@@ -1,5 +1,7 @@
 package sorisoop.soridam.api.noise.application;
 
+import static sorisoop.soridam.domain.activitylog.domain.enums.ActivityType.NOISE_REGISTER;
+
 import java.util.List;
 
 import org.springframework.data.domain.Sort;
@@ -16,6 +18,7 @@ import sorisoop.soridam.api.noise.presentation.response.NoisePersistResponse;
 import sorisoop.soridam.api.noise.presentation.response.NoiseResponse;
 import sorisoop.soridam.api.noise.presentation.response.NoiseSummaryResponse;
 import sorisoop.soridam.common.response.SliceResponse;
+import sorisoop.soridam.domain.activitylog.application.ActivityLogService;
 import sorisoop.soridam.domain.place.place.application.PlaceQueryService;
 import sorisoop.soridam.domain.place.place.domain.Place;
 import sorisoop.soridam.domain.place.noise.application.NoiseCommandService;
@@ -31,6 +34,7 @@ public class NoiseFacade {
 	private final NoiseQueryService noiseQueryService;
 	private final UserQueryService userQueryService;
 	private final PlaceQueryService placeQueryService;
+	private final ActivityLogService activityLogService;
 
 	@Transactional(readOnly = true)
 	public SliceResponse<NoiseSummaryResponse> getByPlaceWithCursorAndAvgDecibelRange(
@@ -84,7 +88,7 @@ public class NoiseFacade {
 	@Transactional
 	public NoisePersistResponse createNoise(NoiseCreateRequest request) {
 		User user = userQueryService.me();
-		Place place = placeQueryService.getById(request.addressId());
+		Place place = placeQueryService.getById(request.placeId());
 
 		Noise noise = noiseCommandService.createNoise(
 			user,
@@ -93,6 +97,7 @@ public class NoiseFacade {
 			request.avgDecibel()
 		);
 
+		activityLogService.save(user, place, NOISE_REGISTER);
 		return NoisePersistResponse.from(noise);
 	}
 

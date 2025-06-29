@@ -34,4 +34,15 @@ public class UserQueryService {
 			throw new UnauthorizedException();
 		}
 	}
+
+	public User meForLog() {
+		try {
+			Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			Long userId = Long.valueOf(((UserDetails) principal).getUsername());
+			return getById(userId);
+		} catch (Exception e) {
+			return null;
+		}
+	}
+
 }

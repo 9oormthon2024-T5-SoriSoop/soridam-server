@@ -1,5 +1,7 @@
 package sorisoop.soridam.api.favoriteplace.application;
 
+import static sorisoop.soridam.domain.activitylog.domain.enums.ActivityType.FAVORITE;
+
 import java.util.List;
 
 import org.springframework.stereotype.Component;
@@ -10,6 +12,7 @@ import sorisoop.soridam.api.favoriteplace.presentation.request.FavoritePlaceCrea
 import sorisoop.soridam.api.favoriteplace.presentation.response.FavoritePlacePersistResponse;
 import sorisoop.soridam.api.favoriteplace.presentation.response.FavoritePlaceResponse;
 import sorisoop.soridam.common.response.SliceResponse;
+import sorisoop.soridam.domain.activitylog.application.ActivityLogService;
 import sorisoop.soridam.domain.favorite.application.FavoritePlaceCommandService;
 import sorisoop.soridam.domain.favorite.application.FavoritePlaceQueryService;
 import sorisoop.soridam.domain.favorite.domain.FavoritePlace;
@@ -25,6 +28,7 @@ public class FavoritePlaceFacade {
 	private final PlaceQueryService placeQueryService;
 	private final FavoritePlaceCommandService favoritePlaceCommandService;
 	private final FavoritePlaceQueryService favoritePlaceQueryService;
+	private final ActivityLogService activityLogService;
 
 	@Transactional
 	public FavoritePlacePersistResponse create(FavoritePlaceCreateRequest request) {
@@ -32,7 +36,7 @@ public class FavoritePlaceFacade {
 		Place place = placeQueryService.getById(request.placeId());
 
 		FavoritePlace favoritePlace = favoritePlaceCommandService.save(user, place);
-
+		activityLogService.save(user, place, FAVORITE);
 		return FavoritePlacePersistResponse.from(favoritePlace);
 	}
 
