@@ -10,11 +10,9 @@ import org.springframework.data.elasticsearch.core.geo.GeoPoint;
 
 import lombok.Builder;
 import lombok.Getter;
-import lombok.Setter;
 import sorisoop.soridam.domain.activitylog.domain.enums.ActivityType;
 
 @Getter
-@Setter
 @Builder
 @Document(indexName = "activity_log-#{T(java.time.LocalDate).now().format(T(java.time.format.DateTimeFormatter).ofPattern('yyyy-MM'))}")
 public class ActivityLog {
