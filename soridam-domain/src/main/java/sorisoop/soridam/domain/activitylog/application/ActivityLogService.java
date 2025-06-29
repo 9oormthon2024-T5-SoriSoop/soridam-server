@@ -16,7 +16,7 @@ import sorisoop.soridam.domain.user.user.domain.User;
 public class ActivityLogService {
 	private final ActivityLogRepository activityLogRepository;
 
-	@Async
+	@Async("activityLogExecutor")
 	public void save(User user, Place place, ActivityType activityType) {
 		if (user == null || place == null || activityType == null) return;
 
