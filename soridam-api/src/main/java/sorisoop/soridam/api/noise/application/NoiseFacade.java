@@ -88,7 +88,7 @@ public class NoiseFacade {
 	@Transactional
 	public NoisePersistResponse createNoise(NoiseCreateRequest request) {
 		User user = userQueryService.me();
-		Place place = placeQueryService.getById(request.addressId());
+		Place place = placeQueryService.getById(request.placeId());
 
 		Noise noise = noiseCommandService.createNoise(
 			user,
