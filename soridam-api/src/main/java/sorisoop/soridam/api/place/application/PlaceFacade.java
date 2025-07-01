@@ -85,4 +85,12 @@ public class PlaceFacade {
 
 		return PlacePersistResponse.from(place);
 	}
+
+	@Transactional(readOnly = true)
+	public PlaceListResponse getRecommendedPlaces(double x, double y) {
+		User user = userQueryService.me();
+		List<PlaceResponse> recommendedPlaces = placeQueryService.getRecommendedPlaces(x, y, user).stream()
+			.map(PlaceResponse::from)
+			.toList();
+	}
 }
