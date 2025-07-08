@@ -32,8 +32,7 @@ public class ActivityLogService {
 			place.getId(),
 			lat,
 			lon,
-			activityType,
-			activityType.getScore()
+			activityType
 		);
 
 		activityLogRepository.save(activityLog);
@@ -53,7 +52,6 @@ public class ActivityLogService {
 				lat,
 				lon,
 				activityType,
-				activityType.getScore(),
 				tags
 			);
 

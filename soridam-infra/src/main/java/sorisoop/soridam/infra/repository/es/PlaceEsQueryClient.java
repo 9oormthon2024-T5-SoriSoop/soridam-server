@@ -145,7 +145,7 @@ public class PlaceEsQueryClient implements PlaceEsQueryPort {
 				)
 				.size(10000)
 				.source(SourceConfig.of(sc -> sc
-					.filter(sf -> sf.includes("placeId", "customScore", "activityType", "reviewTags", "latlon"))
+					.filter(sf -> sf.includes("placeId", "activityType", "reviewTags", "latlon"))
 				)),
 			ActivityLog.class
 		);
