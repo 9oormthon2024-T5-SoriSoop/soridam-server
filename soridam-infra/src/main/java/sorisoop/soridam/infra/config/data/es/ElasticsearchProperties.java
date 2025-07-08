@@ -1,6 +1,5 @@
 package sorisoop.soridam.infra.config.data.es;
 
-import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
 import lombok.AllArgsConstructor;
@@ -13,7 +12,7 @@ import lombok.Setter;
 @Component
 @NoArgsConstructor
 @AllArgsConstructor
-@ConfigurationProperties(prefix = "spring.elasticsearch")
+//@ConfigurationProperties(prefix = "spring.elasticsearch")
 public class ElasticsearchProperties {
 	private String uris;
 	private String username;

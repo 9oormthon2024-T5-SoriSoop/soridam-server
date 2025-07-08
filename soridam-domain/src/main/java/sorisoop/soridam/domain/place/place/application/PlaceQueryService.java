@@ -10,7 +10,6 @@ import sorisoop.soridam.domain.place.place.domain.Place;
 import sorisoop.soridam.domain.place.place.domain.PlaceRepository;
 import sorisoop.soridam.domain.place.place.domain.enums.Category;
 import sorisoop.soridam.domain.place.place.exception.PlaceNotFoundException;
-import sorisoop.soridam.domain.user.user.domain.User;
 import sorisoop.soridam.globalutil.geometry.GeometryUtils;
 
 @Service
@@ -34,8 +33,7 @@ public class PlaceQueryService {
 		return placeRepository.findNearPlacesByPoint(point, distanceMeter, categories);
 	}
 
-	public List<Place> getRecommendedPlaces(double x, double y, User user) {
-		Point point = geometryUtils.createPoint(x, y);
-		return List.of();
+	public List<Place> getAllById(List<Long> recommendPlacesIdsForUser) {
+		return placeRepository.findAllById(recommendPlacesIdsForUser);
 	}
 }

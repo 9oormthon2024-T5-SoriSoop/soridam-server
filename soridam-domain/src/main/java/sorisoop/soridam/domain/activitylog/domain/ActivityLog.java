@@ -1,6 +1,7 @@
 package sorisoop.soridam.domain.activitylog.domain;
 
 import java.time.LocalDateTime;
+import java.util.Set;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.Document;
@@ -11,6 +12,7 @@ import org.springframework.data.elasticsearch.core.geo.GeoPoint;
 import lombok.Builder;
 import lombok.Getter;
 import sorisoop.soridam.domain.activitylog.domain.enums.ActivityType;
+import sorisoop.soridam.domain.review.domain.ReviewTag;
 
 @Getter
 @Builder
@@ -36,6 +38,9 @@ public class ActivityLog {
 	@Field(type = FieldType.Date)
 	private final LocalDateTime createdAt;
 
+	@Field(type = FieldType.Keyword)
+	private final Set<ReviewTag> reviewTag;
+
 	public Double getScore() {
 		return customScore != null ? customScore : activityType.getScore();
 	}
@@ -49,6 +54,19 @@ public class ActivityLog {
 			.activityType(activityType)
 			.customScore(customScore)
 			.createdAt(LocalDateTime.now())
+			.build();
+	}
+
+	public static ActivityLog create(Long userId, Long placeId, double lat, double lon,
+		ActivityType activityType, Double customScore, Set<ReviewTag> reviewTag) {
+		return ActivityLog.builder()
+			.userId(userId)
+			.placeId(placeId)
+			.latlon(new GeoPoint(lat, lon))
+			.activityType(activityType)
+			.customScore(customScore)
+			.createdAt(LocalDateTime.now())
+			.reviewTag(reviewTag)
 			.build();
 	}
 }

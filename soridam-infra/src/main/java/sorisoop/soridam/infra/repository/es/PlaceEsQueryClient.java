@@ -9,8 +9,11 @@ import org.springframework.stereotype.Component;
 
 import co.elastic.clients.elasticsearch.ElasticsearchClient;
 import co.elastic.clients.elasticsearch._types.FieldValue;
+import co.elastic.clients.elasticsearch._types.GeoLocation;
 import co.elastic.clients.elasticsearch._types.SortOptions;
 import co.elastic.clients.elasticsearch._types.SortOrder;
+import co.elastic.clients.elasticsearch._types.query_dsl.FunctionBoostMode;
+import co.elastic.clients.elasticsearch._types.query_dsl.MultiValueMode;
 import co.elastic.clients.elasticsearch._types.query_dsl.Query;
 import co.elastic.clients.elasticsearch.core.SearchResponse;
 import co.elastic.clients.elasticsearch.core.search.Hit;
@@ -18,6 +21,7 @@ import co.elastic.clients.elasticsearch.core.search.SourceConfig;
 import lombok.RequiredArgsConstructor;
 import sorisoop.soridam.domain.activitylog.domain.ActivityLog;
 import sorisoop.soridam.domain.place.place.domain.PlaceEsQueryPort;
+
 
 @Component
 @RequiredArgsConstructor
@@ -87,45 +91,70 @@ public class PlaceEsQueryClient implements PlaceEsQueryPort {
 	}
 
 	@Override
-	public Map<Long, Double> getRecommendedPlaces(List<Long> similarUserIds, List<Long> excludePlaceIds) throws
-		IOException {
+	public Map<Long, Double> getRecommendedPlaces(List<Long> similarUserIds, List<Long> excludePlaceIds,
+		double userCurrentLat, double userCurrentLon) throws IOException {
 		SearchResponse<ActivityLog> response = elasticsearchClient.search(s -> s
 				.index("activity_log-*")
 				.query(q -> q
-					.bool(b -> b
-						.must(m -> m
-							.terms(t -> t
-								.field("userId")
-								.terms(tq -> tq.value(
-									similarUserIds.stream()
-										.map(FieldValue::of)
-										.toList()
-								))
+					.functionScore(fs -> fs
+						.query(innerQuery -> innerQuery
+							.bool(b -> b
+									.must(m -> m
+										.terms(t -> t
+											.field("userId")
+											.terms(tq -> tq.value(
+												similarUserIds.stream()
+													.map(FieldValue::of)
+													.toList()
+											))
+										)
+									)
+									.mustNot(mn -> mn
+										.terms(t -> t
+											.field("placeId")
+											.terms(tq -> tq.value(
+												excludePlaceIds.stream()
+													.map(FieldValue::of)
+													.toList()
+											))
+										)
+									)
 							)
 						)
-						.mustNot(mn -> mn
-							.terms(t -> t
-								.field("placeId")
-								.terms(tq -> tq.value(
-									excludePlaceIds.stream()
-										.map(FieldValue::of)
-										.toList()
-								))
+						.functions(f -> f
+							.gauss(g -> g
+								.geo(geo -> geo
+									.field("latlon")
+									.placement(p -> {
+										GeoLocation userLocation = GeoLocation.of(o -> o.latlon(ll -> ll
+											.lat(userCurrentLat)
+											.lon(userCurrentLon)
+										));
+										return p
+											.origin(userLocation)
+											.scale("1km")
+											.offset("0km")
+											.decay(0.5);
+									})
+									.multiValueMode(MultiValueMode.Avg)
+								)
 							)
 						)
+						.boostMode(FunctionBoostMode.Multiply)
 					)
 				)
-				.size(1000)
+				.size(10000)
 				.source(SourceConfig.of(sc -> sc
-					.filter(sf -> sf.includes("placeId", "customScore", "activityType"))
+					.filter(sf -> sf.includes("placeId", "customScore", "activityType", "reviewTags", "latlon"))
 				)),
 			ActivityLog.class
 		);
 
 		return response.hits().hits().stream()
 			.map(Hit::source)
+			.filter(java.util.Objects::nonNull)
 			.collect(Collectors.groupingBy(
-				activityLog -> activityLog != null ? activityLog.getPlaceId() : null,
+				ActivityLog::getPlaceId,
 				Collectors.summingDouble(ActivityLog::getScore)
 			));
 	}

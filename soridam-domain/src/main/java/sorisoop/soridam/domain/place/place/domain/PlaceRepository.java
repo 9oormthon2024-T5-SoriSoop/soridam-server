@@ -27,4 +27,6 @@ public interface PlaceRepository {
 	void saveAll(List<PlaceInsertDto> places);
 
 	void saveAllDocuments(List<PlaceDocument> placeDocuments);
+
+	List<Place> findAllById(List<Long> ids);
 }

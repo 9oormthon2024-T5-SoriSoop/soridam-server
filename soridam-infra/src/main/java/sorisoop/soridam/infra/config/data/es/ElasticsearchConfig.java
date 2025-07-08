@@ -6,11 +6,12 @@ import org.springframework.data.elasticsearch.repository.config.EnableElasticsea
 
 import co.elastic.clients.elasticsearch.ElasticsearchClient;
 import lombok.RequiredArgsConstructor;
+import sorisoop.soridam.infra.config.base.SoriDamConfig;
 
 @Configuration
 @RequiredArgsConstructor
 @EnableElasticsearchRepositories(basePackages = "sorisoop.soridam.infra.repository.es")
-public class ElasticsearchConfig {
+public class ElasticsearchConfig implements SoriDamConfig {
 	private final ElasticsearchProperties elasticsearchProperties;
 
 	@Bean
