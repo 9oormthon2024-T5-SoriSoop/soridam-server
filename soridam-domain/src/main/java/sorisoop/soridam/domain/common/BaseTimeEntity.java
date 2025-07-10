@@ -22,6 +22,5 @@ public abstract class BaseTimeEntity {
 	@UpdateTimestamp
 	protected LocalDateTime updatedAt;
 
-
 	protected LocalDateTime deletedAt;
 }

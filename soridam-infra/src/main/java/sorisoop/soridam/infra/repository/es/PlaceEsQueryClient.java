@@ -119,6 +119,16 @@ public class PlaceEsQueryClient implements PlaceEsQueryPort {
 											))
 										)
 									)
+								.filter(f -> f
+									.geoDistance(gd -> gd
+										.field("latlon")
+										.location(l -> l.latlon(ll -> ll
+											.lat(userCurrentLat)
+											.lon(userCurrentLon)
+										))
+										.distance("20km")
+									)
+								)
 							)
 						)
 						.functions(f -> f
