@@ -90,10 +90,10 @@ public class PlaceFacade {
 	}
 
 	@Transactional(readOnly = true)
-	public PlaceListResponse getRecommendedPlaces(double lat, double lon) throws IOException {
+	public PlaceListResponse getRecommendedPlaces(double lat, double lon, int size) throws IOException {
 		User user = userQueryService.me();
 
-		List<Long> recommendPlacesIdsForUser = placeRecommendationService.recommendPlacesForUser(user.getId(), lat, lon, 10);
+		List<Long> recommendPlacesIdsForUser = placeRecommendationService.recommendPlacesForUser(user.getId(), lat, lon, size);
 		List<PlaceResponse> recommendedPlaces = placeQueryService.getAllById(recommendPlacesIdsForUser).stream()
 			.map(PlaceResponse::from)
 			.toList();

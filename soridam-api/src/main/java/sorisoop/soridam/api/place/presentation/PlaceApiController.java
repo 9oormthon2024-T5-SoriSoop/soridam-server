@@ -122,8 +122,11 @@ public class PlaceApiController {
 		double lon,
 
 		@RequestParam @Parameter(description = "현재 위치 Y 좌표 (latitude)", example = "37.12345", required = true)
-		double lat
+		double lat,
+
+		@RequestParam(defaultValue = "10") @Parameter(description = "장소 개수", example = "10")
+		int size
 	) throws IOException {
-		return ResponseEntity.ok(placeFacade.getRecommendedPlaces(lat, lon));
+		return ResponseEntity.ok(placeFacade.getRecommendedPlaces(lat, lon, size));
 	}
 }
