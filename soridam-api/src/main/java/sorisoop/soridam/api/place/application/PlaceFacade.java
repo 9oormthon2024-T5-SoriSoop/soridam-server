@@ -2,6 +2,7 @@ package sorisoop.soridam.api.place.application;
 
 import static sorisoop.soridam.domain.activitylog.domain.enums.ActivityType.VIEW;
 
+import java.io.IOException;
 import java.util.List;
 
 import org.springframework.stereotype.Component;
@@ -16,6 +17,7 @@ import sorisoop.soridam.api.place.presentation.response.PlaceResponse;
 import sorisoop.soridam.domain.activitylog.application.ActivityLogService;
 import sorisoop.soridam.domain.place.place.application.PlaceCommandService;
 import sorisoop.soridam.domain.place.place.application.PlaceQueryService;
+import sorisoop.soridam.domain.place.place.application.PlaceRecommendationService;
 import sorisoop.soridam.domain.place.place.domain.Place;
 import sorisoop.soridam.domain.place.place.domain.enums.Category;
 import sorisoop.soridam.domain.user.user.application.UserQueryService;
@@ -27,6 +29,7 @@ import sorisoop.soridam.infra.repository.redis.SummaryCacheService;
 public class PlaceFacade {
 	private final PlaceQueryService placeQueryService;
 	private final PlaceCommandService placeCommandService;
+	private final PlaceRecommendationService placeRecommendationService;
 	private final SummaryCacheService summaryCacheService;
 	private final UserQueryService userQueryService;
 	private final ActivityLogService activityLogService;
@@ -84,5 +87,17 @@ public class PlaceFacade {
 		}
 
 		return PlacePersistResponse.from(place);
+	}
+
+	@Transactional(readOnly = true)
+	public PlaceListResponse getRecommendedPlaces(double lat, double lon, int size) throws IOException {
+		User user = userQueryService.me();
+
+		List<Long> recommendPlacesIdsForUser = placeRecommendationService.recommendPlacesForUser(user.getId(), lat, lon, size);
+		List<PlaceResponse> recommendedPlaces = placeQueryService.getAllById(recommendPlacesIdsForUser).stream()
+			.map(PlaceResponse::from)
+			.toList();
+
+		return PlaceListResponse.of(recommendedPlaces);
 	}
 }

@@ -2,6 +2,7 @@ package sorisoop.soridam.api.place.presentation;
 
 import static org.springframework.http.HttpStatus.CREATED;
 
+import java.io.IOException;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
@@ -112,5 +113,20 @@ public class PlaceApiController {
 	) {
 		kakaoPlaceService.importPlacesForAllRegions();
 		return ResponseEntity.ok().build();
+	}
+
+	@Operation(summary = "사용자 활동 기반 장소 추천")
+	@GetMapping("/recommend")
+	public ResponseEntity<PlaceListResponse> getRecommendPlaces(
+		@RequestParam @Parameter(description = "현재 위치 X 좌표 (longitude)", example = "127.12345", required = true)
+		double lon,
+
+		@RequestParam @Parameter(description = "현재 위치 Y 좌표 (latitude)", example = "37.12345", required = true)
+		double lat,
+
+		@RequestParam(defaultValue = "10") @Parameter(description = "장소 개수", example = "10")
+		int size
+	) throws IOException {
+		return ResponseEntity.ok(placeFacade.getRecommendedPlaces(lat, lon, size));
 	}
 }

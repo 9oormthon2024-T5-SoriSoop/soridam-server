@@ -32,4 +32,8 @@ public class PlaceQueryService {
 		Point point = geometryUtils.createPoint(x, y);
 		return placeRepository.findNearPlacesByPoint(point, distanceMeter, categories);
 	}
+
+	public List<Place> getAllById(List<Long> recommendPlacesIdsForUser) {
+		return placeRepository.findAllById(recommendPlacesIdsForUser);
+	}
 }

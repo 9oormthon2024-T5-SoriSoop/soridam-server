@@ -69,4 +69,9 @@ public class PlaceRepositoryImpl implements PlaceRepository {
 	public void saveAllDocuments(List<PlaceDocument> placeDocuments) {
 		documentPlaceRepository.saveAll(placeDocuments);
 	}
+
+	@Override
+	public List<Place> findAllById(List<Long> ids) {
+		return jpaPlaceRepository.findAllById(ids);
+	}
 }

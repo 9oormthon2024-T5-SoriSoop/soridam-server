@@ -1,5 +1,7 @@
 package sorisoop.soridam.domain.activitylog.application;
 
+import java.util.Set;
+
 import org.locationtech.jts.geom.Point;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
@@ -9,6 +11,7 @@ import sorisoop.soridam.domain.activitylog.domain.ActivityLog;
 import sorisoop.soridam.domain.activitylog.domain.ActivityLogRepository;
 import sorisoop.soridam.domain.activitylog.domain.enums.ActivityType;
 import sorisoop.soridam.domain.place.place.domain.Place;
+import sorisoop.soridam.domain.review.domain.ReviewTag;
 import sorisoop.soridam.domain.user.user.domain.User;
 
 @Service
@@ -18,24 +21,36 @@ public class ActivityLogService {
 
 	@Async("activityLogExecutor")
 	public void save(User user, Place place, ActivityType activityType) {
-		if (user == null || place == null || activityType == null) return;
+		save(user, place, activityType, Set.of());
+	}
 
-		Point location = place.getLocation();
+	@Async("activityLogExecutor")
+	public void save(User user, Place place, ActivityType activityType, Set<ReviewTag> tags) {
+		if (isInvalidInput(user, place, activityType)) return;
 
-		if (location == null) return;
-
-		double lon = location.getX();
-		double lat = location.getY();
+		double[] coords = extractCoordinates(place);
+		double lon = coords[0];
+		double lat = coords[1];
 
 		ActivityLog activityLog = ActivityLog.create(
-			user.getId(),
-			place.getId(),
-			lat,
-			lon,
-			activityType,
-			activityType.getScore()
-		);
+				user.getId(),
+				place.getId(),
+				lat,
+				lon,
+				activityType,
+				tags
+			);
 
 		activityLogRepository.save(activityLog);
+	}
+
+	private boolean isInvalidInput(User user, Place place, ActivityType activityType) {
+		if (user == null || place == null || activityType == null) return true;
+		return place.getLocation() == null;
+	}
+
+	private double[] extractCoordinates(Place place) {
+		Point location = place.getLocation();
+		return new double[]{location.getX(), location.getY()};
 	}
 }

@@ -49,7 +49,7 @@ public class ReviewFacade {
 
 		ReviewCreatedEvent event = ReviewCreatedEvent.from(review);
 		notificationAsyncService.sendReviewNotification(event);
-		activityLogService.save(author, place, REVIEW);
+		activityLogService.save(author, place, REVIEW, request.tags());
 		return ReviewPersistResponse.from(review);
 	}
 
