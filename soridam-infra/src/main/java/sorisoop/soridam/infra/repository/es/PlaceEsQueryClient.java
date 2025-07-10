@@ -3,6 +3,7 @@ package sorisoop.soridam.infra.repository.es;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Component;
@@ -46,10 +47,9 @@ public class PlaceEsQueryClient implements PlaceEsQueryPort {
 		);
 
 		return response.hits().hits().stream()
-			.map(hit -> {
-				assert hit.source() != null;
-				return hit.source().getPlaceId();
-			})
+			.map(Hit::source)
+			.filter(Objects::nonNull)
+			.map(ActivityLog::getPlaceId)
 			.toList();
 	}
 
