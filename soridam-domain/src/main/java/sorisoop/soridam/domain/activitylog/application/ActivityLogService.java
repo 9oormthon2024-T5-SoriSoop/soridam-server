@@ -40,7 +40,7 @@ public class ActivityLogService {
 
 	@Async("activityLogExecutor")
 	public void save(User user, Place place, ActivityType activityType, Set<ReviewTag> tags) {
-		if (validateAndLogInput(user, place, activityType)) return;
+		if (isInvalidInput(user, place, activityType)) return;
 
 		double[] coords = extractCoordinates(place);
 		double lon = coords[0];
@@ -58,7 +58,7 @@ public class ActivityLogService {
 		activityLogRepository.save(activityLog);
 	}
 
-	private boolean validateAndLogInput(User user, Place place, ActivityType activityType) {
+	private boolean isInvalidInput(User user, Place place, ActivityType activityType) {
 		if (user == null || place == null || activityType == null) return true;
 		return place.getLocation() == null;
 	}
