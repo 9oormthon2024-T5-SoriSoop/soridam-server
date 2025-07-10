@@ -64,6 +64,7 @@ public class PlaceEsQueryClient implements PlaceEsQueryPort {
 								.field("placeId")
 								.terms(tq -> tq.value(
 									placeIds.stream()
+										.filter(Objects::nonNull)
 										.map(FieldValue::of)
 										.toList()
 								))
@@ -87,7 +88,7 @@ public class PlaceEsQueryClient implements PlaceEsQueryPort {
 		return response.hits().hits().stream()
 			.map(Hit::source)
 			.filter(Objects::nonNull)
-			.map(ActivityLog::getPlaceId)
+			.map(ActivityLog::getUserId)
 			.distinct()
 			.toList();
 	}
@@ -106,6 +107,7 @@ public class PlaceEsQueryClient implements PlaceEsQueryPort {
 											.field("userId")
 											.terms(tq -> tq.value(
 												similarUserIds.stream()
+													.filter(Objects::nonNull)
 													.map(FieldValue::of)
 													.toList()
 											))
@@ -116,6 +118,7 @@ public class PlaceEsQueryClient implements PlaceEsQueryPort {
 											.field("placeId")
 											.terms(tq -> tq.value(
 												excludePlaceIds.stream()
+													.filter(Objects::nonNull)
 													.map(FieldValue::of)
 													.toList()
 											))
@@ -128,7 +131,7 @@ public class PlaceEsQueryClient implements PlaceEsQueryPort {
 											.lat(userCurrentLat)
 											.lon(userCurrentLon)
 										))
-										.distance("20km")
+										.distance("10km")
 									)
 								)
 							)
@@ -155,7 +158,7 @@ public class PlaceEsQueryClient implements PlaceEsQueryPort {
 						.boostMode(FunctionBoostMode.Multiply)
 					)
 				)
-				.size(10000)
+				.size(100)
 				.source(SourceConfig.of(sc -> sc
 					.filter(sf -> sf.includes("placeId", "activityType", "reviewTags", "latlon"))
 				)),
