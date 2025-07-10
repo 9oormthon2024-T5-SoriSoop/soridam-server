@@ -85,7 +85,9 @@ public class PlaceEsQueryClient implements PlaceEsQueryPort {
 		);
 
 		return response.hits().hits().stream()
-			.map(hit -> hit.source().getUserId())
+			.map(Hit::source)
+			.filter(Objects::nonNull)
+			.map(ActivityLog::getPlaceId)
 			.distinct()
 			.toList();
 	}
