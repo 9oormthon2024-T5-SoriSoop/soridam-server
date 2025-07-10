@@ -21,21 +21,7 @@ public class ActivityLogService {
 
 	@Async("activityLogExecutor")
 	public void save(User user, Place place, ActivityType activityType) {
-		if (validateAndLogInput(user, place, activityType)) return;
-
-		double[] coords = extractCoordinates(place);
-		double lon = coords[0];
-		double lat = coords[1];
-
-		ActivityLog activityLog = ActivityLog.create(
-			user.getId(),
-			place.getId(),
-			lat,
-			lon,
-			activityType
-		);
-
-		activityLogRepository.save(activityLog);
+		save(user, place, activityType, Set.of());
 	}
 
 	@Async("activityLogExecutor")
